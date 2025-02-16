@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36" version="26.0.13" pages="6">
   <diagram id="cTo1gSnHrN62t3jAobow" name="Diagrama de Actividades">
-    <mxGraphModel dx="9446" dy="7262" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="5964" dy="5385" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -729,13 +729,13 @@
           <mxGeometry x="2360" y="562.5" width="110" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-183" value="Contabilidad" style="swimlane;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="-1060" y="-2610" width="2260" height="1270" as="geometry" />
+          <mxGeometry x="-1060" y="-2610" width="3360" height="1270" as="geometry" />
         </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-184" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://png.pngtree.com/png-clipart/20231006/original/pngtree-cartoon-accounting-books-and-calculator-vector-png-image_13132083.png;" parent="ekHmimmgFlesdbuM206E-183" vertex="1">
           <mxGeometry x="43" y="40" width="130" height="130" as="geometry" />
         </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-185" value="Se recibe una notificacion de Ingreso de dinero" style="rounded=1;whiteSpace=wrap;html=1;" parent="ekHmimmgFlesdbuM206E-183" vertex="1">
-          <mxGeometry x="2020" y="570" width="120" height="60" as="geometry" />
+          <mxGeometry x="2100" y="570" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-186" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="ekHmimmgFlesdbuM206E-183" source="ekHmimmgFlesdbuM206E-187" target="ekHmimmgFlesdbuM206E-207" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -1041,8 +1041,111 @@
         <mxCell id="GxVB55qq6tfmN0GFv1Qk-23" value="Se notifica al jefe de recursos humanos el rechazo de la solicitud" style="rounded=1;whiteSpace=wrap;html=1;" parent="ekHmimmgFlesdbuM206E-183" vertex="1">
           <mxGeometry x="369.97" y="1169.99" width="120" height="60" as="geometry" />
         </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-39" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-183" source="ahYDZ3otbGvwELjsCVGK-40" target="ahYDZ3otbGvwELjsCVGK-45">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-40" value="Se solicita poder aumentar los gastos fijos" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-183">
+          <mxGeometry x="2160" y="1169.98" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-183" source="ahYDZ3otbGvwELjsCVGK-45" target="ahYDZ3otbGvwELjsCVGK-46">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2370" y="1110" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-42" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ahYDZ3otbGvwELjsCVGK-41">
+          <mxGeometry x="-0.5208" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-183" source="ahYDZ3otbGvwELjsCVGK-45" target="ahYDZ3otbGvwELjsCVGK-49">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2070" y="1110" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-44" value="Si" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ahYDZ3otbGvwELjsCVGK-43">
+          <mxGeometry x="0.0889" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-45" value="¿Se aprueba la solicitud?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-183">
+          <mxGeometry x="2180" y="1069.9900000000002" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-46" value="Se notifica el rechazo del aumento de los gastos fijos" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-183">
+          <mxGeometry x="2310" y="1169.98" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-48" value="Se hace un cambio en los gastos fijos" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-183">
+          <mxGeometry x="2010" y="1020" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-49" value="Se notifica el aval para disponer de un aumento en los gastos fijos" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-183">
+          <mxGeometry x="2010" y="1169.99" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-61" value="" style="endArrow=none;dashed=1;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=1;" edge="1" parent="ekHmimmgFlesdbuM206E-183" source="ekHmimmgFlesdbuM206E-199" target="ahYDZ3otbGvwELjsCVGK-48">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1760" y="710" as="sourcePoint" />
+            <mxPoint x="1800" y="710" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-63" value="Se notifica que no se realizo ningun cambio" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-183">
+          <mxGeometry x="2310" y="1020" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-82" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-183" source="ahYDZ3otbGvwELjsCVGK-83" target="ahYDZ3otbGvwELjsCVGK-85">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2600" y="1129.99" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-83" value="Se Notifica una disminución de gastos fijos" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-183">
+          <mxGeometry x="2540" y="1179.98" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-84" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-183" source="ahYDZ3otbGvwELjsCVGK-85" target="ahYDZ3otbGvwELjsCVGK-86">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-85" value="se cambia la información dicha en los gastos fijos" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-183">
+          <mxGeometry x="2540" y="1099.99" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-86" value="Siguen con sus procesos" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-183">
+          <mxGeometry x="2545" y="1019.99" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-99" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-183" source="ahYDZ3otbGvwELjsCVGK-100" target="ahYDZ3otbGvwELjsCVGK-103">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-100" value="Se recibe una solicitud de egreso de dinero" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-183">
+          <mxGeometry x="2952" y="1099.99" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-101" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-183" source="ahYDZ3otbGvwELjsCVGK-103" target="ahYDZ3otbGvwELjsCVGK-107">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3012" y="959.9900000000002" />
+              <mxPoint x="2790" y="959.9900000000002" />
+              <mxPoint x="2790" y="1209.99" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-102" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ahYDZ3otbGvwELjsCVGK-101">
+          <mxGeometry x="-0.7309" y="-4" relative="1" as="geometry">
+            <mxPoint x="25" y="4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-103" value="¿Se aprueba la solicitud?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-183">
+          <mxGeometry x="2972" y="969.9900000000002" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-104" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-183" source="ahYDZ3otbGvwELjsCVGK-105" target="ahYDZ3otbGvwELjsCVGK-106">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-105" value="Se Entrega el dinero a la cartera del jefe de recursos humanos" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-183">
+          <mxGeometry x="2806" y="979.9900000000002" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-106" value="Se notifica al jefe de recursos humanos el envio" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-183">
+          <mxGeometry x="2806" y="1099.99" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-107" value="Se notifica al jefe de recursos humanos el rechazo de la solicitud" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-183">
+          <mxGeometry x="2806" y="1179.99" width="120" height="60" as="geometry" />
+        </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-249" value="Nomina y RRHH" style="swimlane;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="-384" y="-1270" width="2256" height="960" as="geometry">
+          <mxGeometry x="-384" y="-1270" width="2714" height="960" as="geometry">
             <mxRectangle x="135" y="-1030" width="100" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
@@ -1070,8 +1173,11 @@
         <mxCell id="ekHmimmgFlesdbuM206E-256" value="Gerencia decide Despedir un empleado" style="ellipse;whiteSpace=wrap;html=1;" parent="ekHmimmgFlesdbuM206E-249" vertex="1">
           <mxGeometry x="830" y="70" width="110" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ekHmimmgFlesdbuM206E-257" value="Gerencia decide Contratar un empleado" style="ellipse;whiteSpace=wrap;html=1;" parent="ekHmimmgFlesdbuM206E-249" vertex="1">
-          <mxGeometry x="1414" y="70" width="110" height="60" as="geometry" />
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-249" source="ekHmimmgFlesdbuM206E-257" target="ahYDZ3otbGvwELjsCVGK-37">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ekHmimmgFlesdbuM206E-257" value="Gerencia quiere Contratar un empleado" style="ellipse;whiteSpace=wrap;html=1;" parent="ekHmimmgFlesdbuM206E-249" vertex="1">
+          <mxGeometry x="1489" y="67" width="110" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ZhorYBsvg-D1r-fNrYQQ-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="ekHmimmgFlesdbuM206E-249" source="ekHmimmgFlesdbuM206E-258" target="ekHmimmgFlesdbuM206E-318" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -1079,14 +1185,23 @@
         <mxCell id="ekHmimmgFlesdbuM206E-258" value="Gerencia decide aumentar el sueldo de un empleado" style="ellipse;whiteSpace=wrap;html=1;" parent="ekHmimmgFlesdbuM206E-249" vertex="1">
           <mxGeometry x="1189" y="151.5" width="110" height="60" as="geometry" />
         </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-97" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-249" source="ekHmimmgFlesdbuM206E-259" target="ahYDZ3otbGvwELjsCVGK-93">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-259" value="Gerencia decide disminuir el sueldo a un empleado" style="ellipse;whiteSpace=wrap;html=1;" parent="ekHmimmgFlesdbuM206E-249" vertex="1">
-          <mxGeometry x="2004" y="60" width="110" height="60" as="geometry" />
+          <mxGeometry x="2038" y="70" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-119" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-249" source="ekHmimmgFlesdbuM206E-260" target="ahYDZ3otbGvwELjsCVGK-109">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-260" value="Gerencia decide darle un bono a un empleado" style="ellipse;whiteSpace=wrap;html=1;" parent="ekHmimmgFlesdbuM206E-249" vertex="1">
-          <mxGeometry x="1844" y="70" width="110" height="60" as="geometry" />
+          <mxGeometry x="2234" y="70" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-75" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-249" source="ekHmimmgFlesdbuM206E-261" target="ahYDZ3otbGvwELjsCVGK-74">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-261" value="Gerencia decide ponerle un memorando a un empleado" style="ellipse;whiteSpace=wrap;html=1;" parent="ekHmimmgFlesdbuM206E-249" vertex="1">
-          <mxGeometry x="1625" y="60" width="110" height="60" as="geometry" />
+          <mxGeometry x="1864" y="70" width="110" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-262" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="ekHmimmgFlesdbuM206E-249" source="ekHmimmgFlesdbuM206E-263" target="ekHmimmgFlesdbuM206E-300" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -1345,15 +1460,139 @@
             <mxPoint x="1064" y="660.0000000000005" as="sourcePoint" />
             <mxPoint x="1144" y="660.0000000000005" as="targetPoint" />
             <Array as="points">
+              <mxPoint x="724" y="60" />
               <mxPoint x="724" y="50" />
-              <mxPoint x="724" y="40" />
-              <mxPoint x="1124" y="40" />
+              <mxPoint x="1124" y="50" />
               <mxPoint x="1124" y="585" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="ZhorYBsvg-D1r-fNrYQQ-6" value=" La contratación se cumple con éxito" style="ellipse;whiteSpace=wrap;html=1;" parent="ekHmimmgFlesdbuM206E-249" vertex="1">
           <mxGeometry x="1189" y="638.5" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-55" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-249" source="ahYDZ3otbGvwELjsCVGK-37" target="ahYDZ3otbGvwELjsCVGK-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-37" value="Se calcula el gasto fijo del empleado" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="1484" y="154.5" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-38" value="Se solicita un aumento en los gastos fijos/nomina" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="1484" y="236" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-57" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-249" source="ahYDZ3otbGvwELjsCVGK-51" target="ahYDZ3otbGvwELjsCVGK-56">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-51" value="Se recibe notificación de confirmación en el aval" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="1484" y="325" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-60" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-249" source="ahYDZ3otbGvwELjsCVGK-56" target="ahYDZ3otbGvwELjsCVGK-58">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-62" value="Si" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ahYDZ3otbGvwELjsCVGK-60">
+          <mxGeometry x="0.4158" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-72" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-249" source="ahYDZ3otbGvwELjsCVGK-56" target="ahYDZ3otbGvwELjsCVGK-70">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-73" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ahYDZ3otbGvwELjsCVGK-72">
+          <mxGeometry x="-0.0968" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-56" value="¿Se termina por contratar a alguien?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="1504" y="422" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-58" value="Se confirma el aumento de gastos fijos" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="1484" y="530" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-69" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-249" source="ahYDZ3otbGvwELjsCVGK-65" target="ahYDZ3otbGvwELjsCVGK-68">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-65" value="Se recibe la notificación de rechazo" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="1634" y="154.5" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-68" value="Jefe de RRHH decide que hacer" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="1639" y="236" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-70" value="Se envía la notificación de no realizar ningún cambio" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="1634" y="432" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-79" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-249" source="ahYDZ3otbGvwELjsCVGK-74" target="ahYDZ3otbGvwELjsCVGK-76">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-74" value="se decide/calcula cuanto de memorando se va a poner" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="1859" y="154" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-78" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-249" source="ahYDZ3otbGvwELjsCVGK-76" target="ahYDZ3otbGvwELjsCVGK-77">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-76" value="Se guarda en la base de datos como desconteo en el salario" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="1859" y="242" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-77" value="Se busca hacer otro proceso" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="1864" y="326" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-80" value="" style="endArrow=none;dashed=1;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=1;" edge="1" parent="ekHmimmgFlesdbuM206E-249" source="ekHmimmgFlesdbuM206E-264" target="ahYDZ3otbGvwELjsCVGK-76">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1764" y="110" as="sourcePoint" />
+            <mxPoint x="1804" y="110" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="654" y="60" />
+              <mxPoint x="654" y="40" />
+              <mxPoint x="1824" y="40" />
+              <mxPoint x="1824" y="272" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-92" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-249" source="ahYDZ3otbGvwELjsCVGK-93" target="ahYDZ3otbGvwELjsCVGK-95">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-93" value="se revisa todos los datos financieros del empleado" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="2033" y="154" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-94" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-249" source="ahYDZ3otbGvwELjsCVGK-95" target="ahYDZ3otbGvwELjsCVGK-96">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-95" value="Se calcula cuanto va a ser el aumento&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="2033" y="242" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-96" value="Jefe de RRHH Notifica una disminución en los gastos fijos/nomina" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="2033" y="324" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-108" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-249" source="ahYDZ3otbGvwELjsCVGK-109" target="ahYDZ3otbGvwELjsCVGK-110">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-109" value="se revisa en los datos de los empleados cuanto se les debe pagar" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="2229" y="154" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-110" value="Jefe de recursos humanos solicita poder egresar dinero" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="2229" y="257" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-111" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-249" source="ahYDZ3otbGvwELjsCVGK-112" target="ahYDZ3otbGvwELjsCVGK-114">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-112" value="Jefe de recursos humanos recibe el dinero" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="2229" y="339" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-113" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-249" source="ahYDZ3otbGvwELjsCVGK-114" target="ahYDZ3otbGvwELjsCVGK-115">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-114" value="Se entrega el dinero al empleado en cuestion" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="2229" y="429" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-115" value="&lt;div&gt;RRHH cambia de proceso&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="2234" y="519" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-116" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="ekHmimmgFlesdbuM206E-249" source="ahYDZ3otbGvwELjsCVGK-117" target="ahYDZ3otbGvwELjsCVGK-118">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-117" value="Jefe de RRHH Recibe la notificación de rechazo" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="2086" y="429" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-118" value="&lt;div&gt;Jefe de RRHH decide que hacer&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="ekHmimmgFlesdbuM206E-249">
+          <mxGeometry x="2091" y="519" width="110" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-329" value="Proveedores / Compras" style="swimlane;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="-1710" y="-132.5" width="1450" height="1232.5" as="geometry">
@@ -1948,8 +2187,8 @@
               <mxPoint x="1020" y="1450" />
               <mxPoint x="980" y="1450" />
               <mxPoint x="980" y="1580" />
-              <mxPoint x="1970" y="1580" />
-              <mxPoint x="1970" y="-2010" />
+              <mxPoint x="2490" y="1580" />
+              <mxPoint x="2490" y="-2010" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -1989,6 +2228,83 @@
               <mxPoint x="-1340" y="-250" />
               <mxPoint x="-1340" y="450" />
               <mxPoint x="-1420" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ahYDZ3otbGvwELjsCVGK-38" target="ahYDZ3otbGvwELjsCVGK-40">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1090" y="-1004" />
+              <mxPoint x="1090" y="-1320" />
+              <mxPoint x="1160" y="-1320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ahYDZ3otbGvwELjsCVGK-49" target="ahYDZ3otbGvwELjsCVGK-51">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1010" y="-1320" />
+              <mxPoint x="1080" y="-1320" />
+              <mxPoint x="1080" y="-915" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-59" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ahYDZ3otbGvwELjsCVGK-58" target="ahYDZ3otbGvwELjsCVGK-48">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1080" y="-710" />
+              <mxPoint x="1080" y="-760" />
+              <mxPoint x="1070" y="-760" />
+              <mxPoint x="1070" y="-1300" />
+              <mxPoint x="930" y="-1300" />
+              <mxPoint x="930" y="-1560" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-66" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ahYDZ3otbGvwELjsCVGK-46" target="ahYDZ3otbGvwELjsCVGK-65">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-71" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ahYDZ3otbGvwELjsCVGK-70" target="ahYDZ3otbGvwELjsCVGK-63">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1390" y="-808" />
+              <mxPoint x="1390" y="-1560" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-98" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ahYDZ3otbGvwELjsCVGK-96" target="ahYDZ3otbGvwELjsCVGK-83">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1630" y="-916" />
+              <mxPoint x="1630" y="-1310" />
+              <mxPoint x="1540" y="-1310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-121" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ahYDZ3otbGvwELjsCVGK-110" target="ahYDZ3otbGvwELjsCVGK-100">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1830" y="-983" />
+              <mxPoint x="1830" y="-1300" />
+              <mxPoint x="1952" y="-1300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-122" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ahYDZ3otbGvwELjsCVGK-106" target="ahYDZ3otbGvwELjsCVGK-112">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1880" y="-1480" />
+              <mxPoint x="1880" y="-1310" />
+              <mxPoint x="1820" y="-1310" />
+              <mxPoint x="1820" y="-901" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ahYDZ3otbGvwELjsCVGK-123" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ahYDZ3otbGvwELjsCVGK-107" target="ahYDZ3otbGvwELjsCVGK-117">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1810" y="-870" />
+              <mxPoint x="1762" y="-870" />
             </Array>
           </mxGeometry>
         </mxCell>
