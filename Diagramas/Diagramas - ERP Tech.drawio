@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36" version="26.0.14" pages="6">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36" version="26.0.13" pages="6">
   <diagram id="cTo1gSnHrN62t3jAobow" name="Diagrama de Actividades">
-    <mxGraphModel dx="4995" dy="4856" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3974" dy="4196" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -3039,7 +3039,7 @@
         </mxCell>
         <mxCell id="ahYDZ3otbGvwELjsCVGK-162" value="" style="swimlane;whiteSpace=wrap;html=1;startSize=27;" parent="1" vertex="1" collapsed="1">
           <mxGeometry x="3287" y="-3507" width="21" height="27" as="geometry">
-            <mxRectangle x="-2010" y="-2670" width="400" height="520" as="alternateBounds" />
+            <mxRectangle x="3300" y="-3370" width="400" height="520" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
         <mxCell id="ahYDZ3otbGvwELjsCVGK-154" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="ahYDZ3otbGvwELjsCVGK-162" source="ahYDZ3otbGvwELjsCVGK-128" target="ahYDZ3otbGvwELjsCVGK-129" edge="1">
