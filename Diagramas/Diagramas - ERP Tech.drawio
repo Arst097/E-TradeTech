@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36" version="26.0.14" pages="6">
   <diagram id="cTo1gSnHrN62t3jAobow" name="Diagrama de Actividades">
-    <mxGraphModel dx="11281" dy="8227" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="4995" dy="4856" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -193,7 +193,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-50" value="Se registra la salida del Producto recervado en los archivos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="ekHmimmgFlesdbuM206E-8" vertex="1">
-          <mxGeometry x="80" y="850" width="120" height="60" as="geometry" />
+          <mxGeometry x="115" y="670" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-51" value="Registros Inventario" style="swimlane;whiteSpace=wrap;html=1;" parent="ekHmimmgFlesdbuM206E-8" vertex="1">
           <mxGeometry x="340" y="1290" width="180" height="260" as="geometry" />
@@ -217,13 +217,13 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-58" value="Se retira Producto de Inventario Reservado" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="ekHmimmgFlesdbuM206E-8" vertex="1">
-          <mxGeometry x="80" y="765" width="120" height="60" as="geometry" />
+          <mxGeometry x="115" y="585" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-59" value="Almacén Gestiona otra operación" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="ekHmimmgFlesdbuM206E-8" vertex="1">
           <mxGeometry x="650" y="940" width="110" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-60" value="Se actúa en consecuencia" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="ekHmimmgFlesdbuM206E-8" vertex="1">
-          <mxGeometry x="85" y="940" width="110" height="60" as="geometry" />
+          <mxGeometry x="120" y="760" width="110" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-61" value="" style="endArrow=none;dashed=1;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=1;" parent="ekHmimmgFlesdbuM206E-8" target="ekHmimmgFlesdbuM206E-34" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -273,7 +273,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-73" value="Se recibe una indicación de envió de un pedido" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="ekHmimmgFlesdbuM206E-8" vertex="1">
-          <mxGeometry x="620" y="290" width="120" height="60" as="geometry" />
+          <mxGeometry x="440" y="290" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-74" value="Inventario Despachos" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="ekHmimmgFlesdbuM206E-8" vertex="1">
           <mxGeometry x="294" y="740" width="60" height="80" as="geometry" />
@@ -296,7 +296,7 @@
           <mxGeometry x="440" y="490" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-80" value="Hay un pedido en lista de pedidos solicitados" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="ekHmimmgFlesdbuM206E-8" vertex="1">
-          <mxGeometry x="820" y="290" width="110" height="60" as="geometry" />
+          <mxGeometry x="640" y="290" width="110" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ekHmimmgFlesdbuM206E-81" value="¿El Retiro se logro?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="ekHmimmgFlesdbuM206E-8" vertex="1">
           <mxGeometry x="294" y="480" width="80" height="80" as="geometry" />
@@ -337,8 +337,9 @@
             <mxPoint x="159.01234567901247" y="915" as="sourcePoint" />
             <mxPoint x="399" y="840" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="270" y="880" />
-              <mxPoint x="270" y="840" />
+              <mxPoint x="260" y="700" />
+              <mxPoint x="260" y="850" />
+              <mxPoint x="399" y="850" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -356,8 +357,9 @@
             <mxPoint x="210" y="1200" as="sourcePoint" />
             <mxPoint x="290" y="1200" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="270" y="890" />
-              <mxPoint x="270" y="1360" />
+              <mxPoint x="220" y="750" />
+              <mxPoint x="250" y="750" />
+              <mxPoint x="250" y="1360" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -2700,7 +2702,9 @@
             <mxPoint x="520" y="-170" as="sourcePoint" />
             <mxPoint x="600" y="-170" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="15" y="680" />
+              <mxPoint x="15" y="530" />
+              <mxPoint x="100" y="530" />
+              <mxPoint x="100" y="680" />
               <mxPoint x="250" y="680" />
               <mxPoint x="250" y="740" />
             </Array>
@@ -3070,6 +3074,107 @@
         </mxCell>
         <mxCell id="ahYDZ3otbGvwELjsCVGK-156" value="Nos re jodimos" style="ellipse;whiteSpace=wrap;html=1;" parent="ahYDZ3otbGvwELjsCVGK-162" vertex="1">
           <mxGeometry x="5" y="455.25" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-196" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fHouezUR1JyX0ScLMCh2-197" target="fHouezUR1JyX0ScLMCh2-200">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-197" value="Se registra la salida del Producto recervado en los archivos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="2570" y="1120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-198" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fHouezUR1JyX0ScLMCh2-199" target="fHouezUR1JyX0ScLMCh2-197">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-199" value="Se retira Producto de Inventario Reservado" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="2570" y="1035" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-200" value="Se actúa en consecuencia" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="2575" y="1210" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-201" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fHouezUR1JyX0ScLMCh2-212" target="fHouezUR1JyX0ScLMCh2-213">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-202" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fHouezUR1JyX0ScLMCh2-213" target="fHouezUR1JyX0ScLMCh2-214">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-203" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fHouezUR1JyX0ScLMCh2-213" target="fHouezUR1JyX0ScLMCh2-217">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-204" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fHouezUR1JyX0ScLMCh2-214" target="fHouezUR1JyX0ScLMCh2-219">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-205" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fHouezUR1JyX0ScLMCh2-215" target="fHouezUR1JyX0ScLMCh2-221">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-206" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fHouezUR1JyX0ScLMCh2-218" target="fHouezUR1JyX0ScLMCh2-212">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-207" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2788.9" y="1010" as="sourcePoint" />
+            <mxPoint x="2788.9" y="1040" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-208" value="Si" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fHouezUR1JyX0ScLMCh2-207">
+          <mxGeometry x="-0.2825" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-209" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fHouezUR1JyX0ScLMCh2-219" target="fHouezUR1JyX0ScLMCh2-222">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-210" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fHouezUR1JyX0ScLMCh2-220" target="fHouezUR1JyX0ScLMCh2-215">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-211" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fHouezUR1JyX0ScLMCh2-222" target="fHouezUR1JyX0ScLMCh2-223">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-212" value="Se recibe una indicación de envió de un pedido" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="2895" y="740" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-213" value="Se escoje un despachador para encargarse del pedido" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="2895" y="850" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-214" value="El empleado busca retira el pedido de inventario y lo lleva su inventario" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="2729" y="850" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-215" value="El Despachador deja el pedido en entregas" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="2895" y="1040" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-216" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fHouezUR1JyX0ScLMCh2-217" target="fHouezUR1JyX0ScLMCh2-225">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="3085" y="970" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-217" value="Se asocia el despachador a la información del pedido" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="2895" y="940" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-218" value="Hay un pedido en lista de pedidos solicitados" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="3095" y="740" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-219" value="¿El Retiro se logro?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="2749" y="930" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-220" value="El despachador tiene su pedido en su inventario" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="2729" y="1040" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-221" value="Despachador queda libre para otro pedido" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="2900" y="1130" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-222" value="El Despachador notifica y registra el error como pedido Frustrado" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="2570" y="940" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-223" value="Despachador queda libre para otro pedido" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="2575" y="845" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-224" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fHouezUR1JyX0ScLMCh2-220" target="fHouezUR1JyX0ScLMCh2-199">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2595" y="1070" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fHouezUR1JyX0ScLMCh2-225" value="Se toma el registro de otra actividad o se espera a mas actividad" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="3085" y="940" width="110" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
