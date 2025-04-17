@@ -46,7 +46,7 @@ public class SqlConnection {
         }
     }
 
-    public static ResultSet ejecutarConsulta(String consulta) {
+    private static ResultSet ejecutarConsulta(String consulta) {
         ResultSet resultado = null;
         try {
             if (conectar == null || conectar.isClosed()) {
@@ -61,7 +61,7 @@ public class SqlConnection {
         return resultado;
     }
 
-    public static String ejecutarConsultaComoString(String consulta) {
+    private static String ejecutarConsultaComoString(String consulta) {
         StringBuilder resultadoString = new StringBuilder();
         try {
             ResultSet rs = ejecutarConsulta(consulta);
@@ -90,17 +90,17 @@ public class SqlConnection {
         return resultadoString.toString();
     }
 
-    public static String login(String username, String password) {
-        String hashedPassword = hashPassword(password);
+    public static String login(String correo, String contraseña) {
+        String hashedPassword = hashPassword(contraseña);
 
         try {
             if (conectar == null || conectar.isClosed()) {
                 EstablecerConexion();
             }
 
-            String query = "SELECT Usuario_id FROM Usuario WHERE Nombre = ? AND Contraseña_SHA256 = ?";
+            String query = "SELECT Usuario_id FROM Usuario WHERE Correo = ? AND Contraseña_SHA256 = ?";
             PreparedStatement stmt = conectar.prepareStatement(query);
-            stmt.setString(1, username);
+            stmt.setString(1, correo);
             stmt.setString(2, hashedPassword);
 
             ResultSet rs = stmt.executeQuery();
