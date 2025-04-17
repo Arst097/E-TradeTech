@@ -1,0 +1,353 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    font-family: 'Segoe UI', sans-serif;
+    background-color:antiquewhite;
+}
+
+.sidebar {
+    width: 220px;
+    background-color:  rgba(255, 217, 0, 0.416)  ;
+    color: black;
+    height: 100vh;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li {
+    padding: 10px 0;
+    cursor: pointer;
+    color: #000000;
+    text-decoration: none;
+}
+
+.sidebar a {
+    padding: 10px 0;
+    cursor: pointer;
+    color: #000000;
+    text-decoration: none;
+}
+
+.sidebar li.active, .sidebar li:hover {
+    color: rgb(93, 93, 93);
+    font-weight: bold;
+}
+
+.main {
+    flex: 1;
+    padding: 30px;
+    text-align: center;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background-color: rgb(245, 225, 198);
+    border-bottom: 1px solid #ccc;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+header a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #09203e;
+    font-weight: 500;
+}
+
+header p a{
+    margin-left: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: bold;
+}
+
+header p a:hover{
+    font-size: 30px;
+    color: #0e2e57;
+    text-decoration: none;
+}
+
+header a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #09203e;
+    font-weight: 500;
+}
+
+header h1 a{
+    margin-left: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: bold;
+}
+
+header h1 a:hover{
+    font-size: 30px;
+    color: #0e2e57;
+    text-decoration: none;
+}
+
+header a:hover {
+    font-size: 38px;
+    color: #07172d;
+    text-decoration: none;
+}
+
+.main h2{
+    font-size: 35px;
+    color: #0e2e57;
+    text-align: center;
+}
+
+
+header img{
+    height: 50px;
+    width: auto;
+}
+
+.btn_agregar_producto button {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 20px;
+    margin-right: 100px;
+    margin-left: 600px;
+}
+
+.btn_agregar_producto button:hover {
+    background-color: #1e8449;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: #0e2e57;
+    color: white;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.editar {
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.editar:hover{
+    background-color: #f39d12a0;
+    color: #5f5e5e;
+}
+
+.eliminar {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.eliminar:hover{
+    background-color: #e74d3cc9;
+    color: #5f5e5e;
+}
+
+.buscar{
+    justify-content: space-between;
+}
+
+.buscar input[type="text"]{
+    width: 40%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.buscar input[type="button"]{
+    width: 100px;
+    padding: 10px;
+    background-color: #646363ae;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+    font-weight: bold;
+}
+
+.buscar input[type="button"]:hover{
+    background-color: #fdb201cb;
+    color: black;
+}
+
+#categoria{
+    width: 40%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.Formulario{
+    background: rgb(249, 226, 197);
+    padding: 35px 45px;
+    border-radius: 15px;
+    box-shadow: 10px 8px 20px rgba(117, 117, 117, 0.874);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    margin-right: auto;
+    position: fixed;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    transform: translate(150%,  0);
+}
+
+.Formulario h1 {
+    margin-bottom: 20px;
+    font-size: 25px;
+    color: #333;
+}
+
+.Formulario h2 {
+    font-size: 15px;
+    color: #444;
+    margin: 12px 0 5px;
+    text-align: left;
+}
+
+
+.Formulario input[type="text"],
+.Formulario input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 6px;
+    background-color: #f4f0f0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 15px;
+    color: #444;
+    margin: 12px 0 5px;
+}
+
+#categoria2{
+    width: 60%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    background-color: #f4f0f0;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 15px;
+    color: #444;
+    margin: 12px 0 5px;
+}
+
+#Aceptar {
+    width: 100%;
+    padding: 12px;
+    background-color: #a3f77a;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+#Aceptar:hover {
+    background-color: #c0f5a6;
+}
+
+#Cancelar {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff0000;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+
+#Cancelar:hover{
+    background-color: #ff7d7d;
+    color: #000000;
+}
+.logo {
+    margin-bottom: 20px;
+    max-width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.logo img {
+    margin-top: 0px;
+    max-width: 160px; 
+    height: auto;
+    object-fit: contain;
+}
+
+#estado{
+    width: 60%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+#Estado{
+    width: 40%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
