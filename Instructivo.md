@@ -6,7 +6,7 @@
       <li>Netbeans 19</li>
       <li>JDK 17</li>
       <li>Payara Server 6.2025.4</li>
-      <li>SQLServer 16.0.1135.2</li>
+      <li>SQLServer 2022 16.0.1135.2</li>
     </ul>
   </li>
   <li>Modularización
