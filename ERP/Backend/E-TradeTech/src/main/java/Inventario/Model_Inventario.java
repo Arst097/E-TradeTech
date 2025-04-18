@@ -4,9 +4,9 @@
  */
 package Inventario;
 
+import Uso_Comun.Model_Producto;
 import Inventario.Model_Despachador;
 import Inventario.Model_Almacen;
-import Uso_Comun.Model_Producto;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

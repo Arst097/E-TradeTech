@@ -4,8 +4,12 @@
  */
 package Uso_Comun;
 
+import Uso_Comun.Model_Mensajero;
+import Uso_Comun.Model_Cliente;
 import Inventario.Model_HistorialPedidos;
 import Inventario.Model_Despachador;
+import Inventario.Model_Despachador;
+import Inventario.Model_HistorialPedidos;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

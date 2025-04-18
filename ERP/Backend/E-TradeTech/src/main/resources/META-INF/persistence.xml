@@ -3,11 +3,6 @@
   <!-- Define Persistence Unit -->
   <persistence-unit name="1_E-TradeTech_war_1.0PU" transaction-type="JTA">
     <jta-data-source>java:app/Conexion</jta-data-source>
-    <class>Uso_Comun.Model_Cliente</class>
-    <class>Uso_Comun.Model_Mensajero</class>
-    <class>Uso_Comun.Model_Pedidos</class>
-    <class>Uso_Comun.Model_Producto</class>
-    <class>Uso_Comun.Model_Usuario</class>
     <class>Inventario.Model_Almacen</class>
     <class>Inventario.Model_Despachador</class>
     <class>Inventario.Model_TransaccionInv</class>
@@ -15,6 +10,11 @@
     <class>Inventario.Model_HistorialPedidos</class>
     <class>Inventario.Model_HistorialTransaccInv</class>
     <class>Inventario.Model_Inventario</class>
+    <class>Uso_Comun.Model_Cliente</class>
+    <class>Uso_Comun.Model_Mensajero</class>
+    <class>Uso_Comun.Model_Pedidos</class>
+    <class>Uso_Comun.Model_Producto</class>
+    <class>Uso_Comun.Model_Usuario</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="jakarta.persistence.schema-generation.database.action" value="create"/>

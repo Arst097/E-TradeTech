@@ -4,8 +4,11 @@
  */
 package Uso_Comun;
 
+import Uso_Comun.Model_Cliente;
 import Inventario.Model_Gestores;
 import Inventario.Model_Despachador;
+import Inventario.Model_Despachador;
+import Inventario.Model_Gestores;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

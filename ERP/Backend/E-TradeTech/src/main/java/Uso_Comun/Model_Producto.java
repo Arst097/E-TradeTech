@@ -4,6 +4,8 @@
  */
 package Uso_Comun;
 
+import Uso_Comun.Model_Pedidos;
+import Inventario.Model_Inventario;
 import Inventario.Model_Inventario;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;

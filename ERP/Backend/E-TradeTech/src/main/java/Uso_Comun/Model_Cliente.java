@@ -4,8 +4,6 @@
  */
 package Uso_Comun;
 
-import Uso_Comun.Model_Pedidos;
-import Uso_Comun.Model_Usuario;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

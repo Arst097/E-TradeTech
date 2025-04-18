@@ -4,8 +4,8 @@
  */
 package Inventario;
 
-import Inventario.Model_Almacen;
 import Uso_Comun.Model_Usuario;
+import Inventario.Model_Almacen;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
