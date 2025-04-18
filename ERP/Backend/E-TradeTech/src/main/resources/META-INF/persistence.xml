@@ -1,7 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
-    <!-- Define Persistence Unit -->
-    <persistence-unit name="my_persistence_unit">
-        
-    </persistence-unit>
+  <!-- Define Persistence Unit -->
+  <persistence-unit name="my_persistence_unit" transaction-type="JTA">
+    <jta-data-source/>
+    <class>Uso_Comun.Mensajero</class>
+    <class>Uso_Comun.HistorialTransaccInv</class>
+    <class>Uso_Comun.Despachador</class>
+    <class>Uso_Comun.Inventario</class>
+    <class>Uso_Comun.Usuario</class>
+    <class>Uso_Comun.Pedidos</class>
+    <class>Uso_Comun.Producto</class>
+    <class>Uso_Comun.HistorialPedidos</class>
+    <class>Uso_Comun.Gestores</class>
+    <class>Uso_Comun.Almacen</class>
+    <class>Uso_Comun.TransaccionInv</class>
+    <class>Uso_Comun.Cliente</class>
+  </persistence-unit>
+  <persistence-unit name="1_E-TradeTech_war_1.0PU" transaction-type="JTA">
+    <jta-data-source>java:app/Conexion</jta-data-source>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
+    </properties>
+    <class>Uso_Comun.Mensajero</class>
+    <class>Uso_Comun.HistorialTransaccInv</class>
+    <class>Uso_Comun.Despachador</class>
+    <class>Uso_Comun.Inventario</class>
+    <class>Uso_Comun.Usuario</class>
+    <class>Uso_Comun.Pedidos</class>
+    <class>Uso_Comun.Producto</class>
+    <class>Uso_Comun.HistorialPedidos</class>
+    <class>Uso_Comun.Gestores</class>
+    <class>Uso_Comun.Almacen</class>
+    <class>Uso_Comun.TransaccionInv</class>
+    <class>Uso_Comun.Cliente</class>
+  </persistence-unit>
 </persistence>
