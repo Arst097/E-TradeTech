@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Uso_Comun;
+package Inventario;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
@@ -25,7 +25,7 @@ import java.util.Collection;
 @NamedQueries({
     @NamedQuery(name = "HistorialTransaccInv.findAll", query = "SELECT h FROM HistorialTransaccInv h"),
     @NamedQuery(name = "HistorialTransaccInv.findByHistorialTransaccInvID", query = "SELECT h FROM HistorialTransaccInv h WHERE h.historialTransaccInvID = :historialTransaccInvID")})
-public class HistorialTransaccInv implements Serializable {
+public class Model_HistorialTransaccInv implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -33,12 +33,12 @@ public class HistorialTransaccInv implements Serializable {
     @Column(name = "Historial_Transacc_InvID")
     private Integer historialTransaccInvID;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "historialTransaccInvID")
-    private Collection<TransaccionInv> transaccionInvCollection;
+    private Collection<Model_TransaccionInv> transaccionInvCollection;
 
-    public HistorialTransaccInv() {
+    public Model_HistorialTransaccInv() {
     }
 
-    public HistorialTransaccInv(Integer historialTransaccInvID) {
+    public Model_HistorialTransaccInv(Integer historialTransaccInvID) {
         this.historialTransaccInvID = historialTransaccInvID;
     }
 
@@ -50,11 +50,11 @@ public class HistorialTransaccInv implements Serializable {
         this.historialTransaccInvID = historialTransaccInvID;
     }
 
-    public Collection<TransaccionInv> getTransaccionInvCollection() {
+    public Collection<Model_TransaccionInv> getTransaccionInvCollection() {
         return transaccionInvCollection;
     }
 
-    public void setTransaccionInvCollection(Collection<TransaccionInv> transaccionInvCollection) {
+    public void setTransaccionInvCollection(Collection<Model_TransaccionInv> transaccionInvCollection) {
         this.transaccionInvCollection = transaccionInvCollection;
     }
 
@@ -68,10 +68,10 @@ public class HistorialTransaccInv implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof HistorialTransaccInv)) {
+        if (!(object instanceof Model_HistorialTransaccInv)) {
             return false;
         }
-        HistorialTransaccInv other = (HistorialTransaccInv) object;
+        Model_HistorialTransaccInv other = (Model_HistorialTransaccInv) object;
         if ((this.historialTransaccInvID == null && other.historialTransaccInvID != null) || (this.historialTransaccInvID != null && !this.historialTransaccInvID.equals(other.historialTransaccInvID))) {
             return false;
         }

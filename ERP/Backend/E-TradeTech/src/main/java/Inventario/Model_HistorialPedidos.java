@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Uso_Comun;
+package Inventario;
 
+import Uso_Comun.Model_Pedidos;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -25,7 +26,7 @@ import java.util.Collection;
 @NamedQueries({
     @NamedQuery(name = "HistorialPedidos.findAll", query = "SELECT h FROM HistorialPedidos h"),
     @NamedQuery(name = "HistorialPedidos.findByHistorialPredidosID", query = "SELECT h FROM HistorialPedidos h WHERE h.historialPredidosID = :historialPredidosID")})
-public class HistorialPedidos implements Serializable {
+public class Model_HistorialPedidos implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -33,12 +34,12 @@ public class HistorialPedidos implements Serializable {
     @Column(name = "Historial_PredidosID")
     private Integer historialPredidosID;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "historialPredidosID")
-    private Collection<Pedidos> pedidosCollection;
+    private Collection<Model_Pedidos> pedidosCollection;
 
-    public HistorialPedidos() {
+    public Model_HistorialPedidos() {
     }
 
-    public HistorialPedidos(Integer historialPredidosID) {
+    public Model_HistorialPedidos(Integer historialPredidosID) {
         this.historialPredidosID = historialPredidosID;
     }
 
@@ -50,11 +51,11 @@ public class HistorialPedidos implements Serializable {
         this.historialPredidosID = historialPredidosID;
     }
 
-    public Collection<Pedidos> getPedidosCollection() {
+    public Collection<Model_Pedidos> getPedidosCollection() {
         return pedidosCollection;
     }
 
-    public void setPedidosCollection(Collection<Pedidos> pedidosCollection) {
+    public void setPedidosCollection(Collection<Model_Pedidos> pedidosCollection) {
         this.pedidosCollection = pedidosCollection;
     }
 
@@ -68,10 +69,10 @@ public class HistorialPedidos implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof HistorialPedidos)) {
+        if (!(object instanceof Model_HistorialPedidos)) {
             return false;
         }
-        HistorialPedidos other = (HistorialPedidos) object;
+        Model_HistorialPedidos other = (Model_HistorialPedidos) object;
         if ((this.historialPredidosID == null && other.historialPredidosID != null) || (this.historialPredidosID != null && !this.historialPredidosID.equals(other.historialPredidosID))) {
             return false;
         }

@@ -4,6 +4,8 @@
  */
 package Uso_Comun;
 
+import Inventario.Model_HistorialPedidos;
+import Inventario.Model_Despachador;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,7 +29,7 @@ import java.util.Collection;
     @NamedQuery(name = "Pedidos.findAll", query = "SELECT p FROM Pedidos p"),
     @NamedQuery(name = "Pedidos.findByPedidoID", query = "SELECT p FROM Pedidos p WHERE p.pedidoID = :pedidoID"),
     @NamedQuery(name = "Pedidos.findByEstado", query = "SELECT p FROM Pedidos p WHERE p.estado = :estado")})
-public class Pedidos implements Serializable {
+public class Model_Pedidos implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,23 +40,23 @@ public class Pedidos implements Serializable {
     private String estado;
     @JoinColumn(name = "ClienteID", referencedColumnName = "ClienteID")
     @ManyToOne
-    private Cliente clienteID;
+    private Model_Cliente clienteID;
     @JoinColumn(name = "DespachadorID", referencedColumnName = "DespachadorID")
     @ManyToOne
-    private Despachador despachadorID;
+    private Model_Despachador despachadorID;
     @JoinColumn(name = "Historial_PredidosID", referencedColumnName = "Historial_PredidosID")
     @ManyToOne(optional = false)
-    private HistorialPedidos historialPredidosID;
+    private Model_HistorialPedidos historialPredidosID;
     @JoinColumn(name = "MensajeroID", referencedColumnName = "MensajeroID")
     @ManyToOne
-    private Mensajero mensajeroID;
+    private Model_Mensajero mensajeroID;
     @OneToMany(mappedBy = "pedidoID")
-    private Collection<Producto> productoCollection;
+    private Collection<Model_Producto> productoCollection;
 
-    public Pedidos() {
+    public Model_Pedidos() {
     }
 
-    public Pedidos(Integer pedidoID) {
+    public Model_Pedidos(Integer pedidoID) {
         this.pedidoID = pedidoID;
     }
 
@@ -74,43 +76,43 @@ public class Pedidos implements Serializable {
         this.estado = estado;
     }
 
-    public Cliente getClienteID() {
+    public Model_Cliente getClienteID() {
         return clienteID;
     }
 
-    public void setClienteID(Cliente clienteID) {
+    public void setClienteID(Model_Cliente clienteID) {
         this.clienteID = clienteID;
     }
 
-    public Despachador getDespachadorID() {
+    public Model_Despachador getDespachadorID() {
         return despachadorID;
     }
 
-    public void setDespachadorID(Despachador despachadorID) {
+    public void setDespachadorID(Model_Despachador despachadorID) {
         this.despachadorID = despachadorID;
     }
 
-    public HistorialPedidos getHistorialPredidosID() {
+    public Model_HistorialPedidos getHistorialPredidosID() {
         return historialPredidosID;
     }
 
-    public void setHistorialPredidosID(HistorialPedidos historialPredidosID) {
+    public void setHistorialPredidosID(Model_HistorialPedidos historialPredidosID) {
         this.historialPredidosID = historialPredidosID;
     }
 
-    public Mensajero getMensajeroID() {
+    public Model_Mensajero getMensajeroID() {
         return mensajeroID;
     }
 
-    public void setMensajeroID(Mensajero mensajeroID) {
+    public void setMensajeroID(Model_Mensajero mensajeroID) {
         this.mensajeroID = mensajeroID;
     }
 
-    public Collection<Producto> getProductoCollection() {
+    public Collection<Model_Producto> getProductoCollection() {
         return productoCollection;
     }
 
-    public void setProductoCollection(Collection<Producto> productoCollection) {
+    public void setProductoCollection(Collection<Model_Producto> productoCollection) {
         this.productoCollection = productoCollection;
     }
 
@@ -124,10 +126,10 @@ public class Pedidos implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pedidos)) {
+        if (!(object instanceof Model_Pedidos)) {
             return false;
         }
-        Pedidos other = (Pedidos) object;
+        Model_Pedidos other = (Model_Pedidos) object;
         if ((this.pedidoID == null && other.pedidoID != null) || (this.pedidoID != null && !this.pedidoID.equals(other.pedidoID))) {
             return false;
         }

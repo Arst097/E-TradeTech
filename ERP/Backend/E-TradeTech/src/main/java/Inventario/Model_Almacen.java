@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Uso_Comun;
+package Inventario;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
@@ -29,7 +29,7 @@ import java.util.Collection;
     @NamedQuery(name = "Almacen.findByDireccion", query = "SELECT a FROM Almacen a WHERE a.direccion = :direccion"),
     @NamedQuery(name = "Almacen.findByCapacidad", query = "SELECT a FROM Almacen a WHERE a.capacidad = :capacidad"),
     @NamedQuery(name = "Almacen.findByTelefono", query = "SELECT a FROM Almacen a WHERE a.telefono = :telefono")})
-public class Almacen implements Serializable {
+public class Model_Almacen implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,20 +49,20 @@ public class Almacen implements Serializable {
     @Column(name = "Telefono")
     private String telefono;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "almacenID")
-    private Collection<Despachador> despachadorCollection;
+    private Collection<Model_Despachador> despachadorCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "almacenID")
-    private Collection<Gestores> gestoresCollection;
+    private Collection<Model_Gestores> gestoresCollection;
     @OneToMany(mappedBy = "almacenID")
-    private Collection<Inventario> inventarioCollection;
+    private Collection<Model_Inventario> inventarioCollection;
 
-    public Almacen() {
+    public Model_Almacen() {
     }
 
-    public Almacen(Integer almacenID) {
+    public Model_Almacen(Integer almacenID) {
         this.almacenID = almacenID;
     }
 
-    public Almacen(Integer almacenID, String nombre, String direccion, int capacidad, String telefono) {
+    public Model_Almacen(Integer almacenID, String nombre, String direccion, int capacidad, String telefono) {
         this.almacenID = almacenID;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -110,27 +110,27 @@ public class Almacen implements Serializable {
         this.telefono = telefono;
     }
 
-    public Collection<Despachador> getDespachadorCollection() {
+    public Collection<Model_Despachador> getDespachadorCollection() {
         return despachadorCollection;
     }
 
-    public void setDespachadorCollection(Collection<Despachador> despachadorCollection) {
+    public void setDespachadorCollection(Collection<Model_Despachador> despachadorCollection) {
         this.despachadorCollection = despachadorCollection;
     }
 
-    public Collection<Gestores> getGestoresCollection() {
+    public Collection<Model_Gestores> getGestoresCollection() {
         return gestoresCollection;
     }
 
-    public void setGestoresCollection(Collection<Gestores> gestoresCollection) {
+    public void setGestoresCollection(Collection<Model_Gestores> gestoresCollection) {
         this.gestoresCollection = gestoresCollection;
     }
 
-    public Collection<Inventario> getInventarioCollection() {
+    public Collection<Model_Inventario> getInventarioCollection() {
         return inventarioCollection;
     }
 
-    public void setInventarioCollection(Collection<Inventario> inventarioCollection) {
+    public void setInventarioCollection(Collection<Model_Inventario> inventarioCollection) {
         this.inventarioCollection = inventarioCollection;
     }
 
@@ -144,10 +144,10 @@ public class Almacen implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Almacen)) {
+        if (!(object instanceof Model_Almacen)) {
             return false;
         }
-        Almacen other = (Almacen) object;
+        Model_Almacen other = (Model_Almacen) object;
         if ((this.almacenID == null && other.almacenID != null) || (this.almacenID != null && !this.almacenID.equals(other.almacenID))) {
             return false;
         }

@@ -4,6 +4,8 @@
  */
 package Uso_Comun;
 
+import Inventario.Model_Gestores;
+import Inventario.Model_Despachador;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -28,7 +30,7 @@ import java.util.Collection;
     @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre"),
     @NamedQuery(name = "Usuario.findByCorreo", query = "SELECT u FROM Usuario u WHERE u.correo = :correo"),
     @NamedQuery(name = "Usuario.findByContrase\u00f1aSHA256", query = "SELECT u FROM Usuario u WHERE u.contrase\u00f1aSHA256 = :contrase\u00f1aSHA256")})
-public class Usuario implements Serializable {
+public class Model_Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,20 +47,20 @@ public class Usuario implements Serializable {
     @Column(name = "Contrase\u00f1a_SHA256")
     private String contraseñaSHA256;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioUsuarioid")
-    private Collection<Despachador> despachadorCollection;
+    private Collection<Model_Despachador> despachadorCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioUsuarioid")
-    private Collection<Gestores> gestoresCollection;
+    private Collection<Model_Gestores> gestoresCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioUsuarioid")
-    private Collection<Cliente> clienteCollection;
+    private Collection<Model_Cliente> clienteCollection;
 
-    public Usuario() {
+    public Model_Usuario() {
     }
 
-    public Usuario(Integer usuarioid) {
+    public Model_Usuario(Integer usuarioid) {
         this.usuarioid = usuarioid;
     }
 
-    public Usuario(Integer usuarioid, String nombre, String correo, String contraseñaSHA256) {
+    public Model_Usuario(Integer usuarioid, String nombre, String correo, String contraseñaSHA256) {
         this.usuarioid = usuarioid;
         this.nombre = nombre;
         this.correo = correo;
@@ -97,27 +99,27 @@ public class Usuario implements Serializable {
         this.contraseñaSHA256 = contraseñaSHA256;
     }
 
-    public Collection<Despachador> getDespachadorCollection() {
+    public Collection<Model_Despachador> getDespachadorCollection() {
         return despachadorCollection;
     }
 
-    public void setDespachadorCollection(Collection<Despachador> despachadorCollection) {
+    public void setDespachadorCollection(Collection<Model_Despachador> despachadorCollection) {
         this.despachadorCollection = despachadorCollection;
     }
 
-    public Collection<Gestores> getGestoresCollection() {
+    public Collection<Model_Gestores> getGestoresCollection() {
         return gestoresCollection;
     }
 
-    public void setGestoresCollection(Collection<Gestores> gestoresCollection) {
+    public void setGestoresCollection(Collection<Model_Gestores> gestoresCollection) {
         this.gestoresCollection = gestoresCollection;
     }
 
-    public Collection<Cliente> getClienteCollection() {
+    public Collection<Model_Cliente> getClienteCollection() {
         return clienteCollection;
     }
 
-    public void setClienteCollection(Collection<Cliente> clienteCollection) {
+    public void setClienteCollection(Collection<Model_Cliente> clienteCollection) {
         this.clienteCollection = clienteCollection;
     }
 
@@ -131,10 +133,10 @@ public class Usuario implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Usuario)) {
+        if (!(object instanceof Model_Usuario)) {
             return false;
         }
-        Usuario other = (Usuario) object;
+        Model_Usuario other = (Model_Usuario) object;
         if ((this.usuarioid == null && other.usuarioid != null) || (this.usuarioid != null && !this.usuarioid.equals(other.usuarioid))) {
             return false;
         }

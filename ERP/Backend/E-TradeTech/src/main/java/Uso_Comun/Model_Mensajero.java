@@ -27,7 +27,7 @@ import java.util.Collection;
     @NamedQuery(name = "Mensajero.findByNombre", query = "SELECT m FROM Mensajero m WHERE m.nombre = :nombre"),
     @NamedQuery(name = "Mensajero.findByCompa\u00f1ia", query = "SELECT m FROM Mensajero m WHERE m.compa\u00f1ia = :compa\u00f1ia"),
     @NamedQuery(name = "Mensajero.findByTelefono", query = "SELECT m FROM Mensajero m WHERE m.telefono = :telefono")})
-public class Mensajero implements Serializable {
+public class Model_Mensajero implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,16 +44,16 @@ public class Mensajero implements Serializable {
     @Column(name = "Telefono")
     private String telefono;
     @OneToMany(mappedBy = "mensajeroID")
-    private Collection<Pedidos> pedidosCollection;
+    private Collection<Model_Pedidos> pedidosCollection;
 
-    public Mensajero() {
+    public Model_Mensajero() {
     }
 
-    public Mensajero(Integer mensajeroID) {
+    public Model_Mensajero(Integer mensajeroID) {
         this.mensajeroID = mensajeroID;
     }
 
-    public Mensajero(Integer mensajeroID, String nombre, String compañia, String telefono) {
+    public Model_Mensajero(Integer mensajeroID, String nombre, String compañia, String telefono) {
         this.mensajeroID = mensajeroID;
         this.nombre = nombre;
         this.compañia = compañia;
@@ -92,11 +92,11 @@ public class Mensajero implements Serializable {
         this.telefono = telefono;
     }
 
-    public Collection<Pedidos> getPedidosCollection() {
+    public Collection<Model_Pedidos> getPedidosCollection() {
         return pedidosCollection;
     }
 
-    public void setPedidosCollection(Collection<Pedidos> pedidosCollection) {
+    public void setPedidosCollection(Collection<Model_Pedidos> pedidosCollection) {
         this.pedidosCollection = pedidosCollection;
     }
 
@@ -110,10 +110,10 @@ public class Mensajero implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Mensajero)) {
+        if (!(object instanceof Model_Mensajero)) {
             return false;
         }
-        Mensajero other = (Mensajero) object;
+        Model_Mensajero other = (Model_Mensajero) object;
         if ((this.mensajeroID == null && other.mensajeroID != null) || (this.mensajeroID != null && !this.mensajeroID.equals(other.mensajeroID))) {
             return false;
         }

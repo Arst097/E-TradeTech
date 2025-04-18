@@ -4,6 +4,8 @@
  */
 package Uso_Comun;
 
+import Uso_Comun.Model_Pedidos;
+import Uso_Comun.Model_Usuario;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,13 +23,14 @@ import java.util.Collection;
  *
  * @author HP PORTATIL
  */
+
 @Entity
 @Table(name = "Cliente")
 @NamedQueries({
     @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
     @NamedQuery(name = "Cliente.findByClienteID", query = "SELECT c FROM Cliente c WHERE c.clienteID = :clienteID"),
     @NamedQuery(name = "Cliente.findByTelefono", query = "SELECT c FROM Cliente c WHERE c.telefono = :telefono")})
-public class Cliente implements Serializable {
+public class Model_Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,19 +41,19 @@ public class Cliente implements Serializable {
     @Column(name = "Telefono")
     private String telefono;
     @OneToMany(mappedBy = "clienteID")
-    private Collection<Pedidos> pedidosCollection;
+    private Collection<Model_Pedidos> pedidosCollection;
     @JoinColumn(name = "Usuario_Usuario_id", referencedColumnName = "Usuario_id")
     @ManyToOne(optional = false)
-    private Usuario usuarioUsuarioid;
+    private Model_Usuario usuarioUsuarioid;
 
-    public Cliente() {
+    public Model_Cliente() {
     }
 
-    public Cliente(Integer clienteID) {
+    public Model_Cliente(Integer clienteID) {
         this.clienteID = clienteID;
     }
 
-    public Cliente(Integer clienteID, String telefono) {
+    public Model_Cliente(Integer clienteID, String telefono) {
         this.clienteID = clienteID;
         this.telefono = telefono;
     }
@@ -71,19 +74,19 @@ public class Cliente implements Serializable {
         this.telefono = telefono;
     }
 
-    public Collection<Pedidos> getPedidosCollection() {
+    public Collection<Model_Pedidos> getPedidosCollection() {
         return pedidosCollection;
     }
 
-    public void setPedidosCollection(Collection<Pedidos> pedidosCollection) {
+    public void setPedidosCollection(Collection<Model_Pedidos> pedidosCollection) {
         this.pedidosCollection = pedidosCollection;
     }
 
-    public Usuario getUsuarioUsuarioid() {
+    public Model_Usuario getUsuarioUsuarioid() {
         return usuarioUsuarioid;
     }
 
-    public void setUsuarioUsuarioid(Usuario usuarioUsuarioid) {
+    public void setUsuarioUsuarioid(Model_Usuario usuarioUsuarioid) {
         this.usuarioUsuarioid = usuarioUsuarioid;
     }
 
@@ -97,10 +100,10 @@ public class Cliente implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cliente)) {
+        if (!(object instanceof Model_Cliente)) {
             return false;
         }
-        Cliente other = (Cliente) object;
+        Model_Cliente other = (Model_Cliente) object;
         if ((this.clienteID == null && other.clienteID != null) || (this.clienteID != null && !this.clienteID.equals(other.clienteID))) {
             return false;
         }
