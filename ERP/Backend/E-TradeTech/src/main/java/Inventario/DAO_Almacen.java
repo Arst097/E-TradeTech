@@ -20,10 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- *
- * @author HP PORTATIL
- */
+
 public class DAO_Almacen implements Serializable {
 
     public DAO_Almacen(UserTransaction utx, EntityManagerFactory emf) {
