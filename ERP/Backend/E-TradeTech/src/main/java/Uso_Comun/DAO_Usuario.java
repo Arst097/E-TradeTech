@@ -50,270 +50,350 @@ public class DAO_Usuario implements Serializable {
     }
 
     public void create(Model_Usuario model_Usuario) throws PreexistingEntityException, RollbackFailureException, Exception {
-    EntityManager em = null;
-    EntityTransaction tx = null;
-    
-    if (model_Usuario.getDespachadorCollection() == null) {
-        model_Usuario.setDespachadorCollection(new ArrayList<Despachador>());
-    }
-    if (model_Usuario.getGestoresCollection() == null) {
-        model_Usuario.setGestoresCollection(new ArrayList<Gestores>());
-    }
-    if (model_Usuario.getClienteCollection() == null) {
-        model_Usuario.setClienteCollection(new ArrayList<Cliente>());
-    }
+        EntityManager em = null;
+        EntityTransaction tx = null;
 
-    try {
-        em = getEntityManager();
-        tx = em.getTransaction();
-        tx.begin();
-
-        // Código original de asociación de colecciones
-        Collection<Despachador> attachedDespachadorCollection = new ArrayList<>();
-        for (Despachador despachador : model_Usuario.getDespachadorCollection()) {
-            despachador = em.getReference(despachador.getClass(), despachador.getDespachadorID());
-            attachedDespachadorCollection.add(despachador);
+        if (model_Usuario.getDespachadorCollection() == null) {
+            model_Usuario.setDespachadorCollection(new ArrayList<Despachador>());
         }
-        model_Usuario.setDespachadorCollection(attachedDespachadorCollection);
-
-        Collection<Gestores> attachedGestoresCollection = new ArrayList<>();
-        for (Gestores gestor : model_Usuario.getGestoresCollection()) {
-            gestor = em.getReference(gestor.getClass(), gestor.getGestorID());
-            attachedGestoresCollection.add(gestor);
+        if (model_Usuario.getGestoresCollection() == null) {
+            model_Usuario.setGestoresCollection(new ArrayList<Gestores>());
         }
-        model_Usuario.setGestoresCollection(attachedGestoresCollection);
-
-        Collection<Cliente> attachedClienteCollection = new ArrayList<>();
-        for (Cliente cliente : model_Usuario.getClienteCollection()) {
-            cliente = em.getReference(cliente.getClass(), cliente.getClienteID());
-            attachedClienteCollection.add(cliente);
+        if (model_Usuario.getClienteCollection() == null) {
+            model_Usuario.setClienteCollection(new ArrayList<Cliente>());
         }
-        model_Usuario.setClienteCollection(attachedClienteCollection);
 
-        em.persist(model_Usuario);
+        try {
+            em = getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
 
-        // Actualización de relaciones bidireccionales
-        for (Despachador despachador : model_Usuario.getDespachadorCollection()) {
-            Model_Usuario oldUsuario = despachador.getUsuarioUsuarioid();
-            despachador.setUsuarioUsuarioid(model_Usuario);
-            em.merge(despachador);
-            
-            if (oldUsuario != null) {
-                oldUsuario.getDespachadorCollection().remove(despachador);
-                em.merge(oldUsuario);
+            // Código original de asociación de colecciones
+            Collection<Despachador> attachedDespachadorCollection = new ArrayList<>();
+            for (Despachador despachador : model_Usuario.getDespachadorCollection()) {
+                despachador = em.getReference(despachador.getClass(), despachador.getDespachadorID());
+                attachedDespachadorCollection.add(despachador);
+            }
+            model_Usuario.setDespachadorCollection(attachedDespachadorCollection);
+
+            Collection<Gestores> attachedGestoresCollection = new ArrayList<>();
+            for (Gestores gestor : model_Usuario.getGestoresCollection()) {
+                gestor = em.getReference(gestor.getClass(), gestor.getGestorID());
+                attachedGestoresCollection.add(gestor);
+            }
+            model_Usuario.setGestoresCollection(attachedGestoresCollection);
+
+            Collection<Cliente> attachedClienteCollection = new ArrayList<>();
+            for (Cliente cliente : model_Usuario.getClienteCollection()) {
+                cliente = em.getReference(cliente.getClass(), cliente.getClienteID());
+                attachedClienteCollection.add(cliente);
+            }
+            model_Usuario.setClienteCollection(attachedClienteCollection);
+
+            em.persist(model_Usuario);
+
+            // Actualización de relaciones bidireccionales
+            for (Despachador despachador : model_Usuario.getDespachadorCollection()) {
+                Model_Usuario oldUsuario = despachador.getUsuarioUsuarioid();
+                despachador.setUsuarioUsuarioid(model_Usuario);
+                em.merge(despachador);
+
+                if (oldUsuario != null) {
+                    oldUsuario.getDespachadorCollection().remove(despachador);
+                    em.merge(oldUsuario);
+                }
+            }
+
+            for (Gestores gestor : model_Usuario.getGestoresCollection()) {
+                Model_Usuario oldUsuario = gestor.getUsuarioUsuarioid();
+                gestor.setUsuarioUsuarioid(model_Usuario);
+                em.merge(gestor);
+
+                if (oldUsuario != null) {
+                    oldUsuario.getGestoresCollection().remove(gestor);
+                    em.merge(oldUsuario);
+                }
+            }
+
+            for (Cliente cliente : model_Usuario.getClienteCollection()) {
+                Model_Usuario oldUsuario = cliente.getUsuarioUsuarioid();
+                cliente.setUsuarioUsuarioid(model_Usuario);
+                em.merge(cliente);
+
+                if (oldUsuario != null) {
+                    oldUsuario.getClienteCollection().remove(cliente);
+                    em.merge(oldUsuario);
+                }
+            }
+
+            tx.commit();
+        } catch (Exception ex) {
+            if (tx != null && tx.isActive()) {
+                try {
+                    tx.rollback();
+                } catch (Exception rbEx) {
+                    throw new RollbackFailureException("Error al hacer rollback", rbEx);
+                }
+            }
+
+            // Verificar si es un error de entidad preexistente
+            if (findModel_Usuario(model_Usuario.getUsuarioid()) != null) {
+                throw new PreexistingEntityException("El usuario ya existe: " + model_Usuario.getUsuarioid(), ex);
+            }
+
+            throw ex;
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
             }
         }
-
-        for (Gestores gestor : model_Usuario.getGestoresCollection()) {
-            Model_Usuario oldUsuario = gestor.getUsuarioUsuarioid();
-            gestor.setUsuarioUsuarioid(model_Usuario);
-            em.merge(gestor);
-            
-            if (oldUsuario != null) {
-                oldUsuario.getGestoresCollection().remove(gestor);
-                em.merge(oldUsuario);
-            }
-        }
-
-        for (Cliente cliente : model_Usuario.getClienteCollection()) {
-            Model_Usuario oldUsuario = cliente.getUsuarioUsuarioid();
-            cliente.setUsuarioUsuarioid(model_Usuario);
-            em.merge(cliente);
-            
-            if (oldUsuario != null) {
-                oldUsuario.getClienteCollection().remove(cliente);
-                em.merge(oldUsuario);
-            }
-        }
-
-        tx.commit();
-    } catch (Exception ex) {
-        if (tx != null && tx.isActive()) {
-            try {
-                tx.rollback();
-            } catch (Exception rbEx) {
-                throw new RollbackFailureException("Error al hacer rollback", rbEx);
-            }
-        }
-        
-        // Verificar si es un error de entidad preexistente
-        if (findModel_Usuario(model_Usuario.getUsuarioid()) != null) {
-            throw new PreexistingEntityException("El usuario ya existe: " + model_Usuario.getUsuarioid(), ex);
-        }
-        
-        throw ex;
-    } finally {
-        if (em != null && em.isOpen()) {
-            em.close();
-        }
     }
-}
 
     public void edit(Model_Usuario model_Usuario) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
+        EntityTransaction tx = null;
+
         try {
-            utx.begin();
             em = getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+
             Model_Usuario persistentModel_Usuario = em.find(Model_Usuario.class, model_Usuario.getUsuarioid());
+            if (persistentModel_Usuario == null) {
+                throw new NonexistentEntityException("El usuario con id " + model_Usuario.getUsuarioid() + " no existe.");
+            }
+
+            // Verificación de orfandad ilegal
             Collection<Despachador> despachadorCollectionOld = persistentModel_Usuario.getDespachadorCollection();
             Collection<Despachador> despachadorCollectionNew = model_Usuario.getDespachadorCollection();
             Collection<Gestores> gestoresCollectionOld = persistentModel_Usuario.getGestoresCollection();
             Collection<Gestores> gestoresCollectionNew = model_Usuario.getGestoresCollection();
             Collection<Cliente> clienteCollectionOld = persistentModel_Usuario.getClienteCollection();
             Collection<Cliente> clienteCollectionNew = model_Usuario.getClienteCollection();
+
             List<String> illegalOrphanMessages = null;
-            for (Despachador despachadorCollectionOldModel_Despachador : despachadorCollectionOld) {
-                if (!despachadorCollectionNew.contains(despachadorCollectionOldModel_Despachador)) {
+
+            // Verificar despachadores
+            for (Despachador oldDespachador : despachadorCollectionOld) {
+                if (!despachadorCollectionNew.contains(oldDespachador)) {
                     if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
+                        illegalOrphanMessages = new ArrayList<>();
                     }
-                    illegalOrphanMessages.add("You must retain Model_Despachador " + despachadorCollectionOldModel_Despachador + " since its usuarioUsuarioid field is not nullable.");
+                    illegalOrphanMessages.add("Debe mantener el Despachador " + oldDespachador + " porque su campo usuarioUsuarioid no es nulo.");
                 }
             }
-            for (Gestores gestoresCollectionOldModel_Gestores : gestoresCollectionOld) {
-                if (!gestoresCollectionNew.contains(gestoresCollectionOldModel_Gestores)) {
+
+            // Verificar gestores
+            for (Gestores oldGestor : gestoresCollectionOld) {
+                if (!gestoresCollectionNew.contains(oldGestor)) {
                     if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
+                        illegalOrphanMessages = new ArrayList<>();
                     }
-                    illegalOrphanMessages.add("You must retain Model_Gestores " + gestoresCollectionOldModel_Gestores + " since its usuarioUsuarioid field is not nullable.");
+                    illegalOrphanMessages.add("Debe mantener el Gestor " + oldGestor + " porque su campo usuarioUsuarioid no es nulo.");
                 }
             }
-            for (Cliente clienteCollectionOldModel_Cliente : clienteCollectionOld) {
-                if (!clienteCollectionNew.contains(clienteCollectionOldModel_Cliente)) {
+
+            // Verificar clientes
+            for (Cliente oldCliente : clienteCollectionOld) {
+                if (!clienteCollectionNew.contains(oldCliente)) {
                     if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
+                        illegalOrphanMessages = new ArrayList<>();
                     }
-                    illegalOrphanMessages.add("You must retain Model_Cliente " + clienteCollectionOldModel_Cliente + " since its usuarioUsuarioid field is not nullable.");
+                    illegalOrphanMessages.add("Debe mantener el Cliente " + oldCliente + " porque su campo usuarioUsuarioid no es nulo.");
                 }
             }
+
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Collection<Despachador> attachedDespachadorCollectionNew = new ArrayList<Despachador>();
-            for (Despachador despachadorCollectionNewModel_DespachadorToAttach : despachadorCollectionNew) {
-                despachadorCollectionNewModel_DespachadorToAttach = em.getReference(despachadorCollectionNewModel_DespachadorToAttach.getClass(), despachadorCollectionNewModel_DespachadorToAttach.getDespachadorID());
-                attachedDespachadorCollectionNew.add(despachadorCollectionNewModel_DespachadorToAttach);
-            }
-            despachadorCollectionNew = attachedDespachadorCollectionNew;
-            model_Usuario.setDespachadorCollection(despachadorCollectionNew);
-            Collection<Gestores> attachedGestoresCollectionNew = new ArrayList<Gestores>();
-            for (Gestores gestoresCollectionNewModel_GestoresToAttach : gestoresCollectionNew) {
-                gestoresCollectionNewModel_GestoresToAttach = em.getReference(gestoresCollectionNewModel_GestoresToAttach.getClass(), gestoresCollectionNewModel_GestoresToAttach.getGestorID());
-                attachedGestoresCollectionNew.add(gestoresCollectionNewModel_GestoresToAttach);
-            }
-            gestoresCollectionNew = attachedGestoresCollectionNew;
-            model_Usuario.setGestoresCollection(gestoresCollectionNew);
-            Collection<Cliente> attachedClienteCollectionNew = new ArrayList<Cliente>();
-            for (Cliente clienteCollectionNewModel_ClienteToAttach : clienteCollectionNew) {
-                clienteCollectionNewModel_ClienteToAttach = em.getReference(clienteCollectionNewModel_ClienteToAttach.getClass(), clienteCollectionNewModel_ClienteToAttach.getClienteID());
-                attachedClienteCollectionNew.add(clienteCollectionNewModel_ClienteToAttach);
-            }
-            clienteCollectionNew = attachedClienteCollectionNew;
-            model_Usuario.setClienteCollection(clienteCollectionNew);
+
+            // Adjuntar las nuevas colecciones
+            model_Usuario.setDespachadorCollection(attachCollection(em, despachadorCollectionNew));
+            model_Usuario.setGestoresCollection(attachCollection(em, gestoresCollectionNew));
+            model_Usuario.setClienteCollection(attachCollection(em, clienteCollectionNew));
+
+            // Realizar el merge
             model_Usuario = em.merge(model_Usuario);
-            for (Despachador despachadorCollectionNewModel_Despachador : despachadorCollectionNew) {
-                if (!despachadorCollectionOld.contains(despachadorCollectionNewModel_Despachador)) {
-                    Model_Usuario oldUsuarioUsuarioidOfDespachadorCollectionNewModel_Despachador = despachadorCollectionNewModel_Despachador.getUsuarioUsuarioid();
-                    despachadorCollectionNewModel_Despachador.setUsuarioUsuarioid(model_Usuario);
-                    despachadorCollectionNewModel_Despachador = em.merge(despachadorCollectionNewModel_Despachador);
-                    if (oldUsuarioUsuarioidOfDespachadorCollectionNewModel_Despachador != null && !oldUsuarioUsuarioidOfDespachadorCollectionNewModel_Despachador.equals(model_Usuario)) {
-                        oldUsuarioUsuarioidOfDespachadorCollectionNewModel_Despachador.getDespachadorCollection().remove(despachadorCollectionNewModel_Despachador);
-                        oldUsuarioUsuarioidOfDespachadorCollectionNewModel_Despachador = em.merge(oldUsuarioUsuarioidOfDespachadorCollectionNewModel_Despachador);
-                    }
-                }
-            }
-            for (Gestores gestoresCollectionNewModel_Gestores : gestoresCollectionNew) {
-                if (!gestoresCollectionOld.contains(gestoresCollectionNewModel_Gestores)) {
-                    Model_Usuario oldUsuarioUsuarioidOfGestoresCollectionNewModel_Gestores = gestoresCollectionNewModel_Gestores.getUsuarioUsuarioid();
-                    gestoresCollectionNewModel_Gestores.setUsuarioUsuarioid(model_Usuario);
-                    gestoresCollectionNewModel_Gestores = em.merge(gestoresCollectionNewModel_Gestores);
-                    if (oldUsuarioUsuarioidOfGestoresCollectionNewModel_Gestores != null && !oldUsuarioUsuarioidOfGestoresCollectionNewModel_Gestores.equals(model_Usuario)) {
-                        oldUsuarioUsuarioidOfGestoresCollectionNewModel_Gestores.getGestoresCollection().remove(gestoresCollectionNewModel_Gestores);
-                        oldUsuarioUsuarioidOfGestoresCollectionNewModel_Gestores = em.merge(oldUsuarioUsuarioidOfGestoresCollectionNewModel_Gestores);
-                    }
-                }
-            }
-            for (Cliente clienteCollectionNewModel_Cliente : clienteCollectionNew) {
-                if (!clienteCollectionOld.contains(clienteCollectionNewModel_Cliente)) {
-                    Model_Usuario oldUsuarioUsuarioidOfClienteCollectionNewModel_Cliente = clienteCollectionNewModel_Cliente.getUsuarioUsuarioid();
-                    clienteCollectionNewModel_Cliente.setUsuarioUsuarioid(model_Usuario);
-                    clienteCollectionNewModel_Cliente = em.merge(clienteCollectionNewModel_Cliente);
-                    if (oldUsuarioUsuarioidOfClienteCollectionNewModel_Cliente != null && !oldUsuarioUsuarioidOfClienteCollectionNewModel_Cliente.equals(model_Usuario)) {
-                        oldUsuarioUsuarioidOfClienteCollectionNewModel_Cliente.getClienteCollection().remove(clienteCollectionNewModel_Cliente);
-                        oldUsuarioUsuarioidOfClienteCollectionNewModel_Cliente = em.merge(oldUsuarioUsuarioidOfClienteCollectionNewModel_Cliente);
-                    }
-                }
-            }
-            utx.commit();
+
+            // Actualizar relaciones bidireccionales
+            updateRelationships(em, model_Usuario, despachadorCollectionOld, despachadorCollectionNew);
+            updateRelationships(em, model_Usuario, gestoresCollectionOld, gestoresCollectionNew);
+            updateRelationships(em, model_Usuario, clienteCollectionOld, clienteCollectionNew);
+
+            tx.commit();
         } catch (Exception ex) {
-            try {
-                utx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            if (tx != null && tx.isActive()) {
+                try {
+                    tx.rollback();
+                } catch (Exception rbEx) {
+                    throw new RollbackFailureException("Error al hacer rollback de la transacción", rbEx);
+                }
             }
+
+            // Verificar si el usuario ya no existe
+            if (ex instanceof NonexistentEntityException) {
+                throw ex;
+            }
+
             String msg = ex.getLocalizedMessage();
-            if (msg == null || msg.length() == 0) {
+            if (msg == null || msg.isEmpty()) {
                 Integer id = model_Usuario.getUsuarioid();
                 if (findModel_Usuario(id) == null) {
-                    throw new NonexistentEntityException("The model_Usuario with id " + id + " no longer exists.");
+                    throw new NonexistentEntityException("El usuario con id " + id + " ya no existe.");
                 }
             }
             throw ex;
         } finally {
-            if (em != null) {
+            if (em != null && em.isOpen()) {
                 em.close();
             }
         }
     }
 
+// Métodos auxiliares para mejorar la legibilidad
+    private <T> Collection<T> attachCollection(EntityManager em, Collection<T> collection) {
+        if (collection == null) {
+            return new ArrayList<>();
+        }
+
+        Collection<T> attachedCollection = new ArrayList<>();
+        for (T item : collection) {
+            item = (T) em.getReference(item.getClass(), getId(item));
+            attachedCollection.add(item);
+        }
+        return attachedCollection;
+    }
+
+    private <T> Object getId(T entity) {
+        if (entity instanceof Despachador) {
+            return ((Despachador) entity).getDespachadorID();
+        } else if (entity instanceof Gestores) {
+            return ((Gestores) entity).getGestorID();
+        } else if (entity instanceof Cliente) {
+            return ((Cliente) entity).getClienteID();
+        }
+        throw new IllegalArgumentException("Tipo de entidad no soportado");
+    }
+
+    private <T> void updateRelationships(EntityManager em, Model_Usuario usuario,
+            Collection<T> oldCollection, Collection<T> newCollection) {
+        for (T item : newCollection) {
+            if (!oldCollection.contains(item)) {
+                Model_Usuario oldUsuario = getUsuarioFromEntity(item);
+                setUsuarioForEntity(item, usuario);
+                em.merge(item);
+
+                if (oldUsuario != null && !oldUsuario.equals(usuario)) {
+                    removeEntityFromCollection(oldUsuario, item);
+                    em.merge(oldUsuario);
+                }
+            }
+        }
+    }
+
+// Métodos auxiliares para manejar los diferentes tipos de entidades
+    private Model_Usuario getUsuarioFromEntity(Object entity) {
+        if (entity instanceof Despachador) {
+            return ((Despachador) entity).getUsuarioUsuarioid();
+        } else if (entity instanceof Gestores) {
+            return ((Gestores) entity).getUsuarioUsuarioid();
+        } else if (entity instanceof Cliente) {
+            return ((Cliente) entity).getUsuarioUsuarioid();
+        }
+        return null;
+    }
+
+    private void setUsuarioForEntity(Object entity, Model_Usuario usuario) {
+        if (entity instanceof Despachador) {
+            ((Despachador) entity).setUsuarioUsuarioid(usuario);
+        } else if (entity instanceof Gestores) {
+            ((Gestores) entity).setUsuarioUsuarioid(usuario);
+        } else if (entity instanceof Cliente) {
+            ((Cliente) entity).setUsuarioUsuarioid(usuario);
+        }
+    }
+
+    private void removeEntityFromCollection(Model_Usuario usuario, Object entity) {
+        if (entity instanceof Despachador) {
+            usuario.getDespachadorCollection().remove(entity);
+        } else if (entity instanceof Gestores) {
+            usuario.getGestoresCollection().remove(entity);
+        } else if (entity instanceof Cliente) {
+            usuario.getClienteCollection().remove(entity);
+        }
+    }
+
     public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
+        EntityTransaction tx = null;
+
         try {
-            utx.begin();
             em = getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+
             Model_Usuario model_Usuario;
             try {
                 model_Usuario = em.getReference(Model_Usuario.class, id);
-                model_Usuario.getUsuarioid();
+                model_Usuario.getUsuarioid(); // Esto fuerza la carga para verificar existencia
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The model_Usuario with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("El usuario con id " + id + " no existe.", enfe);
             }
+
+            // Verificación de orfandad
             List<String> illegalOrphanMessages = null;
-            Collection<Despachador> despachadorCollectionOrphanCheck = model_Usuario.getDespachadorCollection();
-            for (Despachador despachadorCollectionOrphanCheckModel_Despachador : despachadorCollectionOrphanCheck) {
+
+            // Verificar despachadores asociados
+            for (Despachador despachador : model_Usuario.getDespachadorCollection()) {
                 if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
+                    illegalOrphanMessages = new ArrayList<>();
                 }
-                illegalOrphanMessages.add("This Model_Usuario (" + model_Usuario + ") cannot be destroyed since the Model_Despachador " + despachadorCollectionOrphanCheckModel_Despachador + " in its despachadorCollection field has a non-nullable usuarioUsuarioid field.");
+                illegalOrphanMessages.add("No se puede eliminar el usuario (" + model_Usuario
+                        + ") porque tiene asociado el despachador " + despachador
+                        + " con referencia no nula.");
             }
-            Collection<Gestores> gestoresCollectionOrphanCheck = model_Usuario.getGestoresCollection();
-            for (Gestores gestoresCollectionOrphanCheckModel_Gestores : gestoresCollectionOrphanCheck) {
+
+            // Verificar gestores asociados
+            for (Gestores gestor : model_Usuario.getGestoresCollection()) {
                 if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
+                    illegalOrphanMessages = new ArrayList<>();
                 }
-                illegalOrphanMessages.add("This Model_Usuario (" + model_Usuario + ") cannot be destroyed since the Model_Gestores " + gestoresCollectionOrphanCheckModel_Gestores + " in its gestoresCollection field has a non-nullable usuarioUsuarioid field.");
+                illegalOrphanMessages.add("No se puede eliminar el usuario (" + model_Usuario
+                        + ") porque tiene asociado el gestor " + gestor
+                        + " con referencia no nula.");
             }
-            Collection<Cliente> clienteCollectionOrphanCheck = model_Usuario.getClienteCollection();
-            for (Cliente clienteCollectionOrphanCheckModel_Cliente : clienteCollectionOrphanCheck) {
+
+            // Verificar clientes asociados
+            for (Cliente cliente : model_Usuario.getClienteCollection()) {
                 if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
+                    illegalOrphanMessages = new ArrayList<>();
                 }
-                illegalOrphanMessages.add("This Model_Usuario (" + model_Usuario + ") cannot be destroyed since the Model_Cliente " + clienteCollectionOrphanCheckModel_Cliente + " in its clienteCollection field has a non-nullable usuarioUsuarioid field.");
+                illegalOrphanMessages.add("No se puede eliminar el usuario (" + model_Usuario
+                        + ") porque tiene asociado el cliente " + cliente
+                        + " con referencia no nula.");
             }
+
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
+
             em.remove(model_Usuario);
-            utx.commit();
+            tx.commit();
+
         } catch (Exception ex) {
-            try {
-                utx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            if (tx != null && tx.isActive()) {
+                try {
+                    tx.rollback();
+                } catch (Exception rbEx) {
+                    throw new RollbackFailureException("Error al revertir la transacción", rbEx);
+                }
             }
+
+            // Relanza la excepción original
             throw ex;
+
         } finally {
-            if (em != null) {
+            if (em != null && em.isOpen()) {
                 em.close();
             }
         }
@@ -364,5 +444,5 @@ public class DAO_Usuario implements Serializable {
             em.close();
         }
     }
-    
+
 }

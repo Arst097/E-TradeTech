@@ -21,7 +21,8 @@ public class Prueba {
     public static void main(String[] args) throws Exception{
         Servicio_Gestor.prueba();
         System.out.print("antes\n");
-        Servicio_Usuario.CrearUsuario(5, "juan", "juan@gmail.com", "password123");
+        //Servicio_Usuario.CrearUsuario(5, "juan", "juan@gmail.com", "password123");
+        //Servicio_Usuario.EliminarUsuario(5);
         System.out.print("despues\n");
     }
 }

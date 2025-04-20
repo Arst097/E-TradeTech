@@ -4,6 +4,7 @@
  */
 package Uso_Comun;
 
+import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.RollbackFailureException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -25,6 +26,10 @@ public class Servicio_Usuario {
         CrearUsuario(Usuario);
     }
 
+    
+    public static void EliminarUsuario(Integer usuarioid) throws Exception{
+        DAO.destroy(usuarioid);
+    }
             
     public static String encryptSHA256(String input) {
         try {
