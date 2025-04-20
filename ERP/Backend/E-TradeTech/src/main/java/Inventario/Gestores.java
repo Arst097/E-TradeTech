@@ -5,7 +5,7 @@
 package Inventario;
 
 import Uso_Comun.Model_Usuario;
-import Inventario.Model_Almacen;
+import Inventario.Almacen;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,7 +28,7 @@ import java.io.Serializable;
     @NamedQuery(name = "Gestores.findByGestorID", query = "SELECT g FROM Gestores g WHERE g.gestorID = :gestorID"),
     @NamedQuery(name = "Gestores.findByPuesto", query = "SELECT g FROM Gestores g WHERE g.puesto = :puesto"),
     @NamedQuery(name = "Gestores.findByTelefono", query = "SELECT g FROM Gestores g WHERE g.telefono = :telefono")})
-public class Model_Gestores implements Serializable {
+public class Gestores implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,19 +43,19 @@ public class Model_Gestores implements Serializable {
     private String telefono;
     @JoinColumn(name = "AlmacenID", referencedColumnName = "AlmacenID")
     @ManyToOne(optional = false)
-    private Model_Almacen almacenID;
+    private Almacen almacenID;
     @JoinColumn(name = "Usuario_Usuario_id", referencedColumnName = "Usuario_id")
     @ManyToOne(optional = false)
     private Model_Usuario usuarioUsuarioid;
 
-    public Model_Gestores() {
+    public Gestores() {
     }
 
-    public Model_Gestores(Integer gestorID) {
+    public Gestores(Integer gestorID) {
         this.gestorID = gestorID;
     }
 
-    public Model_Gestores(Integer gestorID, String puesto, String telefono) {
+    public Gestores(Integer gestorID, String puesto, String telefono) {
         this.gestorID = gestorID;
         this.puesto = puesto;
         this.telefono = telefono;
@@ -85,11 +85,11 @@ public class Model_Gestores implements Serializable {
         this.telefono = telefono;
     }
 
-    public Model_Almacen getAlmacenID() {
+    public Almacen getAlmacenID() {
         return almacenID;
     }
 
-    public void setAlmacenID(Model_Almacen almacenID) {
+    public void setAlmacenID(Almacen almacenID) {
         this.almacenID = almacenID;
     }
 
@@ -111,10 +111,10 @@ public class Model_Gestores implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Model_Gestores)) {
+        if (!(object instanceof Gestores)) {
             return false;
         }
-        Model_Gestores other = (Model_Gestores) object;
+        Gestores other = (Gestores) object;
         if ((this.gestorID == null && other.gestorID != null) || (this.gestorID != null && !this.gestorID.equals(other.gestorID))) {
             return false;
         }

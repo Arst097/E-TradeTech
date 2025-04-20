@@ -4,7 +4,7 @@
  */
 package Uso_Comun;
 
-import Uso_Comun.Model_Cliente;
+import Uso_Comun.Cliente;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
@@ -37,9 +37,9 @@ public class DAO_Cliente implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Model_Cliente model_Cliente) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public void create(Cliente model_Cliente) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (model_Cliente.getPedidosCollection() == null) {
-            model_Cliente.setPedidosCollection(new ArrayList<Model_Pedidos>());
+            model_Cliente.setPedidosCollection(new ArrayList<Pedidos>());
         }
         EntityManager em = null;
         try {
@@ -50,8 +50,8 @@ public class DAO_Cliente implements Serializable {
                 usuarioUsuarioid = em.getReference(usuarioUsuarioid.getClass(), usuarioUsuarioid.getUsuarioid());
                 model_Cliente.setUsuarioUsuarioid(usuarioUsuarioid);
             }
-            Collection<Model_Pedidos> attachedPedidosCollection = new ArrayList<Model_Pedidos>();
-            for (Model_Pedidos pedidosCollectionModel_PedidosToAttach : model_Cliente.getPedidosCollection()) {
+            Collection<Pedidos> attachedPedidosCollection = new ArrayList<Pedidos>();
+            for (Pedidos pedidosCollectionModel_PedidosToAttach : model_Cliente.getPedidosCollection()) {
                 pedidosCollectionModel_PedidosToAttach = em.getReference(pedidosCollectionModel_PedidosToAttach.getClass(), pedidosCollectionModel_PedidosToAttach.getPedidoID());
                 attachedPedidosCollection.add(pedidosCollectionModel_PedidosToAttach);
             }
@@ -61,8 +61,8 @@ public class DAO_Cliente implements Serializable {
                 usuarioUsuarioid.getClienteCollection().add(model_Cliente);
                 usuarioUsuarioid = em.merge(usuarioUsuarioid);
             }
-            for (Model_Pedidos pedidosCollectionModel_Pedidos : model_Cliente.getPedidosCollection()) {
-                Model_Cliente oldClienteIDOfPedidosCollectionModel_Pedidos = pedidosCollectionModel_Pedidos.getClienteID();
+            for (Pedidos pedidosCollectionModel_Pedidos : model_Cliente.getPedidosCollection()) {
+                Cliente oldClienteIDOfPedidosCollectionModel_Pedidos = pedidosCollectionModel_Pedidos.getClienteID();
                 pedidosCollectionModel_Pedidos.setClienteID(model_Cliente);
                 pedidosCollectionModel_Pedidos = em.merge(pedidosCollectionModel_Pedidos);
                 if (oldClienteIDOfPedidosCollectionModel_Pedidos != null) {
@@ -88,22 +88,22 @@ public class DAO_Cliente implements Serializable {
         }
     }
 
-    public void edit(Model_Cliente model_Cliente) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public void edit(Cliente model_Cliente) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Model_Cliente persistentModel_Cliente = em.find(Model_Cliente.class, model_Cliente.getClienteID());
+            Cliente persistentModel_Cliente = em.find(Cliente.class, model_Cliente.getClienteID());
             Model_Usuario usuarioUsuarioidOld = persistentModel_Cliente.getUsuarioUsuarioid();
             Model_Usuario usuarioUsuarioidNew = model_Cliente.getUsuarioUsuarioid();
-            Collection<Model_Pedidos> pedidosCollectionOld = persistentModel_Cliente.getPedidosCollection();
-            Collection<Model_Pedidos> pedidosCollectionNew = model_Cliente.getPedidosCollection();
+            Collection<Pedidos> pedidosCollectionOld = persistentModel_Cliente.getPedidosCollection();
+            Collection<Pedidos> pedidosCollectionNew = model_Cliente.getPedidosCollection();
             if (usuarioUsuarioidNew != null) {
                 usuarioUsuarioidNew = em.getReference(usuarioUsuarioidNew.getClass(), usuarioUsuarioidNew.getUsuarioid());
                 model_Cliente.setUsuarioUsuarioid(usuarioUsuarioidNew);
             }
-            Collection<Model_Pedidos> attachedPedidosCollectionNew = new ArrayList<Model_Pedidos>();
-            for (Model_Pedidos pedidosCollectionNewModel_PedidosToAttach : pedidosCollectionNew) {
+            Collection<Pedidos> attachedPedidosCollectionNew = new ArrayList<Pedidos>();
+            for (Pedidos pedidosCollectionNewModel_PedidosToAttach : pedidosCollectionNew) {
                 pedidosCollectionNewModel_PedidosToAttach = em.getReference(pedidosCollectionNewModel_PedidosToAttach.getClass(), pedidosCollectionNewModel_PedidosToAttach.getPedidoID());
                 attachedPedidosCollectionNew.add(pedidosCollectionNewModel_PedidosToAttach);
             }
@@ -118,15 +118,15 @@ public class DAO_Cliente implements Serializable {
                 usuarioUsuarioidNew.getClienteCollection().add(model_Cliente);
                 usuarioUsuarioidNew = em.merge(usuarioUsuarioidNew);
             }
-            for (Model_Pedidos pedidosCollectionOldModel_Pedidos : pedidosCollectionOld) {
+            for (Pedidos pedidosCollectionOldModel_Pedidos : pedidosCollectionOld) {
                 if (!pedidosCollectionNew.contains(pedidosCollectionOldModel_Pedidos)) {
                     pedidosCollectionOldModel_Pedidos.setClienteID(null);
                     pedidosCollectionOldModel_Pedidos = em.merge(pedidosCollectionOldModel_Pedidos);
                 }
             }
-            for (Model_Pedidos pedidosCollectionNewModel_Pedidos : pedidosCollectionNew) {
+            for (Pedidos pedidosCollectionNewModel_Pedidos : pedidosCollectionNew) {
                 if (!pedidosCollectionOld.contains(pedidosCollectionNewModel_Pedidos)) {
-                    Model_Cliente oldClienteIDOfPedidosCollectionNewModel_Pedidos = pedidosCollectionNewModel_Pedidos.getClienteID();
+                    Cliente oldClienteIDOfPedidosCollectionNewModel_Pedidos = pedidosCollectionNewModel_Pedidos.getClienteID();
                     pedidosCollectionNewModel_Pedidos.setClienteID(model_Cliente);
                     pedidosCollectionNewModel_Pedidos = em.merge(pedidosCollectionNewModel_Pedidos);
                     if (oldClienteIDOfPedidosCollectionNewModel_Pedidos != null && !oldClienteIDOfPedidosCollectionNewModel_Pedidos.equals(model_Cliente)) {
@@ -162,9 +162,9 @@ public class DAO_Cliente implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            Model_Cliente model_Cliente;
+            Cliente model_Cliente;
             try {
-                model_Cliente = em.getReference(Model_Cliente.class, id);
+                model_Cliente = em.getReference(Cliente.class, id);
                 model_Cliente.getClienteID();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The model_Cliente with id " + id + " no longer exists.", enfe);
@@ -174,8 +174,8 @@ public class DAO_Cliente implements Serializable {
                 usuarioUsuarioid.getClienteCollection().remove(model_Cliente);
                 usuarioUsuarioid = em.merge(usuarioUsuarioid);
             }
-            Collection<Model_Pedidos> pedidosCollection = model_Cliente.getPedidosCollection();
-            for (Model_Pedidos pedidosCollectionModel_Pedidos : pedidosCollection) {
+            Collection<Pedidos> pedidosCollection = model_Cliente.getPedidosCollection();
+            for (Pedidos pedidosCollectionModel_Pedidos : pedidosCollection) {
                 pedidosCollectionModel_Pedidos.setClienteID(null);
                 pedidosCollectionModel_Pedidos = em.merge(pedidosCollectionModel_Pedidos);
             }
@@ -195,19 +195,19 @@ public class DAO_Cliente implements Serializable {
         }
     }
 
-    public List<Model_Cliente> findModel_ClienteEntities() {
+    public List<Cliente> findModel_ClienteEntities() {
         return findModel_ClienteEntities(true, -1, -1);
     }
 
-    public List<Model_Cliente> findModel_ClienteEntities(int maxResults, int firstResult) {
+    public List<Cliente> findModel_ClienteEntities(int maxResults, int firstResult) {
         return findModel_ClienteEntities(false, maxResults, firstResult);
     }
 
-    private List<Model_Cliente> findModel_ClienteEntities(boolean all, int maxResults, int firstResult) {
+    private List<Cliente> findModel_ClienteEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Model_Cliente.class));
+            cq.select(cq.from(Cliente.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -219,10 +219,10 @@ public class DAO_Cliente implements Serializable {
         }
     }
 
-    public Model_Cliente findModel_Cliente(Integer id) {
+    public Cliente findModel_Cliente(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Model_Cliente.class, id);
+            return em.find(Cliente.class, id);
         } finally {
             em.close();
         }
@@ -232,7 +232,7 @@ public class DAO_Cliente implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Model_Cliente> rt = cq.from(Model_Cliente.class);
+            Root<Cliente> rt = cq.from(Cliente.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

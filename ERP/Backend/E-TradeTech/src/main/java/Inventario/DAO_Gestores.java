@@ -13,6 +13,7 @@ import jakarta.persistence.EntityManagerFactory;
 import java.io.Serializable;
 import jakarta.persistence.Query;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.UserTransaction;
@@ -31,16 +32,20 @@ public class DAO_Gestores implements Serializable {
     private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
+    public DAO_Gestores() {
+        this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
+    }
+
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-    public void create(Model_Gestores model_Gestores) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public void create(Gestores model_Gestores) throws PreexistingEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Model_Almacen almacenID = model_Gestores.getAlmacenID();
+            Almacen almacenID = model_Gestores.getAlmacenID();
             if (almacenID != null) {
                 almacenID = em.getReference(almacenID.getClass(), almacenID.getAlmacenID());
                 model_Gestores.setAlmacenID(almacenID);
@@ -77,14 +82,14 @@ public class DAO_Gestores implements Serializable {
         }
     }
 
-    public void edit(Model_Gestores model_Gestores) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public void edit(Gestores model_Gestores) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Model_Gestores persistentModel_Gestores = em.find(Model_Gestores.class, model_Gestores.getGestorID());
-            Model_Almacen almacenIDOld = persistentModel_Gestores.getAlmacenID();
-            Model_Almacen almacenIDNew = model_Gestores.getAlmacenID();
+            Gestores persistentModel_Gestores = em.find(Gestores.class, model_Gestores.getGestorID());
+            Almacen almacenIDOld = persistentModel_Gestores.getAlmacenID();
+            Almacen almacenIDNew = model_Gestores.getAlmacenID();
             Model_Usuario usuarioUsuarioidOld = persistentModel_Gestores.getUsuarioUsuarioid();
             Model_Usuario usuarioUsuarioidNew = model_Gestores.getUsuarioUsuarioid();
             if (almacenIDNew != null) {
@@ -139,14 +144,14 @@ public class DAO_Gestores implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            Model_Gestores model_Gestores;
+            Gestores model_Gestores;
             try {
-                model_Gestores = em.getReference(Model_Gestores.class, id);
+                model_Gestores = em.getReference(Gestores.class, id);
                 model_Gestores.getGestorID();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The model_Gestores with id " + id + " no longer exists.", enfe);
             }
-            Model_Almacen almacenID = model_Gestores.getAlmacenID();
+            Almacen almacenID = model_Gestores.getAlmacenID();
             if (almacenID != null) {
                 almacenID.getGestoresCollection().remove(model_Gestores);
                 almacenID = em.merge(almacenID);
@@ -172,19 +177,19 @@ public class DAO_Gestores implements Serializable {
         }
     }
 
-    public List<Model_Gestores> findModel_GestoresEntities() {
+    public List<Gestores> findModel_GestoresEntities() {
         return findModel_GestoresEntities(true, -1, -1);
     }
 
-    public List<Model_Gestores> findModel_GestoresEntities(int maxResults, int firstResult) {
+    public List<Gestores> findModel_GestoresEntities(int maxResults, int firstResult) {
         return findModel_GestoresEntities(false, maxResults, firstResult);
     }
 
-    private List<Model_Gestores> findModel_GestoresEntities(boolean all, int maxResults, int firstResult) {
+    private List<Gestores> findModel_GestoresEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Model_Gestores.class));
+            cq.select(cq.from(Gestores.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -196,10 +201,10 @@ public class DAO_Gestores implements Serializable {
         }
     }
 
-    public Model_Gestores findModel_Gestores(Integer id) {
+    public Gestores findModel_Gestores(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Model_Gestores.class, id);
+            return em.find(Gestores.class, id);
         } finally {
             em.close();
         }
@@ -209,7 +214,7 @@ public class DAO_Gestores implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Model_Gestores> rt = cq.from(Model_Gestores.class);
+            Root<Gestores> rt = cq.from(Gestores.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

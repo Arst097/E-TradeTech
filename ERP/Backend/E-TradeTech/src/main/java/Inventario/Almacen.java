@@ -29,7 +29,7 @@ import java.util.Collection;
     @NamedQuery(name = "Almacen.findByDireccion", query = "SELECT a FROM Almacen a WHERE a.direccion = :direccion"),
     @NamedQuery(name = "Almacen.findByCapacidad", query = "SELECT a FROM Almacen a WHERE a.capacidad = :capacidad"),
     @NamedQuery(name = "Almacen.findByTelefono", query = "SELECT a FROM Almacen a WHERE a.telefono = :telefono")})
-public class Model_Almacen implements Serializable {
+public class Almacen implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,20 +49,20 @@ public class Model_Almacen implements Serializable {
     @Column(name = "Telefono")
     private String telefono;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "almacenID")
-    private Collection<Model_Despachador> despachadorCollection;
+    private Collection<Despachador> despachadorCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "almacenID")
-    private Collection<Model_Gestores> gestoresCollection;
+    private Collection<Gestores> gestoresCollection;
     @OneToMany(mappedBy = "almacenID")
-    private Collection<Model_Inventario> inventarioCollection;
+    private Collection<Inventario> inventarioCollection;
 
-    public Model_Almacen() {
+    public Almacen() {
     }
 
-    public Model_Almacen(Integer almacenID) {
+    public Almacen(Integer almacenID) {
         this.almacenID = almacenID;
     }
 
-    public Model_Almacen(Integer almacenID, String nombre, String direccion, int capacidad, String telefono) {
+    public Almacen(Integer almacenID, String nombre, String direccion, int capacidad, String telefono) {
         this.almacenID = almacenID;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -110,27 +110,27 @@ public class Model_Almacen implements Serializable {
         this.telefono = telefono;
     }
 
-    public Collection<Model_Despachador> getDespachadorCollection() {
+    public Collection<Despachador> getDespachadorCollection() {
         return despachadorCollection;
     }
 
-    public void setDespachadorCollection(Collection<Model_Despachador> despachadorCollection) {
+    public void setDespachadorCollection(Collection<Despachador> despachadorCollection) {
         this.despachadorCollection = despachadorCollection;
     }
 
-    public Collection<Model_Gestores> getGestoresCollection() {
+    public Collection<Gestores> getGestoresCollection() {
         return gestoresCollection;
     }
 
-    public void setGestoresCollection(Collection<Model_Gestores> gestoresCollection) {
+    public void setGestoresCollection(Collection<Gestores> gestoresCollection) {
         this.gestoresCollection = gestoresCollection;
     }
 
-    public Collection<Model_Inventario> getInventarioCollection() {
+    public Collection<Inventario> getInventarioCollection() {
         return inventarioCollection;
     }
 
-    public void setInventarioCollection(Collection<Model_Inventario> inventarioCollection) {
+    public void setInventarioCollection(Collection<Inventario> inventarioCollection) {
         this.inventarioCollection = inventarioCollection;
     }
 
@@ -144,10 +144,10 @@ public class Model_Almacen implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Model_Almacen)) {
+        if (!(object instanceof Almacen)) {
             return false;
         }
-        Model_Almacen other = (Model_Almacen) object;
+        Almacen other = (Almacen) object;
         if ((this.almacenID == null && other.almacenID != null) || (this.almacenID != null && !this.almacenID.equals(other.almacenID))) {
             return false;
         }

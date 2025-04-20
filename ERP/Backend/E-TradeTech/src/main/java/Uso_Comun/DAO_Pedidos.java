@@ -4,11 +4,11 @@
  */
 package Uso_Comun;
 
-import Inventario.Model_Despachador;
-import Inventario.Model_HistorialPedidos;
-import Uso_Comun.Model_Pedidos;
-import Uso_Comun.Model_Mensajero;
-import Uso_Comun.Model_Cliente;
+import Inventario.Despachador;
+import Inventario.HistorialPedidos;
+import Uso_Comun.Pedidos;
+import Uso_Comun.Mensajero;
+import Uso_Comun.Cliente;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
@@ -41,36 +41,36 @@ public class DAO_Pedidos implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Model_Pedidos model_Pedidos) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public void create(Pedidos model_Pedidos) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (model_Pedidos.getProductoCollection() == null) {
-            model_Pedidos.setProductoCollection(new ArrayList<Model_Producto>());
+            model_Pedidos.setProductoCollection(new ArrayList<Producto>());
         }
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Model_Cliente clienteID = model_Pedidos.getClienteID();
+            Cliente clienteID = model_Pedidos.getClienteID();
             if (clienteID != null) {
                 clienteID = em.getReference(clienteID.getClass(), clienteID.getClienteID());
                 model_Pedidos.setClienteID(clienteID);
             }
-            Model_Despachador despachadorID = model_Pedidos.getDespachadorID();
+            Despachador despachadorID = model_Pedidos.getDespachadorID();
             if (despachadorID != null) {
                 despachadorID = em.getReference(despachadorID.getClass(), despachadorID.getDespachadorID());
                 model_Pedidos.setDespachadorID(despachadorID);
             }
-            Model_HistorialPedidos historialPredidosID = model_Pedidos.getHistorialPredidosID();
+            HistorialPedidos historialPredidosID = model_Pedidos.getHistorialPredidosID();
             if (historialPredidosID != null) {
                 historialPredidosID = em.getReference(historialPredidosID.getClass(), historialPredidosID.getHistorialPredidosID());
                 model_Pedidos.setHistorialPredidosID(historialPredidosID);
             }
-            Model_Mensajero mensajeroID = model_Pedidos.getMensajeroID();
+            Mensajero mensajeroID = model_Pedidos.getMensajeroID();
             if (mensajeroID != null) {
                 mensajeroID = em.getReference(mensajeroID.getClass(), mensajeroID.getMensajeroID());
                 model_Pedidos.setMensajeroID(mensajeroID);
             }
-            Collection<Model_Producto> attachedProductoCollection = new ArrayList<Model_Producto>();
-            for (Model_Producto productoCollectionModel_ProductoToAttach : model_Pedidos.getProductoCollection()) {
+            Collection<Producto> attachedProductoCollection = new ArrayList<Producto>();
+            for (Producto productoCollectionModel_ProductoToAttach : model_Pedidos.getProductoCollection()) {
                 productoCollectionModel_ProductoToAttach = em.getReference(productoCollectionModel_ProductoToAttach.getClass(), productoCollectionModel_ProductoToAttach.getProductoID());
                 attachedProductoCollection.add(productoCollectionModel_ProductoToAttach);
             }
@@ -92,8 +92,8 @@ public class DAO_Pedidos implements Serializable {
                 mensajeroID.getPedidosCollection().add(model_Pedidos);
                 mensajeroID = em.merge(mensajeroID);
             }
-            for (Model_Producto productoCollectionModel_Producto : model_Pedidos.getProductoCollection()) {
-                Model_Pedidos oldPedidoIDOfProductoCollectionModel_Producto = productoCollectionModel_Producto.getPedidoID();
+            for (Producto productoCollectionModel_Producto : model_Pedidos.getProductoCollection()) {
+                Pedidos oldPedidoIDOfProductoCollectionModel_Producto = productoCollectionModel_Producto.getPedidoID();
                 productoCollectionModel_Producto.setPedidoID(model_Pedidos);
                 productoCollectionModel_Producto = em.merge(productoCollectionModel_Producto);
                 if (oldPedidoIDOfProductoCollectionModel_Producto != null) {
@@ -119,22 +119,22 @@ public class DAO_Pedidos implements Serializable {
         }
     }
 
-    public void edit(Model_Pedidos model_Pedidos) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public void edit(Pedidos model_Pedidos) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Model_Pedidos persistentModel_Pedidos = em.find(Model_Pedidos.class, model_Pedidos.getPedidoID());
-            Model_Cliente clienteIDOld = persistentModel_Pedidos.getClienteID();
-            Model_Cliente clienteIDNew = model_Pedidos.getClienteID();
-            Model_Despachador despachadorIDOld = persistentModel_Pedidos.getDespachadorID();
-            Model_Despachador despachadorIDNew = model_Pedidos.getDespachadorID();
-            Model_HistorialPedidos historialPredidosIDOld = persistentModel_Pedidos.getHistorialPredidosID();
-            Model_HistorialPedidos historialPredidosIDNew = model_Pedidos.getHistorialPredidosID();
-            Model_Mensajero mensajeroIDOld = persistentModel_Pedidos.getMensajeroID();
-            Model_Mensajero mensajeroIDNew = model_Pedidos.getMensajeroID();
-            Collection<Model_Producto> productoCollectionOld = persistentModel_Pedidos.getProductoCollection();
-            Collection<Model_Producto> productoCollectionNew = model_Pedidos.getProductoCollection();
+            Pedidos persistentModel_Pedidos = em.find(Pedidos.class, model_Pedidos.getPedidoID());
+            Cliente clienteIDOld = persistentModel_Pedidos.getClienteID();
+            Cliente clienteIDNew = model_Pedidos.getClienteID();
+            Despachador despachadorIDOld = persistentModel_Pedidos.getDespachadorID();
+            Despachador despachadorIDNew = model_Pedidos.getDespachadorID();
+            HistorialPedidos historialPredidosIDOld = persistentModel_Pedidos.getHistorialPredidosID();
+            HistorialPedidos historialPredidosIDNew = model_Pedidos.getHistorialPredidosID();
+            Mensajero mensajeroIDOld = persistentModel_Pedidos.getMensajeroID();
+            Mensajero mensajeroIDNew = model_Pedidos.getMensajeroID();
+            Collection<Producto> productoCollectionOld = persistentModel_Pedidos.getProductoCollection();
+            Collection<Producto> productoCollectionNew = model_Pedidos.getProductoCollection();
             if (clienteIDNew != null) {
                 clienteIDNew = em.getReference(clienteIDNew.getClass(), clienteIDNew.getClienteID());
                 model_Pedidos.setClienteID(clienteIDNew);
@@ -151,8 +151,8 @@ public class DAO_Pedidos implements Serializable {
                 mensajeroIDNew = em.getReference(mensajeroIDNew.getClass(), mensajeroIDNew.getMensajeroID());
                 model_Pedidos.setMensajeroID(mensajeroIDNew);
             }
-            Collection<Model_Producto> attachedProductoCollectionNew = new ArrayList<Model_Producto>();
-            for (Model_Producto productoCollectionNewModel_ProductoToAttach : productoCollectionNew) {
+            Collection<Producto> attachedProductoCollectionNew = new ArrayList<Producto>();
+            for (Producto productoCollectionNewModel_ProductoToAttach : productoCollectionNew) {
                 productoCollectionNewModel_ProductoToAttach = em.getReference(productoCollectionNewModel_ProductoToAttach.getClass(), productoCollectionNewModel_ProductoToAttach.getProductoID());
                 attachedProductoCollectionNew.add(productoCollectionNewModel_ProductoToAttach);
             }
@@ -191,15 +191,15 @@ public class DAO_Pedidos implements Serializable {
                 mensajeroIDNew.getPedidosCollection().add(model_Pedidos);
                 mensajeroIDNew = em.merge(mensajeroIDNew);
             }
-            for (Model_Producto productoCollectionOldModel_Producto : productoCollectionOld) {
+            for (Producto productoCollectionOldModel_Producto : productoCollectionOld) {
                 if (!productoCollectionNew.contains(productoCollectionOldModel_Producto)) {
                     productoCollectionOldModel_Producto.setPedidoID(null);
                     productoCollectionOldModel_Producto = em.merge(productoCollectionOldModel_Producto);
                 }
             }
-            for (Model_Producto productoCollectionNewModel_Producto : productoCollectionNew) {
+            for (Producto productoCollectionNewModel_Producto : productoCollectionNew) {
                 if (!productoCollectionOld.contains(productoCollectionNewModel_Producto)) {
-                    Model_Pedidos oldPedidoIDOfProductoCollectionNewModel_Producto = productoCollectionNewModel_Producto.getPedidoID();
+                    Pedidos oldPedidoIDOfProductoCollectionNewModel_Producto = productoCollectionNewModel_Producto.getPedidoID();
                     productoCollectionNewModel_Producto.setPedidoID(model_Pedidos);
                     productoCollectionNewModel_Producto = em.merge(productoCollectionNewModel_Producto);
                     if (oldPedidoIDOfProductoCollectionNewModel_Producto != null && !oldPedidoIDOfProductoCollectionNewModel_Producto.equals(model_Pedidos)) {
@@ -235,35 +235,35 @@ public class DAO_Pedidos implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            Model_Pedidos model_Pedidos;
+            Pedidos model_Pedidos;
             try {
-                model_Pedidos = em.getReference(Model_Pedidos.class, id);
+                model_Pedidos = em.getReference(Pedidos.class, id);
                 model_Pedidos.getPedidoID();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The model_Pedidos with id " + id + " no longer exists.", enfe);
             }
-            Model_Cliente clienteID = model_Pedidos.getClienteID();
+            Cliente clienteID = model_Pedidos.getClienteID();
             if (clienteID != null) {
                 clienteID.getPedidosCollection().remove(model_Pedidos);
                 clienteID = em.merge(clienteID);
             }
-            Model_Despachador despachadorID = model_Pedidos.getDespachadorID();
+            Despachador despachadorID = model_Pedidos.getDespachadorID();
             if (despachadorID != null) {
                 despachadorID.getPedidosCollection().remove(model_Pedidos);
                 despachadorID = em.merge(despachadorID);
             }
-            Model_HistorialPedidos historialPredidosID = model_Pedidos.getHistorialPredidosID();
+            HistorialPedidos historialPredidosID = model_Pedidos.getHistorialPredidosID();
             if (historialPredidosID != null) {
                 historialPredidosID.getPedidosCollection().remove(model_Pedidos);
                 historialPredidosID = em.merge(historialPredidosID);
             }
-            Model_Mensajero mensajeroID = model_Pedidos.getMensajeroID();
+            Mensajero mensajeroID = model_Pedidos.getMensajeroID();
             if (mensajeroID != null) {
                 mensajeroID.getPedidosCollection().remove(model_Pedidos);
                 mensajeroID = em.merge(mensajeroID);
             }
-            Collection<Model_Producto> productoCollection = model_Pedidos.getProductoCollection();
-            for (Model_Producto productoCollectionModel_Producto : productoCollection) {
+            Collection<Producto> productoCollection = model_Pedidos.getProductoCollection();
+            for (Producto productoCollectionModel_Producto : productoCollection) {
                 productoCollectionModel_Producto.setPedidoID(null);
                 productoCollectionModel_Producto = em.merge(productoCollectionModel_Producto);
             }
@@ -283,19 +283,19 @@ public class DAO_Pedidos implements Serializable {
         }
     }
 
-    public List<Model_Pedidos> findModel_PedidosEntities() {
+    public List<Pedidos> findModel_PedidosEntities() {
         return findModel_PedidosEntities(true, -1, -1);
     }
 
-    public List<Model_Pedidos> findModel_PedidosEntities(int maxResults, int firstResult) {
+    public List<Pedidos> findModel_PedidosEntities(int maxResults, int firstResult) {
         return findModel_PedidosEntities(false, maxResults, firstResult);
     }
 
-    private List<Model_Pedidos> findModel_PedidosEntities(boolean all, int maxResults, int firstResult) {
+    private List<Pedidos> findModel_PedidosEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Model_Pedidos.class));
+            cq.select(cq.from(Pedidos.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -307,10 +307,10 @@ public class DAO_Pedidos implements Serializable {
         }
     }
 
-    public Model_Pedidos findModel_Pedidos(Integer id) {
+    public Pedidos findModel_Pedidos(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Model_Pedidos.class, id);
+            return em.find(Pedidos.class, id);
         } finally {
             em.close();
         }
@@ -320,7 +320,7 @@ public class DAO_Pedidos implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Model_Pedidos> rt = cq.from(Model_Pedidos.class);
+            Root<Pedidos> rt = cq.from(Pedidos.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

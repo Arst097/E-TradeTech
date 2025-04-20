@@ -4,7 +4,7 @@
  */
 package Uso_Comun;
 
-import Uso_Comun.Model_Mensajero;
+import Uso_Comun.Mensajero;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
@@ -37,23 +37,23 @@ public class DAO_Mensajero implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Model_Mensajero model_Mensajero) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public void create(Mensajero model_Mensajero) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (model_Mensajero.getPedidosCollection() == null) {
-            model_Mensajero.setPedidosCollection(new ArrayList<Model_Pedidos>());
+            model_Mensajero.setPedidosCollection(new ArrayList<Pedidos>());
         }
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Collection<Model_Pedidos> attachedPedidosCollection = new ArrayList<Model_Pedidos>();
-            for (Model_Pedidos pedidosCollectionModel_PedidosToAttach : model_Mensajero.getPedidosCollection()) {
+            Collection<Pedidos> attachedPedidosCollection = new ArrayList<Pedidos>();
+            for (Pedidos pedidosCollectionModel_PedidosToAttach : model_Mensajero.getPedidosCollection()) {
                 pedidosCollectionModel_PedidosToAttach = em.getReference(pedidosCollectionModel_PedidosToAttach.getClass(), pedidosCollectionModel_PedidosToAttach.getPedidoID());
                 attachedPedidosCollection.add(pedidosCollectionModel_PedidosToAttach);
             }
             model_Mensajero.setPedidosCollection(attachedPedidosCollection);
             em.persist(model_Mensajero);
-            for (Model_Pedidos pedidosCollectionModel_Pedidos : model_Mensajero.getPedidosCollection()) {
-                Model_Mensajero oldMensajeroIDOfPedidosCollectionModel_Pedidos = pedidosCollectionModel_Pedidos.getMensajeroID();
+            for (Pedidos pedidosCollectionModel_Pedidos : model_Mensajero.getPedidosCollection()) {
+                Mensajero oldMensajeroIDOfPedidosCollectionModel_Pedidos = pedidosCollectionModel_Pedidos.getMensajeroID();
                 pedidosCollectionModel_Pedidos.setMensajeroID(model_Mensajero);
                 pedidosCollectionModel_Pedidos = em.merge(pedidosCollectionModel_Pedidos);
                 if (oldMensajeroIDOfPedidosCollectionModel_Pedidos != null) {
@@ -79,31 +79,31 @@ public class DAO_Mensajero implements Serializable {
         }
     }
 
-    public void edit(Model_Mensajero model_Mensajero) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public void edit(Mensajero model_Mensajero) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Model_Mensajero persistentModel_Mensajero = em.find(Model_Mensajero.class, model_Mensajero.getMensajeroID());
-            Collection<Model_Pedidos> pedidosCollectionOld = persistentModel_Mensajero.getPedidosCollection();
-            Collection<Model_Pedidos> pedidosCollectionNew = model_Mensajero.getPedidosCollection();
-            Collection<Model_Pedidos> attachedPedidosCollectionNew = new ArrayList<Model_Pedidos>();
-            for (Model_Pedidos pedidosCollectionNewModel_PedidosToAttach : pedidosCollectionNew) {
+            Mensajero persistentModel_Mensajero = em.find(Mensajero.class, model_Mensajero.getMensajeroID());
+            Collection<Pedidos> pedidosCollectionOld = persistentModel_Mensajero.getPedidosCollection();
+            Collection<Pedidos> pedidosCollectionNew = model_Mensajero.getPedidosCollection();
+            Collection<Pedidos> attachedPedidosCollectionNew = new ArrayList<Pedidos>();
+            for (Pedidos pedidosCollectionNewModel_PedidosToAttach : pedidosCollectionNew) {
                 pedidosCollectionNewModel_PedidosToAttach = em.getReference(pedidosCollectionNewModel_PedidosToAttach.getClass(), pedidosCollectionNewModel_PedidosToAttach.getPedidoID());
                 attachedPedidosCollectionNew.add(pedidosCollectionNewModel_PedidosToAttach);
             }
             pedidosCollectionNew = attachedPedidosCollectionNew;
             model_Mensajero.setPedidosCollection(pedidosCollectionNew);
             model_Mensajero = em.merge(model_Mensajero);
-            for (Model_Pedidos pedidosCollectionOldModel_Pedidos : pedidosCollectionOld) {
+            for (Pedidos pedidosCollectionOldModel_Pedidos : pedidosCollectionOld) {
                 if (!pedidosCollectionNew.contains(pedidosCollectionOldModel_Pedidos)) {
                     pedidosCollectionOldModel_Pedidos.setMensajeroID(null);
                     pedidosCollectionOldModel_Pedidos = em.merge(pedidosCollectionOldModel_Pedidos);
                 }
             }
-            for (Model_Pedidos pedidosCollectionNewModel_Pedidos : pedidosCollectionNew) {
+            for (Pedidos pedidosCollectionNewModel_Pedidos : pedidosCollectionNew) {
                 if (!pedidosCollectionOld.contains(pedidosCollectionNewModel_Pedidos)) {
-                    Model_Mensajero oldMensajeroIDOfPedidosCollectionNewModel_Pedidos = pedidosCollectionNewModel_Pedidos.getMensajeroID();
+                    Mensajero oldMensajeroIDOfPedidosCollectionNewModel_Pedidos = pedidosCollectionNewModel_Pedidos.getMensajeroID();
                     pedidosCollectionNewModel_Pedidos.setMensajeroID(model_Mensajero);
                     pedidosCollectionNewModel_Pedidos = em.merge(pedidosCollectionNewModel_Pedidos);
                     if (oldMensajeroIDOfPedidosCollectionNewModel_Pedidos != null && !oldMensajeroIDOfPedidosCollectionNewModel_Pedidos.equals(model_Mensajero)) {
@@ -139,15 +139,15 @@ public class DAO_Mensajero implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            Model_Mensajero model_Mensajero;
+            Mensajero model_Mensajero;
             try {
-                model_Mensajero = em.getReference(Model_Mensajero.class, id);
+                model_Mensajero = em.getReference(Mensajero.class, id);
                 model_Mensajero.getMensajeroID();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The model_Mensajero with id " + id + " no longer exists.", enfe);
             }
-            Collection<Model_Pedidos> pedidosCollection = model_Mensajero.getPedidosCollection();
-            for (Model_Pedidos pedidosCollectionModel_Pedidos : pedidosCollection) {
+            Collection<Pedidos> pedidosCollection = model_Mensajero.getPedidosCollection();
+            for (Pedidos pedidosCollectionModel_Pedidos : pedidosCollection) {
                 pedidosCollectionModel_Pedidos.setMensajeroID(null);
                 pedidosCollectionModel_Pedidos = em.merge(pedidosCollectionModel_Pedidos);
             }
@@ -167,19 +167,19 @@ public class DAO_Mensajero implements Serializable {
         }
     }
 
-    public List<Model_Mensajero> findModel_MensajeroEntities() {
+    public List<Mensajero> findModel_MensajeroEntities() {
         return findModel_MensajeroEntities(true, -1, -1);
     }
 
-    public List<Model_Mensajero> findModel_MensajeroEntities(int maxResults, int firstResult) {
+    public List<Mensajero> findModel_MensajeroEntities(int maxResults, int firstResult) {
         return findModel_MensajeroEntities(false, maxResults, firstResult);
     }
 
-    private List<Model_Mensajero> findModel_MensajeroEntities(boolean all, int maxResults, int firstResult) {
+    private List<Mensajero> findModel_MensajeroEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Model_Mensajero.class));
+            cq.select(cq.from(Mensajero.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -191,10 +191,10 @@ public class DAO_Mensajero implements Serializable {
         }
     }
 
-    public Model_Mensajero findModel_Mensajero(Integer id) {
+    public Mensajero findModel_Mensajero(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Model_Mensajero.class, id);
+            return em.find(Mensajero.class, id);
         } finally {
             em.close();
         }
@@ -204,7 +204,7 @@ public class DAO_Mensajero implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Model_Mensajero> rt = cq.from(Model_Mensajero.class);
+            Root<Mensajero> rt = cq.from(Mensajero.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

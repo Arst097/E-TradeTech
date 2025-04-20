@@ -37,23 +37,23 @@ public class DAO_HistorialTransaccInv implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Model_HistorialTransaccInv model_HistorialTransaccInv) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public void create(HistorialTransaccInv model_HistorialTransaccInv) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (model_HistorialTransaccInv.getTransaccionInvCollection() == null) {
-            model_HistorialTransaccInv.setTransaccionInvCollection(new ArrayList<Model_TransaccionInv>());
+            model_HistorialTransaccInv.setTransaccionInvCollection(new ArrayList<TransaccionInv>());
         }
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Collection<Model_TransaccionInv> attachedTransaccionInvCollection = new ArrayList<Model_TransaccionInv>();
-            for (Model_TransaccionInv transaccionInvCollectionModel_TransaccionInvToAttach : model_HistorialTransaccInv.getTransaccionInvCollection()) {
+            Collection<TransaccionInv> attachedTransaccionInvCollection = new ArrayList<TransaccionInv>();
+            for (TransaccionInv transaccionInvCollectionModel_TransaccionInvToAttach : model_HistorialTransaccInv.getTransaccionInvCollection()) {
                 transaccionInvCollectionModel_TransaccionInvToAttach = em.getReference(transaccionInvCollectionModel_TransaccionInvToAttach.getClass(), transaccionInvCollectionModel_TransaccionInvToAttach.getTransaccionInvID());
                 attachedTransaccionInvCollection.add(transaccionInvCollectionModel_TransaccionInvToAttach);
             }
             model_HistorialTransaccInv.setTransaccionInvCollection(attachedTransaccionInvCollection);
             em.persist(model_HistorialTransaccInv);
-            for (Model_TransaccionInv transaccionInvCollectionModel_TransaccionInv : model_HistorialTransaccInv.getTransaccionInvCollection()) {
-                Model_HistorialTransaccInv oldHistorialTransaccInvIDOfTransaccionInvCollectionModel_TransaccionInv = transaccionInvCollectionModel_TransaccionInv.getHistorialTransaccInvID();
+            for (TransaccionInv transaccionInvCollectionModel_TransaccionInv : model_HistorialTransaccInv.getTransaccionInvCollection()) {
+                HistorialTransaccInv oldHistorialTransaccInvIDOfTransaccionInvCollectionModel_TransaccionInv = transaccionInvCollectionModel_TransaccionInv.getHistorialTransaccInvID();
                 transaccionInvCollectionModel_TransaccionInv.setHistorialTransaccInvID(model_HistorialTransaccInv);
                 transaccionInvCollectionModel_TransaccionInv = em.merge(transaccionInvCollectionModel_TransaccionInv);
                 if (oldHistorialTransaccInvIDOfTransaccionInvCollectionModel_TransaccionInv != null) {
@@ -79,16 +79,16 @@ public class DAO_HistorialTransaccInv implements Serializable {
         }
     }
 
-    public void edit(Model_HistorialTransaccInv model_HistorialTransaccInv) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public void edit(HistorialTransaccInv model_HistorialTransaccInv) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Model_HistorialTransaccInv persistentModel_HistorialTransaccInv = em.find(Model_HistorialTransaccInv.class, model_HistorialTransaccInv.getHistorialTransaccInvID());
-            Collection<Model_TransaccionInv> transaccionInvCollectionOld = persistentModel_HistorialTransaccInv.getTransaccionInvCollection();
-            Collection<Model_TransaccionInv> transaccionInvCollectionNew = model_HistorialTransaccInv.getTransaccionInvCollection();
+            HistorialTransaccInv persistentModel_HistorialTransaccInv = em.find(HistorialTransaccInv.class, model_HistorialTransaccInv.getHistorialTransaccInvID());
+            Collection<TransaccionInv> transaccionInvCollectionOld = persistentModel_HistorialTransaccInv.getTransaccionInvCollection();
+            Collection<TransaccionInv> transaccionInvCollectionNew = model_HistorialTransaccInv.getTransaccionInvCollection();
             List<String> illegalOrphanMessages = null;
-            for (Model_TransaccionInv transaccionInvCollectionOldModel_TransaccionInv : transaccionInvCollectionOld) {
+            for (TransaccionInv transaccionInvCollectionOldModel_TransaccionInv : transaccionInvCollectionOld) {
                 if (!transaccionInvCollectionNew.contains(transaccionInvCollectionOldModel_TransaccionInv)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
@@ -99,17 +99,17 @@ public class DAO_HistorialTransaccInv implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Collection<Model_TransaccionInv> attachedTransaccionInvCollectionNew = new ArrayList<Model_TransaccionInv>();
-            for (Model_TransaccionInv transaccionInvCollectionNewModel_TransaccionInvToAttach : transaccionInvCollectionNew) {
+            Collection<TransaccionInv> attachedTransaccionInvCollectionNew = new ArrayList<TransaccionInv>();
+            for (TransaccionInv transaccionInvCollectionNewModel_TransaccionInvToAttach : transaccionInvCollectionNew) {
                 transaccionInvCollectionNewModel_TransaccionInvToAttach = em.getReference(transaccionInvCollectionNewModel_TransaccionInvToAttach.getClass(), transaccionInvCollectionNewModel_TransaccionInvToAttach.getTransaccionInvID());
                 attachedTransaccionInvCollectionNew.add(transaccionInvCollectionNewModel_TransaccionInvToAttach);
             }
             transaccionInvCollectionNew = attachedTransaccionInvCollectionNew;
             model_HistorialTransaccInv.setTransaccionInvCollection(transaccionInvCollectionNew);
             model_HistorialTransaccInv = em.merge(model_HistorialTransaccInv);
-            for (Model_TransaccionInv transaccionInvCollectionNewModel_TransaccionInv : transaccionInvCollectionNew) {
+            for (TransaccionInv transaccionInvCollectionNewModel_TransaccionInv : transaccionInvCollectionNew) {
                 if (!transaccionInvCollectionOld.contains(transaccionInvCollectionNewModel_TransaccionInv)) {
-                    Model_HistorialTransaccInv oldHistorialTransaccInvIDOfTransaccionInvCollectionNewModel_TransaccionInv = transaccionInvCollectionNewModel_TransaccionInv.getHistorialTransaccInvID();
+                    HistorialTransaccInv oldHistorialTransaccInvIDOfTransaccionInvCollectionNewModel_TransaccionInv = transaccionInvCollectionNewModel_TransaccionInv.getHistorialTransaccInvID();
                     transaccionInvCollectionNewModel_TransaccionInv.setHistorialTransaccInvID(model_HistorialTransaccInv);
                     transaccionInvCollectionNewModel_TransaccionInv = em.merge(transaccionInvCollectionNewModel_TransaccionInv);
                     if (oldHistorialTransaccInvIDOfTransaccionInvCollectionNewModel_TransaccionInv != null && !oldHistorialTransaccInvIDOfTransaccionInvCollectionNewModel_TransaccionInv.equals(model_HistorialTransaccInv)) {
@@ -145,16 +145,16 @@ public class DAO_HistorialTransaccInv implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            Model_HistorialTransaccInv model_HistorialTransaccInv;
+            HistorialTransaccInv model_HistorialTransaccInv;
             try {
-                model_HistorialTransaccInv = em.getReference(Model_HistorialTransaccInv.class, id);
+                model_HistorialTransaccInv = em.getReference(HistorialTransaccInv.class, id);
                 model_HistorialTransaccInv.getHistorialTransaccInvID();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The model_HistorialTransaccInv with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            Collection<Model_TransaccionInv> transaccionInvCollectionOrphanCheck = model_HistorialTransaccInv.getTransaccionInvCollection();
-            for (Model_TransaccionInv transaccionInvCollectionOrphanCheckModel_TransaccionInv : transaccionInvCollectionOrphanCheck) {
+            Collection<TransaccionInv> transaccionInvCollectionOrphanCheck = model_HistorialTransaccInv.getTransaccionInvCollection();
+            for (TransaccionInv transaccionInvCollectionOrphanCheckModel_TransaccionInv : transaccionInvCollectionOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
@@ -179,19 +179,19 @@ public class DAO_HistorialTransaccInv implements Serializable {
         }
     }
 
-    public List<Model_HistorialTransaccInv> findModel_HistorialTransaccInvEntities() {
+    public List<HistorialTransaccInv> findModel_HistorialTransaccInvEntities() {
         return findModel_HistorialTransaccInvEntities(true, -1, -1);
     }
 
-    public List<Model_HistorialTransaccInv> findModel_HistorialTransaccInvEntities(int maxResults, int firstResult) {
+    public List<HistorialTransaccInv> findModel_HistorialTransaccInvEntities(int maxResults, int firstResult) {
         return findModel_HistorialTransaccInvEntities(false, maxResults, firstResult);
     }
 
-    private List<Model_HistorialTransaccInv> findModel_HistorialTransaccInvEntities(boolean all, int maxResults, int firstResult) {
+    private List<HistorialTransaccInv> findModel_HistorialTransaccInvEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Model_HistorialTransaccInv.class));
+            cq.select(cq.from(HistorialTransaccInv.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -203,10 +203,10 @@ public class DAO_HistorialTransaccInv implements Serializable {
         }
     }
 
-    public Model_HistorialTransaccInv findModel_HistorialTransaccInv(Integer id) {
+    public HistorialTransaccInv findModel_HistorialTransaccInv(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Model_HistorialTransaccInv.class, id);
+            return em.find(HistorialTransaccInv.class, id);
         } finally {
             em.close();
         }
@@ -216,7 +216,7 @@ public class DAO_HistorialTransaccInv implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Model_HistorialTransaccInv> rt = cq.from(Model_HistorialTransaccInv.class);
+            Root<HistorialTransaccInv> rt = cq.from(HistorialTransaccInv.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

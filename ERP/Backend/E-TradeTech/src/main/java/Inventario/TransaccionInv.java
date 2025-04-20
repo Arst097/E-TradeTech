@@ -4,8 +4,8 @@
  */
 package Inventario;
 
-import Inventario.Model_Inventario;
-import Inventario.Model_HistorialTransaccInv;
+import Inventario.Inventario;
+import Inventario.HistorialTransaccInv;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,7 +30,7 @@ import java.util.Date;
     @NamedQuery(name = "TransaccionInv.findAll", query = "SELECT t FROM TransaccionInv t"),
     @NamedQuery(name = "TransaccionInv.findByTransaccionInvID", query = "SELECT t FROM TransaccionInv t WHERE t.transaccionInvID = :transaccionInvID"),
     @NamedQuery(name = "TransaccionInv.findByFecha", query = "SELECT t FROM TransaccionInv t WHERE t.fecha = :fecha")})
-public class Model_TransaccionInv implements Serializable {
+public class TransaccionInv implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,22 +43,22 @@ public class Model_TransaccionInv implements Serializable {
     private Date fecha;
     @JoinColumn(name = "Historial_Transacc_InvID", referencedColumnName = "Historial_Transacc_InvID")
     @ManyToOne(optional = false)
-    private Model_HistorialTransaccInv historialTransaccInvID;
+    private HistorialTransaccInv historialTransaccInvID;
     @JoinColumn(name = "Inventario_EmisorID", referencedColumnName = "InventarioID")
     @ManyToOne(optional = false)
-    private Model_Inventario inventarioEmisorID;
+    private Inventario inventarioEmisorID;
     @JoinColumn(name = "Inventario_ReceptorD", referencedColumnName = "InventarioID")
     @ManyToOne(optional = false)
-    private Model_Inventario inventarioReceptorD;
+    private Inventario inventarioReceptorD;
 
-    public Model_TransaccionInv() {
+    public TransaccionInv() {
     }
 
-    public Model_TransaccionInv(Integer transaccionInvID) {
+    public TransaccionInv(Integer transaccionInvID) {
         this.transaccionInvID = transaccionInvID;
     }
 
-    public Model_TransaccionInv(Integer transaccionInvID, Date fecha) {
+    public TransaccionInv(Integer transaccionInvID, Date fecha) {
         this.transaccionInvID = transaccionInvID;
         this.fecha = fecha;
     }
@@ -79,27 +79,27 @@ public class Model_TransaccionInv implements Serializable {
         this.fecha = fecha;
     }
 
-    public Model_HistorialTransaccInv getHistorialTransaccInvID() {
+    public HistorialTransaccInv getHistorialTransaccInvID() {
         return historialTransaccInvID;
     }
 
-    public void setHistorialTransaccInvID(Model_HistorialTransaccInv historialTransaccInvID) {
+    public void setHistorialTransaccInvID(HistorialTransaccInv historialTransaccInvID) {
         this.historialTransaccInvID = historialTransaccInvID;
     }
 
-    public Model_Inventario getInventarioEmisorID() {
+    public Inventario getInventarioEmisorID() {
         return inventarioEmisorID;
     }
 
-    public void setInventarioEmisorID(Model_Inventario inventarioEmisorID) {
+    public void setInventarioEmisorID(Inventario inventarioEmisorID) {
         this.inventarioEmisorID = inventarioEmisorID;
     }
 
-    public Model_Inventario getInventarioReceptorD() {
+    public Inventario getInventarioReceptorD() {
         return inventarioReceptorD;
     }
 
-    public void setInventarioReceptorD(Model_Inventario inventarioReceptorD) {
+    public void setInventarioReceptorD(Inventario inventarioReceptorD) {
         this.inventarioReceptorD = inventarioReceptorD;
     }
 
@@ -113,10 +113,10 @@ public class Model_TransaccionInv implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Model_TransaccionInv)) {
+        if (!(object instanceof TransaccionInv)) {
             return false;
         }
-        Model_TransaccionInv other = (Model_TransaccionInv) object;
+        TransaccionInv other = (TransaccionInv) object;
         if ((this.transaccionInvID == null && other.transaccionInvID != null) || (this.transaccionInvID != null && !this.transaccionInvID.equals(other.transaccionInvID))) {
             return false;
         }

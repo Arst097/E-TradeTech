@@ -5,7 +5,7 @@
 package Inventario;
 
 import Uso_Comun.Model_Usuario;
-import Uso_Comun.Model_Pedidos;
+import Uso_Comun.Pedidos;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
@@ -38,20 +38,20 @@ public class DAO_Despachador implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Model_Despachador model_Despachador) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public void create(Despachador model_Despachador) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (model_Despachador.getPedidosCollection() == null) {
-            model_Despachador.setPedidosCollection(new ArrayList<Model_Pedidos>());
+            model_Despachador.setPedidosCollection(new ArrayList<Pedidos>());
         }
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Model_Almacen almacenID = model_Despachador.getAlmacenID();
+            Almacen almacenID = model_Despachador.getAlmacenID();
             if (almacenID != null) {
                 almacenID = em.getReference(almacenID.getClass(), almacenID.getAlmacenID());
                 model_Despachador.setAlmacenID(almacenID);
             }
-            Model_Inventario inventarioID = model_Despachador.getInventarioID();
+            Inventario inventarioID = model_Despachador.getInventarioID();
             if (inventarioID != null) {
                 inventarioID = em.getReference(inventarioID.getClass(), inventarioID.getInventarioID());
                 model_Despachador.setInventarioID(inventarioID);
@@ -61,8 +61,8 @@ public class DAO_Despachador implements Serializable {
                 usuarioUsuarioid = em.getReference(usuarioUsuarioid.getClass(), usuarioUsuarioid.getUsuarioid());
                 model_Despachador.setUsuarioUsuarioid(usuarioUsuarioid);
             }
-            Collection<Model_Pedidos> attachedPedidosCollection = new ArrayList<Model_Pedidos>();
-            for (Model_Pedidos pedidosCollectionModel_PedidosToAttach : model_Despachador.getPedidosCollection()) {
+            Collection<Pedidos> attachedPedidosCollection = new ArrayList<Pedidos>();
+            for (Pedidos pedidosCollectionModel_PedidosToAttach : model_Despachador.getPedidosCollection()) {
                 pedidosCollectionModel_PedidosToAttach = em.getReference(pedidosCollectionModel_PedidosToAttach.getClass(), pedidosCollectionModel_PedidosToAttach.getPedidoID());
                 attachedPedidosCollection.add(pedidosCollectionModel_PedidosToAttach);
             }
@@ -80,8 +80,8 @@ public class DAO_Despachador implements Serializable {
                 usuarioUsuarioid.getDespachadorCollection().add(model_Despachador);
                 usuarioUsuarioid = em.merge(usuarioUsuarioid);
             }
-            for (Model_Pedidos pedidosCollectionModel_Pedidos : model_Despachador.getPedidosCollection()) {
-                Model_Despachador oldDespachadorIDOfPedidosCollectionModel_Pedidos = pedidosCollectionModel_Pedidos.getDespachadorID();
+            for (Pedidos pedidosCollectionModel_Pedidos : model_Despachador.getPedidosCollection()) {
+                Despachador oldDespachadorIDOfPedidosCollectionModel_Pedidos = pedidosCollectionModel_Pedidos.getDespachadorID();
                 pedidosCollectionModel_Pedidos.setDespachadorID(model_Despachador);
                 pedidosCollectionModel_Pedidos = em.merge(pedidosCollectionModel_Pedidos);
                 if (oldDespachadorIDOfPedidosCollectionModel_Pedidos != null) {
@@ -107,20 +107,20 @@ public class DAO_Despachador implements Serializable {
         }
     }
 
-    public void edit(Model_Despachador model_Despachador) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public void edit(Despachador model_Despachador) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Model_Despachador persistentModel_Despachador = em.find(Model_Despachador.class, model_Despachador.getDespachadorID());
-            Model_Almacen almacenIDOld = persistentModel_Despachador.getAlmacenID();
-            Model_Almacen almacenIDNew = model_Despachador.getAlmacenID();
-            Model_Inventario inventarioIDOld = persistentModel_Despachador.getInventarioID();
-            Model_Inventario inventarioIDNew = model_Despachador.getInventarioID();
+            Despachador persistentModel_Despachador = em.find(Despachador.class, model_Despachador.getDespachadorID());
+            Almacen almacenIDOld = persistentModel_Despachador.getAlmacenID();
+            Almacen almacenIDNew = model_Despachador.getAlmacenID();
+            Inventario inventarioIDOld = persistentModel_Despachador.getInventarioID();
+            Inventario inventarioIDNew = model_Despachador.getInventarioID();
             Model_Usuario usuarioUsuarioidOld = persistentModel_Despachador.getUsuarioUsuarioid();
             Model_Usuario usuarioUsuarioidNew = model_Despachador.getUsuarioUsuarioid();
-            Collection<Model_Pedidos> pedidosCollectionOld = persistentModel_Despachador.getPedidosCollection();
-            Collection<Model_Pedidos> pedidosCollectionNew = model_Despachador.getPedidosCollection();
+            Collection<Pedidos> pedidosCollectionOld = persistentModel_Despachador.getPedidosCollection();
+            Collection<Pedidos> pedidosCollectionNew = model_Despachador.getPedidosCollection();
             if (almacenIDNew != null) {
                 almacenIDNew = em.getReference(almacenIDNew.getClass(), almacenIDNew.getAlmacenID());
                 model_Despachador.setAlmacenID(almacenIDNew);
@@ -133,8 +133,8 @@ public class DAO_Despachador implements Serializable {
                 usuarioUsuarioidNew = em.getReference(usuarioUsuarioidNew.getClass(), usuarioUsuarioidNew.getUsuarioid());
                 model_Despachador.setUsuarioUsuarioid(usuarioUsuarioidNew);
             }
-            Collection<Model_Pedidos> attachedPedidosCollectionNew = new ArrayList<Model_Pedidos>();
-            for (Model_Pedidos pedidosCollectionNewModel_PedidosToAttach : pedidosCollectionNew) {
+            Collection<Pedidos> attachedPedidosCollectionNew = new ArrayList<Pedidos>();
+            for (Pedidos pedidosCollectionNewModel_PedidosToAttach : pedidosCollectionNew) {
                 pedidosCollectionNewModel_PedidosToAttach = em.getReference(pedidosCollectionNewModel_PedidosToAttach.getClass(), pedidosCollectionNewModel_PedidosToAttach.getPedidoID());
                 attachedPedidosCollectionNew.add(pedidosCollectionNewModel_PedidosToAttach);
             }
@@ -165,15 +165,15 @@ public class DAO_Despachador implements Serializable {
                 usuarioUsuarioidNew.getDespachadorCollection().add(model_Despachador);
                 usuarioUsuarioidNew = em.merge(usuarioUsuarioidNew);
             }
-            for (Model_Pedidos pedidosCollectionOldModel_Pedidos : pedidosCollectionOld) {
+            for (Pedidos pedidosCollectionOldModel_Pedidos : pedidosCollectionOld) {
                 if (!pedidosCollectionNew.contains(pedidosCollectionOldModel_Pedidos)) {
                     pedidosCollectionOldModel_Pedidos.setDespachadorID(null);
                     pedidosCollectionOldModel_Pedidos = em.merge(pedidosCollectionOldModel_Pedidos);
                 }
             }
-            for (Model_Pedidos pedidosCollectionNewModel_Pedidos : pedidosCollectionNew) {
+            for (Pedidos pedidosCollectionNewModel_Pedidos : pedidosCollectionNew) {
                 if (!pedidosCollectionOld.contains(pedidosCollectionNewModel_Pedidos)) {
-                    Model_Despachador oldDespachadorIDOfPedidosCollectionNewModel_Pedidos = pedidosCollectionNewModel_Pedidos.getDespachadorID();
+                    Despachador oldDespachadorIDOfPedidosCollectionNewModel_Pedidos = pedidosCollectionNewModel_Pedidos.getDespachadorID();
                     pedidosCollectionNewModel_Pedidos.setDespachadorID(model_Despachador);
                     pedidosCollectionNewModel_Pedidos = em.merge(pedidosCollectionNewModel_Pedidos);
                     if (oldDespachadorIDOfPedidosCollectionNewModel_Pedidos != null && !oldDespachadorIDOfPedidosCollectionNewModel_Pedidos.equals(model_Despachador)) {
@@ -209,19 +209,19 @@ public class DAO_Despachador implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            Model_Despachador model_Despachador;
+            Despachador model_Despachador;
             try {
-                model_Despachador = em.getReference(Model_Despachador.class, id);
+                model_Despachador = em.getReference(Despachador.class, id);
                 model_Despachador.getDespachadorID();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The model_Despachador with id " + id + " no longer exists.", enfe);
             }
-            Model_Almacen almacenID = model_Despachador.getAlmacenID();
+            Almacen almacenID = model_Despachador.getAlmacenID();
             if (almacenID != null) {
                 almacenID.getDespachadorCollection().remove(model_Despachador);
                 almacenID = em.merge(almacenID);
             }
-            Model_Inventario inventarioID = model_Despachador.getInventarioID();
+            Inventario inventarioID = model_Despachador.getInventarioID();
             if (inventarioID != null) {
                 inventarioID.getDespachadorCollection().remove(model_Despachador);
                 inventarioID = em.merge(inventarioID);
@@ -231,8 +231,8 @@ public class DAO_Despachador implements Serializable {
                 usuarioUsuarioid.getDespachadorCollection().remove(model_Despachador);
                 usuarioUsuarioid = em.merge(usuarioUsuarioid);
             }
-            Collection<Model_Pedidos> pedidosCollection = model_Despachador.getPedidosCollection();
-            for (Model_Pedidos pedidosCollectionModel_Pedidos : pedidosCollection) {
+            Collection<Pedidos> pedidosCollection = model_Despachador.getPedidosCollection();
+            for (Pedidos pedidosCollectionModel_Pedidos : pedidosCollection) {
                 pedidosCollectionModel_Pedidos.setDespachadorID(null);
                 pedidosCollectionModel_Pedidos = em.merge(pedidosCollectionModel_Pedidos);
             }
@@ -252,19 +252,19 @@ public class DAO_Despachador implements Serializable {
         }
     }
 
-    public List<Model_Despachador> findModel_DespachadorEntities() {
+    public List<Despachador> findModel_DespachadorEntities() {
         return findModel_DespachadorEntities(true, -1, -1);
     }
 
-    public List<Model_Despachador> findModel_DespachadorEntities(int maxResults, int firstResult) {
+    public List<Despachador> findModel_DespachadorEntities(int maxResults, int firstResult) {
         return findModel_DespachadorEntities(false, maxResults, firstResult);
     }
 
-    private List<Model_Despachador> findModel_DespachadorEntities(boolean all, int maxResults, int firstResult) {
+    private List<Despachador> findModel_DespachadorEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Model_Despachador.class));
+            cq.select(cq.from(Despachador.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -276,10 +276,10 @@ public class DAO_Despachador implements Serializable {
         }
     }
 
-    public Model_Despachador findModel_Despachador(Integer id) {
+    public Despachador findModel_Despachador(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Model_Despachador.class, id);
+            return em.find(Despachador.class, id);
         } finally {
             em.close();
         }
@@ -289,7 +289,7 @@ public class DAO_Despachador implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Model_Despachador> rt = cq.from(Model_Despachador.class);
+            Root<Despachador> rt = cq.from(Despachador.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

@@ -4,11 +4,11 @@
  */
 package Uso_Comun;
 
-import Uso_Comun.Model_Cliente;
-import Inventario.Model_Gestores;
-import Inventario.Model_Despachador;
-import Inventario.Model_Despachador;
-import Inventario.Model_Gestores;
+import Uso_Comun.Cliente;
+import Inventario.Gestores;
+import Inventario.Despachador;
+import Inventario.Despachador;
+import Inventario.Gestores;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -28,11 +28,11 @@ import java.util.Collection;
 @Entity
 @Table(name = "Usuario")
 @NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-    @NamedQuery(name = "Usuario.findByUsuarioid", query = "SELECT u FROM Usuario u WHERE u.usuarioid = :usuarioid"),
-    @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre"),
-    @NamedQuery(name = "Usuario.findByCorreo", query = "SELECT u FROM Usuario u WHERE u.correo = :correo"),
-    @NamedQuery(name = "Usuario.findByContrase\u00f1aSHA256", query = "SELECT u FROM Usuario u WHERE u.contrase\u00f1aSHA256 = :contrase\u00f1aSHA256")})
+    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Model_Usuario u"),
+    @NamedQuery(name = "Usuario.findByUsuarioid", query = "SELECT u FROM Model_Usuario u WHERE u.usuarioid = :usuarioid"),
+    @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Model_Usuario u WHERE u.nombre = :nombre"),
+    @NamedQuery(name = "Usuario.findByCorreo", query = "SELECT u FROM Model_Usuario u WHERE u.correo = :correo"),
+    @NamedQuery(name = "Usuario.findByContrase\u00f1aSHA256", query = "SELECT u FROM Model_Usuario u WHERE u.contrase\u00f1aSHA256 = :contrase\u00f1aSHA256")})
 public class Model_Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,11 +50,11 @@ public class Model_Usuario implements Serializable {
     @Column(name = "Contrase\u00f1a_SHA256")
     private String contraseñaSHA256;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioUsuarioid")
-    private Collection<Model_Despachador> despachadorCollection;
+    private Collection<Despachador> despachadorCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioUsuarioid")
-    private Collection<Model_Gestores> gestoresCollection;
+    private Collection<Gestores> gestoresCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioUsuarioid")
-    private Collection<Model_Cliente> clienteCollection;
+    private Collection<Cliente> clienteCollection;
 
     public Model_Usuario() {
     }
@@ -102,27 +102,27 @@ public class Model_Usuario implements Serializable {
         this.contraseñaSHA256 = contraseñaSHA256;
     }
 
-    public Collection<Model_Despachador> getDespachadorCollection() {
+    public Collection<Despachador> getDespachadorCollection() {
         return despachadorCollection;
     }
 
-    public void setDespachadorCollection(Collection<Model_Despachador> despachadorCollection) {
+    public void setDespachadorCollection(Collection<Despachador> despachadorCollection) {
         this.despachadorCollection = despachadorCollection;
     }
 
-    public Collection<Model_Gestores> getGestoresCollection() {
+    public Collection<Gestores> getGestoresCollection() {
         return gestoresCollection;
     }
 
-    public void setGestoresCollection(Collection<Model_Gestores> gestoresCollection) {
+    public void setGestoresCollection(Collection<Gestores> gestoresCollection) {
         this.gestoresCollection = gestoresCollection;
     }
 
-    public Collection<Model_Cliente> getClienteCollection() {
+    public Collection<Cliente> getClienteCollection() {
         return clienteCollection;
     }
 
-    public void setClienteCollection(Collection<Model_Cliente> clienteCollection) {
+    public void setClienteCollection(Collection<Cliente> clienteCollection) {
         this.clienteCollection = clienteCollection;
     }
 

@@ -4,12 +4,12 @@
  */
 package Uso_Comun;
 
-import Uso_Comun.Model_Mensajero;
-import Uso_Comun.Model_Cliente;
-import Inventario.Model_HistorialPedidos;
-import Inventario.Model_Despachador;
-import Inventario.Model_Despachador;
-import Inventario.Model_HistorialPedidos;
+import Uso_Comun.Mensajero;
+import Uso_Comun.Cliente;
+import Inventario.HistorialPedidos;
+import Inventario.Despachador;
+import Inventario.Despachador;
+import Inventario.HistorialPedidos;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,7 +33,7 @@ import java.util.Collection;
     @NamedQuery(name = "Pedidos.findAll", query = "SELECT p FROM Pedidos p"),
     @NamedQuery(name = "Pedidos.findByPedidoID", query = "SELECT p FROM Pedidos p WHERE p.pedidoID = :pedidoID"),
     @NamedQuery(name = "Pedidos.findByEstado", query = "SELECT p FROM Pedidos p WHERE p.estado = :estado")})
-public class Model_Pedidos implements Serializable {
+public class Pedidos implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,23 +44,23 @@ public class Model_Pedidos implements Serializable {
     private String estado;
     @JoinColumn(name = "ClienteID", referencedColumnName = "ClienteID")
     @ManyToOne
-    private Model_Cliente clienteID;
+    private Cliente clienteID;
     @JoinColumn(name = "DespachadorID", referencedColumnName = "DespachadorID")
     @ManyToOne
-    private Model_Despachador despachadorID;
+    private Despachador despachadorID;
     @JoinColumn(name = "Historial_PredidosID", referencedColumnName = "Historial_PredidosID")
     @ManyToOne(optional = false)
-    private Model_HistorialPedidos historialPredidosID;
+    private HistorialPedidos historialPredidosID;
     @JoinColumn(name = "MensajeroID", referencedColumnName = "MensajeroID")
     @ManyToOne
-    private Model_Mensajero mensajeroID;
+    private Mensajero mensajeroID;
     @OneToMany(mappedBy = "pedidoID")
-    private Collection<Model_Producto> productoCollection;
+    private Collection<Producto> productoCollection;
 
-    public Model_Pedidos() {
+    public Pedidos() {
     }
 
-    public Model_Pedidos(Integer pedidoID) {
+    public Pedidos(Integer pedidoID) {
         this.pedidoID = pedidoID;
     }
 
@@ -80,43 +80,43 @@ public class Model_Pedidos implements Serializable {
         this.estado = estado;
     }
 
-    public Model_Cliente getClienteID() {
+    public Cliente getClienteID() {
         return clienteID;
     }
 
-    public void setClienteID(Model_Cliente clienteID) {
+    public void setClienteID(Cliente clienteID) {
         this.clienteID = clienteID;
     }
 
-    public Model_Despachador getDespachadorID() {
+    public Despachador getDespachadorID() {
         return despachadorID;
     }
 
-    public void setDespachadorID(Model_Despachador despachadorID) {
+    public void setDespachadorID(Despachador despachadorID) {
         this.despachadorID = despachadorID;
     }
 
-    public Model_HistorialPedidos getHistorialPredidosID() {
+    public HistorialPedidos getHistorialPredidosID() {
         return historialPredidosID;
     }
 
-    public void setHistorialPredidosID(Model_HistorialPedidos historialPredidosID) {
+    public void setHistorialPredidosID(HistorialPedidos historialPredidosID) {
         this.historialPredidosID = historialPredidosID;
     }
 
-    public Model_Mensajero getMensajeroID() {
+    public Mensajero getMensajeroID() {
         return mensajeroID;
     }
 
-    public void setMensajeroID(Model_Mensajero mensajeroID) {
+    public void setMensajeroID(Mensajero mensajeroID) {
         this.mensajeroID = mensajeroID;
     }
 
-    public Collection<Model_Producto> getProductoCollection() {
+    public Collection<Producto> getProductoCollection() {
         return productoCollection;
     }
 
-    public void setProductoCollection(Collection<Model_Producto> productoCollection) {
+    public void setProductoCollection(Collection<Producto> productoCollection) {
         this.productoCollection = productoCollection;
     }
 
@@ -130,10 +130,10 @@ public class Model_Pedidos implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Model_Pedidos)) {
+        if (!(object instanceof Pedidos)) {
             return false;
         }
-        Model_Pedidos other = (Model_Pedidos) object;
+        Pedidos other = (Pedidos) object;
         if ((this.pedidoID == null && other.pedidoID != null) || (this.pedidoID != null && !this.pedidoID.equals(other.pedidoID))) {
             return false;
         }

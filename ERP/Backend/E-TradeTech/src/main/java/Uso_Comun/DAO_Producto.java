@@ -4,9 +4,9 @@
  */
 package Uso_Comun;
 
-import Inventario.Model_Inventario;
-import Uso_Comun.Model_Producto;
-import Uso_Comun.Model_Pedidos;
+import Inventario.Inventario;
+import Uso_Comun.Producto;
+import Uso_Comun.Pedidos;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
@@ -37,17 +37,17 @@ public class DAO_Producto implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Model_Producto model_Producto) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public void create(Producto model_Producto) throws PreexistingEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Model_Inventario inventarioID = model_Producto.getInventarioID();
+            Inventario inventarioID = model_Producto.getInventarioID();
             if (inventarioID != null) {
                 inventarioID = em.getReference(inventarioID.getClass(), inventarioID.getInventarioID());
                 model_Producto.setInventarioID(inventarioID);
             }
-            Model_Pedidos pedidoID = model_Producto.getPedidoID();
+            Pedidos pedidoID = model_Producto.getPedidoID();
             if (pedidoID != null) {
                 pedidoID = em.getReference(pedidoID.getClass(), pedidoID.getPedidoID());
                 model_Producto.setPedidoID(pedidoID);
@@ -79,16 +79,16 @@ public class DAO_Producto implements Serializable {
         }
     }
 
-    public void edit(Model_Producto model_Producto) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public void edit(Producto model_Producto) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Model_Producto persistentModel_Producto = em.find(Model_Producto.class, model_Producto.getProductoID());
-            Model_Inventario inventarioIDOld = persistentModel_Producto.getInventarioID();
-            Model_Inventario inventarioIDNew = model_Producto.getInventarioID();
-            Model_Pedidos pedidoIDOld = persistentModel_Producto.getPedidoID();
-            Model_Pedidos pedidoIDNew = model_Producto.getPedidoID();
+            Producto persistentModel_Producto = em.find(Producto.class, model_Producto.getProductoID());
+            Inventario inventarioIDOld = persistentModel_Producto.getInventarioID();
+            Inventario inventarioIDNew = model_Producto.getInventarioID();
+            Pedidos pedidoIDOld = persistentModel_Producto.getPedidoID();
+            Pedidos pedidoIDNew = model_Producto.getPedidoID();
             if (inventarioIDNew != null) {
                 inventarioIDNew = em.getReference(inventarioIDNew.getClass(), inventarioIDNew.getInventarioID());
                 model_Producto.setInventarioID(inventarioIDNew);
@@ -141,19 +141,19 @@ public class DAO_Producto implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            Model_Producto model_Producto;
+            Producto model_Producto;
             try {
-                model_Producto = em.getReference(Model_Producto.class, id);
+                model_Producto = em.getReference(Producto.class, id);
                 model_Producto.getProductoID();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The model_Producto with id " + id + " no longer exists.", enfe);
             }
-            Model_Inventario inventarioID = model_Producto.getInventarioID();
+            Inventario inventarioID = model_Producto.getInventarioID();
             if (inventarioID != null) {
                 inventarioID.getProductoCollection().remove(model_Producto);
                 inventarioID = em.merge(inventarioID);
             }
-            Model_Pedidos pedidoID = model_Producto.getPedidoID();
+            Pedidos pedidoID = model_Producto.getPedidoID();
             if (pedidoID != null) {
                 pedidoID.getProductoCollection().remove(model_Producto);
                 pedidoID = em.merge(pedidoID);
@@ -174,19 +174,19 @@ public class DAO_Producto implements Serializable {
         }
     }
 
-    public List<Model_Producto> findModel_ProductoEntities() {
+    public List<Producto> findModel_ProductoEntities() {
         return findModel_ProductoEntities(true, -1, -1);
     }
 
-    public List<Model_Producto> findModel_ProductoEntities(int maxResults, int firstResult) {
+    public List<Producto> findModel_ProductoEntities(int maxResults, int firstResult) {
         return findModel_ProductoEntities(false, maxResults, firstResult);
     }
 
-    private List<Model_Producto> findModel_ProductoEntities(boolean all, int maxResults, int firstResult) {
+    private List<Producto> findModel_ProductoEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Model_Producto.class));
+            cq.select(cq.from(Producto.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -198,10 +198,10 @@ public class DAO_Producto implements Serializable {
         }
     }
 
-    public Model_Producto findModel_Producto(Integer id) {
+    public Producto findModel_Producto(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Model_Producto.class, id);
+            return em.find(Producto.class, id);
         } finally {
             em.close();
         }
@@ -211,7 +211,7 @@ public class DAO_Producto implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Model_Producto> rt = cq.from(Model_Producto.class);
+            Root<Producto> rt = cq.from(Producto.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

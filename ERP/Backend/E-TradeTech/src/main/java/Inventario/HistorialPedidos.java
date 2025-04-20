@@ -4,7 +4,7 @@
  */
 package Inventario;
 
-import Uso_Comun.Model_Pedidos;
+import Uso_Comun.Pedidos;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -26,7 +26,7 @@ import java.util.Collection;
 @NamedQueries({
     @NamedQuery(name = "HistorialPedidos.findAll", query = "SELECT h FROM HistorialPedidos h"),
     @NamedQuery(name = "HistorialPedidos.findByHistorialPredidosID", query = "SELECT h FROM HistorialPedidos h WHERE h.historialPredidosID = :historialPredidosID")})
-public class Model_HistorialPedidos implements Serializable {
+public class HistorialPedidos implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,12 +34,12 @@ public class Model_HistorialPedidos implements Serializable {
     @Column(name = "Historial_PredidosID")
     private Integer historialPredidosID;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "historialPredidosID")
-    private Collection<Model_Pedidos> pedidosCollection;
+    private Collection<Pedidos> pedidosCollection;
 
-    public Model_HistorialPedidos() {
+    public HistorialPedidos() {
     }
 
-    public Model_HistorialPedidos(Integer historialPredidosID) {
+    public HistorialPedidos(Integer historialPredidosID) {
         this.historialPredidosID = historialPredidosID;
     }
 
@@ -51,11 +51,11 @@ public class Model_HistorialPedidos implements Serializable {
         this.historialPredidosID = historialPredidosID;
     }
 
-    public Collection<Model_Pedidos> getPedidosCollection() {
+    public Collection<Pedidos> getPedidosCollection() {
         return pedidosCollection;
     }
 
-    public void setPedidosCollection(Collection<Model_Pedidos> pedidosCollection) {
+    public void setPedidosCollection(Collection<Pedidos> pedidosCollection) {
         this.pedidosCollection = pedidosCollection;
     }
 
@@ -69,10 +69,10 @@ public class Model_HistorialPedidos implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Model_HistorialPedidos)) {
+        if (!(object instanceof HistorialPedidos)) {
             return false;
         }
-        Model_HistorialPedidos other = (Model_HistorialPedidos) object;
+        HistorialPedidos other = (HistorialPedidos) object;
         if ((this.historialPredidosID == null && other.historialPredidosID != null) || (this.historialPredidosID != null && !this.historialPredidosID.equals(other.historialPredidosID))) {
             return false;
         }

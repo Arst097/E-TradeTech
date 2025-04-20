@@ -4,9 +4,9 @@
  */
 package Inventario;
 
-import Uso_Comun.Model_Producto;
-import Inventario.Model_Despachador;
-import Inventario.Model_Almacen;
+import Uso_Comun.Producto;
+import Inventario.Despachador;
+import Inventario.Almacen;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -31,7 +31,7 @@ import java.util.Collection;
     @NamedQuery(name = "Inventario.findAll", query = "SELECT i FROM Inventario i"),
     @NamedQuery(name = "Inventario.findByInventarioID", query = "SELECT i FROM Inventario i WHERE i.inventarioID = :inventarioID"),
     @NamedQuery(name = "Inventario.findByTipo", query = "SELECT i FROM Inventario i WHERE i.tipo = :tipo")})
-public class Model_Inventario implements Serializable {
+public class Inventario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,21 +41,21 @@ public class Model_Inventario implements Serializable {
     @Column(name = "tipo")
     private String tipo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "inventarioID")
-    private Collection<Model_Despachador> despachadorCollection;
+    private Collection<Despachador> despachadorCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "inventarioID")
-    private Collection<Model_Producto> productoCollection;
+    private Collection<Producto> productoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "inventarioEmisorID")
-    private Collection<Model_TransaccionInv> transaccionInvCollection;
+    private Collection<TransaccionInv> transaccionInvCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "inventarioReceptorD")
-    private Collection<Model_TransaccionInv> transaccionInvCollection1;
+    private Collection<TransaccionInv> transaccionInvCollection1;
     @JoinColumn(name = "AlmacenID", referencedColumnName = "AlmacenID")
     @ManyToOne
-    private Model_Almacen almacenID;
+    private Almacen almacenID;
 
-    public Model_Inventario() {
+    public Inventario() {
     }
 
-    public Model_Inventario(Integer inventarioID) {
+    public Inventario(Integer inventarioID) {
         this.inventarioID = inventarioID;
     }
 
@@ -75,43 +75,43 @@ public class Model_Inventario implements Serializable {
         this.tipo = tipo;
     }
 
-    public Collection<Model_Despachador> getDespachadorCollection() {
+    public Collection<Despachador> getDespachadorCollection() {
         return despachadorCollection;
     }
 
-    public void setDespachadorCollection(Collection<Model_Despachador> despachadorCollection) {
+    public void setDespachadorCollection(Collection<Despachador> despachadorCollection) {
         this.despachadorCollection = despachadorCollection;
     }
 
-    public Collection<Model_Producto> getProductoCollection() {
+    public Collection<Producto> getProductoCollection() {
         return productoCollection;
     }
 
-    public void setProductoCollection(Collection<Model_Producto> productoCollection) {
+    public void setProductoCollection(Collection<Producto> productoCollection) {
         this.productoCollection = productoCollection;
     }
 
-    public Collection<Model_TransaccionInv> getTransaccionInvCollection() {
+    public Collection<TransaccionInv> getTransaccionInvCollection() {
         return transaccionInvCollection;
     }
 
-    public void setTransaccionInvCollection(Collection<Model_TransaccionInv> transaccionInvCollection) {
+    public void setTransaccionInvCollection(Collection<TransaccionInv> transaccionInvCollection) {
         this.transaccionInvCollection = transaccionInvCollection;
     }
 
-    public Collection<Model_TransaccionInv> getTransaccionInvCollection1() {
+    public Collection<TransaccionInv> getTransaccionInvCollection1() {
         return transaccionInvCollection1;
     }
 
-    public void setTransaccionInvCollection1(Collection<Model_TransaccionInv> transaccionInvCollection1) {
+    public void setTransaccionInvCollection1(Collection<TransaccionInv> transaccionInvCollection1) {
         this.transaccionInvCollection1 = transaccionInvCollection1;
     }
 
-    public Model_Almacen getAlmacenID() {
+    public Almacen getAlmacenID() {
         return almacenID;
     }
 
-    public void setAlmacenID(Model_Almacen almacenID) {
+    public void setAlmacenID(Almacen almacenID) {
         this.almacenID = almacenID;
     }
 
@@ -125,10 +125,10 @@ public class Model_Inventario implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Model_Inventario)) {
+        if (!(object instanceof Inventario)) {
             return false;
         }
-        Model_Inventario other = (Model_Inventario) object;
+        Inventario other = (Inventario) object;
         if ((this.inventarioID == null && other.inventarioID != null) || (this.inventarioID != null && !this.inventarioID.equals(other.inventarioID))) {
             return false;
         }

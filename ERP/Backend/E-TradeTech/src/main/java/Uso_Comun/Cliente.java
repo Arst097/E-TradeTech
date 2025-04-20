@@ -28,7 +28,7 @@ import java.util.Collection;
     @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
     @NamedQuery(name = "Cliente.findByClienteID", query = "SELECT c FROM Cliente c WHERE c.clienteID = :clienteID"),
     @NamedQuery(name = "Cliente.findByTelefono", query = "SELECT c FROM Cliente c WHERE c.telefono = :telefono")})
-public class Model_Cliente implements Serializable {
+public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,19 +39,19 @@ public class Model_Cliente implements Serializable {
     @Column(name = "Telefono")
     private String telefono;
     @OneToMany(mappedBy = "clienteID")
-    private Collection<Model_Pedidos> pedidosCollection;
+    private Collection<Pedidos> pedidosCollection;
     @JoinColumn(name = "Usuario_Usuario_id", referencedColumnName = "Usuario_id")
     @ManyToOne(optional = false)
     private Model_Usuario usuarioUsuarioid;
 
-    public Model_Cliente() {
+    public Cliente() {
     }
 
-    public Model_Cliente(Integer clienteID) {
+    public Cliente(Integer clienteID) {
         this.clienteID = clienteID;
     }
 
-    public Model_Cliente(Integer clienteID, String telefono) {
+    public Cliente(Integer clienteID, String telefono) {
         this.clienteID = clienteID;
         this.telefono = telefono;
     }
@@ -72,11 +72,11 @@ public class Model_Cliente implements Serializable {
         this.telefono = telefono;
     }
 
-    public Collection<Model_Pedidos> getPedidosCollection() {
+    public Collection<Pedidos> getPedidosCollection() {
         return pedidosCollection;
     }
 
-    public void setPedidosCollection(Collection<Model_Pedidos> pedidosCollection) {
+    public void setPedidosCollection(Collection<Pedidos> pedidosCollection) {
         this.pedidosCollection = pedidosCollection;
     }
 
@@ -98,10 +98,10 @@ public class Model_Cliente implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Model_Cliente)) {
+        if (!(object instanceof Cliente)) {
             return false;
         }
-        Model_Cliente other = (Model_Cliente) object;
+        Cliente other = (Cliente) object;
         if ((this.clienteID == null && other.clienteID != null) || (this.clienteID != null && !this.clienteID.equals(other.clienteID))) {
             return false;
         }

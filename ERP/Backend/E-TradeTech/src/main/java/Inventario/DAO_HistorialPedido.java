@@ -4,7 +4,7 @@
  */
 package Inventario;
 
-import Uso_Comun.Model_Pedidos;
+import Uso_Comun.Pedidos;
 import Inventario.exceptions.IllegalOrphanException;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
@@ -38,23 +38,23 @@ public class DAO_HistorialPedido implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Model_HistorialPedidos model_HistorialPedidos) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public void create(HistorialPedidos model_HistorialPedidos) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (model_HistorialPedidos.getPedidosCollection() == null) {
-            model_HistorialPedidos.setPedidosCollection(new ArrayList<Model_Pedidos>());
+            model_HistorialPedidos.setPedidosCollection(new ArrayList<Pedidos>());
         }
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Collection<Model_Pedidos> attachedPedidosCollection = new ArrayList<Model_Pedidos>();
-            for (Model_Pedidos pedidosCollectionModel_PedidosToAttach : model_HistorialPedidos.getPedidosCollection()) {
+            Collection<Pedidos> attachedPedidosCollection = new ArrayList<Pedidos>();
+            for (Pedidos pedidosCollectionModel_PedidosToAttach : model_HistorialPedidos.getPedidosCollection()) {
                 pedidosCollectionModel_PedidosToAttach = em.getReference(pedidosCollectionModel_PedidosToAttach.getClass(), pedidosCollectionModel_PedidosToAttach.getPedidoID());
                 attachedPedidosCollection.add(pedidosCollectionModel_PedidosToAttach);
             }
             model_HistorialPedidos.setPedidosCollection(attachedPedidosCollection);
             em.persist(model_HistorialPedidos);
-            for (Model_Pedidos pedidosCollectionModel_Pedidos : model_HistorialPedidos.getPedidosCollection()) {
-                Model_HistorialPedidos oldHistorialPredidosIDOfPedidosCollectionModel_Pedidos = pedidosCollectionModel_Pedidos.getHistorialPredidosID();
+            for (Pedidos pedidosCollectionModel_Pedidos : model_HistorialPedidos.getPedidosCollection()) {
+                HistorialPedidos oldHistorialPredidosIDOfPedidosCollectionModel_Pedidos = pedidosCollectionModel_Pedidos.getHistorialPredidosID();
                 pedidosCollectionModel_Pedidos.setHistorialPredidosID(model_HistorialPedidos);
                 pedidosCollectionModel_Pedidos = em.merge(pedidosCollectionModel_Pedidos);
                 if (oldHistorialPredidosIDOfPedidosCollectionModel_Pedidos != null) {
@@ -80,16 +80,16 @@ public class DAO_HistorialPedido implements Serializable {
         }
     }
 
-    public void edit(Model_HistorialPedidos model_HistorialPedidos) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public void edit(HistorialPedidos model_HistorialPedidos) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Model_HistorialPedidos persistentModel_HistorialPedidos = em.find(Model_HistorialPedidos.class, model_HistorialPedidos.getHistorialPredidosID());
-            Collection<Model_Pedidos> pedidosCollectionOld = persistentModel_HistorialPedidos.getPedidosCollection();
-            Collection<Model_Pedidos> pedidosCollectionNew = model_HistorialPedidos.getPedidosCollection();
+            HistorialPedidos persistentModel_HistorialPedidos = em.find(HistorialPedidos.class, model_HistorialPedidos.getHistorialPredidosID());
+            Collection<Pedidos> pedidosCollectionOld = persistentModel_HistorialPedidos.getPedidosCollection();
+            Collection<Pedidos> pedidosCollectionNew = model_HistorialPedidos.getPedidosCollection();
             List<String> illegalOrphanMessages = null;
-            for (Model_Pedidos pedidosCollectionOldModel_Pedidos : pedidosCollectionOld) {
+            for (Pedidos pedidosCollectionOldModel_Pedidos : pedidosCollectionOld) {
                 if (!pedidosCollectionNew.contains(pedidosCollectionOldModel_Pedidos)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
@@ -100,17 +100,17 @@ public class DAO_HistorialPedido implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Collection<Model_Pedidos> attachedPedidosCollectionNew = new ArrayList<Model_Pedidos>();
-            for (Model_Pedidos pedidosCollectionNewModel_PedidosToAttach : pedidosCollectionNew) {
+            Collection<Pedidos> attachedPedidosCollectionNew = new ArrayList<Pedidos>();
+            for (Pedidos pedidosCollectionNewModel_PedidosToAttach : pedidosCollectionNew) {
                 pedidosCollectionNewModel_PedidosToAttach = em.getReference(pedidosCollectionNewModel_PedidosToAttach.getClass(), pedidosCollectionNewModel_PedidosToAttach.getPedidoID());
                 attachedPedidosCollectionNew.add(pedidosCollectionNewModel_PedidosToAttach);
             }
             pedidosCollectionNew = attachedPedidosCollectionNew;
             model_HistorialPedidos.setPedidosCollection(pedidosCollectionNew);
             model_HistorialPedidos = em.merge(model_HistorialPedidos);
-            for (Model_Pedidos pedidosCollectionNewModel_Pedidos : pedidosCollectionNew) {
+            for (Pedidos pedidosCollectionNewModel_Pedidos : pedidosCollectionNew) {
                 if (!pedidosCollectionOld.contains(pedidosCollectionNewModel_Pedidos)) {
-                    Model_HistorialPedidos oldHistorialPredidosIDOfPedidosCollectionNewModel_Pedidos = pedidosCollectionNewModel_Pedidos.getHistorialPredidosID();
+                    HistorialPedidos oldHistorialPredidosIDOfPedidosCollectionNewModel_Pedidos = pedidosCollectionNewModel_Pedidos.getHistorialPredidosID();
                     pedidosCollectionNewModel_Pedidos.setHistorialPredidosID(model_HistorialPedidos);
                     pedidosCollectionNewModel_Pedidos = em.merge(pedidosCollectionNewModel_Pedidos);
                     if (oldHistorialPredidosIDOfPedidosCollectionNewModel_Pedidos != null && !oldHistorialPredidosIDOfPedidosCollectionNewModel_Pedidos.equals(model_HistorialPedidos)) {
@@ -146,16 +146,16 @@ public class DAO_HistorialPedido implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            Model_HistorialPedidos model_HistorialPedidos;
+            HistorialPedidos model_HistorialPedidos;
             try {
-                model_HistorialPedidos = em.getReference(Model_HistorialPedidos.class, id);
+                model_HistorialPedidos = em.getReference(HistorialPedidos.class, id);
                 model_HistorialPedidos.getHistorialPredidosID();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The model_HistorialPedidos with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            Collection<Model_Pedidos> pedidosCollectionOrphanCheck = model_HistorialPedidos.getPedidosCollection();
-            for (Model_Pedidos pedidosCollectionOrphanCheckModel_Pedidos : pedidosCollectionOrphanCheck) {
+            Collection<Pedidos> pedidosCollectionOrphanCheck = model_HistorialPedidos.getPedidosCollection();
+            for (Pedidos pedidosCollectionOrphanCheckModel_Pedidos : pedidosCollectionOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
@@ -180,19 +180,19 @@ public class DAO_HistorialPedido implements Serializable {
         }
     }
 
-    public List<Model_HistorialPedidos> findModel_HistorialPedidosEntities() {
+    public List<HistorialPedidos> findModel_HistorialPedidosEntities() {
         return findModel_HistorialPedidosEntities(true, -1, -1);
     }
 
-    public List<Model_HistorialPedidos> findModel_HistorialPedidosEntities(int maxResults, int firstResult) {
+    public List<HistorialPedidos> findModel_HistorialPedidosEntities(int maxResults, int firstResult) {
         return findModel_HistorialPedidosEntities(false, maxResults, firstResult);
     }
 
-    private List<Model_HistorialPedidos> findModel_HistorialPedidosEntities(boolean all, int maxResults, int firstResult) {
+    private List<HistorialPedidos> findModel_HistorialPedidosEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Model_HistorialPedidos.class));
+            cq.select(cq.from(HistorialPedidos.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -204,10 +204,10 @@ public class DAO_HistorialPedido implements Serializable {
         }
     }
 
-    public Model_HistorialPedidos findModel_HistorialPedidos(Integer id) {
+    public HistorialPedidos findModel_HistorialPedidos(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Model_HistorialPedidos.class, id);
+            return em.find(HistorialPedidos.class, id);
         } finally {
             em.close();
         }
@@ -217,7 +217,7 @@ public class DAO_HistorialPedido implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Model_HistorialPedidos> rt = cq.from(Model_HistorialPedidos.class);
+            Root<HistorialPedidos> rt = cq.from(HistorialPedidos.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

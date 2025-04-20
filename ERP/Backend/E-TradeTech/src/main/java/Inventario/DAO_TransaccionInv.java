@@ -34,22 +34,22 @@ public class DAO_TransaccionInv implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Model_TransaccionInv model_TransaccionInv) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public void create(TransaccionInv model_TransaccionInv) throws PreexistingEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Model_HistorialTransaccInv historialTransaccInvID = model_TransaccionInv.getHistorialTransaccInvID();
+            HistorialTransaccInv historialTransaccInvID = model_TransaccionInv.getHistorialTransaccInvID();
             if (historialTransaccInvID != null) {
                 historialTransaccInvID = em.getReference(historialTransaccInvID.getClass(), historialTransaccInvID.getHistorialTransaccInvID());
                 model_TransaccionInv.setHistorialTransaccInvID(historialTransaccInvID);
             }
-            Model_Inventario inventarioEmisorID = model_TransaccionInv.getInventarioEmisorID();
+            Inventario inventarioEmisorID = model_TransaccionInv.getInventarioEmisorID();
             if (inventarioEmisorID != null) {
                 inventarioEmisorID = em.getReference(inventarioEmisorID.getClass(), inventarioEmisorID.getInventarioID());
                 model_TransaccionInv.setInventarioEmisorID(inventarioEmisorID);
             }
-            Model_Inventario inventarioReceptorD = model_TransaccionInv.getInventarioReceptorD();
+            Inventario inventarioReceptorD = model_TransaccionInv.getInventarioReceptorD();
             if (inventarioReceptorD != null) {
                 inventarioReceptorD = em.getReference(inventarioReceptorD.getClass(), inventarioReceptorD.getInventarioID());
                 model_TransaccionInv.setInventarioReceptorD(inventarioReceptorD);
@@ -85,18 +85,18 @@ public class DAO_TransaccionInv implements Serializable {
         }
     }
 
-    public void edit(Model_TransaccionInv model_TransaccionInv) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public void edit(TransaccionInv model_TransaccionInv) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Model_TransaccionInv persistentModel_TransaccionInv = em.find(Model_TransaccionInv.class, model_TransaccionInv.getTransaccionInvID());
-            Model_HistorialTransaccInv historialTransaccInvIDOld = persistentModel_TransaccionInv.getHistorialTransaccInvID();
-            Model_HistorialTransaccInv historialTransaccInvIDNew = model_TransaccionInv.getHistorialTransaccInvID();
-            Model_Inventario inventarioEmisorIDOld = persistentModel_TransaccionInv.getInventarioEmisorID();
-            Model_Inventario inventarioEmisorIDNew = model_TransaccionInv.getInventarioEmisorID();
-            Model_Inventario inventarioReceptorDOld = persistentModel_TransaccionInv.getInventarioReceptorD();
-            Model_Inventario inventarioReceptorDNew = model_TransaccionInv.getInventarioReceptorD();
+            TransaccionInv persistentModel_TransaccionInv = em.find(TransaccionInv.class, model_TransaccionInv.getTransaccionInvID());
+            HistorialTransaccInv historialTransaccInvIDOld = persistentModel_TransaccionInv.getHistorialTransaccInvID();
+            HistorialTransaccInv historialTransaccInvIDNew = model_TransaccionInv.getHistorialTransaccInvID();
+            Inventario inventarioEmisorIDOld = persistentModel_TransaccionInv.getInventarioEmisorID();
+            Inventario inventarioEmisorIDNew = model_TransaccionInv.getInventarioEmisorID();
+            Inventario inventarioReceptorDOld = persistentModel_TransaccionInv.getInventarioReceptorD();
+            Inventario inventarioReceptorDNew = model_TransaccionInv.getInventarioReceptorD();
             if (historialTransaccInvIDNew != null) {
                 historialTransaccInvIDNew = em.getReference(historialTransaccInvIDNew.getClass(), historialTransaccInvIDNew.getHistorialTransaccInvID());
                 model_TransaccionInv.setHistorialTransaccInvID(historialTransaccInvIDNew);
@@ -161,24 +161,24 @@ public class DAO_TransaccionInv implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            Model_TransaccionInv model_TransaccionInv;
+            TransaccionInv model_TransaccionInv;
             try {
-                model_TransaccionInv = em.getReference(Model_TransaccionInv.class, id);
+                model_TransaccionInv = em.getReference(TransaccionInv.class, id);
                 model_TransaccionInv.getTransaccionInvID();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The model_TransaccionInv with id " + id + " no longer exists.", enfe);
             }
-            Model_HistorialTransaccInv historialTransaccInvID = model_TransaccionInv.getHistorialTransaccInvID();
+            HistorialTransaccInv historialTransaccInvID = model_TransaccionInv.getHistorialTransaccInvID();
             if (historialTransaccInvID != null) {
                 historialTransaccInvID.getTransaccionInvCollection().remove(model_TransaccionInv);
                 historialTransaccInvID = em.merge(historialTransaccInvID);
             }
-            Model_Inventario inventarioEmisorID = model_TransaccionInv.getInventarioEmisorID();
+            Inventario inventarioEmisorID = model_TransaccionInv.getInventarioEmisorID();
             if (inventarioEmisorID != null) {
                 inventarioEmisorID.getTransaccionInvCollection().remove(model_TransaccionInv);
                 inventarioEmisorID = em.merge(inventarioEmisorID);
             }
-            Model_Inventario inventarioReceptorD = model_TransaccionInv.getInventarioReceptorD();
+            Inventario inventarioReceptorD = model_TransaccionInv.getInventarioReceptorD();
             if (inventarioReceptorD != null) {
                 inventarioReceptorD.getTransaccionInvCollection().remove(model_TransaccionInv);
                 inventarioReceptorD = em.merge(inventarioReceptorD);
@@ -199,19 +199,19 @@ public class DAO_TransaccionInv implements Serializable {
         }
     }
 
-    public List<Model_TransaccionInv> findModel_TransaccionInvEntities() {
+    public List<TransaccionInv> findModel_TransaccionInvEntities() {
         return findModel_TransaccionInvEntities(true, -1, -1);
     }
 
-    public List<Model_TransaccionInv> findModel_TransaccionInvEntities(int maxResults, int firstResult) {
+    public List<TransaccionInv> findModel_TransaccionInvEntities(int maxResults, int firstResult) {
         return findModel_TransaccionInvEntities(false, maxResults, firstResult);
     }
 
-    private List<Model_TransaccionInv> findModel_TransaccionInvEntities(boolean all, int maxResults, int firstResult) {
+    private List<TransaccionInv> findModel_TransaccionInvEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Model_TransaccionInv.class));
+            cq.select(cq.from(TransaccionInv.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -223,10 +223,10 @@ public class DAO_TransaccionInv implements Serializable {
         }
     }
 
-    public Model_TransaccionInv findModel_TransaccionInv(Integer id) {
+    public TransaccionInv findModel_TransaccionInv(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Model_TransaccionInv.class, id);
+            return em.find(TransaccionInv.class, id);
         } finally {
             em.close();
         }
@@ -236,7 +236,7 @@ public class DAO_TransaccionInv implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Model_TransaccionInv> rt = cq.from(Model_TransaccionInv.class);
+            Root<TransaccionInv> rt = cq.from(TransaccionInv.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

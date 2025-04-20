@@ -4,9 +4,9 @@
  */
 package Uso_Comun;
 
-import Uso_Comun.Model_Pedidos;
-import Inventario.Model_Inventario;
-import Inventario.Model_Inventario;
+import Uso_Comun.Pedidos;
+import Inventario.Inventario;
+import Inventario.Inventario;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,7 +32,7 @@ import java.util.Date;
     @NamedQuery(name = "Producto.findByProductoID", query = "SELECT p FROM Producto p WHERE p.productoID = :productoID"),
     @NamedQuery(name = "Producto.findByModelo", query = "SELECT p FROM Producto p WHERE p.modelo = :modelo"),
     @NamedQuery(name = "Producto.findByFechaEntrada", query = "SELECT p FROM Producto p WHERE p.fechaEntrada = :fechaEntrada")})
-public class Model_Producto implements Serializable {
+public class Producto implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,19 +48,19 @@ public class Model_Producto implements Serializable {
     private Date fechaEntrada;
     @JoinColumn(name = "InventarioID", referencedColumnName = "InventarioID")
     @ManyToOne(optional = false)
-    private Model_Inventario inventarioID;
+    private Inventario inventarioID;
     @JoinColumn(name = "PedidoID", referencedColumnName = "PedidoID")
     @ManyToOne
-    private Model_Pedidos pedidoID;
+    private Pedidos pedidoID;
 
-    public Model_Producto() {
+    public Producto() {
     }
 
-    public Model_Producto(Integer productoID) {
+    public Producto(Integer productoID) {
         this.productoID = productoID;
     }
 
-    public Model_Producto(Integer productoID, String modelo, Date fechaEntrada) {
+    public Producto(Integer productoID, String modelo, Date fechaEntrada) {
         this.productoID = productoID;
         this.modelo = modelo;
         this.fechaEntrada = fechaEntrada;
@@ -90,19 +90,19 @@ public class Model_Producto implements Serializable {
         this.fechaEntrada = fechaEntrada;
     }
 
-    public Model_Inventario getInventarioID() {
+    public Inventario getInventarioID() {
         return inventarioID;
     }
 
-    public void setInventarioID(Model_Inventario inventarioID) {
+    public void setInventarioID(Inventario inventarioID) {
         this.inventarioID = inventarioID;
     }
 
-    public Model_Pedidos getPedidoID() {
+    public Pedidos getPedidoID() {
         return pedidoID;
     }
 
-    public void setPedidoID(Model_Pedidos pedidoID) {
+    public void setPedidoID(Pedidos pedidoID) {
         this.pedidoID = pedidoID;
     }
 
@@ -116,10 +116,10 @@ public class Model_Producto implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Model_Producto)) {
+        if (!(object instanceof Producto)) {
             return false;
         }
-        Model_Producto other = (Model_Producto) object;
+        Producto other = (Producto) object;
         if ((this.productoID == null && other.productoID != null) || (this.productoID != null && !this.productoID.equals(other.productoID))) {
             return false;
         }

@@ -5,8 +5,8 @@
 package Inventario;
 
 import Uso_Comun.Model_Usuario;
-import Uso_Comun.Model_Pedidos;
-import Inventario.Model_Almacen;
+import Uso_Comun.Pedidos;
+import Inventario.Almacen;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,7 +31,7 @@ import java.util.Collection;
     @NamedQuery(name = "Despachador.findByDespachadorID", query = "SELECT d FROM Despachador d WHERE d.despachadorID = :despachadorID"),
     @NamedQuery(name = "Despachador.findByPuesto", query = "SELECT d FROM Despachador d WHERE d.puesto = :puesto"),
     @NamedQuery(name = "Despachador.findByTelefono", query = "SELECT d FROM Despachador d WHERE d.telefono = :telefono")})
-public class Model_Despachador implements Serializable {
+public class Despachador implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,25 +45,25 @@ public class Model_Despachador implements Serializable {
     @Column(name = "Telefono")
     private String telefono;
     @OneToMany(mappedBy = "despachadorID")
-    private Collection<Model_Pedidos> pedidosCollection;
+    private Collection<Pedidos> pedidosCollection;
     @JoinColumn(name = "AlmacenID", referencedColumnName = "AlmacenID")
     @ManyToOne(optional = false)
-    private Model_Almacen almacenID;
+    private Almacen almacenID;
     @JoinColumn(name = "InventarioID", referencedColumnName = "InventarioID")
     @ManyToOne(optional = false)
-    private Model_Inventario inventarioID;
+    private Inventario inventarioID;
     @JoinColumn(name = "Usuario_Usuario_id", referencedColumnName = "Usuario_id")
     @ManyToOne(optional = false)
     private Model_Usuario usuarioUsuarioid;
 
-    public Model_Despachador() {
+    public Despachador() {
     }
 
-    public Model_Despachador(Integer despachadorID) {
+    public Despachador(Integer despachadorID) {
         this.despachadorID = despachadorID;
     }
 
-    public Model_Despachador(Integer despachadorID, String puesto, String telefono) {
+    public Despachador(Integer despachadorID, String puesto, String telefono) {
         this.despachadorID = despachadorID;
         this.puesto = puesto;
         this.telefono = telefono;
@@ -93,27 +93,27 @@ public class Model_Despachador implements Serializable {
         this.telefono = telefono;
     }
 
-    public Collection<Model_Pedidos> getPedidosCollection() {
+    public Collection<Pedidos> getPedidosCollection() {
         return pedidosCollection;
     }
 
-    public void setPedidosCollection(Collection<Model_Pedidos> pedidosCollection) {
+    public void setPedidosCollection(Collection<Pedidos> pedidosCollection) {
         this.pedidosCollection = pedidosCollection;
     }
 
-    public Model_Almacen getAlmacenID() {
+    public Almacen getAlmacenID() {
         return almacenID;
     }
 
-    public void setAlmacenID(Model_Almacen almacenID) {
+    public void setAlmacenID(Almacen almacenID) {
         this.almacenID = almacenID;
     }
 
-    public Model_Inventario getInventarioID() {
+    public Inventario getInventarioID() {
         return inventarioID;
     }
 
-    public void setInventarioID(Model_Inventario inventarioID) {
+    public void setInventarioID(Inventario inventarioID) {
         this.inventarioID = inventarioID;
     }
 
@@ -135,10 +135,10 @@ public class Model_Despachador implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Model_Despachador)) {
+        if (!(object instanceof Despachador)) {
             return false;
         }
-        Model_Despachador other = (Model_Despachador) object;
+        Despachador other = (Despachador) object;
         if ((this.despachadorID == null && other.despachadorID != null) || (this.despachadorID != null && !this.despachadorID.equals(other.despachadorID))) {
             return false;
         }

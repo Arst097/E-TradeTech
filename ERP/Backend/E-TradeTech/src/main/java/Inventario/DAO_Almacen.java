@@ -13,6 +13,7 @@ import jakarta.persistence.EntityManagerFactory;
 import java.io.Serializable;
 import jakarta.persistence.Query;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.UserTransaction;
@@ -30,45 +31,49 @@ public class DAO_Almacen implements Serializable {
     private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
+    public DAO_Almacen() {
+        this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
+    }
+
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-    public void create(Model_Almacen model_Almacen) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public void create(Almacen model_Almacen) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (model_Almacen.getDespachadorCollection() == null) {
-            model_Almacen.setDespachadorCollection(new ArrayList<Model_Despachador>());
+            model_Almacen.setDespachadorCollection(new ArrayList<Despachador>());
         }
         if (model_Almacen.getGestoresCollection() == null) {
-            model_Almacen.setGestoresCollection(new ArrayList<Model_Gestores>());
+            model_Almacen.setGestoresCollection(new ArrayList<Gestores>());
         }
         if (model_Almacen.getInventarioCollection() == null) {
-            model_Almacen.setInventarioCollection(new ArrayList<Model_Inventario>());
+            model_Almacen.setInventarioCollection(new ArrayList<Inventario>());
         }
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Collection<Model_Despachador> attachedDespachadorCollection = new ArrayList<Model_Despachador>();
-            for (Model_Despachador despachadorCollectionModel_DespachadorToAttach : model_Almacen.getDespachadorCollection()) {
+            Collection<Despachador> attachedDespachadorCollection = new ArrayList<Despachador>();
+            for (Despachador despachadorCollectionModel_DespachadorToAttach : model_Almacen.getDespachadorCollection()) {
                 despachadorCollectionModel_DespachadorToAttach = em.getReference(despachadorCollectionModel_DespachadorToAttach.getClass(), despachadorCollectionModel_DespachadorToAttach.getDespachadorID());
                 attachedDespachadorCollection.add(despachadorCollectionModel_DespachadorToAttach);
             }
             model_Almacen.setDespachadorCollection(attachedDespachadorCollection);
-            Collection<Model_Gestores> attachedGestoresCollection = new ArrayList<Model_Gestores>();
-            for (Model_Gestores gestoresCollectionModel_GestoresToAttach : model_Almacen.getGestoresCollection()) {
+            Collection<Gestores> attachedGestoresCollection = new ArrayList<Gestores>();
+            for (Gestores gestoresCollectionModel_GestoresToAttach : model_Almacen.getGestoresCollection()) {
                 gestoresCollectionModel_GestoresToAttach = em.getReference(gestoresCollectionModel_GestoresToAttach.getClass(), gestoresCollectionModel_GestoresToAttach.getGestorID());
                 attachedGestoresCollection.add(gestoresCollectionModel_GestoresToAttach);
             }
             model_Almacen.setGestoresCollection(attachedGestoresCollection);
-            Collection<Model_Inventario> attachedInventarioCollection = new ArrayList<Model_Inventario>();
-            for (Model_Inventario inventarioCollectionModel_InventarioToAttach : model_Almacen.getInventarioCollection()) {
+            Collection<Inventario> attachedInventarioCollection = new ArrayList<Inventario>();
+            for (Inventario inventarioCollectionModel_InventarioToAttach : model_Almacen.getInventarioCollection()) {
                 inventarioCollectionModel_InventarioToAttach = em.getReference(inventarioCollectionModel_InventarioToAttach.getClass(), inventarioCollectionModel_InventarioToAttach.getInventarioID());
                 attachedInventarioCollection.add(inventarioCollectionModel_InventarioToAttach);
             }
             model_Almacen.setInventarioCollection(attachedInventarioCollection);
             em.persist(model_Almacen);
-            for (Model_Despachador despachadorCollectionModel_Despachador : model_Almacen.getDespachadorCollection()) {
-                Model_Almacen oldAlmacenIDOfDespachadorCollectionModel_Despachador = despachadorCollectionModel_Despachador.getAlmacenID();
+            for (Despachador despachadorCollectionModel_Despachador : model_Almacen.getDespachadorCollection()) {
+                Almacen oldAlmacenIDOfDespachadorCollectionModel_Despachador = despachadorCollectionModel_Despachador.getAlmacenID();
                 despachadorCollectionModel_Despachador.setAlmacenID(model_Almacen);
                 despachadorCollectionModel_Despachador = em.merge(despachadorCollectionModel_Despachador);
                 if (oldAlmacenIDOfDespachadorCollectionModel_Despachador != null) {
@@ -76,8 +81,8 @@ public class DAO_Almacen implements Serializable {
                     oldAlmacenIDOfDespachadorCollectionModel_Despachador = em.merge(oldAlmacenIDOfDespachadorCollectionModel_Despachador);
                 }
             }
-            for (Model_Gestores gestoresCollectionModel_Gestores : model_Almacen.getGestoresCollection()) {
-                Model_Almacen oldAlmacenIDOfGestoresCollectionModel_Gestores = gestoresCollectionModel_Gestores.getAlmacenID();
+            for (Gestores gestoresCollectionModel_Gestores : model_Almacen.getGestoresCollection()) {
+                Almacen oldAlmacenIDOfGestoresCollectionModel_Gestores = gestoresCollectionModel_Gestores.getAlmacenID();
                 gestoresCollectionModel_Gestores.setAlmacenID(model_Almacen);
                 gestoresCollectionModel_Gestores = em.merge(gestoresCollectionModel_Gestores);
                 if (oldAlmacenIDOfGestoresCollectionModel_Gestores != null) {
@@ -85,8 +90,8 @@ public class DAO_Almacen implements Serializable {
                     oldAlmacenIDOfGestoresCollectionModel_Gestores = em.merge(oldAlmacenIDOfGestoresCollectionModel_Gestores);
                 }
             }
-            for (Model_Inventario inventarioCollectionModel_Inventario : model_Almacen.getInventarioCollection()) {
-                Model_Almacen oldAlmacenIDOfInventarioCollectionModel_Inventario = inventarioCollectionModel_Inventario.getAlmacenID();
+            for (Inventario inventarioCollectionModel_Inventario : model_Almacen.getInventarioCollection()) {
+                Almacen oldAlmacenIDOfInventarioCollectionModel_Inventario = inventarioCollectionModel_Inventario.getAlmacenID();
                 inventarioCollectionModel_Inventario.setAlmacenID(model_Almacen);
                 inventarioCollectionModel_Inventario = em.merge(inventarioCollectionModel_Inventario);
                 if (oldAlmacenIDOfInventarioCollectionModel_Inventario != null) {
@@ -112,20 +117,20 @@ public class DAO_Almacen implements Serializable {
         }
     }
 
-    public void edit(Model_Almacen model_Almacen) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public void edit(Almacen model_Almacen) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Model_Almacen persistentModel_Almacen = em.find(Model_Almacen.class, model_Almacen.getAlmacenID());
-            Collection<Model_Despachador> despachadorCollectionOld = persistentModel_Almacen.getDespachadorCollection();
-            Collection<Model_Despachador> despachadorCollectionNew = model_Almacen.getDespachadorCollection();
-            Collection<Model_Gestores> gestoresCollectionOld = persistentModel_Almacen.getGestoresCollection();
-            Collection<Model_Gestores> gestoresCollectionNew = model_Almacen.getGestoresCollection();
-            Collection<Model_Inventario> inventarioCollectionOld = persistentModel_Almacen.getInventarioCollection();
-            Collection<Model_Inventario> inventarioCollectionNew = model_Almacen.getInventarioCollection();
+            Almacen persistentModel_Almacen = em.find(Almacen.class, model_Almacen.getAlmacenID());
+            Collection<Despachador> despachadorCollectionOld = persistentModel_Almacen.getDespachadorCollection();
+            Collection<Despachador> despachadorCollectionNew = model_Almacen.getDespachadorCollection();
+            Collection<Gestores> gestoresCollectionOld = persistentModel_Almacen.getGestoresCollection();
+            Collection<Gestores> gestoresCollectionNew = model_Almacen.getGestoresCollection();
+            Collection<Inventario> inventarioCollectionOld = persistentModel_Almacen.getInventarioCollection();
+            Collection<Inventario> inventarioCollectionNew = model_Almacen.getInventarioCollection();
             List<String> illegalOrphanMessages = null;
-            for (Model_Despachador despachadorCollectionOldModel_Despachador : despachadorCollectionOld) {
+            for (Despachador despachadorCollectionOldModel_Despachador : despachadorCollectionOld) {
                 if (!despachadorCollectionNew.contains(despachadorCollectionOldModel_Despachador)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
@@ -133,7 +138,7 @@ public class DAO_Almacen implements Serializable {
                     illegalOrphanMessages.add("You must retain Model_Despachador " + despachadorCollectionOldModel_Despachador + " since its almacenID field is not nullable.");
                 }
             }
-            for (Model_Gestores gestoresCollectionOldModel_Gestores : gestoresCollectionOld) {
+            for (Gestores gestoresCollectionOldModel_Gestores : gestoresCollectionOld) {
                 if (!gestoresCollectionNew.contains(gestoresCollectionOldModel_Gestores)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
@@ -144,31 +149,31 @@ public class DAO_Almacen implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Collection<Model_Despachador> attachedDespachadorCollectionNew = new ArrayList<Model_Despachador>();
-            for (Model_Despachador despachadorCollectionNewModel_DespachadorToAttach : despachadorCollectionNew) {
+            Collection<Despachador> attachedDespachadorCollectionNew = new ArrayList<Despachador>();
+            for (Despachador despachadorCollectionNewModel_DespachadorToAttach : despachadorCollectionNew) {
                 despachadorCollectionNewModel_DespachadorToAttach = em.getReference(despachadorCollectionNewModel_DespachadorToAttach.getClass(), despachadorCollectionNewModel_DespachadorToAttach.getDespachadorID());
                 attachedDespachadorCollectionNew.add(despachadorCollectionNewModel_DespachadorToAttach);
             }
             despachadorCollectionNew = attachedDespachadorCollectionNew;
             model_Almacen.setDespachadorCollection(despachadorCollectionNew);
-            Collection<Model_Gestores> attachedGestoresCollectionNew = new ArrayList<Model_Gestores>();
-            for (Model_Gestores gestoresCollectionNewModel_GestoresToAttach : gestoresCollectionNew) {
+            Collection<Gestores> attachedGestoresCollectionNew = new ArrayList<Gestores>();
+            for (Gestores gestoresCollectionNewModel_GestoresToAttach : gestoresCollectionNew) {
                 gestoresCollectionNewModel_GestoresToAttach = em.getReference(gestoresCollectionNewModel_GestoresToAttach.getClass(), gestoresCollectionNewModel_GestoresToAttach.getGestorID());
                 attachedGestoresCollectionNew.add(gestoresCollectionNewModel_GestoresToAttach);
             }
             gestoresCollectionNew = attachedGestoresCollectionNew;
             model_Almacen.setGestoresCollection(gestoresCollectionNew);
-            Collection<Model_Inventario> attachedInventarioCollectionNew = new ArrayList<Model_Inventario>();
-            for (Model_Inventario inventarioCollectionNewModel_InventarioToAttach : inventarioCollectionNew) {
+            Collection<Inventario> attachedInventarioCollectionNew = new ArrayList<Inventario>();
+            for (Inventario inventarioCollectionNewModel_InventarioToAttach : inventarioCollectionNew) {
                 inventarioCollectionNewModel_InventarioToAttach = em.getReference(inventarioCollectionNewModel_InventarioToAttach.getClass(), inventarioCollectionNewModel_InventarioToAttach.getInventarioID());
                 attachedInventarioCollectionNew.add(inventarioCollectionNewModel_InventarioToAttach);
             }
             inventarioCollectionNew = attachedInventarioCollectionNew;
             model_Almacen.setInventarioCollection(inventarioCollectionNew);
             model_Almacen = em.merge(model_Almacen);
-            for (Model_Despachador despachadorCollectionNewModel_Despachador : despachadorCollectionNew) {
+            for (Despachador despachadorCollectionNewModel_Despachador : despachadorCollectionNew) {
                 if (!despachadorCollectionOld.contains(despachadorCollectionNewModel_Despachador)) {
-                    Model_Almacen oldAlmacenIDOfDespachadorCollectionNewModel_Despachador = despachadorCollectionNewModel_Despachador.getAlmacenID();
+                    Almacen oldAlmacenIDOfDespachadorCollectionNewModel_Despachador = despachadorCollectionNewModel_Despachador.getAlmacenID();
                     despachadorCollectionNewModel_Despachador.setAlmacenID(model_Almacen);
                     despachadorCollectionNewModel_Despachador = em.merge(despachadorCollectionNewModel_Despachador);
                     if (oldAlmacenIDOfDespachadorCollectionNewModel_Despachador != null && !oldAlmacenIDOfDespachadorCollectionNewModel_Despachador.equals(model_Almacen)) {
@@ -177,9 +182,9 @@ public class DAO_Almacen implements Serializable {
                     }
                 }
             }
-            for (Model_Gestores gestoresCollectionNewModel_Gestores : gestoresCollectionNew) {
+            for (Gestores gestoresCollectionNewModel_Gestores : gestoresCollectionNew) {
                 if (!gestoresCollectionOld.contains(gestoresCollectionNewModel_Gestores)) {
-                    Model_Almacen oldAlmacenIDOfGestoresCollectionNewModel_Gestores = gestoresCollectionNewModel_Gestores.getAlmacenID();
+                    Almacen oldAlmacenIDOfGestoresCollectionNewModel_Gestores = gestoresCollectionNewModel_Gestores.getAlmacenID();
                     gestoresCollectionNewModel_Gestores.setAlmacenID(model_Almacen);
                     gestoresCollectionNewModel_Gestores = em.merge(gestoresCollectionNewModel_Gestores);
                     if (oldAlmacenIDOfGestoresCollectionNewModel_Gestores != null && !oldAlmacenIDOfGestoresCollectionNewModel_Gestores.equals(model_Almacen)) {
@@ -188,15 +193,15 @@ public class DAO_Almacen implements Serializable {
                     }
                 }
             }
-            for (Model_Inventario inventarioCollectionOldModel_Inventario : inventarioCollectionOld) {
+            for (Inventario inventarioCollectionOldModel_Inventario : inventarioCollectionOld) {
                 if (!inventarioCollectionNew.contains(inventarioCollectionOldModel_Inventario)) {
                     inventarioCollectionOldModel_Inventario.setAlmacenID(null);
                     inventarioCollectionOldModel_Inventario = em.merge(inventarioCollectionOldModel_Inventario);
                 }
             }
-            for (Model_Inventario inventarioCollectionNewModel_Inventario : inventarioCollectionNew) {
+            for (Inventario inventarioCollectionNewModel_Inventario : inventarioCollectionNew) {
                 if (!inventarioCollectionOld.contains(inventarioCollectionNewModel_Inventario)) {
-                    Model_Almacen oldAlmacenIDOfInventarioCollectionNewModel_Inventario = inventarioCollectionNewModel_Inventario.getAlmacenID();
+                    Almacen oldAlmacenIDOfInventarioCollectionNewModel_Inventario = inventarioCollectionNewModel_Inventario.getAlmacenID();
                     inventarioCollectionNewModel_Inventario.setAlmacenID(model_Almacen);
                     inventarioCollectionNewModel_Inventario = em.merge(inventarioCollectionNewModel_Inventario);
                     if (oldAlmacenIDOfInventarioCollectionNewModel_Inventario != null && !oldAlmacenIDOfInventarioCollectionNewModel_Inventario.equals(model_Almacen)) {
@@ -232,23 +237,23 @@ public class DAO_Almacen implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            Model_Almacen model_Almacen;
+            Almacen model_Almacen;
             try {
-                model_Almacen = em.getReference(Model_Almacen.class, id);
+                model_Almacen = em.getReference(Almacen.class, id);
                 model_Almacen.getAlmacenID();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The model_Almacen with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            Collection<Model_Despachador> despachadorCollectionOrphanCheck = model_Almacen.getDespachadorCollection();
-            for (Model_Despachador despachadorCollectionOrphanCheckModel_Despachador : despachadorCollectionOrphanCheck) {
+            Collection<Despachador> despachadorCollectionOrphanCheck = model_Almacen.getDespachadorCollection();
+            for (Despachador despachadorCollectionOrphanCheckModel_Despachador : despachadorCollectionOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
                 illegalOrphanMessages.add("This Model_Almacen (" + model_Almacen + ") cannot be destroyed since the Model_Despachador " + despachadorCollectionOrphanCheckModel_Despachador + " in its despachadorCollection field has a non-nullable almacenID field.");
             }
-            Collection<Model_Gestores> gestoresCollectionOrphanCheck = model_Almacen.getGestoresCollection();
-            for (Model_Gestores gestoresCollectionOrphanCheckModel_Gestores : gestoresCollectionOrphanCheck) {
+            Collection<Gestores> gestoresCollectionOrphanCheck = model_Almacen.getGestoresCollection();
+            for (Gestores gestoresCollectionOrphanCheckModel_Gestores : gestoresCollectionOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
@@ -257,8 +262,8 @@ public class DAO_Almacen implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Collection<Model_Inventario> inventarioCollection = model_Almacen.getInventarioCollection();
-            for (Model_Inventario inventarioCollectionModel_Inventario : inventarioCollection) {
+            Collection<Inventario> inventarioCollection = model_Almacen.getInventarioCollection();
+            for (Inventario inventarioCollectionModel_Inventario : inventarioCollection) {
                 inventarioCollectionModel_Inventario.setAlmacenID(null);
                 inventarioCollectionModel_Inventario = em.merge(inventarioCollectionModel_Inventario);
             }
@@ -278,19 +283,19 @@ public class DAO_Almacen implements Serializable {
         }
     }
 
-    public List<Model_Almacen> findModel_AlmacenEntities() {
+    public List<Almacen> findModel_AlmacenEntities() {
         return findModel_AlmacenEntities(true, -1, -1);
     }
 
-    public List<Model_Almacen> findModel_AlmacenEntities(int maxResults, int firstResult) {
+    public List<Almacen> findModel_AlmacenEntities(int maxResults, int firstResult) {
         return findModel_AlmacenEntities(false, maxResults, firstResult);
     }
 
-    private List<Model_Almacen> findModel_AlmacenEntities(boolean all, int maxResults, int firstResult) {
+    private List<Almacen> findModel_AlmacenEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Model_Almacen.class));
+            cq.select(cq.from(Almacen.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -302,10 +307,10 @@ public class DAO_Almacen implements Serializable {
         }
     }
 
-    public Model_Almacen findModel_Almacen(Integer id) {
+    public Almacen findModel_Almacen(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Model_Almacen.class, id);
+            return em.find(Almacen.class, id);
         } finally {
             em.close();
         }
@@ -315,7 +320,7 @@ public class DAO_Almacen implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Model_Almacen> rt = cq.from(Model_Almacen.class);
+            Root<Almacen> rt = cq.from(Almacen.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
@@ -323,5 +328,5 @@ public class DAO_Almacen implements Serializable {
             em.close();
         }
     }
-    
+
 }
