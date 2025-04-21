@@ -4,6 +4,9 @@
  */
 package Uso_Comun;
 
+import Uso_Comun.DAOs.DAO_Usuario;
+import Uso_Comun.Modelos.Pedidos;
+import Uso_Comun.Modelos.Usuario;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.RollbackFailureException;
 import java.security.MessageDigest;
@@ -17,15 +20,14 @@ public class Servicio_Usuario {
 
     public static DAO_Usuario DAO = new DAO_Usuario();
 
-    public static void CrearUsuario(Model_Usuario Usuario) throws RollbackFailureException, Exception {
+    public static void CrearUsuario(Usuario Usuario) throws RollbackFailureException, Exception {
         DAO.create(Usuario);
     }
     
     public static void CrearUsuario(Integer usuarioid, String nombre, String correo, String contraseñaLimpia) throws Exception{
-        Model_Usuario Usuario = new Model_Usuario(usuarioid, nombre, correo, encryptSHA256("contraseñaLimpia"));
+        Usuario Usuario = new Usuario(usuarioid, nombre, correo, encryptSHA256("contraseñaLimpia"));
         CrearUsuario(Usuario);
     }
-
     
     public static void EliminarUsuario(Integer usuarioid) throws Exception{
         DAO.destroy(usuarioid);

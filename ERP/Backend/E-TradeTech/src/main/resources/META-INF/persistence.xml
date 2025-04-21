@@ -3,18 +3,18 @@
   <!-- Define Persistence Unit -->
   <persistence-unit name="ETradeTech_PU_JTA" transaction-type="JTA">
     <jta-data-source>java:app/Conexion</jta-data-source>
-    <class>Uso_Comun.Mensajero</class>
-    <class>Uso_Comun.Cliente</class>
-    <class>Uso_Comun.Pedidos</class>
-    <class>Uso_Comun.Producto</class>
-    <class>Inventario.TransaccionInv</class>
-    <class>Inventario.Inventario</class>
-    <class>Inventario.HistorialTransaccInv</class>
-    <class>Inventario.HistorialPedidos</class>
-    <class>Inventario.Despachador</class>
-    <class>Inventario.Almacen</class>
-    <class>Uso_Comun.Model_Usuario</class>
-    <class>Inventario.Gestores</class>
+    <class>Uso_Comun.Modelos.Cliente</class>
+    <class>Uso_Comun.Modelos.Mensajero</class>
+    <class>Uso_Comun.Modelos.Producto</class>
+    <class>Uso_Comun.Modelos.Usuario</class>
+    <class>Uso_Comun.Modelos.Pedidos</class>
+    <class>Inventario.Modelos.Almacen</class>
+    <class>Inventario.Modelos.Despachador</class>
+    <class>Inventario.Modelos.Gestores</class>
+    <class>Inventario.Modelos.HistorialPedidos</class>
+    <class>Inventario.Modelos.HistorialTransaccInv</class>
+    <class>Inventario.Modelos.Inventario</class>
+    <class>Inventario.Modelos.TransaccionInv</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
@@ -22,18 +22,18 @@
   </persistence-unit>
   <persistence-unit name="ETradeTech_PU" transaction-type="RESOURCE_LOCAL">
     <!-- Sin JTA y sin jta-data-source -->
-    <class>Uso_Comun.Mensajero</class>
-    <class>Uso_Comun.Cliente</class>
-    <class>Uso_Comun.Pedidos</class>
-    <class>Uso_Comun.Producto</class>
-    <class>Inventario.TransaccionInv</class>
-    <class>Inventario.Inventario</class>
-    <class>Inventario.HistorialTransaccInv</class>
-    <class>Inventario.HistorialPedidos</class>
-    <class>Inventario.Despachador</class>
-    <class>Inventario.Almacen</class>
-    <class>Uso_Comun.Model_Usuario</class>
-    <class>Inventario.Gestores</class>
+    <class>Uso_Comun.Modelos.Cliente</class>
+    <class>Uso_Comun.Modelos.Mensajero</class>
+    <class>Uso_Comun.Modelos.Producto</class>
+    <class>Uso_Comun.Modelos.Usuario</class>
+    <class>Uso_Comun.Modelos.Pedidos</class>
+    <class>Inventario.Modelos.Almacen</class>
+    <class>Inventario.Modelos.Despachador</class>
+    <class>Inventario.Modelos.Gestores</class>
+    <class>Inventario.Modelos.HistorialPedidos</class>
+    <class>Inventario.Modelos.HistorialTransaccInv</class>
+    <class>Inventario.Modelos.Inventario</class>
+    <class>Inventario.Modelos.TransaccionInv</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!-- Configura aquí tu conexión directa JDBC -->

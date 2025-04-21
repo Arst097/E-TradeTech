@@ -4,6 +4,9 @@
  */
 package Inventario;
 
+import Inventario.DAOs.DAO_Gestores;
+import Inventario.Modelos.Inventario;
+
 
 /**
  *
@@ -12,6 +15,9 @@ package Inventario;
 public class Servicio_Gestor {
     public static void prueba(){
         DAO_Gestores JPA = new DAO_Gestores();
+        
+        Inventario inventraioLibre = new Inventario();
+        Inventario inventraioReservado = new Inventario();
     }
     
 
