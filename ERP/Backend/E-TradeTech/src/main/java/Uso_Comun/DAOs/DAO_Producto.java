@@ -15,6 +15,7 @@ import jakarta.persistence.EntityManagerFactory;
 import java.io.Serializable;
 import jakarta.persistence.Query;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.UserTransaction;
@@ -39,37 +40,46 @@ public class DAO_Producto implements Serializable {
 
     public void create(Producto model_Producto) throws PreexistingEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
+        EntityTransaction tx = null;
         try {
-            utx.begin();
             em = getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+
             Inventario inventarioID = model_Producto.getInventarioID();
             if (inventarioID != null) {
-                inventarioID = em.getReference(inventarioID.getClass(), inventarioID.getInventarioID());
+                inventarioID = em.getReference(Inventario.class, inventarioID.getInventarioID());
                 model_Producto.setInventarioID(inventarioID);
             }
+
             Pedidos pedidoID = model_Producto.getPedidoID();
             if (pedidoID != null) {
-                pedidoID = em.getReference(pedidoID.getClass(), pedidoID.getPedidoID());
+                pedidoID = em.getReference(Pedidos.class, pedidoID.getPedidoID());
                 model_Producto.setPedidoID(pedidoID);
             }
+
             em.persist(model_Producto);
+
             if (inventarioID != null) {
                 inventarioID.getProductoCollection().add(model_Producto);
-                inventarioID = em.merge(inventarioID);
+                em.merge(inventarioID);
             }
             if (pedidoID != null) {
                 pedidoID.getProductoCollection().add(model_Producto);
-                pedidoID = em.merge(pedidoID);
+                em.merge(pedidoID);
             }
-            utx.commit();
+
+            tx.commit();
         } catch (Exception ex) {
-            try {
-                utx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            if (tx != null && tx.isActive()) {
+                try {
+                    tx.rollback();
+                } catch (Exception re) {
+                    throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+                }
             }
             if (findModel_Producto(model_Producto.getProductoID()) != null) {
-                throw new PreexistingEntityException("Model_Producto " + model_Producto + " already exists.", ex);
+                throw new PreexistingEntityException("Producto " + model_Producto + " already exists.", ex);
             }
             throw ex;
         } finally {
@@ -138,33 +148,41 @@ public class DAO_Producto implements Serializable {
 
     public void destroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
+        EntityTransaction tx = null;
         try {
-            utx.begin();
             em = getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+
             Producto model_Producto;
             try {
                 model_Producto = em.getReference(Producto.class, id);
                 model_Producto.getProductoID();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The model_Producto with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The Producto with id " + id + " no longer exists.", enfe);
             }
+
             Inventario inventarioID = model_Producto.getInventarioID();
             if (inventarioID != null) {
                 inventarioID.getProductoCollection().remove(model_Producto);
-                inventarioID = em.merge(inventarioID);
+                em.merge(inventarioID);
             }
+
             Pedidos pedidoID = model_Producto.getPedidoID();
             if (pedidoID != null) {
                 pedidoID.getProductoCollection().remove(model_Producto);
-                pedidoID = em.merge(pedidoID);
+                em.merge(pedidoID);
             }
+
             em.remove(model_Producto);
-            utx.commit();
+            tx.commit();
         } catch (Exception ex) {
-            try {
-                utx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            if (tx != null && tx.isActive()) {
+                try {
+                    tx.rollback();
+                } catch (Exception re) {
+                    throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+                }
             }
             throw ex;
         } finally {
