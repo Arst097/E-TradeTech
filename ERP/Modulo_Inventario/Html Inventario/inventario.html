@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ERP - Inventario</title>
-    <link rel="stylesheet" href="../Css Inventario/inventario.css">
+    <link rel="stylesheet" href="/Modulo_Inventario/Css Inventario/inventario.css">
 </head>
 <body>
     <div class="sidebar">
         <h2>ERP</h2>
         <ul>
-            <a href="/ERP/Inicio_Registro Html/Inicio_sesion.html"><li>Inicio Sesion</li></a>
+            <a href="/Inicio_Registro Html/Inicio_sesion.html"><li>Inicio Sesion</li></a>
             <li class="active">Modulo Inventario y Almacenamiento</li> 
             <li>Modulo Contabilidad</li>
             <li>Modulo Proveedores y Compras</li>
@@ -21,9 +21,9 @@
 
     <div class="main">
         <header>
-            <img src="/ERP/Img/logo - fondo.png" alt="">
+            <img src="/Img/logo - fondo.png" alt="">
             <h1><a href="">Productos</a></h1>
-            <h1><a href="">Orden</a></h1>
+            <h1><a href="/Modulo_Inventario/Html Inventario/ordenes.html">Orden</a></h1>
             <div class="menu">
             <p><a href="">&#128276;</a></p>
             <p><a href="">&#128100;</a></p>
@@ -58,14 +58,60 @@
                     <td>Computador</td>
                     <td>15</td>
                     <td>$3.000.000</td>
-                    <td><button class="editar">Editar</button> 
+                    <td><button class="editar" onclick="abrirFormularioEditar('Laptop HP Pavilion 15', 'Computadoras', 15, '3000000')">Editar</button>
                         <button class="eliminar">Eliminar</button></td>
                 </tr>  
             </tbody>
         </table>
         <div class="btn_agregar_producto">
-            <a href="agregar_inven.html"><button>Agregar Producto </button></a>
+            <button onclick="abrirFormulario()">Agregar Producto </button>
         </div>
     </div>
+    <div class="Formulario" id="Formulario">
+        <div class="formulario-contenido">
+        <form action="">
+            <h1>Agregar Producto nuevo a Stock</h1>
+            <h2>Producto</h2>
+            <input type="text">
+            <h2>Categoria</h2>
+            <select id="categoria2" name="Filtrar">
+                <option value="computadoras">Computadoras</option>
+                <option value="telefonos">Teléfonos</option>
+                <option value="tablets">Tablets</option>
+                <option value="otros">Otros electrónicos</option>
+              </select>
+              <h2>Cantidad</h2>
+              <input type="number">
+              <h2>Precio</h2>
+              <input type="text"><br>
+             <a href=""> <input id="Aceptar" type="button" value="Agregar Producto"></a>
+             <button onclick="cerrarFormulario()" id="Cancelar">Cancelar </button>
+        </form>
+    </div>
+    </div>
+    <div class="Formulario" id="FormularioEditar" style="display: none;">
+        <div class="formulario-contenido">
+          <form>
+            <h1>Editar Producto</h1>
+            <h2>Producto</h2>
+            <input type="text" id="editProducto">
+            <h2>Categoria</h2>
+            <select id="categoria2">
+              <option value="computadoras">Computadoras</option>
+              <option value="telefonos">Teléfonos</option>
+              <option value="tablets">Tablets</option>
+              <option value="otros">Otros electrónicos</option>
+            </select>
+            <h2>Cantidad</h2>
+            <input type="number" id="editCantidad">
+            <h2>Precio</h2>
+            <input type="text" id="editPrecio"><br>
+            <input id="Aceptar" type="button" value="Guardar Cambios">
+            <button onclick="cerrarFormularioEditar()" id="Cancelar">Cancelar</button>
+          </form>
+        </div>
+      </div>
+      
+    <script src="/Modulo_Inventario/JS Inventario/inventario.js"></script>
 </body>
 </html>
