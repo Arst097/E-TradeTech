@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="Tests.Test_Usuario" time="3.996" tests="4" errors="3" skipped="0" failures="0">
+  <properties>
+    <property name="netbeans.deploy" value="true"/>
+    <property name="java.specification.version" value="17"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\target\test-classes;C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\target\classes;C:\Users\HP PORTATIL\.m2\repository\jakarta\platform\jakarta.jakartaee-api\9.0.0\jakarta.jakartaee-api-9.0.0.jar;C:\Users\HP PORTATIL\.m2\repository\com\microsoft\sqlserver\mssql-jdbc\12.10.0.jre11\mssql-jdbc-12.10.0.jre11.jar;C:\Users\HP PORTATIL\.m2\repository\io\jsonwebtoken\jjwt-api\0.11.5\jjwt-api-0.11.5.jar;C:\Users\HP PORTATIL\.m2\repository\io\jsonwebtoken\jjwt-impl\0.11.5\jjwt-impl-0.11.5.jar;C:\Users\HP PORTATIL\.m2\repository\io\jsonwebtoken\jjwt-jackson\0.11.5\jjwt-jackson-0.11.5.jar;C:\Users\HP PORTATIL\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.12.6.1\jackson-databind-2.12.6.1.jar;C:\Users\HP PORTATIL\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.12.6\jackson-annotations-2.12.6.jar;C:\Users\HP PORTATIL\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.12.6\jackson-core-2.12.6.jar;C:\Users\HP PORTATIL\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;C:\Users\HP PORTATIL\.m2\repository\javax\transaction\javax.transaction-api\1.3\javax.transaction-api-1.3.jar;C:\Users\HP PORTATIL\.m2\repository\org\eclipse\persistence\eclipselink\3.0.2\eclipselink-3.0.2.jar;C:\Users\HP PORTATIL\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.0\jakarta.transaction-api-2.0.0.jar;C:\Users\HP PORTATIL\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\HP PORTATIL\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\HP PORTATIL\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\HP PORTATIL\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\HP PORTATIL\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar;C:\Users\HP PORTATIL\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\HP PORTATIL\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="exec.appArgs" value=""/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="user.timezone" value="America/Bogota"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="java.vm.specification.version" value="17"/>
+    <property name="user.country" value="CO"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-17\bin"/>
+    <property name="sun.java.command" value="C:\Users\HP PORTATIL\AppData\Local\Temp\surefire14304819490113897686\surefirebooter-20250425105932274_3.jar C:\Users\HP PORTATIL\AppData\Local\Temp\surefire14304819490113897686 2025-04-25T10-59-31_586-jvmRun1 surefire-20250425105932274_1tmp surefire_0-20250425105932274_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="exec.vmArgs" value=""/>
+    <property name="surefire.test.class.path" value="C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\target\test-classes;C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\target\classes;C:\Users\HP PORTATIL\.m2\repository\jakarta\platform\jakarta.jakartaee-api\9.0.0\jakarta.jakartaee-api-9.0.0.jar;C:\Users\HP PORTATIL\.m2\repository\com\microsoft\sqlserver\mssql-jdbc\12.10.0.jre11\mssql-jdbc-12.10.0.jre11.jar;C:\Users\HP PORTATIL\.m2\repository\io\jsonwebtoken\jjwt-api\0.11.5\jjwt-api-0.11.5.jar;C:\Users\HP PORTATIL\.m2\repository\io\jsonwebtoken\jjwt-impl\0.11.5\jjwt-impl-0.11.5.jar;C:\Users\HP PORTATIL\.m2\repository\io\jsonwebtoken\jjwt-jackson\0.11.5\jjwt-jackson-0.11.5.jar;C:\Users\HP PORTATIL\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.12.6.1\jackson-databind-2.12.6.1.jar;C:\Users\HP PORTATIL\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.12.6\jackson-annotations-2.12.6.jar;C:\Users\HP PORTATIL\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.12.6\jackson-core-2.12.6.jar;C:\Users\HP PORTATIL\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;C:\Users\HP PORTATIL\.m2\repository\javax\transaction\javax.transaction-api\1.3\javax.transaction-api-1.3.jar;C:\Users\HP PORTATIL\.m2\repository\org\eclipse\persistence\eclipselink\3.0.2\eclipselink-3.0.2.jar;C:\Users\HP PORTATIL\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.0\jakarta.transaction-api-2.0.0.jar;C:\Users\HP PORTATIL\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\HP PORTATIL\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\HP PORTATIL\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\HP PORTATIL\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\HP PORTATIL\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar;C:\Users\HP PORTATIL\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\HP PORTATIL\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\HP PORTATIL"/>
+    <property name="user.language" value="es"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2024-07-16"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk-17"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\HP PORTATIL\AppData\Local\Temp\surefire14304819490113897686\surefirebooter-20250425105932274_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="17.0.12+8-LTS-286"/>
+    <property name="user.name" value="HP PORTATIL"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="maven.ext.class.path" value="C:\Program Files\NetBeans-19\netbeans\java\maven-nblib\netbeans-eventspy.jar"/>
+    <property name="localRepository" value="C:\Users\HP PORTATIL\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\HPPORT~1\AppData\Local\Temp\"/>
+    <property name="java.version" value="17.0.12"/>
+    <property name="user.dir" value="C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-17\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\app\HP_PORTATIL\product\21c\dbhomeXE\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\dotnet\;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files (x86)\Microsoft SQL Server\160\Tools\Binn\;C:\Program Files\Microsoft SQL Server\160\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\160\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\160\DTS\Binn\;C:\Program Files\nodejs\;C:\Users\HP PORTATIL\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\HP PORTATIL\AppData\Local\Programs\Python\Python311\;C:\Users\HP PORTATIL\AppData\Local\Microsoft\WindowsApps;C:\Users\HP PORTATIL\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\HP PORTATIL\.dotnet\tools;C:\Users\HP PORTATIL\AppData\Local\GitHubDesktop\bin;C:\Users\HP PORTATIL\AppData\Roaming\npm;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="17.0.12+8-LTS-286"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="61.0"/>
+  </properties>
+  <testcase name="testFindUsuarioExistente" classname="Tests.Test_Usuario" time="0.276">
+    <error message="El usuario ya existe: 3" type="Inventario.exceptions.PreexistingEntityException"><![CDATA[Inventario.exceptions.PreexistingEntityException: El usuario ya existe: 3
+	at Uso_Comun.DAOs.DAO_Usuario.create(DAO_Usuario.java:141)
+	at Tests.Test_Usuario.testFindUsuarioExistente(Test_Usuario.java:89)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:205)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:201)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:71)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:248)
+	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$5(DefaultLauncher.java:211)
+	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:226)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:199)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:132)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+Caused by: jakarta.persistence.RollbackException: Exception [EclipseLink-4002] (Eclipse Persistence Services - 3.0.2.v202107160933): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'Contraseña_SHA256', table 'ETradeTechDB.dbo.Usuario'; column does not allow nulls. INSERT fails.
+Error Code: 515
+Call: INSERT INTO Usuario (Usuario_id, Contraseña_SHA256, Correo, Nombre) VALUES (?, ?, ?, ?)
+	bind => [3, null, null, María Ruiz]
+Query: InsertObjectQuery(Uso_Comun.Usuario[ usuarioid=3 ])
+	at org.eclipse.persistence.internal.jpa.transaction.EntityTransactionImpl.commit(EntityTransactionImpl.java:163)
+	at Uso_Comun.DAOs.DAO_Usuario.create(DAO_Usuario.java:129)
+	... 68 more
+Caused by: Exception [EclipseLink-4002] (Eclipse Persistence Services - 3.0.2.v202107160933): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'Contraseña_SHA256', table 'ETradeTechDB.dbo.Usuario'; column does not allow nulls. INSERT fails.
+Error Code: 515
+Call: INSERT INTO Usuario (Usuario_id, Contraseña_SHA256, Correo, Nombre) VALUES (?, ?, ?, ?)
+	bind => [3, null, null, María Ruiz]
+Query: InsertObjectQuery(Uso_Comun.Usuario[ usuarioid=3 ])
+	at org.eclipse.persistence.exceptions.DatabaseException.sqlException(DatabaseException.java:334)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:908)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeNoSelect(DatabaseAccessor.java:970)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:640)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:567)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2051)
+	at org.eclipse.persistence.sessions.server.ClientSession.executeCall(ClientSession.java:312)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:282)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:268)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.insertObject(DatasourceCallQueryMechanism.java:421)
+	at org.eclipse.persistence.internal.queries.StatementQueryMechanism.insertObject(StatementQueryMechanism.java:175)
+	at org.eclipse.persistence.internal.queries.StatementQueryMechanism.insertObject(StatementQueryMechanism.java:191)
+	at org.eclipse.persistence.internal.queries.DatabaseQueryMechanism.insertObjectForWrite(DatabaseQueryMechanism.java:507)
+	at org.eclipse.persistence.queries.InsertObjectQuery.executeCommit(InsertObjectQuery.java:83)
+	at org.eclipse.persistence.queries.InsertObjectQuery.executeCommitWithChangeSet(InsertObjectQuery.java:94)
+	at org.eclipse.persistence.internal.queries.DatabaseQueryMechanism.executeWriteWithChangeSet(DatabaseQueryMechanism.java:319)
+	at org.eclipse.persistence.queries.WriteObjectQuery.executeDatabaseQuery(WriteObjectQuery.java:61)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:912)
+	at org.eclipse.persistence.queries.DatabaseQuery.executeInUnitOfWork(DatabaseQuery.java:811)
+	at org.eclipse.persistence.queries.ObjectLevelModifyQuery.executeInUnitOfWorkObjectLevelModifyQuery(ObjectLevelModifyQuery.java:112)
+	at org.eclipse.persistence.queries.ObjectLevelModifyQuery.executeInUnitOfWork(ObjectLevelModifyQuery.java:89)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.internalExecuteQuery(UnitOfWorkImpl.java:3008)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1844)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1826)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1776)
+	at org.eclipse.persistence.internal.sessions.CommitManager.commitNewObjectsForClassWithChangeSet(CommitManager.java:248)
+	at org.eclipse.persistence.internal.sessions.CommitManager.commitAllObjectsWithChangeSet(CommitManager.java:147)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.writeAllObjectsWithChangeSet(AbstractSession.java:4340)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.commitToDatabase(UnitOfWorkImpl.java:1507)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.commitToDatabaseWithChangeSet(UnitOfWorkImpl.java:1597)
+	at org.eclipse.persistence.internal.sessions.RepeatableWriteUnitOfWork.commitRootUnitOfWork(RepeatableWriteUnitOfWork.java:288)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.commitAndResume(UnitOfWorkImpl.java:1234)
+	at org.eclipse.persistence.internal.jpa.transaction.EntityTransactionImpl.commit(EntityTransactionImpl.java:138)
+	... 69 more
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'Contraseña_SHA256', table 'ETradeTechDB.dbo.Usuario'; column does not allow nulls. INSERT fails.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:276)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1787)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:688)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:607)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7745)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:4700)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:321)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:253)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.executeUpdate(SQLServerPreparedStatement.java:549)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:898)
+	... 100 more
+]]></error>
+    <system-out><![CDATA[[EL Fine]: server: 2025-04-25 10:59:34.484--Thread(Thread[main,5,main])--Configured server platform: org.eclipse.persistence.platform.server.NoServerPlatform
+[EL Config]: metadata: 2025-04-25 10:59:34.811--ServerSession(1898325501)--Thread(Thread[main,5,main])--The access type for the persistent class [class Uso_Comun.Modelos.Cliente] is set to [FIELD].
+[EL Config]: metadata: 2025-04-25 10:59:34.859--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the many to one mapping element [field usuarioUsuarioid] is being defaulted to: class Uso_Comun.Modelos.Usuario.
+[EL Config]: metadata: 2025-04-25 10:59:34.865--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the one to many mapping element [field pedidosCollection] is being defaulted to: class Uso_Comun.Modelos.Pedidos.
+[EL Config]: metadata: 2025-04-25 10:59:34.866--ServerSession(1898325501)--Thread(Thread[main,5,main])--The access type for the persistent class [class Inventario.Modelos.Despachador] is set to [FIELD].
+[EL Config]: metadata: 2025-04-25 10:59:34.867--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the many to one mapping element [field inventarioID] is being defaulted to: class Inventario.Modelos.Inventario.
+[EL Config]: metadata: 2025-04-25 10:59:34.868--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the many to one mapping element [field almacenID] is being defaulted to: class Inventario.Modelos.Almacen.
+[EL Config]: metadata: 2025-04-25 10:59:34.869--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the many to one mapping element [field usuarioUsuarioid] is being defaulted to: class Uso_Comun.Modelos.Usuario.
+[EL Config]: metadata: 2025-04-25 10:59:34.87--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the one to many mapping element [field pedidosCollection] is being defaulted to: class Uso_Comun.Modelos.Pedidos.
+[EL Config]: metadata: 2025-04-25 10:59:34.87--ServerSession(1898325501)--Thread(Thread[main,5,main])--The access type for the persistent class [class Inventario.Modelos.HistorialTransaccInv] is set to [FIELD].
+[EL Config]: metadata: 2025-04-25 10:59:34.871--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the one to many mapping element [field transaccionInvCollection] is being defaulted to: class Inventario.Modelos.TransaccionInv.
+[EL Config]: metadata: 2025-04-25 10:59:34.873--ServerSession(1898325501)--Thread(Thread[main,5,main])--The access type for the persistent class [class Uso_Comun.Modelos.Producto] is set to [FIELD].
+[EL Config]: metadata: 2025-04-25 10:59:34.874--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the many to one mapping element [field inventarioID] is being defaulted to: class Inventario.Modelos.Inventario.
+[EL Config]: metadata: 2025-04-25 10:59:34.875--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the many to one mapping element [field pedidoID] is being defaulted to: class Uso_Comun.Modelos.Pedidos.
+[EL Config]: metadata: 2025-04-25 10:59:34.879--ServerSession(1898325501)--Thread(Thread[main,5,main])--The access type for the persistent class [class Inventario.Modelos.HistorialPedidos] is set to [FIELD].
+[EL Config]: metadata: 2025-04-25 10:59:34.88--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the one to many mapping element [field pedidosCollection] is being defaulted to: class Uso_Comun.Modelos.Pedidos.
+[EL Config]: metadata: 2025-04-25 10:59:34.881--ServerSession(1898325501)--Thread(Thread[main,5,main])--The access type for the persistent class [class Inventario.Modelos.TransaccionInv] is set to [FIELD].
+[EL Config]: metadata: 2025-04-25 10:59:34.882--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the many to one mapping element [field historialTransaccInvID] is being defaulted to: class Inventario.Modelos.HistorialTransaccInv.
+[EL Config]: metadata: 2025-04-25 10:59:34.883--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the many to one mapping element [field inventarioReceptorD] is being defaulted to: class Inventario.Modelos.Inventario.
+[EL Config]: metadata: 2025-04-25 10:59:34.884--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the many to one mapping element [field inventarioEmisorID] is being defaulted to: class Inventario.Modelos.Inventario.
+[EL Config]: metadata: 2025-04-25 10:59:34.885--ServerSession(1898325501)--Thread(Thread[main,5,main])--The access type for the persistent class [class Uso_Comun.Modelos.Pedidos] is set to [FIELD].
+[EL Config]: metadata: 2025-04-25 10:59:34.886--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the many to one mapping element [field despachadorID] is being defaulted to: class Inventario.Modelos.Despachador.
+[EL Config]: metadata: 2025-04-25 10:59:34.888--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the many to one mapping element [field historialPredidosID] is being defaulted to: class Inventario.Modelos.HistorialPedidos.
+[EL Config]: metadata: 2025-04-25 10:59:34.889--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the many to one mapping element [field clienteID] is being defaulted to: class Uso_Comun.Modelos.Cliente.
+[EL Config]: metadata: 2025-04-25 10:59:34.891--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the one to many mapping element [field productoCollection] is being defaulted to: class Uso_Comun.Modelos.Producto.
+[EL Config]: metadata: 2025-04-25 10:59:34.891--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the many to one mapping element [field mensajeroID] is being defaulted to: class Uso_Comun.Modelos.Mensajero.
+[EL Config]: metadata: 2025-04-25 10:59:34.892--ServerSession(1898325501)--Thread(Thread[main,5,main])--The access type for the persistent class [class Uso_Comun.Modelos.Usuario] is set to [FIELD].
+[EL Config]: metadata: 2025-04-25 10:59:34.892--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the one to many mapping element [field despachadorCollection] is being defaulted to: class Inventario.Modelos.Despachador.
+[EL Config]: metadata: 2025-04-25 10:59:34.893--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the one to many mapping element [field gestoresCollection] is being defaulted to: class Inventario.Modelos.Gestores.
+[EL Config]: metadata: 2025-04-25 10:59:34.894--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the one to many mapping element [field clienteCollection] is being defaulted to: class Uso_Comun.Modelos.Cliente.
+[EL Config]: metadata: 2025-04-25 10:59:34.894--ServerSession(1898325501)--Thread(Thread[main,5,main])--The access type for the persistent class [class Uso_Comun.Modelos.Mensajero] is set to [FIELD].
+[EL Config]: metadata: 2025-04-25 10:59:34.895--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the one to many mapping element [field pedidosCollection] is being defaulted to: class Uso_Comun.Modelos.Pedidos.
+[EL Config]: metadata: 2025-04-25 10:59:34.895--ServerSession(1898325501)--Thread(Thread[main,5,main])--The access type for the persistent class [class Inventario.Modelos.Inventario] is set to [FIELD].
+[EL Config]: metadata: 2025-04-25 10:59:34.896--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the one to many mapping element [field despachadorCollection] is being defaulted to: class Inventario.Modelos.Despachador.
+[EL Config]: metadata: 2025-04-25 10:59:34.897--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the many to one mapping element [field almacenID] is being defaulted to: class Inventario.Modelos.Almacen.
+[EL Config]: metadata: 2025-04-25 10:59:34.898--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the one to many mapping element [field transaccionInvCollection] is being defaulted to: class Inventario.Modelos.TransaccionInv.
+[EL Config]: metadata: 2025-04-25 10:59:34.898--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the one to many mapping element [field transaccionInvCollection1] is being defaulted to: class Inventario.Modelos.TransaccionInv.
+[EL Config]: metadata: 2025-04-25 10:59:34.899--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the one to many mapping element [field productoCollection] is being defaulted to: class Uso_Comun.Modelos.Producto.
+[EL Config]: metadata: 2025-04-25 10:59:34.899--ServerSession(1898325501)--Thread(Thread[main,5,main])--The access type for the persistent class [class Inventario.Modelos.Almacen] is set to [FIELD].
+[EL Config]: metadata: 2025-04-25 10:59:34.9--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the one to many mapping element [field despachadorCollection] is being defaulted to: class Inventario.Modelos.Despachador.
+[EL Config]: metadata: 2025-04-25 10:59:34.9--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the one to many mapping element [field gestoresCollection] is being defaulted to: class Inventario.Modelos.Gestores.
+[EL Config]: metadata: 2025-04-25 10:59:34.901--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the one to many mapping element [field inventarioCollection] is being defaulted to: class Inventario.Modelos.Inventario.
+[EL Config]: metadata: 2025-04-25 10:59:34.902--ServerSession(1898325501)--Thread(Thread[main,5,main])--The access type for the persistent class [class Inventario.Modelos.Gestores] is set to [FIELD].
+[EL Config]: metadata: 2025-04-25 10:59:34.902--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the many to one mapping element [field almacenID] is being defaulted to: class Inventario.Modelos.Almacen.
+[EL Config]: metadata: 2025-04-25 10:59:34.904--ServerSession(1898325501)--Thread(Thread[main,5,main])--The target entity (reference) class for the many to one mapping element [field usuarioUsuarioid] is being defaulted to: class Uso_Comun.Modelos.Usuario.
+[EL Config]: metadata: 2025-04-25 10:59:34.905--ServerSession(1898325501)--Thread(Thread[main,5,main])--The alias name for the entity class [class Uso_Comun.Modelos.Cliente] is being defaulted to: Cliente.
+[EL Config]: metadata: 2025-04-25 10:59:34.948--ServerSession(1898325501)--Thread(Thread[main,5,main])--The alias name for the entity class [class Inventario.Modelos.Despachador] is being defaulted to: Despachador.
+[EL Config]: metadata: 2025-04-25 10:59:34.949--ServerSession(1898325501)--Thread(Thread[main,5,main])--The alias name for the entity class [class Inventario.Modelos.HistorialTransaccInv] is being defaulted to: HistorialTransaccInv.
+[EL Config]: metadata: 2025-04-25 10:59:34.949--ServerSession(1898325501)--Thread(Thread[main,5,main])--The alias name for the entity class [class Uso_Comun.Modelos.Producto] is being defaulted to: Producto.
+[EL Config]: metadata: 2025-04-25 10:59:34.956--ServerSession(1898325501)--Thread(Thread[main,5,main])--The alias name for the entity class [class Inventario.Modelos.HistorialPedidos] is being defaulted to: HistorialPedidos.
+[EL Config]: metadata: 2025-04-25 10:59:34.956--ServerSession(1898325501)--Thread(Thread[main,5,main])--The alias name for the entity class [class Inventario.Modelos.TransaccionInv] is being defaulted to: TransaccionInv.
+[EL Config]: metadata: 2025-04-25 10:59:34.957--ServerSession(1898325501)--Thread(Thread[main,5,main])--The alias name for the entity class [class Uso_Comun.Modelos.Pedidos] is being defaulted to: Pedidos.
+[EL Config]: metadata: 2025-04-25 10:59:34.958--ServerSession(1898325501)--Thread(Thread[main,5,main])--The alias name for the entity class [class Uso_Comun.Modelos.Usuario] is being defaulted to: Usuario.
+[EL Config]: metadata: 2025-04-25 10:59:34.959--ServerSession(1898325501)--Thread(Thread[main,5,main])--The alias name for the entity class [class Uso_Comun.Modelos.Mensajero] is being defaulted to: Mensajero.
+[EL Config]: metadata: 2025-04-25 10:59:34.96--ServerSession(1898325501)--Thread(Thread[main,5,main])--The alias name for the entity class [class Inventario.Modelos.Inventario] is being defaulted to: Inventario.
+[EL Config]: metadata: 2025-04-25 10:59:34.961--ServerSession(1898325501)--Thread(Thread[main,5,main])--The alias name for the entity class [class Inventario.Modelos.Almacen] is being defaulted to: Almacen.
+[EL Config]: metadata: 2025-04-25 10:59:34.962--ServerSession(1898325501)--Thread(Thread[main,5,main])--The alias name for the entity class [class Inventario.Modelos.Gestores] is being defaulted to: Gestores.
+[EL Info]: 2025-04-25 10:59:35.623--ServerSession(1898325501)--Thread(Thread[main,5,main])--EclipseLink, version: Eclipse Persistence Services - 3.0.2.v202107160933
+[EL Fine]: connection: 2025-04-25 10:59:36.617--Thread(Thread[main,5,main])--Detected database platform: org.eclipse.persistence.platform.database.SQLServerPlatform
+[EL Fine]: connection: 2025-04-25 10:59:36.632--ServerSession(1898325501)--Connection(505968231)--Thread(Thread[main,5,main])--connecting(DatabaseLogin(
+	platform=>SQLServerPlatform
+	user name=> "access"
+	datasource URL=> "jdbc:sqlserver://localhost\sqlexpress:1433;databaseName=ETradeTechDB;encrypt=true;trustServerCertificate=true;"
+))
+[EL Config]: connection: 2025-04-25 10:59:36.842--ServerSession(1898325501)--Connection(1736458419)--Thread(Thread[main,5,main])--Connected: jdbc:sqlserver://localhost\sqlexpress:1433;connectRetryInterval=10;connectRetryCount=1;maxResultBuffer=-1;sendTemporalDataTypesAsStringForBulkCopy=true;delayLoadingLobs=true;useFmtOnly=false;cacheBulkCopyMetadata=false;bulkCopyForBatchInsertAllowEncryptedValueModifications=false;bulkCopyForBatchInsertTableLock=false;bulkCopyForBatchInsertKeepNulls=false;bulkCopyForBatchInsertKeepIdentity=false;bulkCopyForBatchInsertFireTriggers=false;bulkCopyForBatchInsertCheckConstraints=false;bulkCopyForBatchInsertBatchSize=0;useBulkCopyForBatchInsert=false;cancelQueryTimeout=-1;sslProtocol=TLS;calcBigDecimalPrecision=false;useDefaultJaasConfig=false;jaasConfigurationName=SQLJDBCDriver;statementPoolingCacheSize=0;serverPreparedStatementDiscardThreshold=10;enablePrepareOnFirstPreparedStatementCall=false;fips=false;socketTimeout=0;authentication=NotSpecified;authenticationScheme=nativeAuthentication;xopenStates=false;datetimeParameterType=datetime2;sendTimeAsDatetime=true;replication=false;trustStoreType=JKS;trustServerCertificate=true;TransparentNetworkIPResolution=true;iPAddressPreference=IPv4First;serverNameAsACE=false;sendStringParametersAsUnicode=true;selectMethod=direct;responseBuffering=adaptive;queryTimeout=-1;packetSize=8000;multiSubnetFailover=false;loginTimeout=30;lockTimeout=-1;lastUpdateCount=true;useDefaultGSSCredential=false;prepareMethod=prepexec;encrypt=true;disableStatementPooling=true;databaseName=ETradeTechDB;columnEncryptionSetting=Disabled;applicationName=Microsoft JDBC Driver for SQL Server;applicationIntent=readwrite;
+	User: Access
+	Database: Microsoft SQL Server  Version: 16.00.1135
+	Driver: Microsoft JDBC Driver 12.10 for SQL Server  Version: 12.10.0.0
+[EL Fine]: connection: 2025-04-25 10:59:37.153--ServerSession(1898325501)--Thread(Thread[main,5,main])--/file:/C:/Users/HP PORTATIL/Documents/NetBeansProjects/E-TradeTech/ERP/Backend/E-TradeTech/target/classes/_ETradeTech_PU login successful
+[EL Fine]: moxy: 2025-04-25 10:59:37.379--Thread(Thread[main,5,main])--SAXParserFactory instance: com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl@3f36b447
+[EL Fine]: sql: 2025-04-25 10:59:37.456--ClientSession(5021240)--Connection(1736458419)--Thread(Thread[main,5,main])--DELETE FROM Usuario
+[EL Fine]: sql: 2025-04-25 10:59:37.495--ClientSession(5021240)--Thread(Thread[main,5,main])--SELECT 1
+[EL Warning]: 2025-04-25 10:59:37.498--UnitOfWork(589016913)--Thread(Thread[main,5,main])--Exception [EclipseLink-4002] (Eclipse Persistence Services - 3.0.2.v202107160933): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.microsoft.sqlserver.jdbc.SQLServerException: The DELETE statement conflicted with the REFERENCE constraint "FK_Usuario_Compras_Usuario". The conflict occurred in database "ETradeTechDB", table "dbo.Usuario_Compras", column 'Usuario_Usuario_id'.
+Error Code: 547
+Call: DELETE FROM Usuario
+Query: DeleteAllQuery(referenceClass=Usuario sql="DELETE FROM Usuario")
+[EL Fine]: sql: 2025-04-25 10:59:37.531--ClientSession(2079278380)--Connection(1736458419)--Thread(Thread[main,5,main])--INSERT INTO Usuario (Usuario_id, Contraseña_SHA256, Correo, Nombre) VALUES (?, ?, ?, ?)
+	bind => [3, null, null, María Ruiz]
+[EL Fine]: sql: 2025-04-25 10:59:37.55--ClientSession(2079278380)--Thread(Thread[main,5,main])--SELECT 1
+[EL Warning]: 2025-04-25 10:59:37.553--UnitOfWork(1553077867)--Thread(Thread[main,5,main])--Exception [EclipseLink-4002] (Eclipse Persistence Services - 3.0.2.v202107160933): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'Contraseña_SHA256', table 'ETradeTechDB.dbo.Usuario'; column does not allow nulls. INSERT fails.
+Error Code: 515
+Call: INSERT INTO Usuario (Usuario_id, Contraseña_SHA256, Correo, Nombre) VALUES (?, ?, ?, ?)
+	bind => [3, null, null, María Ruiz]
+Query: InsertObjectQuery(Uso_Comun.Usuario[ usuarioid=3 ])
+[EL Fine]: sql: 2025-04-25 10:59:37.565--ServerSession(1898325501)--Connection(1736458419)--Thread(Thread[main,5,main])--SELECT Usuario_id, Contraseña_SHA256, Correo, Nombre FROM Usuario WHERE (Usuario_id = ?)
+	bind => [3]
+]]></system-out>
+  </testcase>
+  <testcase name="testCreateUsuario" classname="Tests.Test_Usuario" time="0.114">
+    <error message="El usuario ya existe: 100" type="Inventario.exceptions.PreexistingEntityException"><![CDATA[Inventario.exceptions.PreexistingEntityException: El usuario ya existe: 100
+	at Uso_Comun.DAOs.DAO_Usuario.create(DAO_Usuario.java:141)
+	at Tests.Test_Usuario.testCreateUsuario(Test_Usuario.java:57)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:205)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:201)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:71)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:248)
+	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$5(DefaultLauncher.java:211)
+	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:226)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:199)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:132)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+Caused by: jakarta.persistence.RollbackException: Exception [EclipseLink-4002] (Eclipse Persistence Services - 3.0.2.v202107160933): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.microsoft.sqlserver.jdbc.SQLServerException: Violation of PRIMARY KEY constraint 'PK_Usuario'. Cannot insert duplicate key in object 'dbo.Usuario'. The duplicate key value is (100).
+Error Code: 2627
+Call: INSERT INTO Usuario (Usuario_id, Contraseña_SHA256, Correo, Nombre) VALUES (?, ?, ?, ?)
+	bind => [100, DJFLIAENFJHFLOALDFGLDFOGLSJFGLJSDFHB, ana@test.com, Ana López]
+Query: InsertObjectQuery(Uso_Comun.Usuario[ usuarioid=100 ])
+	at org.eclipse.persistence.internal.jpa.transaction.EntityTransactionImpl.commit(EntityTransactionImpl.java:163)
+	at Uso_Comun.DAOs.DAO_Usuario.create(DAO_Usuario.java:129)
+	... 68 more
+Caused by: Exception [EclipseLink-4002] (Eclipse Persistence Services - 3.0.2.v202107160933): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.microsoft.sqlserver.jdbc.SQLServerException: Violation of PRIMARY KEY constraint 'PK_Usuario'. Cannot insert duplicate key in object 'dbo.Usuario'. The duplicate key value is (100).
+Error Code: 2627
+Call: INSERT INTO Usuario (Usuario_id, Contraseña_SHA256, Correo, Nombre) VALUES (?, ?, ?, ?)
+	bind => [100, DJFLIAENFJHFLOALDFGLDFOGLSJFGLJSDFHB, ana@test.com, Ana López]
+Query: InsertObjectQuery(Uso_Comun.Usuario[ usuarioid=100 ])
+	at org.eclipse.persistence.exceptions.DatabaseException.sqlException(DatabaseException.java:334)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:908)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeNoSelect(DatabaseAccessor.java:970)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:640)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:567)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2051)
+	at org.eclipse.persistence.sessions.server.ClientSession.executeCall(ClientSession.java:312)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:282)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:268)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.insertObject(DatasourceCallQueryMechanism.java:421)
+	at org.eclipse.persistence.internal.queries.StatementQueryMechanism.insertObject(StatementQueryMechanism.java:175)
+	at org.eclipse.persistence.internal.queries.StatementQueryMechanism.insertObject(StatementQueryMechanism.java:191)
+	at org.eclipse.persistence.internal.queries.DatabaseQueryMechanism.insertObjectForWrite(DatabaseQueryMechanism.java:507)
+	at org.eclipse.persistence.queries.InsertObjectQuery.executeCommit(InsertObjectQuery.java:83)
+	at org.eclipse.persistence.queries.InsertObjectQuery.executeCommitWithChangeSet(InsertObjectQuery.java:94)
+	at org.eclipse.persistence.internal.queries.DatabaseQueryMechanism.executeWriteWithChangeSet(DatabaseQueryMechanism.java:319)
+	at org.eclipse.persistence.queries.WriteObjectQuery.executeDatabaseQuery(WriteObjectQuery.java:61)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:912)
+	at org.eclipse.persistence.queries.DatabaseQuery.executeInUnitOfWork(DatabaseQuery.java:811)
+	at org.eclipse.persistence.queries.ObjectLevelModifyQuery.executeInUnitOfWorkObjectLevelModifyQuery(ObjectLevelModifyQuery.java:112)
+	at org.eclipse.persistence.queries.ObjectLevelModifyQuery.executeInUnitOfWork(ObjectLevelModifyQuery.java:89)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.internalExecuteQuery(UnitOfWorkImpl.java:3008)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1844)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1826)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1776)
+	at org.eclipse.persistence.internal.sessions.CommitManager.commitNewObjectsForClassWithChangeSet(CommitManager.java:248)
+	at org.eclipse.persistence.internal.sessions.CommitManager.commitAllObjectsWithChangeSet(CommitManager.java:147)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.writeAllObjectsWithChangeSet(AbstractSession.java:4340)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.commitToDatabase(UnitOfWorkImpl.java:1507)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.commitToDatabaseWithChangeSet(UnitOfWorkImpl.java:1597)
+	at org.eclipse.persistence.internal.sessions.RepeatableWriteUnitOfWork.commitRootUnitOfWork(RepeatableWriteUnitOfWork.java:288)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.commitAndResume(UnitOfWorkImpl.java:1234)
+	at org.eclipse.persistence.internal.jpa.transaction.EntityTransactionImpl.commit(EntityTransactionImpl.java:138)
+	... 69 more
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Violation of PRIMARY KEY constraint 'PK_Usuario'. Cannot insert duplicate key in object 'dbo.Usuario'. The duplicate key value is (100).
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:276)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1787)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:688)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:607)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7745)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:4700)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:321)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:253)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.executeUpdate(SQLServerPreparedStatement.java:549)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:898)
+	... 100 more
+]]></error>
+    <system-out><![CDATA[[EL Fine]: moxy: 2025-04-25 10:59:37.646--Thread(Thread[main,5,main])--SAXParserFactory instance: com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl@682bd3c4
+[EL Fine]: sql: 2025-04-25 10:59:37.668--ClientSession(254692047)--Connection(1736458419)--Thread(Thread[main,5,main])--DELETE FROM Usuario
+[EL Fine]: sql: 2025-04-25 10:59:37.685--ClientSession(254692047)--Thread(Thread[main,5,main])--SELECT 1
+[EL Warning]: 2025-04-25 10:59:37.687--UnitOfWork(604602011)--Thread(Thread[main,5,main])--Exception [EclipseLink-4002] (Eclipse Persistence Services - 3.0.2.v202107160933): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.microsoft.sqlserver.jdbc.SQLServerException: The DELETE statement conflicted with the REFERENCE constraint "FK_Usuario_Compras_Usuario". The conflict occurred in database "ETradeTechDB", table "dbo.Usuario_Compras", column 'Usuario_Usuario_id'.
+Error Code: 547
+Call: DELETE FROM Usuario
+Query: DeleteAllQuery(referenceClass=Usuario sql="DELETE FROM Usuario")
+[EL Fine]: sql: 2025-04-25 10:59:37.697--ClientSession(356476647)--Connection(1736458419)--Thread(Thread[main,5,main])--INSERT INTO Usuario (Usuario_id, Contraseña_SHA256, Correo, Nombre) VALUES (?, ?, ?, ?)
+	bind => [100, DJFLIAENFJHFLOALDFGLDFOGLSJFGLJSDFHB, ana@test.com, Ana López]
+[EL Fine]: sql: 2025-04-25 10:59:37.708--ClientSession(356476647)--Thread(Thread[main,5,main])--SELECT 1
+[EL Warning]: 2025-04-25 10:59:37.71--UnitOfWork(2058174333)--Thread(Thread[main,5,main])--Exception [EclipseLink-4002] (Eclipse Persistence Services - 3.0.2.v202107160933): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.microsoft.sqlserver.jdbc.SQLServerException: Violation of PRIMARY KEY constraint 'PK_Usuario'. Cannot insert duplicate key in object 'dbo.Usuario'. The duplicate key value is (100).
+Error Code: 2627
+Call: INSERT INTO Usuario (Usuario_id, Contraseña_SHA256, Correo, Nombre) VALUES (?, ?, ?, ?)
+	bind => [100, DJFLIAENFJHFLOALDFGLDFOGLSJFGLJSDFHB, ana@test.com, Ana López]
+Query: InsertObjectQuery(Uso_Comun.Usuario[ usuarioid=100 ])
+[EL Fine]: sql: 2025-04-25 10:59:37.716--ServerSession(1898325501)--Connection(1736458419)--Thread(Thread[main,5,main])--SELECT Usuario_id, Contraseña_SHA256, Correo, Nombre FROM Usuario WHERE (Usuario_id = ?)
+	bind => [100]
+]]></system-out>
+  </testcase>
+  <testcase name="testFindUsuarioNoExistente" classname="Tests.Test_Usuario" time="0.086">
+    <system-out><![CDATA[[EL Fine]: moxy: 2025-04-25 10:59:37.765--Thread(Thread[main,5,main])--SAXParserFactory instance: com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl@2bfbffb2
+[EL Fine]: sql: 2025-04-25 10:59:37.78--ClientSession(1985869725)--Connection(1736458419)--Thread(Thread[main,5,main])--DELETE FROM Usuario
+[EL Fine]: sql: 2025-04-25 10:59:37.796--ClientSession(1985869725)--Thread(Thread[main,5,main])--SELECT 1
+[EL Warning]: 2025-04-25 10:59:37.798--UnitOfWork(353580491)--Thread(Thread[main,5,main])--Exception [EclipseLink-4002] (Eclipse Persistence Services - 3.0.2.v202107160933): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.microsoft.sqlserver.jdbc.SQLServerException: The DELETE statement conflicted with the REFERENCE constraint "FK_Usuario_Compras_Usuario". The conflict occurred in database "ETradeTechDB", table "dbo.Usuario_Compras", column 'Usuario_Usuario_id'.
+Error Code: 547
+Call: DELETE FROM Usuario
+Query: DeleteAllQuery(referenceClass=Usuario sql="DELETE FROM Usuario")
+[EL Fine]: sql: 2025-04-25 10:59:37.803--ServerSession(1898325501)--Connection(1736458419)--Thread(Thread[main,5,main])--SELECT Usuario_id, Contraseña_SHA256, Correo, Nombre FROM Usuario WHERE (Usuario_id = ?)
+	bind => [999]
+]]></system-out>
+  </testcase>
+  <testcase name="testDestroyUsuario" classname="Tests.Test_Usuario" time="0.096">
+    <error message="El usuario ya existe: 2" type="Inventario.exceptions.PreexistingEntityException"><![CDATA[Inventario.exceptions.PreexistingEntityException: El usuario ya existe: 2
+	at Uso_Comun.DAOs.DAO_Usuario.create(DAO_Usuario.java:141)
+	at Tests.Test_Usuario.testDestroyUsuario(Test_Usuario.java:72)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:205)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:201)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:71)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:248)
+	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$5(DefaultLauncher.java:211)
+	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:226)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:199)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:132)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+Caused by: jakarta.persistence.RollbackException: Exception [EclipseLink-4002] (Eclipse Persistence Services - 3.0.2.v202107160933): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'Contraseña_SHA256', table 'ETradeTechDB.dbo.Usuario'; column does not allow nulls. INSERT fails.
+Error Code: 515
+Call: INSERT INTO Usuario (Usuario_id, Contraseña_SHA256, Correo, Nombre) VALUES (?, ?, ?, ?)
+	bind => [2, null, null, Pedro Gómez]
+Query: InsertObjectQuery(Uso_Comun.Usuario[ usuarioid=2 ])
+	at org.eclipse.persistence.internal.jpa.transaction.EntityTransactionImpl.commit(EntityTransactionImpl.java:163)
+	at Uso_Comun.DAOs.DAO_Usuario.create(DAO_Usuario.java:129)
+	... 68 more
+Caused by: Exception [EclipseLink-4002] (Eclipse Persistence Services - 3.0.2.v202107160933): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'Contraseña_SHA256', table 'ETradeTechDB.dbo.Usuario'; column does not allow nulls. INSERT fails.
+Error Code: 515
+Call: INSERT INTO Usuario (Usuario_id, Contraseña_SHA256, Correo, Nombre) VALUES (?, ?, ?, ?)
+	bind => [2, null, null, Pedro Gómez]
+Query: InsertObjectQuery(Uso_Comun.Usuario[ usuarioid=2 ])
+	at org.eclipse.persistence.exceptions.DatabaseException.sqlException(DatabaseException.java:334)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:908)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeNoSelect(DatabaseAccessor.java:970)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:640)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:567)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2051)
+	at org.eclipse.persistence.sessions.server.ClientSession.executeCall(ClientSession.java:312)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:282)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:268)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.insertObject(DatasourceCallQueryMechanism.java:421)
+	at org.eclipse.persistence.internal.queries.StatementQueryMechanism.insertObject(StatementQueryMechanism.java:175)
+	at org.eclipse.persistence.internal.queries.StatementQueryMechanism.insertObject(StatementQueryMechanism.java:191)
+	at org.eclipse.persistence.internal.queries.DatabaseQueryMechanism.insertObjectForWrite(DatabaseQueryMechanism.java:507)
+	at org.eclipse.persistence.queries.InsertObjectQuery.executeCommit(InsertObjectQuery.java:83)
+	at org.eclipse.persistence.queries.InsertObjectQuery.executeCommitWithChangeSet(InsertObjectQuery.java:94)
+	at org.eclipse.persistence.internal.queries.DatabaseQueryMechanism.executeWriteWithChangeSet(DatabaseQueryMechanism.java:319)
+	at org.eclipse.persistence.queries.WriteObjectQuery.executeDatabaseQuery(WriteObjectQuery.java:61)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:912)
+	at org.eclipse.persistence.queries.DatabaseQuery.executeInUnitOfWork(DatabaseQuery.java:811)
+	at org.eclipse.persistence.queries.ObjectLevelModifyQuery.executeInUnitOfWorkObjectLevelModifyQuery(ObjectLevelModifyQuery.java:112)
+	at org.eclipse.persistence.queries.ObjectLevelModifyQuery.executeInUnitOfWork(ObjectLevelModifyQuery.java:89)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.internalExecuteQuery(UnitOfWorkImpl.java:3008)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1844)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1826)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1776)
+	at org.eclipse.persistence.internal.sessions.CommitManager.commitNewObjectsForClassWithChangeSet(CommitManager.java:248)
+	at org.eclipse.persistence.internal.sessions.CommitManager.commitAllObjectsWithChangeSet(CommitManager.java:147)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.writeAllObjectsWithChangeSet(AbstractSession.java:4340)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.commitToDatabase(UnitOfWorkImpl.java:1507)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.commitToDatabaseWithChangeSet(UnitOfWorkImpl.java:1597)
+	at org.eclipse.persistence.internal.sessions.RepeatableWriteUnitOfWork.commitRootUnitOfWork(RepeatableWriteUnitOfWork.java:288)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.commitAndResume(UnitOfWorkImpl.java:1234)
+	at org.eclipse.persistence.internal.jpa.transaction.EntityTransactionImpl.commit(EntityTransactionImpl.java:138)
+	... 69 more
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'Contraseña_SHA256', table 'ETradeTechDB.dbo.Usuario'; column does not allow nulls. INSERT fails.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:276)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1787)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:688)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:607)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7745)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:4700)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:321)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:253)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.executeUpdate(SQLServerPreparedStatement.java:549)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:898)
+	... 100 more
+]]></error>
+    <system-out><![CDATA[[EL Fine]: moxy: 2025-04-25 10:59:37.859--Thread(Thread[main,5,main])--SAXParserFactory instance: com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl@293cde83
+[EL Fine]: sql: 2025-04-25 10:59:37.87--ClientSession(203936099)--Connection(1736458419)--Thread(Thread[main,5,main])--DELETE FROM Usuario
+[EL Fine]: sql: 2025-04-25 10:59:37.873--ClientSession(203936099)--Thread(Thread[main,5,main])--SELECT 1
+[EL Warning]: 2025-04-25 10:59:37.875--UnitOfWork(1472759652)--Thread(Thread[main,5,main])--Exception [EclipseLink-4002] (Eclipse Persistence Services - 3.0.2.v202107160933): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.microsoft.sqlserver.jdbc.SQLServerException: The DELETE statement conflicted with the REFERENCE constraint "FK_Usuario_Compras_Usuario". The conflict occurred in database "ETradeTechDB", table "dbo.Usuario_Compras", column 'Usuario_Usuario_id'.
+Error Code: 547
+Call: DELETE FROM Usuario
+Query: DeleteAllQuery(referenceClass=Usuario sql="DELETE FROM Usuario")
+[EL Fine]: sql: 2025-04-25 10:59:37.887--ClientSession(98801744)--Connection(1736458419)--Thread(Thread[main,5,main])--INSERT INTO Usuario (Usuario_id, Contraseña_SHA256, Correo, Nombre) VALUES (?, ?, ?, ?)
+	bind => [2, null, null, Pedro Gómez]
+[EL Fine]: sql: 2025-04-25 10:59:37.897--ClientSession(98801744)--Thread(Thread[main,5,main])--SELECT 1
+[EL Warning]: 2025-04-25 10:59:37.899--UnitOfWork(369351727)--Thread(Thread[main,5,main])--Exception [EclipseLink-4002] (Eclipse Persistence Services - 3.0.2.v202107160933): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the value NULL into column 'Contraseña_SHA256', table 'ETradeTechDB.dbo.Usuario'; column does not allow nulls. INSERT fails.
+Error Code: 515
+Call: INSERT INTO Usuario (Usuario_id, Contraseña_SHA256, Correo, Nombre) VALUES (?, ?, ?, ?)
+	bind => [2, null, null, Pedro Gómez]
+Query: InsertObjectQuery(Uso_Comun.Usuario[ usuarioid=2 ])
+[EL Fine]: sql: 2025-04-25 10:59:37.907--ServerSession(1898325501)--Connection(1736458419)--Thread(Thread[main,5,main])--SELECT Usuario_id, Contraseña_SHA256, Correo, Nombre FROM Usuario WHERE (Usuario_id = ?)
+	bind => [2]
+]]></system-out>
+  </testcase>
+</testsuite>
