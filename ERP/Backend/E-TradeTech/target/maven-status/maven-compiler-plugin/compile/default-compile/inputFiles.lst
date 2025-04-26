@@ -6,7 +6,6 @@ C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeT
 C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\Modelos\Pedidos.java
 C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\exceptions\NonexistentEntityException.java
 C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\DAOs\DAO_Almacen.java
-C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\SqlConnection.java
 C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\exceptions\PreexistingEntityException.java
 C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\DAOs\DAO_HistorialPedido.java
 C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\Modelos\Usuario.java
@@ -26,7 +25,6 @@ C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeT
 C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Seguridad\provicional.java
 C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\DAOs\DAO_Pedidos.java
 C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\Modelos\Cliente.java
-C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\VistaGestor.java
 C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\DAOs\DAO_Mensajero.java
 C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\Modelos\Mensajero.java
 C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\exceptions\RollbackFailureException.java

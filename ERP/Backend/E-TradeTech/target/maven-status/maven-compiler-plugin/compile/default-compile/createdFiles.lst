@@ -1,10 +1,8 @@
 Inventario\Modelos\TransaccionInv.class
-Uso_Comun\VistaGestor$Almacen.class
 Uso_Comun\DAOs\DAO_Cliente.class
 Inventario\exceptions\NonexistentEntityException.class
 Inventario\Modelos\Inventario.class
 Inventario\Modelos\Gestores.class
-Uso_Comun\VistaGestor$Almacen$Inventario.class
 Web\provicional.class
 Uso_Comun\DAOs\DAO_Mensajero.class
 JakartaEE9Resource\JakartaEE9Resource.class
@@ -17,14 +15,12 @@ Inventario\Modelos\HistorialTransaccInv.class
 Inventario\Servicio_Gestor.class
 Uso_Comun\DAOs\DAO_Usuario.class
 Uso_Comun\Modelos\Pedidos.class
-Uso_Comun\VistaGestor$Almacen$Inventario$Producto.class
 Inventario\DAOs\DAO_Inventario.class
 Inventario\exceptions\IllegalOrphanException.class
 Inventario\Modelos\Almacen.class
 Inventario\Modelos\Despachador.class
 Uso_Comun\Servicio_Usuario.class
 Inventario\DAOs\DAO_HistorialTransaccInv.class
-Uso_Comun\VistaGestor.class
 Inventario\DAOs\DAO_HistorialPedido.class
 Proveedores\provicional.class
 Inventario\DAOs\DAO_Almacen.class
@@ -37,4 +33,3 @@ Seguridad\provicional.class
 Uso_Comun\DAOs\DAO_Pedidos.class
 Uso_Comun\Modelos\Usuario.class
 Uso_Comun\Modelos\Mensajero.class
-Uso_Comun\SqlConnection.class
