@@ -14,7 +14,6 @@ import Inventario.Servicio_Gestor;
 import Uso_Comun.DAOs.DAO_Usuario;
 import Uso_Comun.Modelos.Usuario;
 import Uso_Comun.Servicio_Usuario;
-import Uso_Comun.SqlConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;

@@ -10,7 +10,6 @@ import Uso_Comun.Modelos.Pedidos;
 import Uso_Comun.Modelos.Usuario;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.RollbackFailureException;
-import static Uso_Comun.SqlConnection.generateKeyFromString;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
