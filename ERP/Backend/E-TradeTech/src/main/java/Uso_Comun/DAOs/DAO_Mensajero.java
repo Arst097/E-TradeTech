@@ -14,6 +14,7 @@ import jakarta.persistence.EntityManagerFactory;
 import java.io.Serializable;
 import jakarta.persistence.Query;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.UserTransaction;
@@ -31,6 +32,11 @@ public class DAO_Mensajero implements Serializable {
         this.utx = utx;
         this.emf = emf;
     }
+
+    public DAO_Mensajero() {
+        this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
+    }
+    
     private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 

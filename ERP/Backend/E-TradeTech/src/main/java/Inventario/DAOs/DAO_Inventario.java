@@ -18,6 +18,8 @@ import jakarta.persistence.EntityManagerFactory;
 import java.io.Serializable;
 import jakarta.persistence.Query;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.UserTransaction;
@@ -35,6 +37,11 @@ public class DAO_Inventario implements Serializable {
         this.utx = utx;
         this.emf = emf;
     }
+
+    public DAO_Inventario() {
+        this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
+    }
+    
     private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
@@ -56,9 +63,12 @@ public class DAO_Inventario implements Serializable {
             model_Inventario.setTransaccionInvCollection1(new ArrayList<TransaccionInv>());
         }
         EntityManager em = null;
+        EntityTransaction tx = null;
         try {
-            utx.begin();
             em = getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+            
             Almacen almacenID = model_Inventario.getAlmacenID();
             if (almacenID != null) {
                 almacenID = em.getReference(almacenID.getClass(), almacenID.getAlmacenID());
@@ -129,10 +139,10 @@ public class DAO_Inventario implements Serializable {
                     oldInventarioReceptorDOfTransaccionInvCollection1Model_TransaccionInv = em.merge(oldInventarioReceptorDOfTransaccionInvCollection1Model_TransaccionInv);
                 }
             }
-            utx.commit();
+            tx.commit();
         } catch (Exception ex) {
             try {
-                utx.rollback();
+                tx.rollback();
             } catch (Exception re) {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
             }
@@ -308,9 +318,12 @@ public class DAO_Inventario implements Serializable {
 
     public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
+        EntityTransaction tx = null;
         try {
-            utx.begin();
             em = getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+            
             Inventario model_Inventario;
             try {
                 model_Inventario = em.getReference(Inventario.class, id);
@@ -356,10 +369,10 @@ public class DAO_Inventario implements Serializable {
                 almacenID = em.merge(almacenID);
             }
             em.remove(model_Inventario);
-            utx.commit();
+            tx.commit();
         } catch (Exception ex) {
             try {
-                utx.rollback();
+                tx.rollback();
             } catch (Exception re) {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
             }

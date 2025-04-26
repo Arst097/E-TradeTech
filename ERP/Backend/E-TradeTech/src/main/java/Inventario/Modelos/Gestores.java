@@ -60,6 +60,14 @@ public class Gestores implements Serializable {
         this.puesto = puesto;
         this.telefono = telefono;
     }
+    
+    public Gestores(Integer gestorID, String puesto, String telefono, Almacen almacenID, Usuario usuarioUsuarioid) {
+        this.gestorID = gestorID;
+        this.puesto = puesto;
+        this.telefono = telefono;
+        this.almacenID = almacenID;
+        this.usuarioUsuarioid = usuarioUsuarioid;
+    }
 
     public Integer getGestorID() {
         return gestorID;

@@ -64,6 +64,12 @@ public class Inventario implements Serializable {
     public Inventario(Integer inventarioID) {
         this.inventarioID = inventarioID;
     }
+    
+    public Inventario(Integer inventarioID, String tipo, Almacen almacenID) {
+        this.inventarioID = inventarioID;
+        this.tipo = tipo;
+        this.almacenID = almacenID;
+    }
 
     public Integer getInventarioID() {
         return inventarioID;

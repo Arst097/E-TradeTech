@@ -64,6 +64,13 @@ public class Producto implements Serializable {
         this.modelo = modelo;
         this.fechaEntrada = fechaEntrada;
     }
+    
+    public Producto(Integer productoID, String modelo, Date fechaEntrada, Inventario inventarioID) {
+        this.productoID = productoID;
+        this.modelo = modelo;
+        this.fechaEntrada = fechaEntrada;
+        this.inventarioID = inventarioID;
+    }
 
     public Integer getProductoID() {
         return productoID;
