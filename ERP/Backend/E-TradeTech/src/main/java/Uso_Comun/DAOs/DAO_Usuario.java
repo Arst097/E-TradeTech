@@ -432,6 +432,23 @@ public class DAO_Usuario implements Serializable {
         }
     }
 
+    public Usuario findUsuarioByCorreoAndSHA256(String Correo, String SHA256) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createQuery(
+                    "SELECT u FROM Usuario u WHERE u.correo = :Correo AND u.contrase\u00f1aSHA256 = :SHA256"
+            );
+            query.setParameter("Correo", Correo);
+            query.setParameter("SHA256", SHA256);
+            
+            List<Usuario> resultados = query.getResultList();
+
+            return resultados.isEmpty() ? null : resultados.get(0);
+        } finally {
+            em.close();
+        }
+    }
+    
     public int getModel_UsuarioCount() {
         EntityManager em = getEntityManager();
         try {

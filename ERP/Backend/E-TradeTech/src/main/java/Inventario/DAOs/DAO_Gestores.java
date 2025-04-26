@@ -15,6 +15,8 @@ import jakarta.persistence.EntityManagerFactory;
 import java.io.Serializable;
 import jakarta.persistence.Query;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.LockModeType;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -31,12 +33,13 @@ public class DAO_Gestores implements Serializable {
         this.utx = utx;
         this.emf = emf;
     }
-    private UserTransaction utx = null;
-    private EntityManagerFactory emf = null;
 
     public DAO_Gestores() {
         this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
     }
+
+    private UserTransaction utx = null;
+    private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -44,17 +47,20 @@ public class DAO_Gestores implements Serializable {
 
     public void create(Gestores model_Gestores) throws PreexistingEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
+        EntityTransaction tx = null;
         try {
-            utx.begin();
             em = getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+
             Almacen almacenID = model_Gestores.getAlmacenID();
             if (almacenID != null) {
-                almacenID = em.getReference(almacenID.getClass(), almacenID.getAlmacenID());
+                almacenID = em.getReference(Almacen.class, almacenID.getAlmacenID());
                 model_Gestores.setAlmacenID(almacenID);
             }
             Usuario usuarioUsuarioid = model_Gestores.getUsuarioUsuarioid();
             if (usuarioUsuarioid != null) {
-                usuarioUsuarioid = em.getReference(usuarioUsuarioid.getClass(), usuarioUsuarioid.getUsuarioid());
+                usuarioUsuarioid = em.getReference(Usuario.class, usuarioUsuarioid.getUsuarioid());
                 model_Gestores.setUsuarioUsuarioid(usuarioUsuarioid);
             }
             em.persist(model_Gestores);
@@ -66,10 +72,10 @@ public class DAO_Gestores implements Serializable {
                 usuarioUsuarioid.getGestoresCollection().add(model_Gestores);
                 usuarioUsuarioid = em.merge(usuarioUsuarioid);
             }
-            utx.commit();
+            tx.commit();
         } catch (Exception ex) {
             try {
-                utx.rollback();
+                tx.rollback();
             } catch (Exception re) {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
             }
@@ -143,31 +149,36 @@ public class DAO_Gestores implements Serializable {
 
     public void destroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
+        EntityTransaction tx = null;
         try {
-            utx.begin();
             em = getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+
             Gestores model_Gestores;
             try {
                 model_Gestores = em.getReference(Gestores.class, id);
                 model_Gestores.getGestorID();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The model_Gestores with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The Gestores with id " + id + " no longer exists.", enfe);
             }
+
             Almacen almacenID = model_Gestores.getAlmacenID();
             if (almacenID != null) {
                 almacenID.getGestoresCollection().remove(model_Gestores);
-                almacenID = em.merge(almacenID);
+                em.merge(almacenID);
             }
+
             Usuario usuarioUsuarioid = model_Gestores.getUsuarioUsuarioid();
             if (usuarioUsuarioid != null) {
                 usuarioUsuarioid.getGestoresCollection().remove(model_Gestores);
-                usuarioUsuarioid = em.merge(usuarioUsuarioid);
+                em.merge(usuarioUsuarioid);
             }
             em.remove(model_Gestores);
-            utx.commit();
+            tx.commit();
         } catch (Exception ex) {
             try {
-                utx.rollback();
+                tx.rollback();
             } catch (Exception re) {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
             }
@@ -212,6 +223,22 @@ public class DAO_Gestores implements Serializable {
         }
     }
 
+    public Gestores findGestorByUsuarioId(Integer usuarioId) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createQuery(
+                    "SELECT g FROM Gestores g WHERE g.usuarioUsuarioid.usuarioid = :usuarioId"
+            );
+            query.setParameter("usuarioId", usuarioId);
+            
+            List<Gestores> resultados = query.getResultList();
+
+            return resultados.isEmpty() ? null : resultados.get(0);
+        } finally {
+            em.close();
+        }
+    }
+
     public int getModel_GestoresCount() {
         EntityManager em = getEntityManager();
         try {
@@ -224,5 +251,5 @@ public class DAO_Gestores implements Serializable {
             em.close();
         }
     }
-    
+
 }

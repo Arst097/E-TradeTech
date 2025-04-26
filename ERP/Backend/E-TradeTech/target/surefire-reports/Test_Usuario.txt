@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: Test_Usuario
 -------------------------------------------------------------------------------
-Tests run: 7, Failures: 0, Errors: 7, Skipped: 0, Time elapsed: 0.626 s <<< FAILURE! -- in Test_Usuario
-Test_Usuario.testFindUsuarioExistente -- Time elapsed: 0.108 s <<< ERROR!
+Tests run: 7, Failures: 0, Errors: 7, Skipped: 0, Time elapsed: 2.919 s <<< FAILURE! -- in Test_Usuario
+Test_Usuario.testFindUsuarioExistente -- Time elapsed: 0.308 s <<< ERROR!
 java.lang.RuntimeException: Error limpiando la BD
 	at Test_Usuario.clearDatabase(Test_Usuario.java:54)
 	at Test_Usuario.setUp(Test_Usuario.java:36)
@@ -124,7 +124,7 @@ Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: The DELETE statement
 	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:898)
 	... 91 more
 
-Test_Usuario.testCreateUsuarioDuplicado -- Time elapsed: 0.084 s <<< ERROR!
+Test_Usuario.testCreateUsuarioDuplicado -- Time elapsed: 0.261 s <<< ERROR!
 java.lang.RuntimeException: Error limpiando la BD
 	at Test_Usuario.clearDatabase(Test_Usuario.java:54)
 	at Test_Usuario.setUp(Test_Usuario.java:36)
@@ -246,7 +246,7 @@ Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: The DELETE statement
 	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:898)
 	... 91 more
 
-Test_Usuario.testDestroyUsuarioInexistente -- Time elapsed: 0.076 s <<< ERROR!
+Test_Usuario.testDestroyUsuarioInexistente -- Time elapsed: 0.187 s <<< ERROR!
 java.lang.RuntimeException: Error limpiando la BD
 	at Test_Usuario.clearDatabase(Test_Usuario.java:54)
 	at Test_Usuario.setUp(Test_Usuario.java:36)
@@ -368,7 +368,7 @@ Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: The DELETE statement
 	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:898)
 	... 91 more
 
-Test_Usuario.testCreateUsuario -- Time elapsed: 0.063 s <<< ERROR!
+Test_Usuario.testCreateUsuario -- Time elapsed: 0.220 s <<< ERROR!
 java.lang.RuntimeException: Error limpiando la BD
 	at Test_Usuario.clearDatabase(Test_Usuario.java:54)
 	at Test_Usuario.setUp(Test_Usuario.java:36)
@@ -490,7 +490,7 @@ Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: The DELETE statement
 	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:898)
 	... 91 more
 
-Test_Usuario.testDestroyUsuarioConRelaciones -- Time elapsed: 0.047 s <<< ERROR!
+Test_Usuario.testDestroyUsuarioConRelaciones -- Time elapsed: 0.237 s <<< ERROR!
 java.lang.RuntimeException: Error limpiando la BD
 	at Test_Usuario.clearDatabase(Test_Usuario.java:54)
 	at Test_Usuario.setUp(Test_Usuario.java:36)
@@ -612,7 +612,7 @@ Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: The DELETE statement
 	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:898)
 	... 91 more
 
-Test_Usuario.testFindUsuarioNoExistente -- Time elapsed: 0.073 s <<< ERROR!
+Test_Usuario.testFindUsuarioNoExistente -- Time elapsed: 0.121 s <<< ERROR!
 java.lang.RuntimeException: Error limpiando la BD
 	at Test_Usuario.clearDatabase(Test_Usuario.java:54)
 	at Test_Usuario.setUp(Test_Usuario.java:36)
@@ -734,7 +734,7 @@ Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: The DELETE statement
 	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:898)
 	... 91 more
 
-Test_Usuario.testDestroyUsuario -- Time elapsed: 0.093 s <<< ERROR!
+Test_Usuario.testDestroyUsuario -- Time elapsed: 0.047 s <<< ERROR!
 java.lang.RuntimeException: Error limpiando la BD
 	at Test_Usuario.clearDatabase(Test_Usuario.java:54)
 	at Test_Usuario.setUp(Test_Usuario.java:36)

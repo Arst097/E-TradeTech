@@ -17,6 +17,7 @@ import jakarta.persistence.EntityManagerFactory;
 import java.io.Serializable;
 import jakarta.persistence.Query;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -35,12 +36,13 @@ public class DAO_Almacen implements Serializable {
         this.utx = utx;
         this.emf = emf;
     }
-    private UserTransaction utx = null;
-    private EntityManagerFactory emf = null;
-
+    
     public DAO_Almacen() {
         this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
     }
+    
+    private UserTransaction utx = null;
+    private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -57,9 +59,12 @@ public class DAO_Almacen implements Serializable {
             model_Almacen.setInventarioCollection(new ArrayList<Inventario>());
         }
         EntityManager em = null;
+        EntityTransaction tx = null;
         try {
-            utx.begin();
             em = getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+            
             Collection<Despachador> attachedDespachadorCollection = new ArrayList<Despachador>();
             for (Despachador despachadorCollectionModel_DespachadorToAttach : model_Almacen.getDespachadorCollection()) {
                 despachadorCollectionModel_DespachadorToAttach = em.getReference(despachadorCollectionModel_DespachadorToAttach.getClass(), despachadorCollectionModel_DespachadorToAttach.getDespachadorID());
@@ -106,10 +111,10 @@ public class DAO_Almacen implements Serializable {
                     oldAlmacenIDOfInventarioCollectionModel_Inventario = em.merge(oldAlmacenIDOfInventarioCollectionModel_Inventario);
                 }
             }
-            utx.commit();
+            tx.commit();
         } catch (Exception ex) {
             try {
-                utx.rollback();
+                tx.rollback();
             } catch (Exception re) {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
             }
@@ -241,9 +246,12 @@ public class DAO_Almacen implements Serializable {
 
     public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
+        EntityTransaction tx = null;
         try {
-            utx.begin();
             em = getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+            
             Almacen model_Almacen;
             try {
                 model_Almacen = em.getReference(Almacen.class, id);
@@ -275,10 +283,10 @@ public class DAO_Almacen implements Serializable {
                 inventarioCollectionModel_Inventario = em.merge(inventarioCollectionModel_Inventario);
             }
             em.remove(model_Almacen);
-            utx.commit();
+            tx.commit();
         } catch (Exception ex) {
             try {
-                utx.rollback();
+                tx.rollback();
             } catch (Exception re) {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
             }

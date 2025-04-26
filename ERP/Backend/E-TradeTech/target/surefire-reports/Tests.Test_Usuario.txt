@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: Tests.Test_Usuario
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 3.996 s <<< FAILURE! -- in Tests.Test_Usuario
-Tests.Test_Usuario.testFindUsuarioExistente -- Time elapsed: 0.276 s <<< ERROR!
+Tests run: 4, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 5.820 s <<< FAILURE! -- in Tests.Test_Usuario
+Tests.Test_Usuario.testFindUsuarioExistente -- Time elapsed: 0.659 s <<< ERROR!
 Inventario.exceptions.PreexistingEntityException: El usuario ya existe: 3
 	at Uso_Comun.DAOs.DAO_Usuario.create(DAO_Usuario.java:141)
 	at Tests.Test_Usuario.testFindUsuarioExistente(Test_Usuario.java:89)
@@ -135,7 +135,7 @@ Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert the va
 	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:898)
 	... 100 more
 
-Tests.Test_Usuario.testCreateUsuario -- Time elapsed: 0.114 s <<< ERROR!
+Tests.Test_Usuario.testCreateUsuario -- Time elapsed: 0.358 s <<< ERROR!
 Inventario.exceptions.PreexistingEntityException: El usuario ya existe: 100
 	at Uso_Comun.DAOs.DAO_Usuario.create(DAO_Usuario.java:141)
 	at Tests.Test_Usuario.testCreateUsuario(Test_Usuario.java:57)
@@ -268,7 +268,7 @@ Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Violation of PRIMARY
 	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:898)
 	... 100 more
 
-Tests.Test_Usuario.testDestroyUsuario -- Time elapsed: 0.096 s <<< ERROR!
+Tests.Test_Usuario.testDestroyUsuario -- Time elapsed: 0.240 s <<< ERROR!
 Inventario.exceptions.PreexistingEntityException: El usuario ya existe: 2
 	at Uso_Comun.DAOs.DAO_Usuario.create(DAO_Usuario.java:141)
 	at Tests.Test_Usuario.testDestroyUsuario(Test_Usuario.java:72)
