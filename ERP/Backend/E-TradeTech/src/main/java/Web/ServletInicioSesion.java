@@ -50,6 +50,7 @@ public class ServletInicioSesion extends HttpServlet {
                 out.println("</head>");
                 out.println("<body>");
                 out.println("<h1>Servlet ServletInicioSesion at " + request.getContextPath()+ "; Contraseña Encriptada: "+ contraseña_encriptada + "; Token:"+ token + "email"+email+"contrasena"+ contraseña+ "</h1>");
+                out.println("<a href=\"Modulo Inventario/Html Inventario/inventario.html\"></a>");
                 out.println("</body>");
                 out.println("</html>");
             }
