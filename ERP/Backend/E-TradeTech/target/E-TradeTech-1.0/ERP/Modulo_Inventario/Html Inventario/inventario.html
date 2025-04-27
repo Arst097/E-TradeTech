@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP - Inventario</title>
+    <link rel="stylesheet" href="../Css Inventario/inventario.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>ERP</h2>
+        <ul>
+            <a href="/ERP/Inicio_Registro Html/Inicio_sesion.html"><li>Inicio Sesion</li></a>
+            <li class="active">Modulo Inventario y Almacenamiento</li> 
+            <li>Modulo Contabilidad</li>
+            <li>Modulo Proveedores y Compras</li>
+            <li>Modulo Ventas</li>
+            <li>Modulo Nómina y RRHH</li>
+        </ul>
+    </div>
+
+    <div class="main">
+        <header>
+            <img src="/ERP/Img/logo - fondo.png" alt="">
+            <h1><a href="">Productos</a></h1>
+            <h1><a href="">Orden</a></h1>
+            <div class="menu">
+            <p><a href="">&#128276;</a></p>
+            <p><a href="">&#128100;</a></p>
+        </div>
+        </header>
+        <h2>Productos</h2>
+        <div class="buscar">
+            <input type="text" value="🔎 Buscar producto">
+        <select id="categoria" name="Filtrar">
+            <option value="computadoras">Computadoras</option>
+            <option value="telefonos">Teléfonos</option>
+            <option value="tablets">Tablets</option>
+            <option value="otros">Otros electrónicos</option>
+          </select>
+          <input type="button" value="🔎 Buscar">
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Producto</th>
+                    <th>Categoría</th>
+                    <th>Stock</th>
+                    <th>Precio</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>Laptop HP Pavilion 15</td>
+                    <td>Computador</td>
+                    <td>15</td>
+                    <td>$3.000.000</td>
+                    <td><button class="editar">Editar</button> 
+                        <button class="eliminar">Eliminar</button></td>
+                </tr>  
+            </tbody>
+        </table>
+        <div class="btn_agregar_producto">
+            <a href="agregar_inven.html"><button>Agregar Producto </button></a>
+        </div>
+    </div>
+</body>
+</html>

@@ -26,8 +26,16 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class Servicio_Usuario {
 
-    private static final DAO_Usuario DAO = new DAO_Usuario();
+    private static DAO_Usuario DAO = new DAO_Usuario();
     private static final Key secretKey = generateKeyFromString("ContraseñaSuperSecreta");
+    public static String contrasena;
+    
+//    public static DAO_Usuario getDAO() {
+//    if (DAO == null) {
+//        DAO = new DAO_Usuario();
+//    }
+//    return DAO;
+//}
     
     public static String encryptSHA256(String input) {
         try {
@@ -55,8 +63,10 @@ public class Servicio_Usuario {
         }
     }
     
+    
+    
     public static String login(String correo, String contraseña_encriptada) {
-
+        
         Usuario usuario = DAO.findUsuarioByCorreoAndSHA256(correo, contraseña_encriptada);
         if(usuario == null){
             return "Usuario No Encontrado";

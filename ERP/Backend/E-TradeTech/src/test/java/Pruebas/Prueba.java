@@ -37,6 +37,7 @@ public class Prueba {
         
         String Correo = "hernesto.perez@example.com";
         String Contraseña_Obtenida = Servicio_Usuario.encryptSHA256("password123");
+        System.out.println(Contraseña_Obtenida);
         System.out.println(Servicio_Usuario.login(Correo,Contraseña_Obtenida));
         
     }

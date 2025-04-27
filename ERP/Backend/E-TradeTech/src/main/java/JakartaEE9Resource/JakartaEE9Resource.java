@@ -10,8 +10,8 @@ import jakarta.ws.rs.core.Response;
  */
 @Path("jakartaee9")
 public class JakartaEE9Resource {
-    
-    @GET
+     
+   @GET
     public Response ping(){
         return Response
                 .ok("ping Jakarta EE")
