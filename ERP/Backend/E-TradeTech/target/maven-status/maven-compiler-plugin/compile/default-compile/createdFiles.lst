@@ -15,7 +15,6 @@ Inventario\exceptions\PreexistingEntityException.class
 Inventario\Modelos\HistorialTransaccInv.class
 Inventario\Servicio_Gestor.class
 Uso_Comun\DAOs\DAO_Usuario.class
-Uso_Comun\Singelton.class
 Uso_Comun\Modelos\Pedidos.class
 Inventario\DAOs\DAO_Inventario.class
 Inventario\exceptions\IllegalOrphanException.class

@@ -33,24 +33,41 @@ public class ServletInicioSesion extends HttpServlet {
 //        String dios=Servicio_Usuario.encryptSHA256(Servicio_Usuario.contrasena);
         System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
         String email = request.getParameter("Email");
-        String contraseña = request.getParameter("ContrasenaSin");
-        
+        String contraseña = request.getParameter("ContrasenaSin");        
         String contraseña_encriptada = Servicio_Usuario.encryptSHA256(contraseña);
         String token = Servicio_Usuario.login(email, contraseña_encriptada);
         //String token = "a";
 
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletInicioSesion</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletInicioSesion at " + request.getContextPath()+ "; Contraseña Encriptada: "+ contraseña_encriptada + "; Token:"+ token + "email"+email+"contrasena"+ contraseña+ "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        if(Servicio_Usuario.TokenValido(token)== true){
+            response.setContentType("text/html;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                /* TODO output your page here. You may use following sample code. */
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Servlet ServletInicioSesion</title>");
+                out.println("</head>");
+                out.println("<body>");
+                out.println("<h1>Servlet ServletInicioSesion at " + request.getContextPath()+ "; Contraseña Encriptada: "+ contraseña_encriptada + "; Token:"+ token + "email"+email+"contrasena"+ contraseña+ "</h1>");
+                out.println("</body>");
+                out.println("</html>");
+            }
+        }else{
+            response.setContentType("text/html;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                /* TODO output your page here. You may use following sample code. */
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Servlet ServletInicioSesion</title>");
+                out.println("</head>");
+                out.println("<body>");
+                out.println("<h1>No se genero token pues el usuario o la contraseña son incorrectas </h1>");
+                out.println("<h1>Servlet ServletInicioSesion at " + request.getContextPath()+ "; Contraseña Encriptada: "+ contraseña_encriptada + "email"+email+"contrasena"+ contraseña+ "</h1>");
+                out.println("</body>");
+                out.println("</html>");
+            }
         }
     }
 
