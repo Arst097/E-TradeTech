@@ -38,9 +38,9 @@
     <properties>
       <!-- Configura aquí tu conexión directa JDBC -->
       <property name="jakarta.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-      <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=ETradeTechDB;encrypt=true;trustServerCertificate=true;"/>
-      <property name="jakarta.persistence.jdbc.user" value="sa"/>
-      <property name="jakarta.persistence.jdbc.password" value="compaqs710"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlserver://localhost\sqlexpress:1433;databaseName=ETradeTechDB;encrypt=true;trustServerCertificate=true;"/>
+      <property name="jakarta.persistence.jdbc.user" value="access"/>
+      <property name="jakarta.persistence.jdbc.password" value="123"/>
       <!-- Otras propiedades opcionales -->
       <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
       <property name="eclipselink.logging.level" value="FINE"/>
