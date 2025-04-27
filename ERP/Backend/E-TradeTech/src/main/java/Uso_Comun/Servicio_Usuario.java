@@ -67,12 +67,13 @@ public class Servicio_Usuario {
     
     public static String login(String correo, String contraseña_encriptada) {
         
-        Usuario usuario = DAO.findUsuarioByCorreoAndSHA256(correo, contraseña_encriptada);
+        Usuario usuario = DAO.findUsuarioByCorreoAndSHA256(true, correo, contraseña_encriptada);
+        
         if(usuario == null){
             return "Usuario No Encontrado";
         }
         DAO_Gestores TempDAO = new DAO_Gestores();
-        if(TempDAO.findGestorByUsuarioId(usuario.getUsuarioid()) == null){
+        if(TempDAO.findGestorByUsuarioId(true,usuario.getUsuarioid()) == null){
             return "Usuario No Gestor";
         }
         return generateJwtToken(usuario.getUsuarioid());
