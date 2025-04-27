@@ -1,0 +1,79 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+
+.logo img {
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+.caja_inicioSesion {
+    background: rgba(249, 228, 182, 0.489);;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+
+.caja_inicioSesion h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.caja_inicioSesion h2 {
+    font-size: 16px;
+    color: #555;
+    margin: 15px 0 5px;
+    text-align: left;
+}
+
+
+.caja_inicioSesion input[type="email"],
+.caja_inicioSesion input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+
+.caja_inicioSesion input[type="button"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #FFD700;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+}
+
+.caja_inicioSesion input[type="button"]:hover {
+    background-color: #f6e480;
+}
+
+
+.caja_inicioSesion a {
+    display: block;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #000000;
+}
+
+.caja_inicioSesion a:hover {
+    text-decoration: underline;
+}

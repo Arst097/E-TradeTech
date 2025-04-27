@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP - Contabilidad</title>
+    <link rel="stylesheet" href="/Modulo Contabilidad/Css Contabilidad/Contabilidad.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>ERP</h2>
+        <ul>
+            <a href="/Inicio_Registro/Inicio_Registro Html/Inicio_sesion.html"><li>Inicio Sesión</li></a>
+            <a href="/Modulo Inventario/Html Inventario/inventario.html"><li>Modulo Inventario y Almacenamiento</li></a> 
+            <a href="/Modulo Contabilidad/Html Contabilidad/contabilidad.html"><li class="active">Modulo Contabilidad</li></a>
+            <a href="/Modulo Proveedores/Html Proveedores/Proveedores.html"><li>Modulo Proveedores y Compras</li></a>
+            <a href="/Modulo Ventas/Html Ventas/Ventas.html"><li>Modulo Ventas</li></a>
+            <a href="/Modulo RRHH/Html RRHH/RRHH.html"><li>Modulo Nómina y RRHH</li></a>
+        </ul>
+    </div>
+
+    <div class="main">
+        <header>
+            <img src="/Img/logo - fondo.png" alt="Logo ERP" />
+            <h1><a href="/Modulo Contabilidad/Html Contabilidad/Contabilidad.html">Estados Financieros</a></h1>
+            <div class="menu">
+              <p><a href="#">&#128276;</a></p>
+              <p><a href="#">&#128100;</a></p>
+            </div>
+          </header>
+
+        <h2>Estados Financieros</h2>
+        <div class="botones_opciones">
+        <a href=""><button>Solicitudes</button></a>
+        <a href=""><button>Ingresos Financieros</button></a>
+        <a href=""><button>Inversiones</button></a>
+        <a href=""><button>Balances Financieros</button></a>
+    </div>
+        <div class="buscar">
+            <input type="text" placeholder="🔎 Buscar transacción">
+            <select id="categoria" name="categoria">
+                <option value="ingreso">Ingreso</option>
+                <option value="gasto">Gasto</option>
+            </select>
+            <input type="button" value="🔎 Buscar">
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>Categoría</th>
+                    <th>Monto</th>
+                    <th>Fecha</th>
+                    <th>
+                        
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>Pago de Servicio de Internet</td>
+                    <td>Gasto</td>
+                    <td>$150.000</td>
+                    <td>2025-04-25</td>
+                    <td>
+                        <button class="editar" onclick="abrirFormularioEditar('Pago de Servicio de Internet', 'gasto', 150000, '2025-04-25')">Editar</button>
+                        <button class="eliminar">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="btn_agregar_producto">
+            <button onclick="abrirFormulario()">Agregar Transacción</button>
+        </div>
+    </div>
+
+    <div class="Formulario" id="Formulario">
+        <form>
+            <h1>Agregar Transacción</h1>
+            <h2>Descripción</h2>
+            <input type="text">
+            <h2>Categoría</h2>
+            <select id="categoria2">
+                <option value="ingreso">Ingreso</option>
+                <option value="gasto">Gasto</option>
+            </select>
+            <h2>Monto</h2>
+            <input type="number">
+            <h2>Fecha</h2>
+            <input type="date"><br>
+            <input id="Aceptar" type="button" value="Agregar Transacción">
+            <button id="Cancelar" onclick="cerrarFormulario()">Cancelar</button>
+        </form>
+    </div>
+
+    <div class="Formulario" id="FormularioEditar" style="display: none;">
+        <form>
+            <h1>Editar Transacción</h1>
+            <h2>Descripción</h2>
+            <input type="text" id="editDescripcion">
+            <h2>Categoría</h2>
+            <select id="editCategoria">
+                <option value="ingreso">Ingreso</option>
+                <option value="gasto">Gasto</option>
+            </select>
+            <h2>Monto</h2>
+            <input type="number" id="editMonto">
+            <h2>Fecha</h2>
+            <input type="date" id="editFecha"><br>
+            <input id="Aceptar" type="button" value="Guardar Cambios">
+            <button id="Cancelar" onclick="cerrarFormularioEditar()">Cancelar</button>
+        </form>
+    </div>
+
+    <script src="/Modulo Contabilidad/JS Contabilidad/Contabilidad.js"></script>
+</body>
+</html>
