@@ -4,8 +4,16 @@
         <servlet-name>ServletInicioSesion</servlet-name>
         <servlet-class>Web.ServletInicioSesion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletInventarioMostrar</servlet-name>
+        <servlet-class>Web.ServletInventarioMostrar</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletInicioSesion</servlet-name>
         <url-pattern>/ServletInicioSesion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletInventarioMostrar</servlet-name>
+        <url-pattern>/ServletInventarioMostrar</url-pattern>
     </servlet-mapping>
 </web-app>
