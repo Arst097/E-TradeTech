@@ -1,3 +1,5 @@
+window.addEventListener('DOMContentLoaded', cargarProductos);
+
 function abrirFormulario(){
     document.getElementById("Formulario").style.display="block";
 }
@@ -37,3 +39,31 @@ function cerrarFormularioEditar() {
     document.getElementById('FormularioEditar2').style.display = 'none';
 }
 
+async function cargarProductos() {
+    try {
+        const respuesta = await fetch('ServletInventarioMostrar');
+        const productos = await respuesta.json();
+
+        const tbody = document.getElementById('cuerpo-tabla-productos');
+        tbody.innerHTML = ''; // limpia contenido anterior
+
+        productos.forEach(p => {
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td>${p.id}</td>
+                <td>${p.nombre}</td>
+                <td>${p.categoria}</td>
+                <td>${p.stock}</td>
+                <td>$${Number(p.precio).toLocaleString()}</td>
+                <td>
+                    <button class="editar" onclick="abrirFormularioEditar('${p.nombre}', '${p.categoria}', ${p.stock}, '${p.precio}')">Editar</button>
+                    <button class="eliminar">Eliminar</button>
+                </td>
+            `;
+            tbody.appendChild(fila);
+        });
+
+    } catch (error) {
+        console.error('Error al cargar productos:', error);
+    }
+}

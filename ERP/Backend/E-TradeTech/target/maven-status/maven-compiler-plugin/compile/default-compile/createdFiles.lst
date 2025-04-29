@@ -3,6 +3,7 @@ Uso_Comun\DAOs\DAO_Cliente.class
 Inventario\exceptions\NonexistentEntityException.class
 Inventario\Modelos\Inventario.class
 Inventario\Modelos\Gestores.class
+Web\ServletInventarioMostrar.class
 Web\provicional.class
 Uso_Comun\DAOs\DAO_Mensajero.class
 JakartaEE9Resource\JakartaEE9Resource.class

@@ -81,6 +81,12 @@
             <version>5.6.0</version>
             <scope>test</scope>
         </dependency>
+<!--        <dependency>
+            <groupId>io.fintrospect</groupId>
+            <artifactId>fintrospect-gson_2.12</artifactId>
+            <version>16.0.0</version>
+            <type>jar</type>
+        </dependency>-->
     </dependencies>
     
     <build>
