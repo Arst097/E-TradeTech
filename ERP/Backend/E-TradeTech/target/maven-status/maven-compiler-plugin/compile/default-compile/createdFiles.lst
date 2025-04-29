@@ -1,5 +1,6 @@
 Inventario\Modelos\TransaccionInv.class
 Uso_Comun\DAOs\DAO_Cliente.class
+Web\ServletAgregarProductos.class
 Inventario\exceptions\NonexistentEntityException.class
 Inventario\Modelos\Inventario.class
 Inventario\Modelos\Gestores.class

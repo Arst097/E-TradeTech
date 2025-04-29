@@ -72,25 +72,25 @@
     </div>
     <div class="Formulario" id="Formulario">
         <div class="formulario-contenido">
-        <form action="">
-            <h1>Agregar Producto nuevo a Stock</h1>
-            <h2>Producto</h2>
-            <input type="text">
-            <h2>Categoria</h2>
-            <select id="categoria2" name="Filtrar">
-                <option value="computadoras">Computadoras</option>
-                <option value="telefonos">Teléfonos</option>
-                <option value="tablets">Tablets</option>
-                <option value="otros">Otros electrónicos</option>
-              </select>
-              <h2>Cantidad</h2>
-              <input type="number">
-              <h2>Precio</h2>
-              <input type="text"><br>
-             <a href=""> <input id="Aceptar" type="button" value="Agregar Producto"></a>
-             <button onclick="cerrarFormulario()" id="Cancelar">Cancelar </button>
-        </form>
-    </div>
+                <form id="formularioProducto" method="POST">
+                <h1>Agregar Producto nuevo a Stock</h1>
+                <h2>Producto</h2>
+                <input type="text" id="Nom_producto">
+                <h2>Categoria</h2>
+                <select id="categoria2" name="Filtrar">
+                    <option value="computadoras">Computadoras</option>
+                    <option value="telefonos">Teléfonos</option>
+                    <option value="tablets">Tablets</option>
+                    <option value="otros">Otros electrónicos</option>
+                  </select>
+                  <h2>Cantidad</h2>
+                  <input type="number" id="Can_Producto">
+                  <h2>Precio</h2>
+                  <input type="text" id="Precio_producto"><br>
+                  <button id="Aceptar" type="submit">Agregar Producto</button>    
+            </form>
+            <button onclick="cerrarFormulario()" id="Cancelar">Cancelar </button>
+        </div>
     </div>
     <div class="Formulario" id="FormularioEditar" style="display: none;">
         <div class="formulario-contenido">

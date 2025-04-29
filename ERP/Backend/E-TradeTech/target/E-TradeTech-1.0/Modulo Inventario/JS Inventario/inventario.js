@@ -14,10 +14,9 @@ $(document).ready(function () {
                 console.log("Productos recibidos:", data);
                 const $tbody = $('#cuerpo-tabla-productos');
                 $tbody.empty(); // Limpiar la tabla antes de insertar
-
                 data.forEach(function (p) {
                     const fila = `
-                        <tr>
+                        <tr id="tr-${data.id}">
                             <td>${p.id}</td>
                             <td>${p.nombre}</td>
                             <td>${p.categoria}</td>
@@ -31,6 +30,7 @@ $(document).ready(function () {
                     `;
                     $tbody.append(fila);
                 });
+                cargarProductos();
             },
             error: function (xhr, status, error) {
                 console.error('Error al cargar productos:', error);
@@ -43,6 +43,40 @@ $(document).ready(function () {
         console.log("jQuery funciona jquery");
         cargarProductos();
     });
+    
+    $('#formularioProducto').on('submit', function (e) {
+        e.preventDefault(); // Evita el envío normal del formulario
+
+        // Recoger datos
+        const nombre = $('input[id="Nom_producto"]').val();
+        const categoria = $('select[id="categoria2"]').val();
+        const stock = $('input[id="Can_Producto"]').val();
+        const precio = $('input[id="Precio_producto"]').val();
+
+        // Verifica que se estén recogiendo bien
+        console.log({ nombre, categoria, stock, precio });
+
+        // Aquí puedes hacer un AJAX, por ejemplo:
+        $.ajax({
+            url: 'http://localhost:8080/E-TradeTech/ServletAgregarProductos',
+            method: 'POST',
+            data: {
+                nombre: nombre,
+                categoria: categoria,
+                stock: stock,
+                precio: precio
+            },
+            success: function (respuesta) {
+                alert(respuesta);
+                // recargar tabla, cerrar modal, etc.
+            },
+            error: function (xhr) {
+                alert("Error al agregar producto");
+                console.error(xhr.responseText);
+            }
+        });
+    });
+
 });
     
 
