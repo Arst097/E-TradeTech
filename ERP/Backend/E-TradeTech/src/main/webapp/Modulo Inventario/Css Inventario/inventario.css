@@ -294,3 +294,15 @@ th, td {
     height: auto;
     object-fit: contain;
 }
+.buscar button {
+    width: 100px;
+    padding: 10px;
+    background-color: #646363ae;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}

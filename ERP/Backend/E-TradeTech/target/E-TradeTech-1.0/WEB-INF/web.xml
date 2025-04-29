@@ -8,6 +8,10 @@
         <servlet-name>ServletInventarioMostrar</servlet-name>
         <servlet-class>Web.ServletInventarioMostrar</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletAgregarProductos</servlet-name>
+        <servlet-class>Web.ServletAgregarProductos</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletInicioSesion</servlet-name>
         <url-pattern>/ServletInicioSesion</url-pattern>
@@ -15,5 +19,9 @@
     <servlet-mapping>
         <servlet-name>ServletInventarioMostrar</servlet-name>
         <url-pattern>/ServletInventarioMostrar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAgregarProductos</servlet-name>
+        <url-pattern>/ServletAgregarProductos</url-pattern>
     </servlet-mapping>
 </web-app>
