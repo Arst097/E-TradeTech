@@ -29,31 +29,40 @@ public class ServletInventarioMostrar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        response.setContentType("application/json");
+//        response.setCharacterEncoding("UTF-8");
+//
+//        StringBuilder json = new StringBuilder();
+//        json.append("[");
+//
+//        json.append("{");
+//        json.append("\"id\":\"001\",");
+//        json.append("\"nombre\":\"Laptop HP Pavilion 15\",");
+//        json.append("\"categoria\":\"Computadoras\",");
+//        json.append("\"stock\":15,");
+//        json.append("\"precio\":3000000");
+//        json.append("},");
+//
+//        json.append("{");
+//        json.append("\"id\":\"002\",");
+//        json.append("\"nombre\":\"iPhone 13\",");
+//        json.append("\"categoria\":\"Teléfonos\",");
+//        json.append("\"stock\":10,");
+//        json.append("\"precio\":4500000");
+//        json.append("}");
+//
+//        json.append("]");
+//
+//        response.getWriter().write(json.toString());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        StringBuilder json = new StringBuilder();
-        json.append("[");
+        String json = "[" +
+            "{\"id\":\"001\",\"nombre\":\"Laptop HP Pavilion 15\",\"categoria\":\"Computadoras\",\"stock\":15,\"precio\":3000000}," +
+            "{\"id\":\"002\",\"nombre\":\"iPhone 13\",\"categoria\":\"Teléfonos\",\"stock\":10,\"precio\":4500000}" +
+        "]";
 
-        json.append("{");
-        json.append("\"id\":\"001\",");
-        json.append("\"nombre\":\"Laptop HP Pavilion 15\",");
-        json.append("\"categoria\":\"Computadoras\",");
-        json.append("\"stock\":15,");
-        json.append("\"precio\":3000000");
-        json.append("},");
-
-        json.append("{");
-        json.append("\"id\":\"002\",");
-        json.append("\"nombre\":\"iPhone 13\",");
-        json.append("\"categoria\":\"Teléfonos\",");
-        json.append("\"stock\":10,");
-        json.append("\"precio\":4500000");
-        json.append("}");
-
-        json.append("]");
-
-        response.getWriter().write(json.toString());
+        response.getWriter().write(json);
         
     }    
 
