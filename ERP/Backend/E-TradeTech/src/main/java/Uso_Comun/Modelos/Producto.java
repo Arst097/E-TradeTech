@@ -38,6 +38,12 @@ public class Producto implements Serializable {
     @Basic(optional = false)
     @Column(name = "ProductoID")
     private Integer productoID;
+    @Basic(optional = true)
+    @Column(name = "Precio")
+    private float precio;
+    @Basic(optional = true)
+    @Column(name = "Categoria")
+    private String categoria;
     @Basic(optional = false)
     @Column(name = "Modelo")
     private String modelo;
@@ -51,7 +57,7 @@ public class Producto implements Serializable {
     @JoinColumn(name = "PedidoID", referencedColumnName = "PedidoID")
     @ManyToOne
     private Pedidos pedidoID;
-
+    
     public Producto() {
     }
 
@@ -110,6 +116,22 @@ public class Producto implements Serializable {
 
     public void setPedidoID(Pedidos pedidoID) {
         this.pedidoID = pedidoID;
+    }
+
+    public float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
     @Override

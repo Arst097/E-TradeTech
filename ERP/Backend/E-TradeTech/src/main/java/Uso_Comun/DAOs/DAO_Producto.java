@@ -248,6 +248,26 @@ public class DAO_Producto implements Serializable {
         }
     }
 
+    public List<Object[]> findGrupoProductosByInventario(int InventarioID) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createQuery(
+                    "SELECT p.modelo, MAX(p.categoria), COUNT(p), MAX(p.precio) "
+                    + "FROM Producto p "
+                    + "WHERE p.inventarioID.inventarioID = :inventarioId "
+                    + "GROUP BY p.modelo"
+            );
+
+            query.setParameter("inventarioId", InventarioID);
+
+            List<Object[]> resultados = query.getResultList();
+
+            return resultados.isEmpty() ? null : resultados;
+        } finally {
+            em.close();
+        }
+    }
+
     public int getModel_ProductoCount() {
         EntityManager em = getEntityManager();
         try {

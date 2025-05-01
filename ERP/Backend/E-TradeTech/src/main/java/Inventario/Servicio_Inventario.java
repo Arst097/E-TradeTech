@@ -23,36 +23,55 @@ public class Servicio_Inventario {
     private static DAO_Gestores DAOg = new DAO_Gestores();
 
     public static String listaproductosJSON(String Token) {
-        
+
         int UsuarioID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
-        
+
         int GestorID = DAOg.findGestorByUsuarioId(false, UsuarioID).getGestorID();
-        
+
         List<Inventario> inventarios = DAOi.findInvetarioByGestor(GestorID);
-        
-        if(!validarTipos(inventarios)){
+
+        if (!validarTipos(inventarios)) {
             return "Los inventarios en almacen no coinciden con inventario libre y reservado";
         }
-        
-        int QInvLibre = -1;
-        int QInvReservado = -1;
-        
-        for(Inventario inventario: inventarios){
-            int inventarioID = inventario.getInventarioID();
+
+        String json = "[";
+
+        for (Inventario inventario : inventarios) {
             String tipo = inventario.getTipo();
-            System.out.println(inventarioID);
-            System.out.println(tipo);
-            if(tipo.equals("Libre")){
-                System.out.println("a");
-                QInvLibre = DAOp.findProductoByInventario(inventarioID).size();
-            }else{
-                QInvReservado = DAOp.findProductoByInventario(inventarioID).size();
+
+            if (tipo.equals("Libre")) {
+                int inventarioID = inventario.getInventarioID();
+                List<Object[]> MontosProductos = DAOp.findGrupoProductosByInventario(inventarioID);
+                
+                int i = 0;
+                for (Object[] monto : MontosProductos) {
+                    i++;
+                    
+                    String modelo = (String) monto[0];
+                    String categoria = (String) monto[1];
+                    Long cantidad = (Long) monto[2];
+                    float precio = (float) monto[3];
+
+                    json = json
+                            + "{\"id\":\""
+                            + i
+                            + "\",\"nombre\":\""
+                            + modelo
+                            + "\",\"categoria\":\""
+                            + categoria
+                            + "\",\"stock\":"
+                            + cantidad
+                            + ",\"precio\":"
+                            + precio
+                            + "},";
+
+                }
             }
         }
-        
-        String Resultado = "Cantidad de Inventario Libre: " + String.valueOf(QInvLibre) + "\n"+ "Cantidad de Inventario Reservado: " + String.valueOf(QInvReservado);
 
-        return Resultado;
+        json = json + "]";
+
+        return json;
     }
 
     public static boolean validarTipos(List<Inventario> inventarios) {
