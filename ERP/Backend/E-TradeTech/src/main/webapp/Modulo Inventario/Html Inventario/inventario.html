@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP - Inventario</title>
+    <link rel="stylesheet" href="../../Modulo Inventario/Css Inventario/inventario.css">
+    
+    
+</head>
+<body>
+    <div class="sidebar">
+        <h2>ERP</h2>
+        <ul>
+            <a href="../../Modulo Inventario/Html Inventario/inventario.html"><li class="active">Modulo Inventario y Almacenamiento</li></a>
+            <a href="../../Modulo Proveedores/Html Proveedores/Proveedores.html"><li>Modulo Proveedores y Compras</li></a>
+            <a href="../../Modulo Ventas/Html Ventas/Ventas.html"><li>Modulo Ventas</li></a>
+            <a href="../../Modulo RRHH/Html RRHH/RRHH.html"><li>Modulo Nómina y RRHH</li></a>
+            <a href="../../Modulo Contabilidad/Html Contabilidad/Contabilidad.html"><li>Modulo Contabilidad</li></a>
+            <a href="../../index.html"><li>Cerrar Sesión</li></a>
+        </ul>
+    </div>
+
+    <div class="main">
+        <header>
+            <img src="../../Img/logo - fondo.png" alt=""/>
+            <h1><a href="">Productos</a></h1>
+            <h1><a href="pedidos.html">Orden</a></h1>
+            <div class="menu">
+            <p><a href="">&#128276;</a></p>
+            <p><a href="">&#128100;</a></p>
+            
+        </div>
+        </header>
+        <h2>Productos</h2>
+        <div class="buscar">
+            <input type="text" value="🔎 Buscar producto">
+        <select id="categoria" name="Filtrar">
+            <option value="computadoras">Computadoras</option>
+            <option value="telefonos">Teléfonos</option>
+            <option value="tablets">Tablets</option>
+            <option value="otros">Otros electrónicos</option>
+          </select>
+          <input type="button" value="🔎 Buscar">
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Producto</th>
+                    <th>Categoría</th>
+                    <th>Stock</th>
+                    <th>Precio</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="cuerpo-tabla-productos">
+                <tr>
+                    <td>001</td>
+                    <td>Laptop HP Pavilion 15</td>
+                    <td>Computador</td>
+                    <td>15</td>
+                    <td>$3.000.000</td>
+                    <td><button class="editar" onclick="abrirFormularioEditar('Laptop HP Pavilion 15', 'Computadoras', 15, '3000000')">Editar</button>
+                        <button class="eliminar">Eliminar</button></td>
+                </tr>  
+            </tbody>
+        </table>
+        <div class="btn_agregar_producto">
+            <button onclick="abrirFormulario()">Agregar Producto </button>
+        </div>
+    </div>
+    <div class="Formulario" id="Formulario">
+        <div class="formulario-contenido">
+                <form id="formularioProducto" method="POST">
+                <h1>Agregar Producto nuevo a Stock</h1>
+                <h2>Producto</h2>
+                <input type="text" id="Nom_producto">
+                <h2>Categoria</h2>
+                <select id="categoria2" name="Filtrar">
+                    <option value="computadoras">Computadoras</option>
+                    <option value="telefonos">Teléfonos</option>
+                    <option value="tablets">Tablets</option>
+                    <option value="otros">Otros electrónicos</option>
+                  </select>
+                  <h2>Cantidad</h2>
+                  <input type="number" id="Can_Producto">
+                  <h2>Precio</h2>
+                  <input type="text" id="Precio_producto"><br>
+                  <button id="Aceptar" type="submit">Agregar Producto</button>    
+            </form>
+            <button onclick="cerrarFormulario()" id="Cancelar">Cancelar </button>
+        </div>
+    </div>
+    <div class="Formulario" id="FormularioEditar" style="display: none;">
+        <div class="formulario-contenido">
+          <form>
+            <h1>Editar Producto</h1>
+            <h2>Producto</h2>
+            <input type="text" id="editProducto">
+            <h2>Categoria</h2>
+            <select id="categoria2">
+              <option value="computadoras">Computadoras</option>
+              <option value="telefonos">Teléfonos</option>
+              <option value="tablets">Tablets</option>
+              <option value="otros">Otros electrónicos</option>
+            </select>
+            <h2>Cantidad</h2>
+            <input type="number" id="editCantidad">
+            <h2>Precio</h2>
+            <input type="text" id="editPrecio"><br>
+            <input id="Aceptar" type="button" value="Guardar Cambios">
+            <button onclick="cerrarFormularioEdi()" id="Cancelar">Cancelar</button>
+          </form>
+        </div>
+      </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../JS Inventario/inventario.js"></script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP - Nómina y RRHH</title>
+    <link href="../CSS RRHH/RRHH.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>ERP</h2>
+        <ul>
+            <a href="../../Modulo Inventario/Html Inventario/inventario.html"><li >Modulo Inventario y Almacenamiento</li></a>
+            <a href="../../Modulo Proveedores/Html Proveedores/Proveedores.html"><li>Modulo Proveedores y Compras</li></a>
+            <a href="../../Modulo Ventas/Html Ventas/Ventas.html"><li>Modulo Ventas</li></a>
+            <a href="../../Modulo RRHH/Html RRHH/RRHH.html"><li class="active">Modulo Nómina y RRHH</li></a>
+            <a href="../../Modulo Contabilidad/Html Contabilidad/Contabilidad.html"><li>Modulo Contabilidad</li></a>
+            <a href="../../index.html"><li>Cerrar Sesión</li></a>
+        </ul>
+    </div>
+
+    <div class="main">
+        <header>
+            <img src="../../Img/logo - fondo.png" alt="Logo ERP">
+            <h1><a href="#">Nómina y RRHH</a></h1>
+            <div class="menu">
+                <p><a href="#">🔔</a></p>
+                <p><a href="#">👤</a></p>
+            </div>
+        </header>
+
+        <h2>Empleados</h2>
+        <div class="botones_opciones">
+            <a href=""><button>Nuevo Contrato</button></a>
+            <a href=""><button onclick="abrirFormularioMemo()">Memorando</button></a>
+            <a href=""><button onclick="abrirFormularioCen()">Cesantias</button></a>
+            <a href=""><button>Pago de Nomina</button></a>
+            <a href=""><button>Despido</button></a>
+        </div>
+        <div class="buscar">
+            <input type="text" placeholder="🔎 Buscar empleado">
+            <select id="departamento" name="departamento">
+                <option value="administracion">Administración</option>
+                <option value="ventas">Ventas</option>
+                <option value="finanzas">Finanzas</option>
+                <option value="otros">Otros</option>
+            </select>
+            <input type="button" value="🔎 Buscar">
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Departamento</th>
+                    <th>Salario</th>
+                    <th>Fecha de Ingreso</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>María Gómez</td>
+                    <td>Administración</td>
+                    <td>$2.500.000</td>
+                    <td>2023-05-10</td>
+                    <td>
+                        <button class="editar" onclick="abrirFormularioEditar('María Gómez', 'administracion', 2500000, '2023-05-10')">Editar</button>
+                        <button class="eliminar">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="btn_agregar_producto">
+            <button onclick="abrirFormulario()">Agregar Empleado</button>
+        </div>
+    </div>
+
+    <div class="Formulario" id="Formulario">
+        <form>
+            <h1>Agregar Empleado</h1>
+            <h2>Nombre</h2>
+            <input type="text">
+            <h2>Departamento</h2>
+            <select id="departamento2">
+                <option value="administracion">Administración</option>
+                <option value="ventas">Ventas</option>
+                <option value="finanzas">Finanzas</option>
+                <option value="otros">Otros</option>
+            </select>
+            <h2>Salario</h2>
+            <input type="number">
+            <h2>Fecha de Ingreso</h2>
+            <input type="date"><br>
+            <input id="Aceptar" type="button" value="Agregar Empleado">
+            <button id="Cancelar" onclick="cerrarFormulario()">Cancelar</button>
+        </form>
+    </div>
+
+    <div class="Formulario" id="FormularioEditar" style="display: none;">
+        <form>
+            <h1>Editar Empleado</h1>
+            <h2>Nombre</h2>
+            <input type="text" id="editNombre">
+            <h2>Departamento</h2>
+            <select id="editDepartamento">
+                <option value="administracion">Administración</option>
+                <option value="ventas">Ventas</option>
+                <option value="finanzas">Finanzas</option>
+                <option value="otros">Otros</option>
+            </select>
+            <h2>Salario</h2>
+            <input type="number" id="editSalario">
+            <h2>Fecha de Ingreso</h2>
+            <input type="date" id="editFechaIngreso"><br>
+            <input id="Aceptar" type="button" value="Guardar Cambios">
+            <button id="Cancelar" onclick="cerrarFormularioEditar()">Cancelar</button>
+        </form>
+    </div>
+
+    <div class="FormularioMemorando" id="FormularioMemorando" style="display: none;">
+        <div class="formulario-contenido"> 
+            <form>       
+        <span class="close" onclick="cerrarFormularioMemo()">&times;</span>
+        <h2>Realizar Memorando a Empleado</h2>
+        <label for="idEmpleado">ID Empleado:</label>
+        <input type="text" placeholder="Ingrese ID del empleado">
+        <button>Buscar Empleado</button>
+        <label for="NombreEmpleado"></label>
+        <input type="text">
+        <label for="">Razones del Memorando</label>
+        <input type="text">
+        <button onclick="generarDocumento()">Generar</button>
+    </form>
+    </div>
+    </div>
+
+
+    <div class="FormularioCen" id="FormularioCen" style="display: none;">
+        <div class="formulario-contenido"> 
+            <form>       
+        <span class="close" onclick="cerrarFormularioCen()">&times;</span>
+        <h2>Realizar Censatias a Empleado</h2>
+        <label for="idEmpleado">ID Empleado:</label>
+        <input type="text" placeholder="Ingrese ID del empleado">
+        <button>Buscar Empleado</button>
+        <label for="NombreEmpleado"></label>
+        <input type="text">
+        <label for="">Razones de Cesantias</label>
+        <input type="text">
+        <label for="">Valor de Cesantias</label>
+        <input type="text">
+        <button onclick="generarCensantias()">Generar</button>
+    </form>
+    </div>
+    </div>
+    <script src="../JS RRHH/RRHH.js"></script>
+</body>
+</html>

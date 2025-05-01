@@ -41,7 +41,7 @@ public class DAO_Inventario implements Serializable {
     public DAO_Inventario() {
         this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
     }
-    
+
     private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
@@ -68,7 +68,7 @@ public class DAO_Inventario implements Serializable {
             em = getEntityManager();
             tx = em.getTransaction();
             tx.begin();
-            
+
             Almacen almacenID = model_Inventario.getAlmacenID();
             if (almacenID != null) {
                 almacenID = em.getReference(almacenID.getClass(), almacenID.getAlmacenID());
@@ -323,7 +323,7 @@ public class DAO_Inventario implements Serializable {
             em = getEntityManager();
             tx = em.getTransaction();
             tx.begin();
-            
+
             Inventario model_Inventario;
             try {
                 model_Inventario = em.getReference(Inventario.class, id);
@@ -417,6 +417,25 @@ public class DAO_Inventario implements Serializable {
         }
     }
 
+    public List<Inventario> findInvetarioByGestor(Integer GestorID) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createQuery(
+                    "SELECT i FROM Inventario i "
+                    + "JOIN i.almacenID a "
+                    + "JOIN Gestores g ON g.almacenID.almacenID = a.almacenID "
+                    + "WHERE g.gestorID = :gestorId"
+            );
+            query.setParameter("gestorId", GestorID);
+
+            List<Inventario> resultados = query.getResultList();
+
+            return resultados.isEmpty() ? null : resultados;
+        } finally {
+            em.close();
+        }
+    }
+
     public int getModel_InventarioCount() {
         EntityManager em = getEntityManager();
         try {
@@ -429,5 +448,5 @@ public class DAO_Inventario implements Serializable {
             em.close();
         }
     }
-    
+
 }

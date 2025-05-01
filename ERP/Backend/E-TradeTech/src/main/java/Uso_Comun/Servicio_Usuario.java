@@ -26,7 +26,7 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class Servicio_Usuario {
 
-    private static final DAO_Usuario DAO = new DAO_Usuario();
+    private static DAO_Usuario DAO = new DAO_Usuario();
     private static final Key secretKey = generateKeyFromString("ContraseñaSuperSecreta");
     
     public static String encryptSHA256(String input) {
@@ -55,14 +55,17 @@ public class Servicio_Usuario {
         }
     }
     
-    public static String login(String correo, String contraseña_encriptada) {
-
-        Usuario usuario = DAO.findUsuarioByCorreoAndSHA256(correo, contraseña_encriptada);
+    
+    
+    public static String login(String correo, String contraseña_encriptada, boolean b) {
+        
+        Usuario usuario = DAO.findUsuarioByCorreoAndSHA256(b, correo, contraseña_encriptada);
+        
         if(usuario == null){
             return "Usuario No Encontrado";
         }
         DAO_Gestores TempDAO = new DAO_Gestores();
-        if(TempDAO.findGestorByUsuarioId(usuario.getUsuarioid()) == null){
+        if(TempDAO.findGestorByUsuarioId(b,usuario.getUsuarioid()) == null){
             return "Usuario No Gestor";
         }
         return generateJwtToken(usuario.getUsuarioid());

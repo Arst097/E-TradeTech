@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modulo Proveedores</title>
+    <link rel="stylesheet" href="../Css Proveedores/Proveedores.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>ERP</h2>
+        <ul>
+            <a href="../../Modulo Inventario/Html Inventario/inventario.html"><li >Modulo Inventario y Almacenamiento</li></a>
+            <a href="../../Modulo Proveedores/Html Proveedores/Proveedores.html"><li class="active">Modulo Proveedores y Compras</li></a>
+            <a href="../../Modulo Ventas/Html Ventas/Ventas.html"><li>Modulo Ventas</li></a>
+            <a href="../../Modulo RRHH/Html RRHH/RRHH.html"><li>Modulo Nómina y RRHH</li></a>
+            <a href="../../Modulo Contabilidad/Html Contabilidad/Contabilidad.html"><li>Modulo Contabilidad</li></a>
+            <a href="../../index.html"><li>Cerrar Sesión</li></a>
+        </ul>
+    </div>
+
+    <div class="main">
+        <header>
+            <img src="../../Img/logo - fondo.png" alt="">
+            <h1><a href="">Proveedores</a></h1>
+            <h1><a href="Ordenes.html">Ordenes</a></h1>
+            <div class="menu">
+            <p><a href="">&#128276;</a></p>
+            <p><a href="">&#128100;</a></p>
+        </div>
+        </header>
+        <h2>Proveedores</h2>
+        <div class="buscar">
+            <input type="text" value="🔎 Buscar Proveedor">
+             <select id="Status" name="Filtrar">
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+            </select>
+          <input type="button" value="🔎 Buscar">
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Direccion</th>
+                    <th>Detalles</th>
+                    <th>Area</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>TecnoGlobal S.A.S</td>
+                    <td>Cra 7 #45-89, Bogotá D.C.</td>
+                    <td>Proveedor principal de hardware empresarial</td>
+                    <td>Infraestructura</td>
+                    <td><button class="editar" onclick="abrirFormularioEditarP('TecnoGlobal S.A.S', 'Cra 7 #45-89, Bogotá D.C', 'Proveedor principal de hardware empresarial', 'Infraestructura')">Editar</button>
+                        <button class="eliminar">Eliminar</button>
+                        <div class="btn_cambiar_status">
+                            <button class="cambiar" onclick="cambiarStatus()">Cambiar Estatus</button>
+                        </div>
+                    </td>
+                </tr>  
+            </tbody>
+        </table>
+        <div class="btn_agregar_producto">
+            <button onclick="abrirFormularioProveedores()">Agregar Proveedor </button>
+        </div>
+    </div>
+    <div class="FormularioProveedores" id="Formulario"  style="display: none;">
+        <div class="formulario-contenido">
+        <form action="">
+            <h1>Agregar nuevo Proveedor</h1>
+            <h2>Nombre</h2>
+            <input type="text">
+            <h2>Status</h2>
+            <select id="Status" name="Filtrar">
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+            </select>
+            <h2>Direccion</h2>
+            <input type="text">
+            <h2>Detalles</h2>
+            <input type="text">
+            <h2>Area</h2>
+            <input type="text"><br>
+            <a href=""> <input id="Aceptar" type="button" value="Agregar Proveedor"></a>
+            <button onclick="cerrarFormularioProveedores()" id="Cancelar">Cancelar </button>
+        </form>
+    </div>
+    </div>
+    <div class="FormularioProveedores" id="FormularioEditarProveedores" style="display: none;">
+        <div class="formulario-contenido">
+          <form>
+            <h1>Editar Producto</h1>
+            <h2>Nombre</h2>
+            <input type="text" id="editNombre">
+            <h2>Direcion</h2>
+            <input type="text" id="editDireccion">
+            <h2>Detalles</h2>
+            <input type="text" id="editDetalles">
+            <h2>Area</h2>
+            <input type="text" id="editArea"><br>
+            <input id="Aceptar" type="button" value="Guardar Cambios">
+            <button onclick="cerrarFormularioEditarP()" id="Cancelar">Cancelar</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="FormularioStatus" id="FormularioStatus"  style="display: none;">
+        <div class="formulario-contenido">
+        <form action="">
+            <h1>Cambiar Status del Proveedor</h1>
+            <h2>Nombre</h2>
+            <input type="text"  id="nombrePro">
+            <h2>Status</h2>
+            <select id="Status" name="Filtrar">
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+            </select>
+            <h2>Razon del cambio de estado</h2>
+            <input type="text">
+            <a href=""><input id="Aceptar" type="button" value="Cambiar Status"></a>
+            <button onclick="cerrarFormularioStatus()" id="Cancelar">Cancelar </button>
+        </form>
+    </div>
+    </div>
+      
+    <script src="../JS Proveedores/Proveedores.js"></script>
+</body>
+</html>

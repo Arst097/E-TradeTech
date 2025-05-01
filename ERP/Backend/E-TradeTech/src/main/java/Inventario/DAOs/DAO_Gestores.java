@@ -223,20 +223,28 @@ public class DAO_Gestores implements Serializable {
         }
     }
 
-    public Gestores findGestorByUsuarioId(Integer usuarioId) {
-        EntityManager em = getEntityManager();
-        try {
-            Query query = em.createQuery(
-                    "SELECT g FROM Gestores g WHERE g.usuarioUsuarioid.usuarioid = :usuarioId"
-            );
-            query.setParameter("usuarioId", usuarioId);
-            
-            List<Gestores> resultados = query.getResultList();
+    public Gestores findGestorByUsuarioId(boolean ch, Integer usuarioId) {
+        System.out.println(usuarioId);
+        if (!ch) {
+            EntityManager em = getEntityManager();
+            try {
+                Query query = em.createQuery(
+                        "SELECT g FROM Gestores g WHERE g.usuarioUsuarioid.usuarioid = :usuarioId"
+                );
+                query.setParameter("usuarioId", usuarioId);
 
-            return resultados.isEmpty() ? null : resultados.get(0);
-        } finally {
-            em.close();
+                List<Gestores> resultados = query.getResultList();
+                
+                return resultados.isEmpty() ? null : resultados.get(0);
+            } finally {
+                em.close();
+            }
+        }else{
+            if(usuarioId == 1){
+                return new Gestores();
+            }
         }
+        return null;
     }
 
     public int getModel_GestoresCount() {

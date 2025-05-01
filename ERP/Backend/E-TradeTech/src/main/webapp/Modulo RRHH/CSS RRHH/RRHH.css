@@ -1,0 +1,387 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: antiquewhite;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 220px;
+    background-color: rgba(255, 217, 0, 0.416);
+    color: black;
+    height: 100vh;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li,
+.sidebar a {
+    padding: 10px 0;
+    cursor: pointer;
+    color: #000000;
+    text-decoration: none;
+}
+
+.sidebar li.active, .sidebar li:hover {
+    color: rgb(93, 93, 93);
+    font-weight: bold;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 100vh;
+}
+
+.botones_opciones{
+    display: block;
+    text-align: center;
+}
+
+.botones_opciones button{
+    background-color: #279cae;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.botones_opciones button:hover{
+    background-color: #4bcde1;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background-color: rgb(245, 225, 198);
+    border-bottom: 1px solid #ccc;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+header a,
+header p a,
+header h1 a {
+    text-decoration: none;
+    color: #09203e;
+    font-weight: bold;
+    font-size: 30px;
+    margin-left: 20px;
+}
+
+header a:hover,
+header p a:hover,
+header h1 a:hover {
+    color: #0e2e57;
+    text-decoration: none;
+    font-size: 30px;
+}
+
+header img {
+    height: 50px;
+    width: auto;
+}
+
+.main-content {
+    padding: 30px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.main h2 {
+    font-size: 35px;
+    color: #0e2e57;
+    text-align: center;
+}
+
+/* Buscador */
+.buscar {
+    justify-content: space-between;
+}
+
+.buscar input[type="text"],
+#departamento {
+    width: 40%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.buscar input[type="button"] {
+    width: 100px;
+    padding: 10px;
+    background-color: #646363ae;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.buscar input[type="button"]:hover {
+    background-color: #fdb201cb;
+    color: black;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    background-color: white;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: #0e2e57;
+    color: white;
+}
+
+th, td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.editar, .eliminar {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 2px;
+}
+
+.editar {
+    background-color: #f39c12;
+}
+
+.editar:hover {
+    background-color: #f5b041;
+    color: #5f5e5e;
+}
+
+.eliminar {
+    background-color: #e74c3c;
+}
+
+.eliminar:hover {
+    background-color: #ec7063;
+    color:  #5f5e5e;
+}
+
+/* Botón agregar */
+.btn_agregar_producto {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 0;
+}
+
+.btn_agregar_producto button {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn_agregar_producto button:hover {
+    background-color: #1e8449;
+}
+
+/* Formularios */
+.Formulario {
+    background: rgb(249, 226, 197);
+    padding: 35px 45px;
+    border-radius: 15px;
+    box-shadow: 10px 8px 20px rgba(117, 117, 117, 0.874);
+    width: 90%;
+    max-width: 400px;
+    max-width: 90vh;
+    overflow-y: auto;
+    margin: 20px auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: none;
+    z-index: 1000;
+    text-align: center;
+    justify-content: center;
+}
+
+.Formulario h1 {
+    margin-bottom: 20px;
+    font-size: 25px;
+    color: #333;
+}
+
+.Formulario h2 {
+    text-align: left;
+    margin: 12px 0 5px;
+    font-size: 16px;
+    color: #444;
+}
+
+.Formulario input[type="text"],
+.Formulario input[type="number"],
+.Formulario input[type="date"],
+.Formulario select {
+    width: 100%;
+    padding: 10px;
+    margin: 12px 0 5px;
+    background-color: #f4f0f0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #444;
+    box-sizing: border-box;
+}
+
+#Aceptar, #Cancelar {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#Aceptar {
+    background-color: #a3f77a;
+    color: black;
+}
+
+#Aceptar:hover {
+    background-color: #c0f5a6;
+}
+
+#Cancelar {
+    background-color: #ff0000;
+    color: white;
+}
+
+#Cancelar:hover {
+    background-color: #ff7d7d;
+    color: black;
+}
+ 
+.FormularioMemorando{
+    display:none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.formulario-contenido{
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: left;
+}
+
+.FormularioMemorando button{
+    padding: 10px 20px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.FormularioMemorando button:hover {
+    background-color: #0b7dda;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+
+.formulario-contenido input{
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.FormularioCen{
+    display:none;
+    position: fixed;
+    z-index: 1000;
+    left: 50;
+    top: 50;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.formulario-contenido{
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: left;
+}
+
+.FormularioCen button{
+    padding: 10px 20px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.FormularioCen button:hover {
+    background-color: #0b7dda;
+}

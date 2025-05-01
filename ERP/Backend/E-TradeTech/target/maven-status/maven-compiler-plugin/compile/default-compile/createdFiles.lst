@@ -1,11 +1,13 @@
 Inventario\Modelos\TransaccionInv.class
 Uso_Comun\DAOs\DAO_Cliente.class
+Web\ServletAgregarProductos.class
 Inventario\exceptions\NonexistentEntityException.class
 Inventario\Modelos\Inventario.class
 Inventario\Modelos\Gestores.class
-Web\provicional.class
+Web\ServletInventarioMostrar.class
 Uso_Comun\DAOs\DAO_Mensajero.class
 JakartaEE9Resource\JakartaEE9Resource.class
+Web\ServletInicioSesion.class
 Inventario\DAOs\DAO_Gestores.class
 Uso_Comun\Modelos\Cliente.class
 JakartaRESTful\JakartaRestConfiguration.class

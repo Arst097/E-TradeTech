@@ -432,21 +432,38 @@ public class DAO_Usuario implements Serializable {
         }
     }
 
-    public Usuario findUsuarioByCorreoAndSHA256(String Correo, String SHA256) {
-        EntityManager em = getEntityManager();
-        try {
-            Query query = em.createQuery(
-                    "SELECT u FROM Usuario u WHERE u.correo = :Correo AND u.contrase\u00f1aSHA256 = :SHA256"
-            );
-            query.setParameter("Correo", Correo);
-            query.setParameter("SHA256", SHA256);
-            
-            List<Usuario> resultados = query.getResultList();
+    public Usuario findUsuarioByCorreoAndSHA256(boolean Ch, String Correo, String SHA256) {
+            EntityManager em = getEntityManager();
+            try {
+                Query query = em.createQuery(
+                        "SELECT u FROM Usuario u WHERE u.correo = :Correo AND u.contrase\u00f1aSHA256 = :SHA256"
+                );
+                query.setParameter("Correo", Correo);
+                query.setParameter("SHA256", SHA256);
 
-            return resultados.isEmpty() ? null : resultados.get(0);
-        } finally {
-            em.close();
+                System.out.println(Correo);
+                System.out.println(SHA256);
+                
+                List<Usuario> resultados = query.getResultList();
+                
+                System.out.println(this.obtenerDatosUsuarios(resultados));
+
+                return resultados.isEmpty() ? null : resultados.get(0);
+            } finally {
+                em.close();
+            }
+    }
+    
+    private String obtenerDatosUsuarios(List<Usuario> usuarios) {
+        StringBuilder datos = new StringBuilder();
+
+        for (Usuario usuario : usuarios) {
+            // Asumiendo que Usuario tiene métodos getNombre() y getEmail()
+            datos.append("Correo: ").append(usuario.getCorreo()).append(", ");
+            datos.append("ContraseñaSHA256: ").append(usuario.getContraseñaSHA256()).append("\n");
         }
+
+        return datos.toString();
     }
     
     public int getModel_UsuarioCount() {
