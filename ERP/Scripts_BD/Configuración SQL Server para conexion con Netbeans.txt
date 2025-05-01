@@ -1,0 +1,4 @@
+sql server configuration manager
+-> SQL Server Network Configuration
+	-> Protocols for SQLEXPRESS -> TCP/IP -> Protocol Enable Yes ; IP Addresses IPAII TCP Port 1433 -> Aplicar.
+	-> SQL Server Services -> SQL Server (SQLEXPRESS) -> Restart
