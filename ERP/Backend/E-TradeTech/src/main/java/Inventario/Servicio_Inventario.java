@@ -9,6 +9,7 @@ import Inventario.Modelos.Inventario;
 import Inventario.DAOs.DAO_Almacen;
 import Inventario.DAOs.DAO_Gestores;
 import Inventario.DAOs.DAO_Inventario;
+import Seguridad.Servicio_Seguridad;
 import java.util.List;
 
 /**
@@ -21,7 +22,9 @@ public class Servicio_Inventario {
     private static DAO_Producto DAOp = new DAO_Producto();
     private static DAO_Gestores DAOg = new DAO_Gestores();
 
-    public static String listaproductosJSON(int UsuarioID) {
+    public static String listaproductosJSON(String Token) {
+        
+        int UsuarioID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
         
         int GestorID = DAOg.findGestorByUsuarioId(false, UsuarioID).getGestorID();
         

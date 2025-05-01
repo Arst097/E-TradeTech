@@ -38,8 +38,9 @@ public class Prueba {
 
         //Prueba_Almacen_Inventario_Productos();
         
+        String Token = pruebaLogin("hernesto.perez@example.com","password123");
         pruebaProductoInventario();
-        pruebaInventarioGestor();
+        pruebaInventarioGestor(Token);
 
     }
 
@@ -53,7 +54,7 @@ public class Prueba {
         }
     }
     
-    private static void pruebaInventarioGestor(){
+    private static void pruebaInventarioGestor(String Token){
         DAO_Inventario dao = new DAO_Inventario();
         
         List<Inventario> lista = dao.findInvetarioByGestor(1);
@@ -64,13 +65,14 @@ public class Prueba {
         
         System.out.println("Valido: " + Servicio_Inventario.validarTipos(lista));
         
-        System.out.println(Servicio_Inventario.listaproductosJSON(4));
+        System.out.println(Servicio_Inventario.listaproductosJSON(Token));
     }
 
-    private static void pruebaLogin(){
-        String Correo = "hernesto.perez@example.com";
-        String Contraseña_Obtenida = Servicio_Usuario.encryptSHA256("password123");
+    private static String pruebaLogin(String Correo, String ContraseñaLimpia){
+        String Contraseña_Obtenida = Servicio_Usuario.encryptSHA256(ContraseñaLimpia);
         System.out.println(Contraseña_Obtenida);
-        System.out.println(Servicio_Usuario.login(Correo, Contraseña_Obtenida, false));
+        String Token_Obtenido = Servicio_Usuario.login(Correo, Contraseña_Obtenida, false);
+        System.out.println(Token_Obtenido);
+        return Token_Obtenido;
     }
 }
