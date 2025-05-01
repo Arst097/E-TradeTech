@@ -10,7 +10,7 @@ import Inventario.DAOs.DAO_Gestores;
 import Inventario.DAOs.DAO_Inventario;
 import Inventario.Modelos.Gestores;
 import Inventario.Modelos.Inventario;
-import Inventario.Servicio_Gestor;
+import Inventario.Servicio_Inventario;
 import Inventario.*;
 import Uso_Comun.DAOs.DAO_Usuario;
 import Uso_Comun.Modelos.Usuario;
@@ -62,9 +62,9 @@ public class Prueba {
             System.out.println(inventario.getInventarioID()+": "+inventario.getTipo());
         }
         
-        System.out.println("Valido: " + Servicio_Gestor.validarTipos(lista));
+        System.out.println("Valido: " + Servicio_Inventario.validarTipos(lista));
         
-        System.out.println(Servicio_Gestor.listaproductosJSON());
+        System.out.println(Servicio_Inventario.listaproductosJSON(4));
     }
 
     private static void pruebaLogin(){

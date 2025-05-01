@@ -7,6 +7,7 @@ package Inventario;
 import Uso_Comun.DAOs.DAO_Producto;
 import Inventario.Modelos.Inventario;
 import Inventario.DAOs.DAO_Almacen;
+import Inventario.DAOs.DAO_Gestores;
 import Inventario.DAOs.DAO_Inventario;
 import java.util.List;
 
@@ -14,16 +15,17 @@ import java.util.List;
  *
  * @author HP PORTATIL
  */
-public class Servicio_Gestor {
+public class Servicio_Inventario {
 
     private static DAO_Inventario DAOi = new DAO_Inventario();
     private static DAO_Producto DAOp = new DAO_Producto();
+    private static DAO_Gestores DAOg = new DAO_Gestores();
 
-    public static String listaproductosJSON() {
-
-        int usuarioID = 1;
+    public static String listaproductosJSON(int UsuarioID) {
         
-        List<Inventario> inventarios = DAOi.findInvetarioByGestor(usuarioID);
+        int GestorID = DAOg.findGestorByUsuarioId(false, UsuarioID).getGestorID();
+        
+        List<Inventario> inventarios = DAOi.findInvetarioByGestor(GestorID);
         
         if(!validarTipos(inventarios)){
             return "Los inventarios en almacen no coinciden con inventario libre y reservado";
