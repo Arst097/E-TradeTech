@@ -3,33 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ordenes</title>
+    <title>Pedidos</title>
     <link href="../Css Inventario/inventario.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
     <div class="sidebar">
         <h2>ERP</h2>
         <ul>
-           <li><a href="../../index.html">Inicio Sesion</a></li>
-            <li><a href="inventario.html">Modulo Invetario</a></li>
-            <li><a href="../../Modulo Proveedores/Html Proveedores/Proveedores.html">Modulo Proveedores</a></li>
-            <li><a href="../../Modulo Contabilidad/Html Contabilidad/Contabilidad.html">Modulo Contabilidad</a></li>
-            <li><a href="../../Modulo RRHH/Html RRHH/RRHH.html">Modulo RRHH</a></li>
-            <li><a href="../../Modulo Ventas/Html Ventas/Ventas.html">Modulo Ventas</a></li>
+            <a href="../../Modulo Inventario/Html Inventario/inventario.html"><li class="active">Modulo Inventario y Almacenamiento</li></a>
+            <a href="../../Modulo Proveedores/Html Proveedores/Proveedores.html"><li>Modulo Proveedores y Compras</li></a>
+            <a href="../../Modulo Ventas/Html Ventas/Ventas.html"><li>Modulo Ventas</li></a>
+            <a href="../../Modulo RRHH/Html RRHH/RRHH.html"><li>Modulo Nómina y RRHH</li></a>
+            <a href="../../Modulo Contabilidad/Html Contabilidad/Contabilidad.html"><li>Modulo Contabilidad</li></a>
+            <a href="../../index.html"><li>Cerrar Sesión</li></a>
         </ul>
     </div>
 
     <div class="main">
         <header>
-            <img src="/Img/logo - fondo.png" alt="">
+            <img src="../../Img/logo - fondo.png" alt="">
             <h1><a href="inventario.html">Productos</a></h1>
-            <h1><a href="">Orden</a></h1>
+            <h1><a href="">Pedidos</a></h1>
             <div class="menu">
             <p><a href="">&#128276;</a></p>
             <p><a href="">&#128100;</a></p>
         </div>
         </header>
-        <h2>Ordenes</h2>
+        <h2>Pedidos</h2>
         <div class="buscar">
             <input type="text" value="🔎 Buscar orden">
         <select id="Estado" name="Filtrar">
@@ -43,7 +43,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID orden</th>
+                    <th>ID Pedido</th>
                     <th>Nombre</th>
                     <th>Precio</th>
                     <th>Estado</th>
@@ -66,16 +66,16 @@
             </tbody>
         </table>
         <div class="btn_agregar_producto">
-            <button onclick="abrirFormulario()">Agregar Orden</button>
+            <button onclick="abrirFormulario()">Agregar Pedido</button>
         </div>
     </div>
     <div class="Formulario" id="Formulario">
         <div class="formulario-contenido">
         <form action="">
-            <h1>Agregar nueva orden</h1>
+            <h1>Agregar Nuevo Pedido</h1>
             <h2>Nombre</h2>
             <input type="text">
-            <h2>Precios</h2>
+            <h2>Precio</h2>
             <input type="text">
             <h2>Estado</h2>
             <select id="Estado" name="Filtrar">
@@ -88,7 +88,7 @@
             <input type="text">
             <h2>Contacto</h2>
             <input type="text"><br>
-            <a href=""> <input id="Aceptar" type="button" value="Agregar Producto"></a>
+            <a href=""> <input id="Aceptar" type="button" value="Agregar Pedido"></a>
             <button onclick="cerrarFormulario()" id="Cancelar">Cancelar </button>
         </form>
     </div>
@@ -118,6 +118,6 @@
         </div>
       </div>
       
-    <script src="/Modulo Inventario/JS Inventario/inventario.js"></script>
+    <script src="../../Modulo Inventario/JS Inventario/inventario.js"></script>
 </body>
 </html>
