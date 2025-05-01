@@ -9,6 +9,7 @@ import Inventario.Modelos.Gestores;
 import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Gestores;
+import Proveedores.Modelos.UsuarioCompras;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -18,6 +19,7 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -34,6 +36,9 @@ import java.util.Collection;
     @NamedQuery(name = "Usuario.findByCorreo", query = "SELECT u FROM Usuario u WHERE u.correo = :correo"),
     @NamedQuery(name = "Usuario.findByContrase\u00f1aSHA256", query = "SELECT u FROM Usuario u WHERE u.contrase\u00f1aSHA256 = :contrase\u00f1aSHA256")})
 public class Usuario implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioUsuarioid")
+    private Collection<UsuarioCompras> usuarioComprasCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -149,6 +154,15 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "Uso_Comun.Usuario[ usuarioid=" + usuarioid + " ]";
+    }
+
+    @XmlTransient
+    public Collection<UsuarioCompras> getUsuarioComprasCollection() {
+        return usuarioComprasCollection;
+    }
+
+    public void setUsuarioComprasCollection(Collection<UsuarioCompras> usuarioComprasCollection) {
+        this.usuarioComprasCollection = usuarioComprasCollection;
     }
     
 }
