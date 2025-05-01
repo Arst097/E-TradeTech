@@ -35,7 +35,7 @@ public class ServletInicioSesion extends HttpServlet {
         String email = request.getParameter("Email");
         String contraseña = request.getParameter("ContrasenaSin");        
         String contraseña_encriptada = Servicio_Usuario.encryptSHA256(contraseña);
-        String token = Servicio_Usuario.login(email, contraseña_encriptada);
+        String token = Servicio_Usuario.login(email, contraseña_encriptada,false);
         //String token = "a";
 
         

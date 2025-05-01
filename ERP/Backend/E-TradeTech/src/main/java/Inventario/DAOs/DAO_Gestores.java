@@ -224,6 +224,7 @@ public class DAO_Gestores implements Serializable {
     }
 
     public Gestores findGestorByUsuarioId(boolean ch, Integer usuarioId) {
+        System.out.println(usuarioId);
         if (!ch) {
             EntityManager em = getEntityManager();
             try {
@@ -233,7 +234,7 @@ public class DAO_Gestores implements Serializable {
                 query.setParameter("usuarioId", usuarioId);
 
                 List<Gestores> resultados = query.getResultList();
-
+                
                 return resultados.isEmpty() ? null : resultados.get(0);
             } finally {
                 em.close();

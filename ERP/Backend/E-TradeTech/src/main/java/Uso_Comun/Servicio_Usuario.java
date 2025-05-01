@@ -28,14 +28,6 @@ public class Servicio_Usuario {
 
     private static DAO_Usuario DAO = new DAO_Usuario();
     private static final Key secretKey = generateKeyFromString("ContraseñaSuperSecreta");
-    public static String contrasena;
-    
-//    public static DAO_Usuario getDAO() {
-//    if (DAO == null) {
-//        DAO = new DAO_Usuario();
-//    }
-//    return DAO;
-//}
     
     public static String encryptSHA256(String input) {
         try {
@@ -65,15 +57,15 @@ public class Servicio_Usuario {
     
     
     
-    public static String login(String correo, String contraseña_encriptada) {
+    public static String login(String correo, String contraseña_encriptada, boolean b) {
         
-        Usuario usuario = DAO.findUsuarioByCorreoAndSHA256(true, correo, contraseña_encriptada);
+        Usuario usuario = DAO.findUsuarioByCorreoAndSHA256(b, correo, contraseña_encriptada);
         
         if(usuario == null){
             return "Usuario No Encontrado";
         }
         DAO_Gestores TempDAO = new DAO_Gestores();
-        if(TempDAO.findGestorByUsuarioId(true,usuario.getUsuarioid()) == null){
+        if(TempDAO.findGestorByUsuarioId(b,usuario.getUsuarioid()) == null){
             return "Usuario No Gestor";
         }
         return generateJwtToken(usuario.getUsuarioid());

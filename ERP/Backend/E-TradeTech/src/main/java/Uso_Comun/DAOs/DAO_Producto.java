@@ -33,11 +33,11 @@ public class DAO_Producto implements Serializable {
         this.utx = utx;
         this.emf = emf;
     }
-    
+
     public DAO_Producto() {
         this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
     }
-    
+
     private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
@@ -232,6 +232,22 @@ public class DAO_Producto implements Serializable {
         }
     }
 
+    public List<Producto> findProductoByInventario(Integer InventarioID) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createQuery(
+                    "SELECT p FROM Producto p WHERE p.inventarioID.inventarioID = :inventarioId"
+            );
+            query.setParameter("inventarioId", InventarioID);
+
+            List<Producto> resultados = query.getResultList();
+
+            return resultados.isEmpty() ? null : resultados;
+        } finally {
+            em.close();
+        }
+    }
+
     public int getModel_ProductoCount() {
         EntityManager em = getEntityManager();
         try {
@@ -244,5 +260,5 @@ public class DAO_Producto implements Serializable {
             em.close();
         }
     }
-    
+
 }
