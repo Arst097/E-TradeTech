@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 D:\descargas\GitHub\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\DAOs\DAO_Almacen.java
 D:\descargas\GitHub\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\DAOs\DAO_Usuario.java
 D:\descargas\GitHub\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\JakartaEE9Resource\JakartaEE9Resource.java
@@ -75,3 +76,42 @@ C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeT
 C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\DAOs\DAO_Gestores.java
 C:\Users\HP PORTATIL\Documents\NetBeansProjects\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\DAOs\DAO_HistorialTransaccInv.java
 >>>>>>> e284128 (Creacion de servicio de Gestores)
+=======
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\Servicio_Gestor.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\DAOs\DAO_Mensajero.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Web\ServletInventarioMostrar.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\Modelos\TransaccionInv.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\DAOs\DAO_HistorialTransaccInv.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\Modelos\Inventario.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\DAOs\DAO_Producto.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\exceptions\NonexistentEntityException.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\Modelos\Pedidos.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\JakartaEE9Resource\JakartaEE9Resource.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\Modelos\Mensajero.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\DAOs\DAO_Gestores.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\Modelos\Despachador.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\DAOs\DAO_Cliente.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\Modelos\Almacen.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\Modelos\HistorialPedidos.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Seguridad\provicional.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\DAOs\DAO_Inventario.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\Modelos\Producto.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Web\ServletAgregarProductos.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\Modelos\Cliente.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\DAOs\DAO_TransaccionInv.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\exceptions\IllegalOrphanException.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\DAOs\DAO_HistorialPedido.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\exceptions\RollbackFailureException.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\JakartaRESTful\JakartaRestConfiguration.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\DAOs\DAO_Pedidos.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\DAOs\DAO_Despachador.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\DAOs\DAO_Almacen.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Proveedores\provicional.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Web\ServletInicioSesion.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\Modelos\Gestores.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\DAOs\DAO_Usuario.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\Modelos\Usuario.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Uso_Comun\Servicio_Usuario.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\Modelos\HistorialTransaccInv.java
+D:\Sara\Desktop\Arquitectura de Software\ERP_Tech\E-TradeTech\ERP\Backend\E-TradeTech\src\main\java\Inventario\exceptions\PreexistingEntityException.java
+>>>>>>> 4763b1c (Eliminacion de front repetido)
