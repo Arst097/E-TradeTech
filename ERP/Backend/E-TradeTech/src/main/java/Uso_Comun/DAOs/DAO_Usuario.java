@@ -433,7 +433,6 @@ public class DAO_Usuario implements Serializable {
     }
 
     public Usuario findUsuarioByCorreoAndSHA256(boolean Ch, String Correo, String SHA256) {
-        if(!Ch){
             EntityManager em = getEntityManager();
             try {
                 Query query = em.createQuery(
@@ -442,22 +441,29 @@ public class DAO_Usuario implements Serializable {
                 query.setParameter("Correo", Correo);
                 query.setParameter("SHA256", SHA256);
 
+                System.out.println(Correo);
+                System.out.println(SHA256);
+                
                 List<Usuario> resultados = query.getResultList();
+                
+                System.out.println(this.obtenerDatosUsuarios(resultados));
 
                 return resultados.isEmpty() ? null : resultados.get(0);
             } finally {
                 em.close();
             }
-        }else{
-            System.out.println(Correo);
-            System.out.println(SHA256); 
-            if(Correo.equals("juan.perez@example.com") && SHA256.equals("ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f")){
-                System.out.println("ae");
-                Usuario usuario = new Usuario(1, "Juan Pérez", "juan.perez@example.com", "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f");
-                return usuario;
-            }
+    }
+    
+    private String obtenerDatosUsuarios(List<Usuario> usuarios) {
+        StringBuilder datos = new StringBuilder();
+
+        for (Usuario usuario : usuarios) {
+            // Asumiendo que Usuario tiene métodos getNombre() y getEmail()
+            datos.append("Correo: ").append(usuario.getCorreo()).append(", ");
+            datos.append("ContraseñaSHA256: ").append(usuario.getContraseñaSHA256()).append("\n");
         }
-        return null;
+
+        return datos.toString();
     }
     
     public int getModel_UsuarioCount() {
