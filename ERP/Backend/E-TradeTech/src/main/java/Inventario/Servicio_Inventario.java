@@ -131,21 +131,26 @@ public class Servicio_Inventario {
                 int inventarioID = inventario.getInventarioID();
                 String tipo = inventario.getTipo();
                 if (tipo.equals("Libre")) {
-                    int Qi = inventario.getProductoCollection().size();
-                    if (Qi < Stock) {
-                        int Q = Stock - Qi;
-                        List<Producto> productos = DAOp.findModel_ProductoEntities(Q, 0);
-                        for (Producto producto : productos) {
-                            int productoID = producto.getProductoID();
-                            DAOp.destroy(productoID);
-                        }
-                    } else if (Qi > Stock) {
-                        for (int i = 1; i > Stock; i++) {
-                            Date fecha = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
-                            Producto producto = new Producto(Precio, categoria, nombre, fecha, inventario);
-                            DAOp.create(producto);
-                        }
-                    }
+                    
+                    return false;
+                    //esto esta mal, deberia agarrar espesificamente los del producto en cuestion
+                    //hay que cambiarlo
+                    
+//                    int Qi = inventario.getProductoCollection().size();
+//                    if (Qi < Stock) {
+//                        int Q = Stock - Qi;
+//                        List<Producto> productos = DAOp.findModel_ProductoEntities(Q, 0);
+//                        for (Producto producto : productos) {
+//                            int productoID = producto.getProductoID();
+//                            DAOp.destroy(productoID);
+//                        }
+//                    } else if (Qi > Stock) {
+//                        for (int i = 1; i > Stock; i++) {
+//                            Date fecha = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+//                            Producto producto = new Producto(Precio, categoria, nombre, fecha, inventario);
+//                            DAOp.create(producto);
+//                        }
+//                    }
                 }
             }
             return true;
@@ -164,5 +169,44 @@ public class Servicio_Inventario {
         return EditarMontoProductos(UsuarioID, nombre, categoria, StockStr, PrecioStr);
     }
     
+    private static boolean CrearMontoProductos(int UsuarioID, String nombre, String categoria, String StockStr, String PrecioStr){
+        try{
+            System.out.println("Se empieza el try dentro de CrearMontoProductos");
+            int Stock = Integer.valueOf(StockStr);
+            float Precio = Float.valueOf(PrecioStr);
+
+            int GestorID = DAOg.findGestorByUsuarioId(false, UsuarioID).getGestorID();
+            System.out.println("GestorID: "+GestorID);
+            
+            List<Inventario> inventarios = DAOi.findInvetarioByGestor(GestorID);
+
+            for (Inventario inventario : inventarios) {
+                String tipo = inventario.getTipo();
+                if (tipo.equals("Libre")) {
+                    System.out.println("Se entra a Inventario Libre");
+                    System.out.println("Stock: "+StockStr);
+                    System.out.println(Stock);
+                    for (int i = 1; i <= Stock; i++) {
+                        System.out.println("Iteracion "+i+" del for");
+                        Date fecha;
+                        fecha = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+                        Producto producto = new Producto(Precio, categoria, nombre, fecha, inventario);
+                        DAOp.create(producto);
+                    }
+                    System.out.println("Se finaliza el for");
+                }
+            }
+            
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
     
+    public static boolean CrearMontoProductos(String Token, String nombre, String categoria, String StockStr, String PrecioStr) throws Exception {
+        System.out.println("Token: "+Token);
+        int UsuarioID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
+        System.out.println("UsuarioID: "+UsuarioID);
+        return CrearMontoProductos(UsuarioID, nombre, categoria, StockStr, PrecioStr);
+    }
 }

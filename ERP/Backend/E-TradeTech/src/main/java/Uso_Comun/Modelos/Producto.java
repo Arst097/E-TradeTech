@@ -38,10 +38,10 @@ public class Producto implements Serializable {
     @Basic(optional = false)
     @Column(name = "ProductoID")
     private Integer productoID;
-    @Basic(optional = true)
+    @Basic(optional = false)
     @Column(name = "Precio")
     private float precio;
-    @Basic(optional = true)
+    @Basic(optional = false)
     @Column(name = "Categoria")
     private String categoria;
     @Basic(optional = false)

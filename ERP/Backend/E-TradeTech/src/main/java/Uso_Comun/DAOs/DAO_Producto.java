@@ -52,6 +52,8 @@ public class DAO_Producto implements Serializable {
     }
 
     public void create(Producto model_Producto) throws PreexistingEntityException, RollbackFailureException, Exception {
+        System.out.println("Entrando a funcion Create");
+        
         EntityManager em = null;
         EntityTransaction tx = null;
         try {
@@ -60,14 +62,16 @@ public class DAO_Producto implements Serializable {
             tx.begin();
 
             Inventario inventarioID = model_Producto.getInventarioID();
+            System.out.println("Desde Create: "+inventarioID);
             if (inventarioID != null) {
-                inventarioID = em.getReference(Inventario.class, inventarioID.getInventarioID());
+                inventarioID = em.getReference(inventarioID.getClass(), inventarioID.getInventarioID());
                 model_Producto.setInventarioID(inventarioID);
+                System.out.println("Desde Create: "+inventarioID);
             }
 
             Pedidos pedidoID = model_Producto.getPedidoID();
             if (pedidoID != null) {
-                pedidoID = em.getReference(Pedidos.class, pedidoID.getPedidoID());
+                pedidoID = em.getReference(pedidoID.getClass(), pedidoID.getPedidoID());
                 model_Producto.setPedidoID(pedidoID);
             }
 
@@ -84,6 +88,7 @@ public class DAO_Producto implements Serializable {
 
             tx.commit();
         } catch (Exception ex) {
+            System.out.println(ex);
             if (tx != null && tx.isActive()) {
                 try {
                     tx.rollback();

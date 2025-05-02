@@ -63,7 +63,8 @@ public class ServletAgregarProductos extends HttpServlet {
             
             boolean completado = false;
             try {
-                completado = Servicio_Inventario.EditarMontoProductos(Token, nombre, categoria, stockStr, precioStr);
+                System.out.println("Se hace el try en servlet para ejecutar CrearMontoProductos");
+                completado = Servicio_Inventario.CrearMontoProductos(Token, nombre, categoria, stockStr, precioStr);
             } catch (Exception ex) {
                 Logger.getLogger(ServletAgregarProductos.class.getName()).log(Level.SEVERE, null, ex);
             }
