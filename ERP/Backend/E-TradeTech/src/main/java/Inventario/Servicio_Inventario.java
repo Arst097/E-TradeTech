@@ -41,7 +41,12 @@ public class Servicio_Inventario {
             Logger.getLogger(Servicio_Inventario.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        List<Inventario> inventarios = DAOi.findInvetarioByGestor(GestorID);
+        List<Inventario> inventarios = null;
+        try {
+            inventarios = DAOi.findInvetarioByGestor(GestorID);
+        } catch (SQLException ex) {
+            Logger.getLogger(Servicio_Inventario.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         if (!validarTipos(inventarios)) {
             return "Los inventarios en almacen no coinciden con inventario libre y reservado";
