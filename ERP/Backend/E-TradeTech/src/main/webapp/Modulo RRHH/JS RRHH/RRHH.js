@@ -32,12 +32,12 @@ $(document).ready(function () {
             }
         });
     }
-    // Llamar al cargar la página
-    $(function () {
-        console.log("jQuery funciona jquery");
-        cargarEmpleado();
-    });
     
+    $(function () {
+    console.log("jQuery está funcionando");
+    // tu código aquí
+    cargarEmpleado();
+    });
     $('#formularioProducto').on('submit', function (e) {
         e.preventDefault(); // Evita el envío normal del formulario
 
@@ -85,7 +85,6 @@ function cerrarFormulario() {
 }
 
 function abrirFormularioEditar(nombre, departamento, salario, fechaIngreso) {
-     console.log("jQuery funciona jquery");
     document.getElementById('FormularioEditar').style.display = 'block';
     document.getElementById('editNombre').value = nombre;
     document.getElementById('editDepartamento').value = departamento;

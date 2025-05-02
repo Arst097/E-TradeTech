@@ -43,12 +43,16 @@ public class ServletRRHHMostrar extends HttpServlet {
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
         String json = "[" +
-            "{\"id\":\"001\",\"nombre\":\"María Gómez\",\"Departamento\":\"Administración\",\"Salario\":'2500000',\"FechaIN\":'2023-05-10'}," +
-            "{\"id\":\"002\",\"nombre\":\"Pepito Perez\",\"Departamento\":\"otros\",\"Salario\":'1500000',\"FechaIN\":'2020-04-22'}," +
-//            "{\"id\":\"002\",\"nombre\":\"iPhone 13\",\"categoria\":\"Teléfonos\",\"stock\":10,\"precio\":4500000}" +
+            "{\"id\":\"001\",\"nombre\":\"María Gómez\",\"Departamento\":\"Administración\",\"Salario\":2500000,\"FechaIN\":\"2023-05-10\"}," +
+            "{\"id\":\"002\",\"nombre\":\"Juan Pérez\",\"Departamento\":\"Ventas\",\"Salario\":2000000,\"FechaIN\":\"2024-04-22\"}" +
         "]";
+
+//        String json = "[" +
+//            "{\"id\":\"001\",\"nombre\":\"María Gómez\",\"Departamento\":\"Administración\",\"Salario\":\"2500000\",\"FechaIN\":\"2023-05-10\"}" +
+//            "{\"id\":\"002\",\"nombre\":\"Pepito Perez\",\"Departamento\":\"otros\",\"Salario\":\"1500000\",\"FechaIN\":\"2020-04-22\"}" +
+////            "{\"id\":\"002\",\"nombre\":\"iPhone 13\",\"categoria\":\"Teléfonos\",\"stock\":10,\"precio\":4500000}" +
+//        "]";
 
         response.getWriter().write(json);
         
