@@ -21,6 +21,7 @@ import java.util.Date;
 
 import Uso_Comun.DAOs.DAO_Producto;
 import Uso_Comun.Modelos.Producto;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -68,7 +69,7 @@ public class Prueba {
         return Servicio_Inventario.listaproductosJSON(Token);
     }
 
-    private static String pruebaLogin(String Correo, String ContraseñaLimpia){
+    private static String pruebaLogin(String Correo, String ContraseñaLimpia) throws SQLException{
         String Contraseña_Obtenida = Servicio_Usuario.encryptSHA256(ContraseñaLimpia);
         System.out.println(Contraseña_Obtenida);
         String Token_Obtenido = Servicio_Usuario.login(Correo, Contraseña_Obtenida, false);
