@@ -1,0 +1,4 @@
+USE ETradeTechDB;
+
+ALTER TABLE Proveedor
+ADD Estado NVARCHAR(10) NOT NULL DEFAULT 'Inactivo';
