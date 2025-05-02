@@ -58,6 +58,11 @@ public class Proveedor implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "Telefono")
     private String telefono;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "Estado")
+    private String estado;
     @JoinColumn(name = "Lista_ContactosID", referencedColumnName = "Lista_ContactosID")
     @ManyToOne(optional = false)
     private ListaContactos listaContactosID;
@@ -117,6 +122,14 @@ public class Proveedor implements Serializable {
         this.listaContactosID = listaContactosID;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
     @XmlTransient
     public Collection<Ofertas> getOfertasCollection() {
         return ofertasCollection;
