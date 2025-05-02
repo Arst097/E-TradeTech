@@ -23,6 +23,8 @@ import Uso_Comun.DAOs.DAO_Producto;
 import Uso_Comun.Modelos.Producto;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -58,7 +60,12 @@ public class Prueba {
     private static String pruebaInventarioGestor(String Token){
         DAO_Inventario dao = new DAO_Inventario();
         
-        List<Inventario> lista = dao.findInvetarioByGestor(1);
+        List<Inventario> lista = null;
+        try {
+            lista = dao.findInvetarioByGestor(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         for(Inventario inventario: lista){
             System.out.println(inventario.getInventarioID()+": "+inventario.getTipo());

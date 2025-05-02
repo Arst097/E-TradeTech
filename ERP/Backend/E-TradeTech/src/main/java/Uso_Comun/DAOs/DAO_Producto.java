@@ -4,6 +4,7 @@
  */
 package Uso_Comun.DAOs;
 
+import static Inventario.DAOs.DAO_Inventario.EstablecerConexion;
 import Inventario.Modelos.Inventario;
 import Uso_Comun.Modelos.Producto;
 import Uso_Comun.Modelos.Pedidos;
@@ -20,6 +21,11 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.UserTransaction;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -248,24 +254,59 @@ public class DAO_Producto implements Serializable {
         }
     }
 
-    public List<Object[]> findGrupoProductosByInventario(int InventarioID) {
-        EntityManager em = getEntityManager();
+    private static Connection conectar = null;
+
+    private static final String usuario = "Access";
+    private static final String bd = "ETradeTechDB";
+    private static final String contraseña = "123";
+    private static final String ip = "localhost";
+    private static final String puerto = "1433";
+
+    public static void EstablecerConexion() {
         try {
-            Query query = em.createQuery(
-                    "SELECT p.modelo, MAX(p.categoria), COUNT(p), MAX(p.precio) "
-                    + "FROM Producto p "
-                    + "WHERE p.inventarioID.inventarioID = :inventarioId "
-                    + "GROUP BY p.modelo"
-            );
-
-            query.setParameter("inventarioId", InventarioID);
-
-            List<Object[]> resultados = query.getResultList();
-
-            return resultados.isEmpty() ? null : resultados;
-        } finally {
-            em.close();
+            String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd + ";" + "encrypt=false";
+            conectar = DriverManager.getConnection(cadena, usuario, contraseña);
+            System.out.println("Conexion Establecida");
+        } catch (Exception e) {
+            System.out.println(e);
         }
+    }
+
+    public List<Object[]> findGrupoProductosByInventario(int InventarioID) throws SQLException {
+        if (conectar == null || conectar.isClosed()) {
+            EstablecerConexion();
+        }
+
+        System.out.println("Esta pasando por la query nueva");
+
+        String query
+                = "SELECT "
+                + "p.modelo AS modelo, "
+                + "MAX(p.categoria) AS categoria, "
+                + "COUNT(*) AS cantidad, "
+                + "MAX(p.precio) AS precioMaximo "
+                + "FROM Producto p "
+                + "WHERE p.InventarioID = ? "
+                + "GROUP BY p.modelo;";
+        
+        System.out.println(query);
+        PreparedStatement stmt = conectar.prepareStatement(query);
+        stmt.setString(1, String.valueOf(InventarioID));
+
+        ResultSet rs = stmt.executeQuery();
+
+        List<Object[]> resultados = new ArrayList<>();
+
+        while (rs.next()) {
+            Object[] fila = new Object[4];
+            fila[0] = rs.getString("modelo");        // String
+            fila[1] = rs.getString("categoria");     // String (puede variar según el tipo real)
+            fila[2] = rs.getLong("cantidad");        // COUNT(*) siempre devuelve Long
+            fila[3] = rs.getFloat("precioMaximo");  // Float o tipo de 'precio'
+
+            resultados.add(fila);
+        }
+        return resultados;
     }
 
     public int getModel_ProductoCount() {

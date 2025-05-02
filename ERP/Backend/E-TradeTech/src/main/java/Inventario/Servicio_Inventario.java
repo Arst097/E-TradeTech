@@ -59,7 +59,12 @@ public class Servicio_Inventario {
 
             if (tipo.equals("Libre")) {
                 int inventarioID = inventario.getInventarioID();
-                List<Object[]> MontosProductos = DAOp.findGrupoProductosByInventario(inventarioID);
+                List<Object[]> MontosProductos = null;
+                try {
+                    MontosProductos = DAOp.findGrupoProductosByInventario(inventarioID);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Servicio_Inventario.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
                 int size = MontosProductos.size();
                 int i = 0;
