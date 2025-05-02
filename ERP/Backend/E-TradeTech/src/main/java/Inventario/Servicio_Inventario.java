@@ -10,6 +10,11 @@ import Inventario.DAOs.DAO_Almacen;
 import Inventario.DAOs.DAO_Gestores;
 import Inventario.DAOs.DAO_Inventario;
 import Seguridad.Servicio_Seguridad;
+import Uso_Comun.Modelos.Producto;
+import Uso_Comun.Servicio_Usuario;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -73,6 +78,11 @@ public class Servicio_Inventario {
 
         return json;
     }
+    
+    public static String listaproductosJSON(String correo, String contraseña_encriptada){
+        String Token = Servicio_Usuario.login(correo, contraseña_encriptada, false);
+        return listaproductosJSON(Token);
+    }
 
     public static boolean validarTipos(List<Inventario> inventarios) {
         if (inventarios == null || inventarios.size() != 2) {
@@ -86,4 +96,46 @@ public class Servicio_Inventario {
                 || ("Reservado".equals(tipo1) && "Libre".equals(tipo2)));
     }
 
+    public static boolean EditarMontoProductos(int UsuarioID, String nombre, String categoria, String StockStr, String PrecioStr) throws Exception{
+        int Stock = Integer.valueOf(StockStr);
+        float Precio = Float.valueOf(PrecioStr);
+        
+        int GestorID = DAOg.findGestorByUsuarioId(false, UsuarioID).getGestorID();
+        
+        List<Inventario> inventarios = DAOi.findInvetarioByGestor(GestorID);
+        
+        for(Inventario inventario : inventarios){
+            int inventarioID = inventario.getInventarioID();
+            String tipo = inventario.getTipo();
+            if(tipo.equals("Libre")){
+                int Qi = inventario.getProductoCollection().size();
+                if(Qi < Stock){
+                    int Q = Stock - Qi;
+                    List<Producto> productos = DAOp.findModel_ProductoEntities(Q, 0);
+                    for(Producto producto : productos){
+                        int productoID = producto.getProductoID();
+                        DAOp.destroy(productoID);
+                    }
+                }else if(Qi > Stock){
+                    for(int i = 1; i>Stock; i++){
+                        Date fecha = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+                        Producto producto = new Producto(Precio, categoria, nombre, fecha, inventario);
+                        DAOp.create(producto);
+                    }
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+    public static boolean EditarMontoProductos(String correo, String contraseña_encriptada, String nombre, String categoria, String StockStr, String PrecioStr) throws Exception{
+        String Token = Servicio_Usuario.login(correo, contraseña_encriptada, false);
+        return EditarMontoProductos(Token,nombre,categoria,StockStr,PrecioStr);
+    }
+    
+    public static boolean EditarMontoProductos(String Token, String nombre, String categoria, String StockStr, String PrecioStr) throws Exception{
+        int UsuarioID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
+        return EditarMontoProductos(UsuarioID,nombre,categoria,StockStr,PrecioStr);
+    }
 }
