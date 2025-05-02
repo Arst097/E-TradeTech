@@ -39,8 +39,8 @@ public class Prueba {
         //Prueba_Almacen_Inventario_Productos();
         
         String Token = pruebaLogin("hernesto.perez@example.com","password123");
-        pruebaProductoInventario();
-        System.out.println(pruebaInventarioGestor(Token));
+        //pruebaProductoInventario();
+        //System.out.println(pruebaInventarioGestor(Token));
         
     }
 

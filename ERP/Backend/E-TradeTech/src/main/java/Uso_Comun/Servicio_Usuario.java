@@ -33,7 +33,7 @@ public class Servicio_Usuario {
         return Servicio_Seguridad.encryptSHA256(input);
     }
     
-    public static String login(String correo, String contraseña_encriptada, boolean b) {
+    public static String login(String correo, String contraseña_encriptada, boolean b) throws SQLException {
         
         Usuario usuario = DAO.findUsuarioByCorreoAndSHA256(b, correo, contraseña_encriptada);
         
