@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import Uso_Comun.*;
+import java.sql.SQLException;
  
 /**
  *
@@ -28,7 +29,7 @@ public class ServletInicioSesion extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
 //        Servicio_Usuario.contrasena= request.getParameter("ContraseñaSin");
 //        String dios=Servicio_Usuario.encryptSHA256(Servicio_Usuario.contrasena);
         System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
