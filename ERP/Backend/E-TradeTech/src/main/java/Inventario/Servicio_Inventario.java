@@ -17,6 +17,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,7 +34,12 @@ public class Servicio_Inventario {
 
         int UsuarioID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
 
-        int GestorID = DAOg.findGestorByUsuarioId(false, UsuarioID).getGestorID();
+        int GestorID = -1;
+        try {
+            GestorID = DAOg.findGestorByUsuarioId(false, UsuarioID).getGestorID();
+        } catch (SQLException ex) {
+            Logger.getLogger(Servicio_Inventario.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         List<Inventario> inventarios = DAOi.findInvetarioByGestor(GestorID);
 

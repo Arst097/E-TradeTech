@@ -41,7 +41,7 @@ public class Prueba {
         
         String Token = pruebaLogin("hernesto.perez@example.com","password123");
         //pruebaProductoInventario();
-        //System.out.println(pruebaInventarioGestor(Token));
+        System.out.println(pruebaInventarioGestor(Token));
         
     }
 

@@ -440,8 +440,8 @@ public class DAO_Usuario implements Serializable {
     private static Connection conectar = null;
 
     private static final String usuario = "Access";
-    private static final String contraseña = "123";
     private static final String bd = "ETradeTechDB";
+    private static final String contraseña = "123";
     private static final String ip = "localhost";
     private static final String puerto = "1433";
     
