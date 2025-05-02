@@ -14,6 +14,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -62,7 +65,12 @@ public class ServletInventarioMostrar extends HttpServlet {
 
         String Correo = "hernesto.perez@example.com";
         String Contrasena = "password";
-        String Token = Servicio_Usuario.login(Correo, Contrasena, false);
+        String Token = "";
+        try {
+            Token = Servicio_Usuario.login(Correo, Contrasena, false);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServletInventarioMostrar.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         String json;
         json = Servicio_Inventario.listaproductosJSON(Token);

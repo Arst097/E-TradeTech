@@ -12,6 +12,7 @@ import Inventario.DAOs.DAO_Inventario;
 import Seguridad.Servicio_Seguridad;
 import Uso_Comun.Modelos.Producto;
 import Uso_Comun.Servicio_Usuario;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -83,7 +84,7 @@ public class Servicio_Inventario {
         return json;
     }
 
-    public static String listaproductosJSON(String correo, String contraseña_encriptada) {
+    public static String listaproductosJSON(String correo, String contraseña_encriptada) throws SQLException {
         String Token = Servicio_Usuario.login(correo, contraseña_encriptada, false);
         return listaproductosJSON(Token);
     }
