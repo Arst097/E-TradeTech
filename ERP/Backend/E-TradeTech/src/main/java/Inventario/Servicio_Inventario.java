@@ -33,7 +33,7 @@ public class Servicio_Inventario {
     public static String listaproductosJSON(String Token) {
 
         int UsuarioID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
-
+        
         int GestorID = -1;
         try {
             GestorID = DAOg.findGestorByUsuarioId(false, UsuarioID).getGestorID();
@@ -51,7 +51,7 @@ public class Servicio_Inventario {
         if (!validarTipos(inventarios)) {
             return "Los inventarios en almacen no coinciden con inventario libre y reservado";
         }
-
+       
         String json = "[";
 
         for (Inventario inventario : inventarios) {
@@ -119,36 +119,39 @@ public class Servicio_Inventario {
     }
 
     public static boolean EditarMontoProductos(int UsuarioID, String nombre, String categoria, String StockStr, String PrecioStr) throws Exception {
-        int Stock = Integer.valueOf(StockStr);
-        float Precio = Float.valueOf(PrecioStr);
+        try{
+            int Stock = Integer.valueOf(StockStr);
+            float Precio = Float.valueOf(PrecioStr);
 
-        int GestorID = DAOg.findGestorByUsuarioId(false, UsuarioID).getGestorID();
+            int GestorID = DAOg.findGestorByUsuarioId(false, UsuarioID).getGestorID();
 
-        List<Inventario> inventarios = DAOi.findInvetarioByGestor(GestorID);
+            List<Inventario> inventarios = DAOi.findInvetarioByGestor(GestorID);
 
-        for (Inventario inventario : inventarios) {
-            int inventarioID = inventario.getInventarioID();
-            String tipo = inventario.getTipo();
-            if (tipo.equals("Libre")) {
-                int Qi = inventario.getProductoCollection().size();
-                if (Qi < Stock) {
-                    int Q = Stock - Qi;
-                    List<Producto> productos = DAOp.findModel_ProductoEntities(Q, 0);
-                    for (Producto producto : productos) {
-                        int productoID = producto.getProductoID();
-                        DAOp.destroy(productoID);
-                    }
-                } else if (Qi > Stock) {
-                    for (int i = 1; i > Stock; i++) {
-                        Date fecha = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
-                        Producto producto = new Producto(Precio, categoria, nombre, fecha, inventario);
-                        DAOp.create(producto);
+            for (Inventario inventario : inventarios) {
+                int inventarioID = inventario.getInventarioID();
+                String tipo = inventario.getTipo();
+                if (tipo.equals("Libre")) {
+                    int Qi = inventario.getProductoCollection().size();
+                    if (Qi < Stock) {
+                        int Q = Stock - Qi;
+                        List<Producto> productos = DAOp.findModel_ProductoEntities(Q, 0);
+                        for (Producto producto : productos) {
+                            int productoID = producto.getProductoID();
+                            DAOp.destroy(productoID);
+                        }
+                    } else if (Qi > Stock) {
+                        for (int i = 1; i > Stock; i++) {
+                            Date fecha = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+                            Producto producto = new Producto(Precio, categoria, nombre, fecha, inventario);
+                            DAOp.create(producto);
+                        }
                     }
                 }
             }
+            return true;
+        }catch(Exception e){
+            return false;
         }
-
-        return true;
     }
 
     public static boolean EditarMontoProductos(String correo, String contraseña_encriptada, String nombre, String categoria, String StockStr, String PrecioStr) throws Exception {
@@ -160,4 +163,6 @@ public class Servicio_Inventario {
         int UsuarioID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
         return EditarMontoProductos(UsuarioID, nombre, categoria, StockStr, PrecioStr);
     }
+    
+    
 }

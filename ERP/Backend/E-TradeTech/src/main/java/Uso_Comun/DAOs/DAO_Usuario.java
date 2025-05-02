@@ -437,7 +437,7 @@ public class DAO_Usuario implements Serializable {
         }
     }
 
-    private static Connection conectar = null;
+    
 
     private static final String usuario = "Access";
     private static final String bd = "ETradeTechDB";
@@ -445,9 +445,14 @@ public class DAO_Usuario implements Serializable {
     private static final String ip = "localhost";
     private static final String puerto = "1433";
     
+    private static String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd + ";" + "encrypt=false";
+    
+    private static Connection conectar;
+    
     public static void EstablecerConexion() {
         try {
-            String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd + ";" + "encrypt=false";
+            //String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd + ";" + "encrypt=false";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conectar = DriverManager.getConnection(cadena, usuario, contraseña);
             System.out.println("Conexion Establecida");
         } catch (Exception e) {
@@ -456,10 +461,12 @@ public class DAO_Usuario implements Serializable {
     }
     
     public Usuario findUsuarioByCorreoAndSHA256(boolean Ch, String Correo, String SHA256) throws SQLException {
+        System.out.println("b");
         if (conectar == null || conectar.isClosed()) {
             EstablecerConexion();
         }
-
+        System.out.println("From DAO_Usuario: "+Correo);
+        System.out.println("From DAO_Usuario: "+SHA256);
         String query = "SELECT Usuario_id, Nombre, Correo, Contraseña_SHA256 FROM Usuario WHERE Correo = ? AND Contraseña_SHA256 = ?";
         PreparedStatement stmt = conectar.prepareStatement(query);
         stmt.setString(1, Correo);

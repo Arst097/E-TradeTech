@@ -79,6 +79,7 @@ public class Servicio_Seguridad {
     }
 
     public static int getUserIdFromJwtToken(String token) {
+        System.out.println(token);
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(secretKey)
                 .build()

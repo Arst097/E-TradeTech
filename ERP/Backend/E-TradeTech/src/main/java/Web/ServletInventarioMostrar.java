@@ -64,10 +64,11 @@ public class ServletInventarioMostrar extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         String Correo = "hernesto.perez@example.com";
-        String Contrasena = "password";
+        String ContrasenaPlana = "password123";
+        String ContrasenaSHA256 = Servicio_Seguridad.encryptSHA256(ContrasenaPlana);
         String Token = "";
         try {
-            Token = Servicio_Usuario.login(Correo, Contrasena, false);
+            Token = Servicio_Usuario.login(Correo, ContrasenaSHA256, false);
         } catch (SQLException ex) {
             Logger.getLogger(ServletInventarioMostrar.class.getName()).log(Level.SEVERE, null, ex);
         }
