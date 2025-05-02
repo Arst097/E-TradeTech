@@ -5,6 +5,9 @@
 package Web;
 
 
+import Inventario.Servicio_Inventario;
+import Seguridad.Servicio_Seguridad;
+import Uso_Comun.Servicio_Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -57,10 +60,11 @@ public class ServletInventarioMostrar extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        String json = "[" +
-            "{\"id\":\"001\",\"nombre\":\"Laptop HP Pavilion 15\",\"categoria\":\"Computadoras\",\"stock\":15,\"precio\":3000000}," +
-            "{\"id\":\"002\",\"nombre\":\"iPhone 13\",\"categoria\":\"Teléfonos\",\"stock\":10,\"precio\":4500000}" +
-        "]";
+        String Correo = "hernesto.perez@example.com";
+        String Contrasena = "password";
+        String Token = Servicio_Usuario.login(Correo, Contrasena, false);
+        
+        String json = Servicio_Inventario.listaproductosJSON(Token);
 
         response.getWriter().write(json);
         
