@@ -30,7 +30,7 @@ $(document).ready(function () {
                     `;
                     $tbody.append(fila);
                 });
-                cargarProductos();
+//                cargarProductos();
             },
             error: function (xhr, status, error) {
                 console.error('Error al cargar productos:', error);
