@@ -19,8 +19,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
@@ -36,24 +34,18 @@ public class Servicio_Usuario {
         return Servicio_Seguridad.encryptSHA256(input);
     }
     
-    public static String login(String correo, String contraseña_encriptada, boolean b){
+    public static String login(String correo, String contraseña_encriptada, boolean b) throws SQLException {
         
-        try {
-            System.out.println("Creando DAO local");
-            Usuario usuario = DAO.findUsuarioByCorreoAndSHA256(b, correo, contraseña_encriptada);
-            
-            if(usuario == null){
-                return "Usuario No Encontrado";
-            }
-            DAO_Gestores TempDAO = new DAO_Gestores();
-            if(TempDAO.findGestorByUsuarioId(b,usuario.getUsuarioid()) == null){
-                return "Usuario No Gestor";
-            }
-            return Servicio_Seguridad.generateJwtToken(usuario.getUsuarioid());
-        } catch (SQLException ex) {
-            Logger.getLogger(Servicio_Usuario.class.getName()).log(Level.SEVERE, null, ex);
-            return "Error en el login";
+        Usuario usuario = DAO.findUsuarioByCorreoAndSHA256(b, correo, contraseña_encriptada);
+        
+        if(usuario == null){
+            return "Usuario No Encontrado";
         }
+        DAO_Gestores TempDAO = new DAO_Gestores();
+        if(TempDAO.findGestorByUsuarioId(b,usuario.getUsuarioid()) == null){
+            return "Usuario No Gestor";
+        }
+        return Servicio_Seguridad.generateJwtToken(usuario.getUsuarioid());
     }
     
     public static boolean TokenValido(String token) {

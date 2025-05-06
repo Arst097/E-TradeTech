@@ -45,7 +45,6 @@ public class DAO_Inventario implements Serializable {
     }
 
     public DAO_Inventario() {
-        this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
     }
 
     private UserTransaction utx = null;

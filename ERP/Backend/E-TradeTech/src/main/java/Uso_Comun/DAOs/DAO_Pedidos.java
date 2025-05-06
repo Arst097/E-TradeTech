@@ -38,7 +38,6 @@ public class DAO_Pedidos implements Serializable {
     }
 
     public DAO_Pedidos() {
-        this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
     }
     
     private UserTransaction utx = null;
