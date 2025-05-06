@@ -41,9 +41,10 @@ public class Prueba {
 
         //Prueba_Almacen_Inventario_Productos();
         
-        String Token = pruebaLogin("hernesto.perez@example.com","password123");
+        //String Token = pruebaLogin("hernesto.perez@example.com","password123");
         //pruebaProductoInventario();
-        System.out.println(pruebaInventarioGestor(Token));
+        //System.out.println(pruebaInventarioGestor(Token));
+        pruebaCrearMonto();
         
     }
 
@@ -82,5 +83,24 @@ public class Prueba {
         String Token_Obtenido = Servicio_Usuario.login(Correo, Contraseña_Obtenida, false);
         System.out.println(Token_Obtenido);
         return Token_Obtenido;
+    }
+    
+    private static void pruebaCrearMonto(){
+        try {
+            String Token = pruebaLogin("hernesto.perez@example.com","password123");
+            System.out.println(Token);
+            String nombre = "Lenovo";
+            String categoria = "Computadora";
+            String StockStr = "5";
+            String PrecioStr = "5000";
+            Servicio_Inventario.CrearMontoProductos(Token, nombre, categoria, StockStr, PrecioStr);
+            
+        } catch (Exception ex) {
+            Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private static void PruebaBorrarMonto(){
+        
     }
 }

@@ -151,7 +151,7 @@ public class Inventario implements Serializable {
 
     @Override
     public String toString() {
-        return "Uso_Comun.Inventario[ inventarioID=" + inventarioID + " ]";
+        return "Inventario.Modelos.Inventario[ inventarioID=" + inventarioID + " ]";
     }
     
 }

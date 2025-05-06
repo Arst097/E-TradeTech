@@ -70,9 +70,15 @@ public class DAO_Producto implements Serializable {
             }
 
             Pedidos pedidoID = model_Producto.getPedidoID();
+            System.out.println("Entrando a if pedidoID");
             if (pedidoID != null) {
                 pedidoID = em.getReference(pedidoID.getClass(), pedidoID.getPedidoID());
                 model_Producto.setPedidoID(pedidoID);
+            }else{
+                List<Producto> AllProducto = findModel_ProductoEntities();
+                int nuevoID = AllProducto.get(AllProducto.size()-1).getProductoID()+1;
+                model_Producto.setProductoID(nuevoID);
+                System.out.println("Nuevo Id escogido:"+nuevoID);
             }
 
             em.persist(model_Producto);

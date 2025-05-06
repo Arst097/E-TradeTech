@@ -14,13 +14,13 @@ import Uso_Comun.*;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
- 
+
 /**
  *
  * @author Kevin Zambrano
  */
 public class ServletInicioSesion extends HttpServlet {
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,15 +34,22 @@ public class ServletInicioSesion extends HttpServlet {
             throws ServletException, IOException, SQLException {
 //        Servicio_Usuario.contrasena= request.getParameter("ContraseñaSin");
 //        String dios=Servicio_Usuario.encryptSHA256(Servicio_Usuario.contrasena);
-        System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+        System.out.println("Iniciando login en servlet");
         String email = request.getParameter("Email");
-        String contraseña = request.getParameter("ContrasenaSin");        
+        System.out.println("Encriptando contraseña");
+        String contraseña = request.getParameter("ContrasenaSin");
+        System.out.println("Logeando");
         String contraseña_encriptada = Servicio_Usuario.encryptSHA256(contraseña);
-        String token = Servicio_Usuario.login(email, contraseña_encriptada,false);
-        //String token = "a";
+        String token = "Token no consultado";
+        try {
+            Servicio_Usuario Servicio = new Servicio_Usuario();
+            token = Servicio.login(email, contraseña_encriptada, false);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
-        
-        if(Servicio_Usuario.TokenValido(token)== true){
+        //String token = "a";
+        if (Servicio_Usuario.TokenValido(token) == true) {
             response.setContentType("text/html;charset=UTF-8");
             try (PrintWriter out = response.getWriter()) {
                 /* TODO output your page here. You may use following sample code. */
@@ -52,12 +59,12 @@ public class ServletInicioSesion extends HttpServlet {
                 out.println("<title>Servlet ServletInicioSesion</title>");
                 out.println("</head>");
                 out.println("<body>");
-                out.println("<h1>Servlet ServletInicioSesion at " + request.getContextPath()+ "; Contraseña Encriptada: "+ contraseña_encriptada + "; Token:"+ token + "email"+email+"contrasena"+ contraseña+ "</h1>");
+                out.println("<h1>Servlet ServletInicioSesion at " + request.getContextPath() + "; Contraseña Encriptada: " + contraseña_encriptada + "; Token:" + token + "email" + email + "contrasena" + contraseña + "</h1>");
                 out.println("<a href=\"Modulo Inventario/Html Inventario/inventario.html\"></a>");
                 out.println("</body>");
                 out.println("</html>");
             }
-        }else{
+        } else {
             response.setContentType("text/html;charset=UTF-8");
             try (PrintWriter out = response.getWriter()) {
                 /* TODO output your page here. You may use following sample code. */
@@ -68,7 +75,7 @@ public class ServletInicioSesion extends HttpServlet {
                 out.println("</head>");
                 out.println("<body>");
                 out.println("<h1>No se genero token pues el usuario o la contraseña son incorrectas </h1>");
-                out.println("<h1>Servlet ServletInicioSesion at " + request.getContextPath()+ "; Contraseña Encriptada: "+ contraseña_encriptada + "email"+email+"contrasena"+ contraseña+ "</h1>");
+                out.println("<h1>Servlet ServletInicioSesion at " + request.getContextPath() + "; Contraseña Encriptada: " + contraseña_encriptada + "email" + email + "contrasena" + contraseña + "</h1>");
                 out.println("</body>");
                 out.println("</html>");
             }

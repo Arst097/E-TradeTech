@@ -47,7 +47,6 @@ public class DAO_Usuario implements Serializable {
     private EntityManagerFactory emf = null;
 
     public DAO_Usuario() {
-        this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
     }
 
     public EntityManager getEntityManager() {
