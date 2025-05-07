@@ -21,13 +21,19 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.UserTransaction;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -47,13 +53,31 @@ public class DAO_Producto implements Serializable {
     private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
+    private static Connection conectar = null;
+
+    private static final String usuario = "Access";
+    private static final String bd = "ETradeTechDB";
+    private static final String contraseña = "123";
+    private static final String ip = "localhost";
+    private static final String puerto = "1433";
+
+    public static void EstablecerConexion() {
+        try {
+            String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd + ";" + "encrypt=false";
+            conectar = DriverManager.getConnection(cadena, usuario, contraseña);
+            System.out.println("Conexion Establecida");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-    public void create(Producto model_Producto) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public void fcreate(Producto model_Producto) throws PreexistingEntityException, RollbackFailureException, Exception {
         System.out.println("Entrando a funcion Create");
-        
+
         EntityManager em = null;
         EntityTransaction tx = null;
         try {
@@ -62,11 +86,11 @@ public class DAO_Producto implements Serializable {
             tx.begin();
 
             Inventario inventarioID = model_Producto.getInventarioID();
-            System.out.println("Desde Create: "+inventarioID);
+            System.out.println("Desde Create: " + inventarioID);
             if (inventarioID != null) {
                 inventarioID = em.getReference(inventarioID.getClass(), inventarioID.getInventarioID());
                 model_Producto.setInventarioID(inventarioID);
-                System.out.println("Desde Create: "+inventarioID);
+                System.out.println("Desde Create: " + inventarioID);
             }
 
             Pedidos pedidoID = model_Producto.getPedidoID();
@@ -74,11 +98,6 @@ public class DAO_Producto implements Serializable {
             if (pedidoID != null) {
                 pedidoID = em.getReference(pedidoID.getClass(), pedidoID.getPedidoID());
                 model_Producto.setPedidoID(pedidoID);
-            }else{
-                List<Producto> AllProducto = findModel_ProductoEntities();
-                int nuevoID = AllProducto.get(AllProducto.size()-1).getProductoID()+1;
-                model_Producto.setProductoID(nuevoID);
-                System.out.println("Nuevo Id escogido:"+nuevoID);
             }
 
             em.persist(model_Producto);
@@ -110,6 +129,81 @@ public class DAO_Producto implements Serializable {
             if (em != null) {
                 em.close();
             }
+        }
+    }
+
+    public void create(Producto producto) {
+        System.out.println("Entra a metodo create de Productos");
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
+
+            //esto es para que funcione por ahora
+            //solo funcionara una vez y luego fallara
+            producto.setProductoID(27);
+
+            if (producto.getProductoID() == null) {
+                List<Producto> AllProducto = findModel_ProductoEntities();
+                int nuevoID = AllProducto.get(AllProducto.size() - 1).getProductoID() + 1;
+                producto.setProductoID(nuevoID);
+                System.out.println("Nuevo Id escogido:" + nuevoID);
+            }
+
+            if (producto.getFechaEntrada() == null) {
+                System.out.println("Añadiendo fecha");
+                producto.setFechaEntrada(new Date());
+            }
+
+            String query = "INSERT Producto (ProductoID, InventarioID, Modelo, Fecha_Entrada, Precio, Categoria";
+            int QSimbolQuestions = 6;
+
+            boolean pedidoExiste = producto.getPedidoID() != null;
+
+            if (pedidoExiste) {
+                query = query + ", PedidoID";
+                QSimbolQuestions++;
+            }
+
+            query = query + ") VALUES (";
+
+            for (int i = 1; i <= QSimbolQuestions; i++) {
+                query = query + "?";
+                if (i != QSimbolQuestions) {
+                    query = query + ",";
+                }
+            }
+            query = query + ");";
+            
+            System.out.println(query);
+
+            Integer productoID = producto.getProductoID();
+            Integer inventarioID = producto.getInventarioID().getInventarioID();
+            Integer pedidoID = -1;
+            String modelo = producto.getModelo();
+            Date fecha = producto.getFechaEntrada();
+            float precio = producto.getPrecio();
+            String categoria = producto.getCategoria();
+            if (pedidoExiste) {
+                pedidoID = producto.getPedidoID().getPedidoID();
+            }
+
+            CallableStatement cs = conectar.prepareCall(query);
+
+            cs.setInt(1, productoID);
+            cs.setInt(2, inventarioID);
+            cs.setString(3, modelo);
+            cs.setTimestamp(4, new Timestamp(fecha.getTime()));
+            cs.setDouble(5, precio);
+            cs.setString(6, categoria);
+            if (pedidoExiste) {
+                cs.setInt(7, pedidoID);
+            }
+
+            System.out.println("Intenta hacer la insercion");
+            cs.execute();
+        } catch (SQLException ex) {
+            System.out.println("Error en create: " + ex);
         }
     }
 
@@ -265,30 +359,10 @@ public class DAO_Producto implements Serializable {
         }
     }
 
-    private static Connection conectar = null;
-
-    private static final String usuario = "Access";
-    private static final String bd = "ETradeTechDB";
-    private static final String contraseña = "123";
-    private static final String ip = "localhost";
-    private static final String puerto = "1433";
-
-    public static void EstablecerConexion() {
-        try {
-            String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd + ";" + "encrypt=false";
-            conectar = DriverManager.getConnection(cadena, usuario, contraseña);
-            System.out.println("Conexion Establecida");
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
     public List<Object[]> findGrupoProductosByInventario(int InventarioID) throws SQLException {
         if (conectar == null || conectar.isClosed()) {
             EstablecerConexion();
         }
-
-        System.out.println("Esta pasando por la query nueva");
 
         String query
                 = "SELECT "
@@ -299,8 +373,7 @@ public class DAO_Producto implements Serializable {
                 + "FROM Producto p "
                 + "WHERE p.InventarioID = ? "
                 + "GROUP BY p.modelo;";
-        
-        System.out.println(query);
+
         PreparedStatement stmt = conectar.prepareStatement(query);
         stmt.setString(1, String.valueOf(InventarioID));
 

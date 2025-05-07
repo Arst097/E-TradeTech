@@ -23,9 +23,7 @@ public class Servicio_Seguridad {
     private static final Key secretKey = generateKeyFromString("ContraseñaSuperSecreta");
 
     public static String encryptSHA256(String input) {
-        System.out.println("Entra al Servicio de seguridad");
         try {
-            System.out.println("Inicia el try");
             // Crear una instancia de MessageDigest con el algoritmo SHA-256
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
 
@@ -81,7 +79,6 @@ public class Servicio_Seguridad {
     }
 
     public static int getUserIdFromJwtToken(String token) {
-        System.out.println(token);
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(secretKey)
                 .build()

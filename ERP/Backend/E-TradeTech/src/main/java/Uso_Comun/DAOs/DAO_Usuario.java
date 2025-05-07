@@ -453,19 +453,15 @@ public class DAO_Usuario implements Serializable {
             //String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd + ";" + "encrypt=false";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conectar = DriverManager.getConnection(cadena, usuario, contraseña);
-            System.out.println("Conexion Establecida");
         } catch (Exception e) {
             System.out.println(e);
         }
     }
     
     public Usuario findUsuarioByCorreoAndSHA256(boolean Ch, String Correo, String SHA256) throws SQLException {
-        System.out.println("b");
         if (conectar == null || conectar.isClosed()) {
             EstablecerConexion();
         }
-        System.out.println("From DAO_Usuario: "+Correo);
-        System.out.println("From DAO_Usuario: "+SHA256);
         String query = "SELECT Usuario_id, Nombre, Correo, Contraseña_SHA256 FROM Usuario WHERE Correo = ? AND Contraseña_SHA256 = ?";
         PreparedStatement stmt = conectar.prepareStatement(query);
         stmt.setString(1, Correo);

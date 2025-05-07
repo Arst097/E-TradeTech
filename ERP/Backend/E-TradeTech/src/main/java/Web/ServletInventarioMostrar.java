@@ -77,7 +77,6 @@ public class ServletInventarioMostrar extends HttpServlet {
         json = Servicio_Inventario.listaproductosJSON(Token);
         //json = "[{\"id\":\"1\",\"nombre\":\"Apple Watch Series 9\",\"categoria\":\"Otros electronicos\",\"stock\":1,\"precio\":1999.99},{\"id\":\"2\",\"nombre\":\"Dell XPS 13\",\"categoria\":\"Computadoras\",\"stock\":1,\"precio\":4299.0},{\"id\":\"3\",\"nombre\":\"HP Spectre x360\",\"categoria\":\"Computadoras\",\"stock\":1,\"precio\":4599.5},{\"id\":\"4\",\"nombre\":\"iPad Pro 12.9\",\"categoria\":\"Tablets\",\"stock\":1,\"precio\":3299.0},{\"id\":\"5\",\"nombre\":\"iPhone 14 Pro\",\"categoria\":\"Telefonos\",\"stock\":1,\"precio\":3999.99},{\"id\":\"6\",\"nombre\":\"Lenovo ThinkPad X1\",\"categoria\":\"Computadoras\",\"stock\":1,\"precio\":4899.99},{\"id\":\"7\",\"nombre\":\"Nintendo Switch OLED\",\"categoria\":\"Otros electronicos\",\"stock\":1,\"precio\":2499.0},{\"id\":\"8\",\"nombre\":\"Samsung Galaxy S23\",\"categoria\":\"Telefonos\",\"stock\":1,\"precio\":3699.99},{\"id\":\"9\",\"nombre\":\"Samsung Galaxy Tab S8\",\"categoria\":\"Tablets\",\"stock\":1,\"precio\":2999.5},{\"id\":\"10\",\"nombre\":\"Xbox Series X\",\"categoria\":\"Otros electronicos\",\"stock\":1,\"precio\":2999.0}]";
 
-        System.out.println(json);
         response.getWriter().write(json);
         
     }    

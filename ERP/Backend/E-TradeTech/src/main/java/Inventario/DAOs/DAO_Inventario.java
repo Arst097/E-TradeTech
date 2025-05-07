@@ -50,6 +50,24 @@ public class DAO_Inventario implements Serializable {
     private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
+    private static Connection conectar = null;
+    
+    private static final String usuario = "Access";
+    private static final String bd = "ETradeTechDB";
+    private static final String contraseña = "123";
+    private static final String ip = "localhost";
+    private static final String puerto = "1433";
+    
+    public static void EstablecerConexion() {
+        try {
+            String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd + ";" + "encrypt=false";
+            conectar = DriverManager.getConnection(cadena, usuario, contraseña);
+            System.out.println("Conexion Establecida");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
@@ -161,7 +179,7 @@ public class DAO_Inventario implements Serializable {
             }
         }
     }
-
+    
     public void edit(Inventario model_Inventario) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
@@ -419,24 +437,6 @@ public class DAO_Inventario implements Serializable {
             return em.find(Inventario.class, id);
         } finally {
             em.close();
-        }
-    }
-
-    private static Connection conectar = null;
-    
-    private static final String usuario = "Access";
-    private static final String bd = "ETradeTechDB";
-    private static final String contraseña = "123";
-    private static final String ip = "localhost";
-    private static final String puerto = "1433";
-    
-    public static void EstablecerConexion() {
-        try {
-            String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd + ";" + "encrypt=false";
-            conectar = DriverManager.getConnection(cadena, usuario, contraseña);
-            System.out.println("Conexion Establecida");
-        } catch (Exception e) {
-            System.out.println(e);
         }
     }
     

@@ -30,7 +30,6 @@ public class Servicio_Usuario {
     private static DAO_Usuario DAO = new DAO_Usuario();
     
     public static String encryptSHA256(String input) {
-        System.out.println("entra al Servicio Usuario");
         return Servicio_Seguridad.encryptSHA256(input);
     }
     

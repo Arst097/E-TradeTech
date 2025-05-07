@@ -40,67 +40,66 @@ public class Prueba {
         //Servicio_Usuario.EliminarUsuario(5);
 
         //Prueba_Almacen_Inventario_Productos();
-        
         //String Token = pruebaLogin("hernesto.perez@example.com","password123");
         //pruebaProductoInventario();
         //System.out.println(pruebaInventarioGestor(Token));
         pruebaCrearMonto();
-        
+
     }
 
     private static void pruebaProductoInventario() {
         DAO_Producto dao = new DAO_Producto();
-        
+
         List<Producto> lista = dao.findProductoByInventario(1);
-        
-        for(Producto producto: lista){
-            System.out.println(producto.getProductoID()+": "+producto.getModelo());
+
+        for (Producto producto : lista) {
+            System.out.println(producto.getProductoID() + ": " + producto.getModelo());
         }
     }
-    
-    private static String pruebaInventarioGestor(String Token){
+
+    private static String pruebaInventarioGestor(String Token) {
         DAO_Inventario dao = new DAO_Inventario();
-        
+
         List<Inventario> lista = null;
         try {
             lista = dao.findInvetarioByGestor(1);
         } catch (SQLException ex) {
             Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        for(Inventario inventario: lista){
-            System.out.println(inventario.getInventarioID()+": "+inventario.getTipo());
+
+        for (Inventario inventario : lista) {
+            System.out.println(inventario.getInventarioID() + ": " + inventario.getTipo());
         }
-        
+
         System.out.println("Valido: " + Servicio_Inventario.validarTipos(lista));
-        
+
         return Servicio_Inventario.listaproductosJSON(Token);
     }
 
-    private static String pruebaLogin(String Correo, String ContraseñaLimpia) throws SQLException{
+    private static String pruebaLogin(String Correo, String ContraseñaLimpia) throws SQLException {
         String Contraseña_Obtenida = Servicio_Usuario.encryptSHA256(ContraseñaLimpia);
         System.out.println(Contraseña_Obtenida);
         String Token_Obtenido = Servicio_Usuario.login(Correo, Contraseña_Obtenida, false);
         System.out.println(Token_Obtenido);
         return Token_Obtenido;
     }
-    
-    private static void pruebaCrearMonto(){
+
+    private static void pruebaCrearMonto() {
         try {
-            String Token = pruebaLogin("hernesto.perez@example.com","password123");
+            String Token = pruebaLogin("hernesto.perez@example.com", "password123");
             System.out.println(Token);
-            String nombre = "Lenovo";
+            String nombre = "Modelo HP";
             String categoria = "Computadora";
-            String StockStr = "5";
-            String PrecioStr = "5000";
+            String StockStr = "2";
+            String PrecioStr = "2000";
             Servicio_Inventario.CrearMontoProductos(Token, nombre, categoria, StockStr, PrecioStr);
-            
+
         } catch (Exception ex) {
             Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private static void PruebaBorrarMonto(){
+
+    private static void PruebaBorrarMonto() {
         
     }
 }
