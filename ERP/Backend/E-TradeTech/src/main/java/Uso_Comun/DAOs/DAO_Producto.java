@@ -139,15 +139,13 @@ public class DAO_Producto implements Serializable {
                 EstablecerConexion();
             }
 
-            //esto es para que funcione por ahora
-            //solo funcionara una vez y luego fallara
-            producto.setProductoID(27);
-
             if (producto.getProductoID() == null) {
-                List<Producto> AllProducto = findModel_ProductoEntities();
-                int nuevoID = AllProducto.get(AllProducto.size() - 1).getProductoID() + 1;
-                producto.setProductoID(nuevoID);
-                System.out.println("Nuevo Id escogido:" + nuevoID);
+                System.out.println("Obteniendo una id");
+                //List<Producto> AllProducto = findModel_ProductoEntities();
+                //int nuevoID = AllProducto.get(AllProducto.size() - 1).getProductoID() + 1;
+                int tamañoLista = this.findTamañoDeTabla()+1;
+                producto.setProductoID(tamañoLista);
+                System.out.println("Nuevo Id escogido:" + tamañoLista);
             }
 
             if (producto.getFechaEntrada() == null) {
@@ -391,6 +389,28 @@ public class DAO_Producto implements Serializable {
             resultados.add(fila);
         }
         return resultados;
+    }
+    
+    public int findTamañoDeTabla() throws SQLException{
+        if (conectar == null || conectar.isClosed()) {
+            EstablecerConexion();
+        }
+        
+        String query
+                = "SELECT "
+                + "COUNT(*) AS cantidad "
+                + "FROM Producto";
+        
+        PreparedStatement stmt = conectar.prepareStatement(query);
+
+        ResultSet rs = stmt.executeQuery();
+        
+        int tamañoTabla = 0;
+        if(rs.next()){
+            tamañoTabla = rs.getInt("cantidad");
+        }
+        
+        return tamañoTabla;
     }
 
     public int getModel_ProductoCount() {
