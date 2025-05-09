@@ -75,6 +75,7 @@ public class DAO_Producto implements Serializable {
         return emf.createEntityManager();
     }
 
+    //no funciona, es el que utiliza JSA y desactive eso
     public void fcreate(Producto model_Producto) throws PreexistingEntityException, RollbackFailureException, Exception {
         System.out.println("Entrando a funcion Create");
 
@@ -205,7 +206,7 @@ public class DAO_Producto implements Serializable {
         }
     }
 
-    public void edit(Producto model_Producto) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public void fedit(Producto model_Producto) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
@@ -261,8 +262,14 @@ public class DAO_Producto implements Serializable {
             }
         }
     }
+    
+    public void edit(Producto producto){
+        System.out.println("Entra a metodo edit de Productos");
+        
+        
+    }
 
-    public void destroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public void fdestroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction tx = null;
         try {
