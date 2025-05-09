@@ -40,7 +40,7 @@ public class Producto implements Serializable {
     private Integer productoID;
     @Basic(optional = false)
     @Column(name = "Precio")
-    private float precio;
+    private Float precio;
     @Basic(optional = false)
     @Column(name = "Categoria")
     private String categoria;
@@ -129,7 +129,7 @@ public class Producto implements Serializable {
         this.pedidoID = pedidoID;
     }
 
-    public float getPrecio() {
+    public Float getPrecio() {
         return precio;
     }
 

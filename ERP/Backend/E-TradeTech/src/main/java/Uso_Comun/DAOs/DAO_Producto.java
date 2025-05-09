@@ -263,6 +263,18 @@ public class DAO_Producto implements Serializable {
         }
     }
     
+    private Boolean canEdit(Producto producto){
+        boolean check_productoID = producto.getProductoID().equals(null) || (producto.getProductoID() <= 0);
+        boolean check_categoria = producto.getCategoria().isBlank();
+        boolean check_fechaEntrada = producto.getFechaEntrada().equals(null);
+        boolean check_inventarioID = producto.getInventarioID().equals(null) || (producto.getInventarioID().getInventarioID() <= 0);
+        boolean check_modelo = producto.getModelo().isBlank();
+        boolean check_pedidoID = producto.getPedidoID().equals(null) || (producto.getPedidoID().getPedidoID() <=0);
+        boolean check_precio = producto.getPrecio().equals(null) || (producto.getPrecio() <= 0);
+        
+        return check_productoID && check_categoria && check_fechaEntrada && check_inventarioID && check_modelo && check_pedidoID && check_precio; 
+    }
+    
     public void edit(Producto producto){
         System.out.println("Entra a metodo edit de Productos");
         
