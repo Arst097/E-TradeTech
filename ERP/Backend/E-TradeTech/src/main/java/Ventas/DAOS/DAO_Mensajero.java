@@ -34,7 +34,6 @@ public class DAO_Mensajero implements Serializable {
     }
 
     public DAO_Mensajero() {
-        this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
     }
     
     private UserTransaction utx = null;

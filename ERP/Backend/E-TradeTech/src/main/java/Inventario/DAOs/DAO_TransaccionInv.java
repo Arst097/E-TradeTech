@@ -33,7 +33,6 @@ public class DAO_TransaccionInv implements Serializable {
     }
 
     public DAO_TransaccionInv() {
-        this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
     }
     
     private UserTransaction utx = null;

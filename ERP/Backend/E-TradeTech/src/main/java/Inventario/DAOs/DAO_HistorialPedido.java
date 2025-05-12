@@ -35,7 +35,6 @@ public class DAO_HistorialPedido implements Serializable {
     }
 
     public DAO_HistorialPedido() {
-        this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
     }
     
     private UserTransaction utx = null;

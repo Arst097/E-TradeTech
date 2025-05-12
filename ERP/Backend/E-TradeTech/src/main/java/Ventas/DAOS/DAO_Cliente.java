@@ -36,7 +36,6 @@ public class DAO_Cliente implements Serializable {
     }
 
     public DAO_Cliente() {
-        this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
     }
     
     private UserTransaction utx = null;
