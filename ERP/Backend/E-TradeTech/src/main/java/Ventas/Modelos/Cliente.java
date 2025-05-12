@@ -39,14 +39,11 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @Column(name = "Telefono")
     private String telefono;
-    @Basic(optional = false)
-    @Column(name = "Nombre")
-    private String Nombre;
-    @Basic(optional = false)
-    @Column(name = "Correo")
-    private String Correo;
     @OneToMany(mappedBy = "clienteID")
     private Collection<Pedidos> pedidosCollection;
+    @JoinColumn(name = "Usuario_Usuario_id", referencedColumnName = "Usuario_id")
+    @ManyToOne(optional = false)
+    private Usuario usuarioUsuarioid;
 
     public Cliente() {
     }
@@ -84,23 +81,13 @@ public class Cliente implements Serializable {
         this.pedidosCollection = pedidosCollection;
     }
 
-    public String getNombre() {
-        return Nombre;
+    public Usuario getUsuarioUsuarioid() {
+        return usuarioUsuarioid;
     }
 
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
+    public void setUsuarioUsuarioid(Usuario usuarioUsuarioid) {
+        this.usuarioUsuarioid = usuarioUsuarioid;
     }
-
-    public String getCorreo() {
-        return Correo;
-    }
-
-    public void setCorreo(String Correo) {
-        this.Correo = Correo;
-    }
-    
-    
 
     @Override
     public int hashCode() {
