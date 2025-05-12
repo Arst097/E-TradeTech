@@ -20,6 +20,10 @@
         <servlet-name>ServletRRHHMostrar</servlet-name>
         <servlet-class>Web.ServletRRHHMostrar</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletMostrarVentas</servlet-name>
+        <servlet-class>Web.ServletMostrarVentas</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletInicioSesion</servlet-name>
         <url-pattern>/ServletInicioSesion</url-pattern>
@@ -39,5 +43,9 @@
     <servlet-mapping>
         <servlet-name>ServletRRHHMostrar</servlet-name>
         <url-pattern>/ServletRRHHMostrar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletMostrarVentas</servlet-name>
+        <url-pattern>/ServletMostrarVentas</url-pattern>
     </servlet-mapping>
 </web-app>
