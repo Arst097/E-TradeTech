@@ -4,6 +4,7 @@
  */
 package Ventas;
 
+import Uso_Comun.Modelos.Producto;
 import Ventas.Modelos.Pedidos;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,21 +25,23 @@ public class Servicio_VisualizarVentas {
         for (Pedidos pedido : pedidos) {
             i++;
             
+            Producto producto = new ArrayList<>(pedido.getProductoCollection()).get(0);
+            
             Integer PedidoID = pedido.getPedidoID();
-            //String Cliente = ;
-            //String Producto = ;
-            //Float Precio = new ArrayList<>(pedido.getProductoCollection()).get(0).;
+            String Cliente = pedido.getClienteID().getNombre();
+            String Producto = producto.getModelo();
+            Float Precio = producto.getPrecio();
             Date fecha_inicio = pedido.getFechainicio();
 
             json = json
                     + "{\"ID_pedido\":\""
                     + PedidoID
                     + "\",\"Cliente\":\""
-//                    + Cliente
+                    + Cliente
                     + "\",\"Producto\":\""
-//                    + Producto
+                    + Producto
                     + "\",\"Valor_Total\":"
-//                    + Precio
+                    + Precio
                     + ",\"Fecha\":"
                     + fecha_inicio
                     + "}";
