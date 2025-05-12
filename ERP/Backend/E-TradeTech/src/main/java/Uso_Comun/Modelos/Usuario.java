@@ -4,7 +4,7 @@
  */
 package Uso_Comun.Modelos;
 
-import Uso_Comun.Modelos.Cliente;
+import Ventas.Modelos.Cliente;
 import Inventario.Modelos.Gestores;
 import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Despachador;

@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Uso_Comun.DAOs;
+package Ventas.DAOS;
 
-import Uso_Comun.Modelos.Pedidos;
+import Ventas.Modelos.Pedidos;
 import Uso_Comun.Modelos.Usuario;
-import Uso_Comun.Modelos.Cliente;
+import Ventas.Modelos.Cliente;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;

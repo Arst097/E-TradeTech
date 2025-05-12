@@ -9,7 +9,7 @@ import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Gestores;
 import Inventario.Modelos.Gestores;
 import Uso_Comun.Modelos.Usuario;
-import Uso_Comun.Modelos.Cliente;
+import Ventas.Modelos.Cliente;
 import Inventario.exceptions.IllegalOrphanException;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;

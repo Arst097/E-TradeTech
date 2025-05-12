@@ -2,15 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Uso_Comun.Modelos;
+package Ventas.Modelos;
 
 import Uso_Comun.Modelos.Producto;
-import Uso_Comun.Modelos.Mensajero;
-import Uso_Comun.Modelos.Cliente;
+import Ventas.Modelos.Mensajero;
+import Ventas.Modelos.Cliente;
 import Inventario.Modelos.HistorialPedidos;
 import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Despachador;
 import Inventario.Modelos.HistorialPedidos;
+import Uso_Comun.Modelos.Producto;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

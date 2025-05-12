@@ -1,32 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
-  <!-- Define Persistence Unit -->
-  <persistence-unit name="ETradeTech_PU_JTA" transaction-type="JTA">
-    <jta-data-source>java:app/Conexion</jta-data-source>
-    <class>Uso_Comun.Modelos.Cliente</class>
-    <class>Uso_Comun.Modelos.Mensajero</class>
-    <class>Uso_Comun.Modelos.Producto</class>
-    <class>Uso_Comun.Modelos.Usuario</class>
-    <class>Uso_Comun.Modelos.Pedidos</class>
-    <class>Inventario.Modelos.Almacen</class>
-    <class>Inventario.Modelos.Despachador</class>
-    <class>Inventario.Modelos.Gestores</class>
-    <class>Inventario.Modelos.HistorialPedidos</class>
-    <class>Inventario.Modelos.HistorialTransaccInv</class>
-    <class>Inventario.Modelos.Inventario</class>
-    <class>Inventario.Modelos.TransaccionInv</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
-    <properties>
-      <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
-    </properties>
-  </persistence-unit>
   <persistence-unit name="ETradeTech_PU" transaction-type="RESOURCE_LOCAL">
     <!-- Sin JTA y sin jta-data-source -->
-    <class>Uso_Comun.Modelos.Cliente</class>
-    <class>Uso_Comun.Modelos.Mensajero</class>
     <class>Uso_Comun.Modelos.Producto</class>
     <class>Uso_Comun.Modelos.Usuario</class>
-    <class>Uso_Comun.Modelos.Pedidos</class>
     <class>Inventario.Modelos.Almacen</class>
     <class>Inventario.Modelos.Despachador</class>
     <class>Inventario.Modelos.Gestores</class>
@@ -34,6 +11,9 @@
     <class>Inventario.Modelos.HistorialTransaccInv</class>
     <class>Inventario.Modelos.Inventario</class>
     <class>Inventario.Modelos.TransaccionInv</class>
+    <class>Ventas.Modelos.Cliente</class>
+    <class>Ventas.Modelos.Mensajero</class>
+    <class>Ventas.Modelos.Pedidos</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!-- Configura aquí tu conexión directa JDBC -->
