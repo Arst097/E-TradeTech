@@ -22,8 +22,11 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  *
@@ -44,6 +47,10 @@ public class Pedidos implements Serializable {
     private Integer pedidoID;
     @Column(name = "Estado")
     private String estado;
+    @Basic(optional = false)
+    @Column(name = "Fecha_Inicio")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechainicio;
     @JoinColumn(name = "ClienteID", referencedColumnName = "ClienteID")
     @ManyToOne
     private Cliente clienteID;
@@ -122,6 +129,16 @@ public class Pedidos implements Serializable {
         this.productoCollection = productoCollection;
     }
 
+    public Date getFechainicio() {
+        return fechainicio;
+    }
+
+    public void setFechainicio(Date fechainicio) {
+        this.fechainicio = fechainicio;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
