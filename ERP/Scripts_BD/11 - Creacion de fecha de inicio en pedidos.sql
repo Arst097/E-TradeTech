@@ -1,0 +1,4 @@
+USE ETradeTechDB;
+
+ALTER TABLE Pedidos
+ADD Fecha_Inicio DATE NOT NULL DEFAULT GETDATE();
