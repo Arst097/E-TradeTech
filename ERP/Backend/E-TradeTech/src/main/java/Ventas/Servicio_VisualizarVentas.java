@@ -5,6 +5,8 @@
 package Ventas;
 
 import Ventas.Modelos.Pedidos;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,28 +16,37 @@ import java.util.List;
 public class Servicio_VisualizarVentas {
 
     private String ListaPedidosToJSON(List<Pedidos> pedidos) {
+        int i = 0;
+        int size = pedidos.size();
+        String json = "";
+        
+        //todavia no esta cambiado al completo
         for (Pedidos pedido : pedidos) {
-
-            var modelo = pedido.get;
-            String categoria = (String) monto[1];
-            Long cantidad = (Long) monto[2];
-            float precio = (float) monto[3];
+            i++;
+            
+            Integer PedidoID = pedido.getPedidoID();
+            //String Cliente = ;
+            //String Producto = ;
+            //Float Precio = new ArrayList<>(pedido.getProductoCollection()).get(0).;
+            Date fecha_inicio = pedido.getFechainicio();
 
             json = json
-                    + "{\"id\":\""
-                    + i
-                    + "\",\"nombre\":\""
-                    + modelo
-                    + "\",\"categoria\":\""
-                    + categoria
-                    + "\",\"stock\":"
-                    + cantidad
-                    + ",\"precio\":"
-                    + precio
+                    + "{\"ID_pedido\":\""
+                    + PedidoID
+                    + "\",\"Cliente\":\""
+//                    + Cliente
+                    + "\",\"Producto\":\""
+//                    + Producto
+                    + "\",\"Valor_Total\":"
+//                    + Precio
+                    + ",\"Fecha\":"
+                    + fecha_inicio
                     + "}";
             if (i < size) {
                 json = json + ",";
             }
         }
+        
+        return json;
     }
 }
