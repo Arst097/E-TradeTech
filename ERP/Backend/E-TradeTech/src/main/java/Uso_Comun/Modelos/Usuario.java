@@ -53,8 +53,6 @@ public class Usuario implements Serializable {
     private Collection<Despachador> despachadorCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioUsuarioid")
     private Collection<Gestores> gestoresCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioUsuarioid")
-    private Collection<Cliente> clienteCollection;
 
     public Usuario() {
     }
@@ -119,11 +117,11 @@ public class Usuario implements Serializable {
     }
 
     public Collection<Cliente> getClienteCollection() {
-        return clienteCollection;
+        throw new UnsupportedOperationException("Funcion getClienteCollection no disponible, Cliente ya no tiene relacion con usuario.");
     }
 
     public void setClienteCollection(Collection<Cliente> clienteCollection) {
-        this.clienteCollection = clienteCollection;
+        throw new UnsupportedOperationException("Funcion setClienteCollection no disponible, Cliente ya no tiene relacion con usuario.");
     }
 
     @Override
