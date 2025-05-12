@@ -100,7 +100,7 @@ public class Cliente implements Serializable {
         this.Correo = Correo;
     }
     
-    //si algo utiliza alguno de estos dos metodos, hay que cambiarlos o borrarlo
+    //Si algo utiliza alguno de estos dos metodos, hay que cambiarlos o borrarlo
     //Cliente ya no tiene relacion con Usuario
     public Usuario getUsuarioUsuarioid() {
         throw new UnsupportedOperationException("Funcion getUsuarioUsuarioid no disponible, UsuarioUsuarioid ya no existe.");

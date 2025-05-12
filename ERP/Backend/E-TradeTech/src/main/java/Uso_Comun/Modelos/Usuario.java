@@ -116,10 +116,11 @@ public class Usuario implements Serializable {
         this.gestoresCollection = gestoresCollection;
     }
 
+    //Si algo utiliza alguno de estos dos metodos, hay que cambiarlos o borrarlo
+    //Cliente ya no tiene relacion con Usuario
     public Collection<Cliente> getClienteCollection() {
         throw new UnsupportedOperationException("Funcion getClienteCollection no disponible, Cliente ya no tiene relacion con usuario.");
     }
-
     public void setClienteCollection(Collection<Cliente> clienteCollection) {
         throw new UnsupportedOperationException("Funcion setClienteCollection no disponible, Cliente ya no tiene relacion con usuario.");
     }
