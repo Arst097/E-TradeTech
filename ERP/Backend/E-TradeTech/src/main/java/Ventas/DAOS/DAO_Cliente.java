@@ -282,4 +282,8 @@ public class DAO_Cliente implements Serializable {
         }
     }
 
+    public Cliente findNombreByClienteID(int ClienteID) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

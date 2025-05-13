@@ -43,8 +43,7 @@ public class Servicio_HacerVenta {
     //Retorna el precio unitario de un Producto con su ID
     //retorna -1 cuando no se encuentra nada
     public static float Precio_Unitario(int ProductoID) {
-
-        return -1;
+        return inventario.Precio_Unitario(ProductoID);
     }
     
     //Retorna el precio unitario de un Producto con su Modelo
@@ -60,7 +59,7 @@ public class Servicio_HacerVenta {
         
         try{
             if(Status_Code == 0){
-                
+                Pedidos pedido = new Pedidos();
             }
         }catch(Exception e){
             Status_Code = -1;
@@ -94,7 +93,6 @@ public class Servicio_HacerVenta {
     }
     
     private static int Obtener_ProductoID(String ProductoStr){
-        
-        return -1;
+        return inventario.Obtener_ProductoID(ProductoStr);
     }
 }

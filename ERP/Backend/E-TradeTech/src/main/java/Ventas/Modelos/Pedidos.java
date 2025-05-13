@@ -69,6 +69,14 @@ public class Pedidos implements Serializable {
     public Pedidos() {
     }
 
+    public Pedidos(Cliente clienteID) {
+        this.estado = "Solicitado";
+        this.fechainicio = new Date();
+        this.clienteID = clienteID;
+    }
+    
+    
+
     public Pedidos(Integer pedidoID) {
         this.pedidoID = pedidoID;
     }
