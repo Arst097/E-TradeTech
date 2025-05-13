@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Uso_Comun.DAOs;
+package Ventas.DAOS;
 
-import Uso_Comun.Modelos.Pedidos;
-import Uso_Comun.Modelos.Mensajero;
+import Ventas.Modelos.Pedidos;
+import Ventas.Modelos.Mensajero;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
@@ -34,7 +34,6 @@ public class DAO_Mensajero implements Serializable {
     }
 
     public DAO_Mensajero() {
-        this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
     }
     
     private UserTransaction utx = null;
@@ -44,47 +43,47 @@ public class DAO_Mensajero implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Mensajero model_Mensajero) throws PreexistingEntityException, RollbackFailureException, Exception {
-        if (model_Mensajero.getPedidosCollection() == null) {
-            model_Mensajero.setPedidosCollection(new ArrayList<Pedidos>());
-        }
-        EntityManager em = null;
-        try {
-            utx.begin();
-            em = getEntityManager();
-            Collection<Pedidos> attachedPedidosCollection = new ArrayList<Pedidos>();
-            for (Pedidos pedidosCollectionModel_PedidosToAttach : model_Mensajero.getPedidosCollection()) {
-                pedidosCollectionModel_PedidosToAttach = em.getReference(pedidosCollectionModel_PedidosToAttach.getClass(), pedidosCollectionModel_PedidosToAttach.getPedidoID());
-                attachedPedidosCollection.add(pedidosCollectionModel_PedidosToAttach);
-            }
-            model_Mensajero.setPedidosCollection(attachedPedidosCollection);
-            em.persist(model_Mensajero);
-            for (Pedidos pedidosCollectionModel_Pedidos : model_Mensajero.getPedidosCollection()) {
-                Mensajero oldMensajeroIDOfPedidosCollectionModel_Pedidos = pedidosCollectionModel_Pedidos.getMensajeroID();
-                pedidosCollectionModel_Pedidos.setMensajeroID(model_Mensajero);
-                pedidosCollectionModel_Pedidos = em.merge(pedidosCollectionModel_Pedidos);
-                if (oldMensajeroIDOfPedidosCollectionModel_Pedidos != null) {
-                    oldMensajeroIDOfPedidosCollectionModel_Pedidos.getPedidosCollection().remove(pedidosCollectionModel_Pedidos);
-                    oldMensajeroIDOfPedidosCollectionModel_Pedidos = em.merge(oldMensajeroIDOfPedidosCollectionModel_Pedidos);
-                }
-            }
-            utx.commit();
-        } catch (Exception ex) {
-            try {
-                utx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-            }
-            if (findModel_Mensajero(model_Mensajero.getMensajeroID()) != null) {
-                throw new PreexistingEntityException("Model_Mensajero " + model_Mensajero + " already exists.", ex);
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
+//    public void create(Mensajero model_Mensajero) throws PreexistingEntityException, RollbackFailureException, Exception {
+//        if (model_Mensajero.getPedidosCollection() == null) {
+//            model_Mensajero.setPedidosCollection(new ArrayList<Pedidos>());
+//        }
+//        EntityManager em = null;
+//        try {
+//            utx.begin();
+//            em = getEntityManager();
+//            Collection<Pedidos> attachedPedidosCollection = new ArrayList<Pedidos>();
+//            for (Pedidos pedidosCollectionModel_PedidosToAttach : model_Mensajero.getPedidosCollection()) {
+//                pedidosCollectionModel_PedidosToAttach = em.getReference(pedidosCollectionModel_PedidosToAttach.getClass(), pedidosCollectionModel_PedidosToAttach.getPedidoID());
+//                attachedPedidosCollection.add(pedidosCollectionModel_PedidosToAttach);
+//            }
+//            model_Mensajero.setPedidosCollection(attachedPedidosCollection);
+//            em.persist(model_Mensajero);
+//            for (Pedidos pedidosCollectionModel_Pedidos : model_Mensajero.getPedidosCollection()) {
+//                Mensajero oldMensajeroIDOfPedidosCollectionModel_Pedidos = pedidosCollectionModel_Pedidos.getMensajeroID();
+//                pedidosCollectionModel_Pedidos.setMensajeroID(model_Mensajero);
+//                pedidosCollectionModel_Pedidos = em.merge(pedidosCollectionModel_Pedidos);
+//                if (oldMensajeroIDOfPedidosCollectionModel_Pedidos != null) {
+//                    oldMensajeroIDOfPedidosCollectionModel_Pedidos.getPedidosCollection().remove(pedidosCollectionModel_Pedidos);
+//                    oldMensajeroIDOfPedidosCollectionModel_Pedidos = em.merge(oldMensajeroIDOfPedidosCollectionModel_Pedidos);
+//                }
+//            }
+//            utx.commit();
+//        } catch (Exception ex) {
+//            try {
+//                utx.rollback();
+//            } catch (Exception re) {
+//                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+//            }
+//            if (findModel_Mensajero(model_Mensajero.getMensajeroID()) != null) {
+//                throw new PreexistingEntityException("Model_Mensajero " + model_Mensajero + " already exists.", ex);
+//            }
+//            throw ex;
+//        } finally {
+//            if (em != null) {
+//                em.close();
+//            }
+//        }
+//    }
 
     public void edit(Mensajero model_Mensajero) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;

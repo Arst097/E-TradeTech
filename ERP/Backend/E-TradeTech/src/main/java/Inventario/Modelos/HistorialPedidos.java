@@ -4,7 +4,7 @@
  */
 package Inventario.Modelos;
 
-import Uso_Comun.Modelos.Pedidos;
+import Ventas.Modelos.Pedidos;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Uso_Comun.DAOs;
+package Ventas.DAOS;
 
-import Uso_Comun.Modelos.Pedidos;
+import Ventas.Modelos.Pedidos;
 import Uso_Comun.Modelos.Usuario;
-import Uso_Comun.Modelos.Cliente;
+import Ventas.Modelos.Cliente;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
@@ -36,7 +36,6 @@ public class DAO_Cliente implements Serializable {
     }
 
     public DAO_Cliente() {
-        this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
     }
     
     private UserTransaction utx = null;
@@ -46,76 +45,76 @@ public class DAO_Cliente implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Cliente model_Cliente) throws PreexistingEntityException, RollbackFailureException, Exception {
-        if (model_Cliente.getPedidosCollection() == null) {
-            model_Cliente.setPedidosCollection(new ArrayList<Pedidos>());
-        }
-
-        EntityManager em = null;
-        EntityTransaction tx = null;
-
-        try {
-            em = getEntityManager();
-            tx = em.getTransaction();
-            tx.begin();
-
-            // Asociación de Usuario
-            Usuario usuarioUsuarioid = model_Cliente.getUsuarioUsuarioid();
-            if (usuarioUsuarioid != null) {
-                usuarioUsuarioid = em.getReference(usuarioUsuarioid.getClass(), usuarioUsuarioid.getUsuarioid());
-                model_Cliente.setUsuarioUsuarioid(usuarioUsuarioid);
-            }
-
-            // Asociación de Pedidos
-            Collection<Pedidos> attachedPedidosCollection = new ArrayList<>();
-            for (Pedidos pedido : model_Cliente.getPedidosCollection()) {
-                pedido = em.getReference(pedido.getClass(), pedido.getPedidoID());
-                attachedPedidosCollection.add(pedido);
-            }
-            model_Cliente.setPedidosCollection(attachedPedidosCollection);
-
-            // Persistencia
-            em.persist(model_Cliente);
-
-            // Actualización relaciones bidireccionales
-            if (usuarioUsuarioid != null) {
-                usuarioUsuarioid.getClienteCollection().add(model_Cliente);
-                em.merge(usuarioUsuarioid);
-            }
-
-            for (Pedidos pedido : model_Cliente.getPedidosCollection()) {
-                Cliente oldCliente = pedido.getClienteID();
-                pedido.setClienteID(model_Cliente);
-                em.merge(pedido);
-
-                if (oldCliente != null) {
-                    oldCliente.getPedidosCollection().remove(pedido);
-                    em.merge(oldCliente);
-                }
-            }
-
-            tx.commit();
-        } catch (Exception ex) {
-            if (tx != null && tx.isActive()) {
-                try {
-                    tx.rollback();
-                } catch (Exception rbEx) {
-                    throw new RollbackFailureException("Error al hacer rollback de la transacción", rbEx);
-                }
-            }
-
-            // Verificar si es un error de entidad preexistente
-            if (findModel_Cliente(model_Cliente.getClienteID()) != null) {
-                throw new PreexistingEntityException("El cliente ya existe: " + model_Cliente.getClienteID(), ex);
-            }
-
-            throw ex;
-        } finally {
-            if (em != null && em.isOpen()) {
-                em.close();
-            }
-        }
-    }
+//    public void create(Cliente model_Cliente) throws PreexistingEntityException, RollbackFailureException, Exception {
+//        if (model_Cliente.getPedidosCollection() == null) {
+//            model_Cliente.setPedidosCollection(new ArrayList<Pedidos>());
+//        }
+//
+//        EntityManager em = null;
+//        EntityTransaction tx = null;
+//
+//        try {
+//            em = getEntityManager();
+//            tx = em.getTransaction();
+//            tx.begin();
+//
+//            // Asociación de Usuario
+//            Usuario usuarioUsuarioid = model_Cliente.getUsuarioUsuarioid();
+//            if (usuarioUsuarioid != null) {
+//                usuarioUsuarioid = em.getReference(usuarioUsuarioid.getClass(), usuarioUsuarioid.getUsuarioid());
+//                model_Cliente.setUsuarioUsuarioid(usuarioUsuarioid);
+//            }
+//
+//            // Asociación de Pedidos
+//            Collection<Pedidos> attachedPedidosCollection = new ArrayList<>();
+//            for (Pedidos pedido : model_Cliente.getPedidosCollection()) {
+//                pedido = em.getReference(pedido.getClass(), pedido.getPedidoID());
+//                attachedPedidosCollection.add(pedido);
+//            }
+//            model_Cliente.setPedidosCollection(attachedPedidosCollection);
+//
+//            // Persistencia
+//            em.persist(model_Cliente);
+//
+//            // Actualización relaciones bidireccionales
+//            if (usuarioUsuarioid != null) {
+//                usuarioUsuarioid.getClienteCollection().add(model_Cliente);
+//                em.merge(usuarioUsuarioid);
+//            }
+//
+//            for (Pedidos pedido : model_Cliente.getPedidosCollection()) {
+//                Cliente oldCliente = pedido.getClienteID();
+//                pedido.setClienteID(model_Cliente);
+//                em.merge(pedido);
+//
+//                if (oldCliente != null) {
+//                    oldCliente.getPedidosCollection().remove(pedido);
+//                    em.merge(oldCliente);
+//                }
+//            }
+//
+//            tx.commit();
+//        } catch (Exception ex) {
+//            if (tx != null && tx.isActive()) {
+//                try {
+//                    tx.rollback();
+//                } catch (Exception rbEx) {
+//                    throw new RollbackFailureException("Error al hacer rollback de la transacción", rbEx);
+//                }
+//            }
+//
+//            // Verificar si es un error de entidad preexistente
+//            if (findModel_Cliente(model_Cliente.getClienteID()) != null) {
+//                throw new PreexistingEntityException("El cliente ya existe: " + model_Cliente.getClienteID(), ex);
+//            }
+//
+//            throw ex;
+//        } finally {
+//            if (em != null && em.isOpen()) {
+//                em.close();
+//            }
+//        }
+//    }
 
     public void edit(Cliente model_Cliente) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;

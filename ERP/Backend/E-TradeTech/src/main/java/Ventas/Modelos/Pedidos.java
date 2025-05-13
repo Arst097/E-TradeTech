@@ -2,15 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Uso_Comun.Modelos;
+package Ventas.Modelos;
 
 import Uso_Comun.Modelos.Producto;
-import Uso_Comun.Modelos.Mensajero;
-import Uso_Comun.Modelos.Cliente;
+import Ventas.Modelos.Mensajero;
+import Ventas.Modelos.Cliente;
 import Inventario.Modelos.HistorialPedidos;
 import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Despachador;
 import Inventario.Modelos.HistorialPedidos;
+import Uso_Comun.Modelos.Producto;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,8 +22,11 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  *
@@ -43,6 +47,10 @@ public class Pedidos implements Serializable {
     private Integer pedidoID;
     @Column(name = "Estado")
     private String estado;
+    @Basic(optional = false)
+    @Column(name = "Fecha_Inicio")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechainicio;
     @JoinColumn(name = "ClienteID", referencedColumnName = "ClienteID")
     @ManyToOne
     private Cliente clienteID;
@@ -121,6 +129,16 @@ public class Pedidos implements Serializable {
         this.productoCollection = productoCollection;
     }
 
+    public Date getFechainicio() {
+        return fechainicio;
+    }
+
+    public void setFechainicio(Date fechainicio) {
+        this.fechainicio = fechainicio;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

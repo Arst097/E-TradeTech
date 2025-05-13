@@ -10,6 +10,7 @@ import Uso_Comun.Modelos.Usuario;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
+import static Uso_Comun.DAOs.DAO_Usuario.EstablecerConexion;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import java.io.Serializable;
@@ -21,6 +22,11 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.UserTransaction;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -35,7 +41,6 @@ public class DAO_Gestores implements Serializable {
     }
 
     public DAO_Gestores() {
-        this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
     }
 
     private UserTransaction utx = null;
@@ -223,28 +228,43 @@ public class DAO_Gestores implements Serializable {
         }
     }
 
-    public Gestores findGestorByUsuarioId(boolean ch, Integer usuarioId) {
-        System.out.println(usuarioId);
-        if (!ch) {
-            EntityManager em = getEntityManager();
-            try {
-                Query query = em.createQuery(
-                        "SELECT g FROM Gestores g WHERE g.usuarioUsuarioid.usuarioid = :usuarioId"
-                );
-                query.setParameter("usuarioId", usuarioId);
-
-                List<Gestores> resultados = query.getResultList();
-                
-                return resultados.isEmpty() ? null : resultados.get(0);
-            } finally {
-                em.close();
-            }
-        }else{
-            if(usuarioId == 1){
-                return new Gestores();
-            }
+    private static Connection conectar = null;
+    
+    private static final String usuario = "Access";
+    private static final String bd = "ETradeTechDB";
+    private static final String contraseña = "123";
+    private static final String ip = "localhost";
+    private static final String puerto = "1433";
+    
+    public static void EstablecerConexion() {
+        try {
+            String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd + ";" + "encrypt=false";
+            conectar = DriverManager.getConnection(cadena, usuario, contraseña);
+            System.out.println("Conexion Establecida");
+        } catch (Exception e) {
+            System.out.println(e);
         }
-        return null;
+    }
+    
+    public Gestores findGestorByUsuarioId(boolean ch, Integer usuarioId) throws SQLException {
+        
+        if (conectar == null || conectar.isClosed()) {
+            EstablecerConexion();
+        }
+        
+        String query = "SELECT * FROM Gestores WHERE Usuario_Usuario_id = ?";
+        PreparedStatement stmt = conectar.prepareStatement(query);
+        stmt.setString(1, String.valueOf(usuarioId));
+        
+        ResultSet rs = stmt.executeQuery();
+        
+        Gestores gestor = null;
+        if(rs.next()){
+            gestor = new Gestores();
+            gestor.setGestorID(rs.getInt("GestorID"));
+        }
+        
+        return gestor;
     }
 
     public int getModel_GestoresCount() {

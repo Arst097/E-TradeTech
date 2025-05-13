@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Uso_Comun.Modelos;
+package Ventas.Modelos;
 
+import Uso_Comun.Modelos.Usuario;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,11 +39,14 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @Column(name = "Telefono")
     private String telefono;
+    @Basic(optional = false)
+    @Column(name = "Nombre")
+    private String Nombre;
+    @Basic(optional = false)
+    @Column(name = "Correo")
+    private String Correo;
     @OneToMany(mappedBy = "clienteID")
     private Collection<Pedidos> pedidosCollection;
-    @JoinColumn(name = "Usuario_Usuario_id", referencedColumnName = "Usuario_id")
-    @ManyToOne(optional = false)
-    private Usuario usuarioUsuarioid;
 
     public Cliente() {
     }
@@ -80,14 +84,31 @@ public class Cliente implements Serializable {
         this.pedidosCollection = pedidosCollection;
     }
 
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
+    }
+
+    public String getCorreo() {
+        return Correo;
+    }
+
+    public void setCorreo(String Correo) {
+        this.Correo = Correo;
+    }
+    
+    //Si algo utiliza alguno de estos dos metodos, hay que cambiarlos o borrarlo
+    //Cliente ya no tiene relacion con Usuario
     public Usuario getUsuarioUsuarioid() {
-        return usuarioUsuarioid;
+        throw new UnsupportedOperationException("Funcion getUsuarioUsuarioid no disponible, UsuarioUsuarioid ya no existe.");
     }
-
     public void setUsuarioUsuarioid(Usuario usuarioUsuarioid) {
-        this.usuarioUsuarioid = usuarioUsuarioid;
+        throw new UnsupportedOperationException("Funcion setUsuarioUsuarioid no disponible, UsuarioUsuarioid ya no existe.");
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -38,7 +38,6 @@ public class DAO_Almacen implements Serializable {
     }
     
     public DAO_Almacen() {
-        this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
     }
     
     private UserTransaction utx = null;

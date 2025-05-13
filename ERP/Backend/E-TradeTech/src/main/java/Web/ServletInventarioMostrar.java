@@ -5,12 +5,18 @@
 package Web;
 
 
+import Inventario.Servicio_Inventario;
+import Seguridad.Servicio_Seguridad;
+import Uso_Comun.Servicio_Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -57,10 +63,19 @@ public class ServletInventarioMostrar extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        String json = "[" +
-            "{\"id\":\"001\",\"nombre\":\"Laptop HP Pavilion 15\",\"categoria\":\"Computadoras\",\"stock\":15,\"precio\":3000000}," +
-            "{\"id\":\"002\",\"nombre\":\"iPhone 13\",\"categoria\":\"Teléfonos\",\"stock\":10,\"precio\":4500000}" +
-        "]";
+        String Correo = "hernesto.perez@example.com";
+        String ContrasenaPlana = "password123";
+        String ContrasenaSHA256 = Servicio_Seguridad.encryptSHA256(ContrasenaPlana);
+        String Token = "";
+        try {
+            Token = Servicio_Usuario.login(Correo, ContrasenaSHA256, false);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServletInventarioMostrar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        String json;
+        json = Servicio_Inventario.listaproductosJSON(Token);
+        //json = "[{\"id\":\"1\",\"nombre\":\"Apple Watch Series 9\",\"categoria\":\"Otros electronicos\",\"stock\":1,\"precio\":1999.99},{\"id\":\"2\",\"nombre\":\"Dell XPS 13\",\"categoria\":\"Computadoras\",\"stock\":1,\"precio\":4299.0},{\"id\":\"3\",\"nombre\":\"HP Spectre x360\",\"categoria\":\"Computadoras\",\"stock\":1,\"precio\":4599.5},{\"id\":\"4\",\"nombre\":\"iPad Pro 12.9\",\"categoria\":\"Tablets\",\"stock\":1,\"precio\":3299.0},{\"id\":\"5\",\"nombre\":\"iPhone 14 Pro\",\"categoria\":\"Telefonos\",\"stock\":1,\"precio\":3999.99},{\"id\":\"6\",\"nombre\":\"Lenovo ThinkPad X1\",\"categoria\":\"Computadoras\",\"stock\":1,\"precio\":4899.99},{\"id\":\"7\",\"nombre\":\"Nintendo Switch OLED\",\"categoria\":\"Otros electronicos\",\"stock\":1,\"precio\":2499.0},{\"id\":\"8\",\"nombre\":\"Samsung Galaxy S23\",\"categoria\":\"Telefonos\",\"stock\":1,\"precio\":3699.99},{\"id\":\"9\",\"nombre\":\"Samsung Galaxy Tab S8\",\"categoria\":\"Tablets\",\"stock\":1,\"precio\":2999.5},{\"id\":\"10\",\"nombre\":\"Xbox Series X\",\"categoria\":\"Otros electronicos\",\"stock\":1,\"precio\":2999.0}]";
 
         response.getWriter().write(json);
         

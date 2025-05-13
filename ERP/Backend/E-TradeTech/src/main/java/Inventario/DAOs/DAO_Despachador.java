@@ -8,7 +8,7 @@ import Inventario.Modelos.Almacen;
 import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Inventario;
 import Uso_Comun.Modelos.Usuario;
-import Uso_Comun.Modelos.Pedidos;
+import Ventas.Modelos.Pedidos;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
@@ -37,7 +37,6 @@ public class DAO_Despachador implements Serializable {
     }
 
     public DAO_Despachador() {
-        this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
     }
     
     private UserTransaction utx = null;

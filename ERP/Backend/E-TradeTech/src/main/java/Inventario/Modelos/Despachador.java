@@ -5,7 +5,7 @@
 package Inventario.Modelos;
 
 import Uso_Comun.Modelos.Usuario;
-import Uso_Comun.Modelos.Pedidos;
+import Ventas.Modelos.Pedidos;
 import Inventario.Modelos.Almacen;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
