@@ -5,6 +5,7 @@
 package Ventas;
 
 import Ventas.DAOS.*;
+import Ventas.Modelos.*;
 
 /**
  *
@@ -15,11 +16,16 @@ public class Servicio_HacerVenta {
     private static final DAO_Pedidos DAOp = new DAO_Pedidos();
     private static final DAO_Cliente DAOc = new DAO_Cliente();
 
-    //Retorna null si no se encontro ningun Cliente con ese ID
+    //Retorna el nombre de un cliente ingresando su ID
+    //Si no encuentra un cliente, retorna null
     public static String Buscar_Cliente(int ClienteID) {
         try {
-
-            return null;
+            Cliente cliente = DAOc.findNombreByClienteID(ClienteID);
+            if(cliente.equals(null)){
+                return null;
+            }else{
+                return cliente.getNombre();
+            }
         } catch (Exception e) {
             return null;
         }
@@ -28,11 +34,17 @@ public class Servicio_HacerVenta {
     //Retorna una lista con los modelos de todos los productos que estan en algun inventario libre
     //No repite modelos de productos en la lista
     public static String[] Productos_Disponibles() {
-        
+        try{
+            
+        }catch(Exception e){
+            
+        }
         
         
         return null;
     }
+    
+    private static 
 
     //Retorna el precio unitario de un Producto con su ID
     //retorna -1 cuando no se encuentra nada
