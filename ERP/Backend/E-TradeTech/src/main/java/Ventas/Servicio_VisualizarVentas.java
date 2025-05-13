@@ -14,18 +14,23 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
- * @author HP PORTATIL
+ * las funciones publicas son dos 
+ * listapedidosJSON(String) - Ingresa con un token
+ * listapedidosJSON_Directo (int) - Ingresa directamente el ID de USUARIO, no su ID de gestor
+ * 
+ * para ver como esta creado el json que se devuelve, mira la funcion PedidosToJSON
  */
 public class Servicio_VisualizarVentas {
 
-    private static DAO_Pedidos DAOp = new DAO_Pedidos();
+    private static final DAO_Pedidos DAOp = new DAO_Pedidos();
     
+    //retorna un string en formato json con todos los datos disponibles en la tabla Pedidos de la BD
     public static String listapedidosJSON(String Token){
         int UsuarioID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
         return listapedidosJSON(UsuarioID);
     }
     
+    //hace lo mismo que listapedidosJSON pero ingresando directamente el UsuarioID
     public static String listapedidosJSON_Directo(int UsuarioID){
         return listapedidosJSON(UsuarioID);
     }
@@ -36,7 +41,7 @@ public class Servicio_VisualizarVentas {
         if(Usuario_Valido){
             try{
                 List<Pedidos> Todos_los_Pedidos = DAOp.findPedidos();
-                return ListaPedidosToJSON(Todos_los_Pedidos);
+                return PedidosToJSON(Todos_los_Pedidos);
             }catch(Exception e){
                 return "Error al obtener los datos";
             }
@@ -45,7 +50,7 @@ public class Servicio_VisualizarVentas {
         }
     }
     
-    private static String ListaPedidosToJSON(List<Pedidos> pedidos) {
+    private static String PedidosToJSON(List<Pedidos> pedidos) {
         int i = 0;
         int size = pedidos.size();
         String json = "";
