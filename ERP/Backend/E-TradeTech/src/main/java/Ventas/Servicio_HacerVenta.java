@@ -4,6 +4,7 @@
  */
 package Ventas;
 
+import Inventario.Servicio_InventarioVentas;
 import Ventas.DAOS.*;
 import Ventas.Modelos.*;
 
@@ -15,6 +16,8 @@ public class Servicio_HacerVenta {
 
     private static final DAO_Pedidos DAOp = new DAO_Pedidos();
     private static final DAO_Cliente DAOc = new DAO_Cliente();
+    
+    private static final Servicio_InventarioVentas inventario = new Servicio_InventarioVentas();
 
     //Retorna el nombre de un cliente ingresando su ID
     //Si no encuentra un cliente, retorna null
@@ -34,17 +37,8 @@ public class Servicio_HacerVenta {
     //Retorna una lista con los modelos de todos los productos que estan en algun inventario libre
     //No repite modelos de productos en la lista
     public static String[] Productos_Disponibles() {
-        try{
-            
-        }catch(Exception e){
-            
-        }
-        
-        
-        return null;
+        return inventario.Productos_Disponibles();
     }
-    
-    private static 
 
     //Retorna el precio unitario de un Producto con su ID
     //retorna -1 cuando no se encuentra nada

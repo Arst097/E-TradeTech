@@ -4,10 +4,20 @@
  */
 package Inventario;
 
+import Inventario.DAOs.*;
+
+
+
 /**
  *
  * @author HP PORTATIL
  */
 public class Servicio_InventarioVentas {
+    DAO_Inventario DAOi = new DAO_Inventario();
+
+    public String[] Productos_Disponibles() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
     
 }
