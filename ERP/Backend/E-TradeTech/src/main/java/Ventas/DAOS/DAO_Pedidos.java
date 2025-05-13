@@ -47,83 +47,83 @@ public class DAO_Pedidos implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Pedidos model_Pedidos) throws PreexistingEntityException, RollbackFailureException, Exception {
-        if (model_Pedidos.getProductoCollection() == null) {
-            model_Pedidos.setProductoCollection(new ArrayList<Producto>());
-        }
-        EntityManager em = null;
-        try {
-            utx.begin();
-            em = getEntityManager();
-            Cliente clienteID = model_Pedidos.getClienteID();
-            if (clienteID != null) {
-                clienteID = em.getReference(clienteID.getClass(), clienteID.getClienteID());
-                model_Pedidos.setClienteID(clienteID);
-            }
-            Despachador despachadorID = model_Pedidos.getDespachadorID();
-            if (despachadorID != null) {
-                despachadorID = em.getReference(despachadorID.getClass(), despachadorID.getDespachadorID());
-                model_Pedidos.setDespachadorID(despachadorID);
-            }
-            HistorialPedidos historialPredidosID = model_Pedidos.getHistorialPredidosID();
-            if (historialPredidosID != null) {
-                historialPredidosID = em.getReference(historialPredidosID.getClass(), historialPredidosID.getHistorialPredidosID());
-                model_Pedidos.setHistorialPredidosID(historialPredidosID);
-            }
-            Mensajero mensajeroID = model_Pedidos.getMensajeroID();
-            if (mensajeroID != null) {
-                mensajeroID = em.getReference(mensajeroID.getClass(), mensajeroID.getMensajeroID());
-                model_Pedidos.setMensajeroID(mensajeroID);
-            }
-            Collection<Producto> attachedProductoCollection = new ArrayList<Producto>();
-            for (Producto productoCollectionModel_ProductoToAttach : model_Pedidos.getProductoCollection()) {
-                productoCollectionModel_ProductoToAttach = em.getReference(productoCollectionModel_ProductoToAttach.getClass(), productoCollectionModel_ProductoToAttach.getProductoID());
-                attachedProductoCollection.add(productoCollectionModel_ProductoToAttach);
-            }
-            model_Pedidos.setProductoCollection(attachedProductoCollection);
-            em.persist(model_Pedidos);
-            if (clienteID != null) {
-                clienteID.getPedidosCollection().add(model_Pedidos);
-                clienteID = em.merge(clienteID);
-            }
-            if (despachadorID != null) {
-                despachadorID.getPedidosCollection().add(model_Pedidos);
-                despachadorID = em.merge(despachadorID);
-            }
-            if (historialPredidosID != null) {
-                historialPredidosID.getPedidosCollection().add(model_Pedidos);
-                historialPredidosID = em.merge(historialPredidosID);
-            }
-            if (mensajeroID != null) {
-                mensajeroID.getPedidosCollection().add(model_Pedidos);
-                mensajeroID = em.merge(mensajeroID);
-            }
-            for (Producto productoCollectionModel_Producto : model_Pedidos.getProductoCollection()) {
-                Pedidos oldPedidoIDOfProductoCollectionModel_Producto = productoCollectionModel_Producto.getPedidoID();
-                productoCollectionModel_Producto.setPedidoID(model_Pedidos);
-                productoCollectionModel_Producto = em.merge(productoCollectionModel_Producto);
-                if (oldPedidoIDOfProductoCollectionModel_Producto != null) {
-                    oldPedidoIDOfProductoCollectionModel_Producto.getProductoCollection().remove(productoCollectionModel_Producto);
-                    oldPedidoIDOfProductoCollectionModel_Producto = em.merge(oldPedidoIDOfProductoCollectionModel_Producto);
-                }
-            }
-            utx.commit();
-        } catch (Exception ex) {
-            try {
-                utx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-            }
-            if (findModel_Pedidos(model_Pedidos.getPedidoID()) != null) {
-                throw new PreexistingEntityException("Model_Pedidos " + model_Pedidos + " already exists.", ex);
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
+//    public void create(Pedidos model_Pedidos) throws PreexistingEntityException, RollbackFailureException, Exception {
+//        if (model_Pedidos.getProductoCollection() == null) {
+//            model_Pedidos.setProductoCollection(new ArrayList<Producto>());
+//        }
+//        EntityManager em = null;
+//        try {
+//            utx.begin();
+//            em = getEntityManager();
+//            Cliente clienteID = model_Pedidos.getClienteID();
+//            if (clienteID != null) {
+//                clienteID = em.getReference(clienteID.getClass(), clienteID.getClienteID());
+//                model_Pedidos.setClienteID(clienteID);
+//            }
+//            Despachador despachadorID = model_Pedidos.getDespachadorID();
+//            if (despachadorID != null) {
+//                despachadorID = em.getReference(despachadorID.getClass(), despachadorID.getDespachadorID());
+//                model_Pedidos.setDespachadorID(despachadorID);
+//            }
+//            HistorialPedidos historialPredidosID = model_Pedidos.getHistorialPredidosID();
+//            if (historialPredidosID != null) {
+//                historialPredidosID = em.getReference(historialPredidosID.getClass(), historialPredidosID.getHistorialPredidosID());
+//                model_Pedidos.setHistorialPredidosID(historialPredidosID);
+//            }
+//            Mensajero mensajeroID = model_Pedidos.getMensajeroID();
+//            if (mensajeroID != null) {
+//                mensajeroID = em.getReference(mensajeroID.getClass(), mensajeroID.getMensajeroID());
+//                model_Pedidos.setMensajeroID(mensajeroID);
+//            }
+//            Collection<Producto> attachedProductoCollection = new ArrayList<Producto>();
+//            for (Producto productoCollectionModel_ProductoToAttach : model_Pedidos.getProductoCollection()) {
+//                productoCollectionModel_ProductoToAttach = em.getReference(productoCollectionModel_ProductoToAttach.getClass(), productoCollectionModel_ProductoToAttach.getProductoID());
+//                attachedProductoCollection.add(productoCollectionModel_ProductoToAttach);
+//            }
+//            model_Pedidos.setProductoCollection(attachedProductoCollection);
+//            em.persist(model_Pedidos);
+//            if (clienteID != null) {
+//                clienteID.getPedidosCollection().add(model_Pedidos);
+//                clienteID = em.merge(clienteID);
+//            }
+//            if (despachadorID != null) {
+//                despachadorID.getPedidosCollection().add(model_Pedidos);
+//                despachadorID = em.merge(despachadorID);
+//            }
+//            if (historialPredidosID != null) {
+//                historialPredidosID.getPedidosCollection().add(model_Pedidos);
+//                historialPredidosID = em.merge(historialPredidosID);
+//            }
+//            if (mensajeroID != null) {
+//                mensajeroID.getPedidosCollection().add(model_Pedidos);
+//                mensajeroID = em.merge(mensajeroID);
+//            }
+//            for (Producto productoCollectionModel_Producto : model_Pedidos.getProductoCollection()) {
+//                Pedidos oldPedidoIDOfProductoCollectionModel_Producto = productoCollectionModel_Producto.getPedidoID();
+//                productoCollectionModel_Producto.setPedidoID(model_Pedidos);
+//                productoCollectionModel_Producto = em.merge(productoCollectionModel_Producto);
+//                if (oldPedidoIDOfProductoCollectionModel_Producto != null) {
+//                    oldPedidoIDOfProductoCollectionModel_Producto.getProductoCollection().remove(productoCollectionModel_Producto);
+//                    oldPedidoIDOfProductoCollectionModel_Producto = em.merge(oldPedidoIDOfProductoCollectionModel_Producto);
+//                }
+//            }
+//            utx.commit();
+//        } catch (Exception ex) {
+//            try {
+//                utx.rollback();
+//            } catch (Exception re) {
+//                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+//            }
+//            if (findModel_Pedidos(model_Pedidos.getPedidoID()) != null) {
+//                throw new PreexistingEntityException("Model_Pedidos " + model_Pedidos + " already exists.", ex);
+//            }
+//            throw ex;
+//        } finally {
+//            if (em != null) {
+//                em.close();
+//            }
+//        }
+//    }
 
     public void edit(Pedidos model_Pedidos) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
