@@ -4,7 +4,10 @@
  */
 package Ventas;
 
+import Inventario.Servicio_Inventario;
+import Seguridad.Servicio_Seguridad;
 import Uso_Comun.Modelos.Producto;
+import Ventas.DAOS.DAO_Pedidos;
 import Ventas.Modelos.Pedidos;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,7 +19,29 @@ import java.util.List;
  */
 public class Servicio_VisualizarVentas {
 
-    private String ListaPedidosToJSON(List<Pedidos> pedidos) {
+    private static DAO_Pedidos DAOp = new DAO_Pedidos();
+    
+    public static String listapedidosJSON(String Token){
+        int UsuarioID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
+        return listapedidosJSON(UsuarioID);
+    }
+    
+    private static String listapedidosJSON(int UsuarioID) {
+        boolean Usuario_Valido = Servicio_Inventario.UsuarioIsGestor(UsuarioID);
+        
+        if(Usuario_Valido){
+            try{
+                List<Pedidos> Todos_los_Pedidos = DAOp.findPedidos();
+                return ListaPedidosToJSON(Todos_los_Pedidos);
+            }catch(Exception e){
+                return "Error al obtener los datos";
+            }
+        }else{
+            return "El usuario no es valido";
+        }
+    }
+    
+    private static String ListaPedidosToJSON(List<Pedidos> pedidos) {
         int i = 0;
         int size = pedidos.size();
         String json = "";

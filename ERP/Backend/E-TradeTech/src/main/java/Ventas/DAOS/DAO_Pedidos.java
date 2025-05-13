@@ -288,7 +288,7 @@ public class DAO_Pedidos implements Serializable {
             }
         }
     }
-
+    
     public List<Pedidos> findModel_PedidosEntities() {
         return findModel_PedidosEntities(true, -1, -1);
     }
@@ -333,6 +333,10 @@ public class DAO_Pedidos implements Serializable {
         } finally {
             em.close();
         }
+    }
+
+    public List<Pedidos> findPedidos() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }
