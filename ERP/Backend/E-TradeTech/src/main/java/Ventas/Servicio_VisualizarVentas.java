@@ -26,6 +26,10 @@ public class Servicio_VisualizarVentas {
         return listapedidosJSON(UsuarioID);
     }
     
+    public static String listapedidosJSON_Directo(int UsuarioID){
+        return listapedidosJSON(UsuarioID);
+    }
+    
     private static String listapedidosJSON(int UsuarioID) {
         boolean Usuario_Valido = Servicio_Inventario.UsuarioIsGestor(UsuarioID);
         
