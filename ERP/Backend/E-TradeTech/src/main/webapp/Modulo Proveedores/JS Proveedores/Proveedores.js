@@ -2,7 +2,7 @@ $(document).ready(function () {
  
     function cargarProveedores() {
         $.ajax({
-            url:'http://localhost:8080/E-TradeTech/ServletProveedoresMostrar',
+            url:'http://localhost:5077/E-TradeTech/ServletProveedoresMostrar',
             method: 'GET',
 //            dataType: 'json',
             success: function (data) {
@@ -43,27 +43,27 @@ $(document).ready(function () {
         cargarProveedores();
     });
     
-    $('#formularioProducto').on('submit', function (e) {
-        e.preventDefault(); // Evita el envío normal del formulario
+    $('#btnAgregarProveedor').click(function() {
+//        e.preventDefault(); // Evita el envío normal del formulario
 
         // Recoger datos
-        const nombre = $('input[id="Nom_producto"]').val();
-        const categoria = $('select[id="categoria2"]').val();
-        const stock = $('input[id="Can_Producto"]').val();
-        const precio = $('input[id="Precio_producto"]').val();
+        const nombre = $('#nombre').val();
+        const Status = $('#Status').val();
+        const telefono = $('#telefono').val();
+        const descripcion = $('#descripcion').val();
+        const oferta = $('#oferta').val();
 
-        // Verifica que se estén recogiendo bien
-        console.log({ nombre, categoria, stock, precio });
 
         // Aquí puedes hacer un AJAX, por ejemplo:
         $.ajax({
-            url: 'http://localhost:8080/E-TradeTech/ServletAgregarProductos',
+            url: 'http://localhost:5077/E-TradeTech/ServletAgregarProveedor',
             method: 'POST',
             data: {
                 nombre: nombre,
-                categoria: categoria,
-                stock: stock,
-                precio: precio
+                Status: Status,
+                telefono: telefono,
+                descripcion: descripcion,
+                oferta:oferta
             },
             success: function (respuesta) {
                 alert(respuesta);

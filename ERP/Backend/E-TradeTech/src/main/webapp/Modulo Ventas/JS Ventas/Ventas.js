@@ -37,35 +37,34 @@ $(document).ready(function () {
     // tu código aquí
     cargarEmpleado();
     });
-    $('#formularioProducto').on('submit', function (e) {
-        e.preventDefault(); // Evita el envío normal del formulario
+    $("#btnEnviar").click(function() {
+            idCliente = $("#IdClientes").val(),
+            nombreCliente = $("#nombreClienteInput").val(),
+            producto = $("#categoria2").val(),
+            cantidad = $("#cantidad").val(),
+            valorUnitario = $("#valorUnitario").val(),
+            total= $("#total").val();
+        
 
-        // Recoger datos
-        const nombre = $('input[id="Nom_producto"]').val();
-        const categoria = $('select[id="categoria2"]').val();
-        const stock = $('input[id="Can_Producto"]').val();
-        const precio = $('input[id="Precio_producto"]').val();
-
-        // Verifica que se estén recogiendo bien
-        console.log({ nombre, categoria, stock, precio });
-
-        // Aquí puedes hacer un AJAX, por ejemplo:
         $.ajax({
-            url: 'http://localhost:5077/E-TradeTech/ServletAgregarProductos',
-            method: 'POST',
-            data: {
-                nombre: nombre,
-                categoria: categoria,
-                stock: stock,
-                precio: precio
+            url: 'http://localhost:5077/E-TradeTech/ServletHacerVenta', // Cambia si tu servlet tiene otra ruta
+            type: "POST",
+//            contentType: "application/json",
+            data:{
+                idCliente: idCliente,
+                nombreCliente: nombreCliente,
+                producto: producto,
+                cantidad: cantidad,
+                valorUnitario:valorUnitario,
+                total:total
             },
-            success: function (respuesta) {
-                alert(respuesta);
-                // recargar tabla, cerrar modal, etc.
+            success: function(response) {
+                alert("Venta realizada exitosamente.");
+                console.log("Respuesta del servidor:", response);
             },
-            error: function (xhr) {
-                alert("Error al agregar producto");
-                console.error(xhr.responseText);
+            error: function(xhr, status, error) {
+                alert("Error al realizar la venta.");
+                console.error("Error:", error);
             }
         });
     });

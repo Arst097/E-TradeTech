@@ -10,12 +10,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 
 /**
  *
  * @author Kevin Zambrano
  */
-public class ServletMostrarVentas extends HttpServlet {
+public class ServletHacerVenta extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,19 +35,55 @@ public class ServletMostrarVentas extends HttpServlet {
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
-//            out.println("<title>Servlet ServletMostrarVentas</title>");
+//            out.println("<title>Servlet ServletHacerVenta</title>");
 //            out.println("</head>");
 //            out.println("<body>");
-//            out.println("<h1>Servlet ServletMostrarVentas at " + request.getContextPath() + "</h1>");
+//            out.println("<h1>Servlet ServletHacerVenta at " + request.getContextPath() + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        String json = "[" +
-            "{\"id\":\"001\",\"IdCliente\":\"María Gómez\",\"Productos\":\"test\",\"valorTotal\":2500000,\"FechaIN\":\"2023-05-10\"}," +
-            "{\"id\":\"001\",\"IdCliente\":\"Test\",\"Productos\":\"test\",\"valorTotal\":4714000,\"FechaIN\":\"2020-03-15\"}" +
-        "]";
-        response.getWriter().write(json);
+//            BufferedReader reader = request.getReader();
+//            StringBuilder sb = new StringBuilder();
+//            String line;
+
+//            while ((line = reader.readLine()) != null) {
+//                sb.append(line);
+//            }
+//
+//            String jsonData = sb.toString();
+//            System.out.println("Datos recibidos: " + jsonData);
+//
+//            // Puedes usar Gson para convertir jsonData a objeto Java si quieres
+//
+//            response.setContentType("application/json");
+//            response.setCharacterEncoding("UTF-8");
+//            response.getWriter().write("{\"mensaje\": \"Venta procesada con éxito\"}");
+        String idCliente = request.getParameter("idCliente");
+        String nombreCliente = request.getParameter("nombreCliente");
+        String producto = request.getParameter("producto");
+        String cantidad  = request.getParameter("cantidad");
+        String valorUnitario  = request.getParameter("valorUnitario");
+        String total  = request.getParameter("total");
+
+        try {
+//            int stock = Integer.parseInt(stockStr);
+//            var precio = Double.parseDouble(precioStr);
+
+            // Aquí puedes guardar el producto, por ejemplo en una base de datos
+            System.out.println("Producto recibido:");
+            System.out.println("idCliente: " + idCliente);
+            System.out.println("nombreCliente: " + nombreCliente);
+            System.out.println("producto: " + producto);
+            System.out.println("cantidad: " + cantidad);
+            System.out.println("valorUnitario: " + valorUnitario);
+            System.out.println("total: " + total);
+
+            // Si quieres enviar una respuesta al cliente (por ejemplo, AJAX)
+            response.setContentType("text/plain");
+            response.getWriter().write("Producto agregado correctamente");
+
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Stock o precio inválidos.");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

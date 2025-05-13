@@ -76,19 +76,20 @@
         <form action="">
             <h1>Agregar nuevo Proveedor</h1>
             <h2>Nombre</h2>
-            <input type="text">
+            <input type="text" id="nombre">
             <h2>Status</h2>
             <select id="Status" name="Filtrar">
                 <option value="Activo">Activo</option>
                 <option value="Inactivo">Inactivo</option>
             </select>
             <h2>Telefono</h2>
-            <input type="text">
+            <input type="text" id="telefono">
             <h2>Descripción</h2>
-            <input type="text">
+            <input type="text" id="descripcion">
             <h2>Oferta</h2>
-            <input type="text"><br>
-            <a href=""> <input id="Aceptar" type="button" value="Agregar Proveedor"></a>
+            <input type="text" id="oferta"><br>
+            <!--  <a href=""> <input id="Aceptar" type="button" value="Agregar Proveedor"></a>-->
+            <button type="button" id="btnAgregarProveedor">Agregar Proveedor</button>
             <button onclick="cerrarFormularioProveedores()" id="Cancelar">Cancelar </button>
         </form>
     </div>

@@ -80,22 +80,22 @@
     </div>
 
     <div class="Formulario" id="Formulario">
-        <form>
+        <form id="formEmpleado"> 
             <h1>Agregar Empleado</h1>
             <h2>Nombre</h2>
-            <input type="text">
+            <input type="text" id="nombre">
             <h2>Departamento</h2>
-            <select id="departamento2">
+            <select  id="departamento">
                 <option value="administracion">Administración</option>
                 <option value="ventas">Ventas</option>
                 <option value="finanzas">Finanzas</option>
                 <option value="otros">Otros</option>
             </select>
             <h2>Salario</h2>
-            <input type="number">
+            <input type="number" id="salario">
             <h2>Fecha de Ingreso</h2>
-            <input type="date"><br>
-            <input id="Aceptar" type="button" value="Agregar Empleado">
+            <input type="date"  id="fechaIngreso"><br>
+            <input id="btnAgregarEmpleado" type="button" value="Agregar Empleado">
             <button id="Cancelar" onclick="cerrarFormulario()">Cancelar</button>
         </form>
     </div>

@@ -38,35 +38,29 @@ $(document).ready(function () {
     // tu código aquí
     cargarEmpleado();
     });
-    $('#formularioProducto').on('submit', function (e) {
-        e.preventDefault(); // Evita el envío normal del formulario
+    $('#btnAgregarEmpleado').click(function() {
+            nombre = $("#nombre").val(),
+            departamento = $("#departamento").val(),
+            salario = $("#salario").val(),
+            fechaIngreso = $("#fechaIngreso").val(),
 
-        // Recoger datos
-        const nombre = $('input[id="Nom_producto"]').val();
-        const categoria = $('select[id="categoria2"]').val();
-        const stock = $('input[id="Can_Producto"]').val();
-        const precio = $('input[id="Precio_producto"]').val();
-
-        // Verifica que se estén recogiendo bien
-        console.log({ nombre, categoria, stock, precio });
-
-        // Aquí puedes hacer un AJAX, por ejemplo:
         $.ajax({
-            url: 'http://localhost:5077/E-TradeTech/ServletAgregarProductos',
-            method: 'POST',
-            data: {
+            url: 'http://localhost:5077/E-TradeTech/ServletAgregarEmpleado', // Cambia si tu servlet tiene otra ruta
+            type: "POST",
+//            contentType: "application/json",
+            data:{
                 nombre: nombre,
-                categoria: categoria,
-                stock: stock,
-                precio: precio
+                departamento: departamento,
+                salario: salario,
+                fechaIngreso:fechaIngreso
             },
-            success: function (respuesta) {
-                alert(respuesta);
-                // recargar tabla, cerrar modal, etc.
+            success: function(response) {
+                alert("Venta realizada exitosamente.");
+                console.log("Respuesta del servidor:", response);
             },
-            error: function (xhr) {
-                alert("Error al agregar producto");
-                console.error(xhr.responseText);
+            error: function(xhr, status, error) {
+                alert("Error al realizar la venta.");
+                console.error("Error:", error);
             }
         });
     });

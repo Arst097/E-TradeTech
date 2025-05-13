@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Kevin Zambrano
  */
-public class ServletMostrarVentas extends HttpServlet {
+public class ServletAgregarProveedor extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,19 +34,38 @@ public class ServletMostrarVentas extends HttpServlet {
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
-//            out.println("<title>Servlet ServletMostrarVentas</title>");
+//            out.println("<title>Servlet ServletAgregarProveedor</title>");
 //            out.println("</head>");
 //            out.println("<body>");
-//            out.println("<h1>Servlet ServletMostrarVentas at " + request.getContextPath() + "</h1>");
+//            out.println("<h1>Servlet ServletAgregarProveedor at " + request.getContextPath() + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        String json = "[" +
-            "{\"id\":\"001\",\"IdCliente\":\"María Gómez\",\"Productos\":\"test\",\"valorTotal\":2500000,\"FechaIN\":\"2023-05-10\"}," +
-            "{\"id\":\"001\",\"IdCliente\":\"Test\",\"Productos\":\"test\",\"valorTotal\":4714000,\"FechaIN\":\"2020-03-15\"}" +
-        "]";
-        response.getWriter().write(json);
+//        }
+        String nombre = request.getParameter("nombre");
+        String Status = request.getParameter("Status");
+        String telefono = request.getParameter("telefono");
+        String descripcion = request.getParameter("descripcion");
+        String oferta = request.getParameter("oferta");
+
+        try {
+//            int stock = Integer.parseInt(stockStr);
+//            var precio = Double.parseDouble(precioStr);
+
+            // Aquí puedes guardar el producto, por ejemplo en una base de datos
+            System.out.println("Producto recibido:");
+            System.out.println("nombre: " + nombre);
+            System.out.println("Status: " + Status);
+            System.out.println("Stock: " + telefono);
+            System.out.println("descripcion: " + descripcion);
+            System.out.println("oferta: " + oferta);
+
+            // Si quieres enviar una respuesta al cliente (por ejemplo, AJAX)
+            response.setContentType("text/plain");
+            response.getWriter().write("Producto agregado correctamente");
+
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Stock o precio inválidos.");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

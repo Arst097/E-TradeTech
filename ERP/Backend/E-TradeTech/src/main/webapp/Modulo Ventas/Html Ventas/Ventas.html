@@ -63,15 +63,15 @@
     </div>
       <div class="FormularioVen" id="FormularioVen" style="display: none;">
         <div class="formulario-contenido"> 
-        <form>       
+        <form id="formVenta">       
         <span class="close" onclick="cerrarFormularioVen()">&times;</span>
         <h2>Realizar Venta</h2>
-        <label for="idEmpleado">ID Cliente:</label>
-        <input type="text" placeholder="Ingrese ID del empleado">
+        <label for="idEmpleado" >ID Cliente:</label>
+        <input type="text" placeholder="Ingrese ID del empleado" id="IdClientes" name="idCliente">
         <button>Buscar Cliente</button>
         <h4>Nombre Cliente:</h4>
-        <label for="NombreEmpleado"></label>
-        <input type="text">
+        <label for="NombreEmpleado" id="NombreCliente"></label>
+        <input type="text" id="nombreClienteInput">
         <table>
         <thead>
                 <tr>
@@ -83,20 +83,25 @@
                 </tr>
          </thead>
          <tr>
-            <td><select id="categoria2">
+             <td><select id="categoria2">
               <option value="computadoras">Computadoras</option>
               <option value="telefonos">Teléfonos</option>
               <option value="tablets">Tablets</option>
               <option value="otros">Otros electrónicos</option>
             </select></td>
             <td>
-                <input type="number" name="name">
+                <input type="number"  id="cantidad" name="name">
             </td>
-            <td> <input type="text" name="name"></td>
-                <td> <input type="text" name="name"></td>
+            <td> 
+                <input type="text" id="valorUnitario" name="name">
+            </td>
+                <td> 
+                    <input type="text" id="total" name="name">
+                
+                </td>
                 </tr>  
          </table>
-        <button onclick="generarCensantias()">Realizar Compra</button>
+        <button  id="btnEnviar">Realizar Compra</button>
     </form>
     </div>
  </div>
@@ -121,8 +126,8 @@
             <button id="Cancelar" onclick="cerrarFormularioEditar()">Cancelar</button>
         </form>
     </div>
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script src="../JS Ventas/Ventas.js"></script>
-     
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../JS Ventas/Ventas.js"></script> 
 </body>
 </html>
