@@ -209,4 +209,15 @@ public class Servicio_Inventario {
         System.out.println("UsuarioID: "+UsuarioID);
         return CrearMontoProductos(UsuarioID, nombre, categoria, StockStr, PrecioStr);
     }
+    
+    public static boolean UsuarioIsGestor(int UsuarioID){
+        int GestorID = -1;
+        try {
+            GestorID = DAOg.findGestorByUsuarioId(false, UsuarioID).getGestorID();
+        } catch (SQLException ex) {
+            Logger.getLogger(Servicio_Inventario.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return GestorID > 0;
+    }
 }
