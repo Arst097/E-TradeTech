@@ -8,8 +8,11 @@ import Inventario.DAOs.*;
 import Inventario.Modelos.Inventario;
 import Uso_Comun.DAOs.DAO_Producto;
 import Uso_Comun.Modelos.Producto;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -24,7 +27,13 @@ public class Servicio_InventarioVentas {
     public List<Producto> Productos_Disponibles() {
         List<Producto> productosDisponibles = new ArrayList<>();
         
-        List<Inventario> inventarios = DAOi.findInventariosLibres();
+        List<Inventario> inventarios = null;
+        try {
+            inventarios = DAOi.findInventariosLibres();
+        } catch (SQLException ex) {
+            Logger.getLogger(Servicio_InventarioVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         for(Inventario inventario : inventarios){
             List<Producto> productosInstancia = new ArrayList<>(inventario.getProductoCollection());
             for(Producto producto : productosInstancia){

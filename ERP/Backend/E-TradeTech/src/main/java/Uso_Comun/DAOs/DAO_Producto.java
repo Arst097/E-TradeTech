@@ -11,6 +11,7 @@ import Ventas.Modelos.Pedidos;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
+import Ventas.DAOS.DAO_Pedidos;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import java.io.Serializable;
@@ -143,7 +144,7 @@ public class DAO_Producto implements Serializable {
                 System.out.println("Obteniendo una id");
                 //List<Producto> AllProducto = findModel_ProductoEntities();
                 //int nuevoID = AllProducto.get(AllProducto.size() - 1).getProductoID() + 1;
-                int tamañoLista = this.findTamañoDeTabla()+1;
+                int tamañoLista = this.findTamañoDeTabla() + 1;
                 producto.setProductoID(tamañoLista);
                 System.out.println("Nuevo Id escogido:" + tamañoLista);
             }
@@ -172,7 +173,7 @@ public class DAO_Producto implements Serializable {
                 }
             }
             query = query + ");";
-            
+
             System.out.println(query);
 
             Integer productoID = producto.getProductoID();
@@ -261,36 +262,36 @@ public class DAO_Producto implements Serializable {
             }
         }
     }
-    
-    private Boolean canEdit(Producto producto){
+
+    private Boolean canEdit(Producto producto) {
         boolean check_productoID = producto.getProductoID().equals(null) || (producto.getProductoID() <= 0);
         boolean check_categoria = producto.getCategoria().isBlank();
         boolean check_fechaEntrada = producto.getFechaEntrada().equals(null);
         boolean check_inventarioID = producto.getInventarioID().equals(null) || (producto.getInventarioID().getInventarioID() <= 0);
         boolean check_modelo = producto.getModelo().isBlank();
-        boolean check_pedidoID = producto.getPedidoID().equals(null) || (producto.getPedidoID().getPedidoID() <=0);
+        boolean check_pedidoID = producto.getPedidoID().equals(null) || (producto.getPedidoID().getPedidoID() <= 0);
         boolean check_precio = producto.getPrecio().equals(null) || (producto.getPrecio() <= 0);
-        
+
         boolean canEdit = check_productoID && check_categoria && check_fechaEntrada && check_inventarioID && check_modelo && check_pedidoID && check_precio;
-        
+
         System.out.println("El objeto puede editar: " + canEdit
-                         + "check_productoID = " + check_productoID
-                         + "check_categoria" + check_categoria
-                         + "check_fechaEntrada" + check_fechaEntrada
-                         + "check_inventarioID" + check_inventarioID
-                         + "check_modelo" + check_modelo
-                         + "check_pedidoID" + check_pedidoID
-                         + "check_precio" + check_precio);
-        
-        return canEdit; 
+                + "check_productoID = " + check_productoID
+                + "check_categoria" + check_categoria
+                + "check_fechaEntrada" + check_fechaEntrada
+                + "check_inventarioID" + check_inventarioID
+                + "check_modelo" + check_modelo
+                + "check_pedidoID" + check_pedidoID
+                + "check_precio" + check_precio);
+
+        return canEdit;
     }
-    
-    public void edit(Producto producto){
+
+    public void edit(Producto producto) {
         System.out.println("Entra a metodo edit de Productos");
-        if(canEdit(producto)){
-            
+        if (canEdit(producto)) {
+
         }
-        
+
     }
 
     public void fdestroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
@@ -421,26 +422,26 @@ public class DAO_Producto implements Serializable {
         }
         return resultados;
     }
-    
-    public int findTamañoDeTabla() throws SQLException{
+
+    public int findTamañoDeTabla() throws SQLException {
         if (conectar == null || conectar.isClosed()) {
             EstablecerConexion();
         }
-        
+
         String query
                 = "SELECT "
                 + "COUNT(*) AS cantidad "
                 + "FROM Producto";
-        
+
         PreparedStatement stmt = conectar.prepareStatement(query);
 
         ResultSet rs = stmt.executeQuery();
-        
+
         int tamañoTabla = 0;
-        if(rs.next()){
+        if (rs.next()) {
             tamañoTabla = rs.getInt("cantidad");
         }
-        
+
         return tamañoTabla;
     }
 
@@ -458,19 +459,90 @@ public class DAO_Producto implements Serializable {
     }
 
     public Producto findProducto(int productoID) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
+
+            String query = "SELECT * FROM Producto WHERE ProductoID = ?;";
+            PreparedStatement stmt = conectar.prepareStatement(query);
+            stmt.setString(1, String.valueOf(productoID));
+
+            ResultSet rs = stmt.executeQuery();
+
+            Producto producto = null;
+            if (rs.next()) {
+                producto = new Producto();
+                producto.setProductoID(rs.getInt("ProductoID"));
+
+                Inventario inventario = new Inventario(rs.getInt("InventarioID"));
+                producto.setInventarioID(inventario);
+
+                Integer pedidoID = rs.getInt("PedidoID");
+                if (!pedidoID.equals(null)) {
+                    DAO_Pedidos DAOp = new DAO_Pedidos();
+                    producto.setPedidoID(DAOp.findPedido(pedidoID));
+                }
+
+                producto.setModelo(rs.getString("Modelo"));
+                producto.setFechaEntrada(rs.getDate("Fecha_Entrada"));
+                producto.setPrecio(rs.getFloat("Precio"));
+                producto.setCategoria(rs.getString("Categoria"));
+
+            }
+
+            return producto;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
-    public List<Producto> findProductosByModelo(int ProductoStr) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+    //public List<Producto> findProductosByModelo(int ProductoStr) {}
     public void edit(List<Producto> productos) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public List<Producto> findProductoByModelo(String ProductoStr) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Producto> findProductoByModelo(String Modelo) {
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
+
+            String query = "SELECT * FROM Producto WHERE Modelo = ?;";
+            PreparedStatement stmt = conectar.prepareStatement(query);
+            stmt.setString(1, String.valueOf(Modelo));
+
+            ResultSet rs = stmt.executeQuery();
+
+            List<Producto> productos = new ArrayList<>();
+            while(rs.next()) {
+                Producto producto = new Producto();
+                producto.setProductoID(rs.getInt("ProductoID"));
+
+                Inventario inventario = new Inventario(rs.getInt("InventarioID"));
+                producto.setInventarioID(inventario);
+
+                Integer pedidoID = rs.getInt("PedidoID");
+                if (!pedidoID.equals(null)) {
+                    DAO_Pedidos DAOp = new DAO_Pedidos();
+                    producto.setPedidoID(DAOp.findPedido(pedidoID));
+                }
+
+                producto.setModelo(rs.getString("Modelo"));
+                producto.setFechaEntrada(rs.getDate("Fecha_Entrada"));
+                producto.setPrecio(rs.getFloat("Precio"));
+                producto.setCategoria(rs.getString("Categoria"));
+
+                productos.add(producto);
+            }
+
+            return productos;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
     }
 
 }
