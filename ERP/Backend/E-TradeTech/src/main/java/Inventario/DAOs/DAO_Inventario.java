@@ -51,13 +51,13 @@ public class DAO_Inventario implements Serializable {
     private EntityManagerFactory emf = null;
 
     private static Connection conectar = null;
-    
+
     private static final String usuario = "Access";
     private static final String bd = "ETradeTechDB";
     private static final String contraseña = "123";
     private static final String ip = "localhost";
     private static final String puerto = "1433";
-    
+
     public static void EstablecerConexion() {
         try {
             String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd + ";" + "encrypt=false";
@@ -67,7 +67,7 @@ public class DAO_Inventario implements Serializable {
             System.out.println(e);
         }
     }
-    
+
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
@@ -179,7 +179,7 @@ public class DAO_Inventario implements Serializable {
             }
         }
     }
-    
+
     public void edit(Inventario model_Inventario) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
@@ -439,29 +439,29 @@ public class DAO_Inventario implements Serializable {
             em.close();
         }
     }
-    
+
     public List<Inventario> findInvetarioByGestor(Integer GestorID) throws SQLException {
         if (conectar == null || conectar.isClosed()) {
             EstablecerConexion();
         }
-        
+
         String query = "SELECT i.* FROM Inventario i join Almacen a on i.AlmacenID = a.AlmacenID join Gestores g on g.AlmacenID = a.AlmacenID where GestorID = ?;";
         PreparedStatement stmt = conectar.prepareStatement(query);
         stmt.setString(1, String.valueOf(GestorID));
-        
+
         ResultSet rs = stmt.executeQuery();
-        
+
         List<Inventario> inventarios = new ArrayList<Inventario>();
         int i = 0;
-        while(rs.next()){
+        while (rs.next()) {
             i++;
             Inventario inventario = new Inventario();
             inventario.setInventarioID(rs.getInt("InventarioID"));
             inventario.setTipo(rs.getString("tipo"));
-            
+
             inventarios.add(inventario);
         }
-        if (i==0){
+        if (i == 0) {
             inventarios = null;
         }
         return inventarios;
@@ -480,7 +480,29 @@ public class DAO_Inventario implements Serializable {
         }
     }
 
-    public List<Inventario> findInventariosLibres() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Inventario> findInventariosLibres() throws SQLException {
+        if (conectar == null || conectar.isClosed()) {
+            EstablecerConexion();
+        }
+        
+        String query = "SELECT i.* FROM Inventario i where tipo = 'Libre';";
+        PreparedStatement stmt = conectar.prepareStatement(query);
+        
+        ResultSet rs = stmt.executeQuery();
+
+        List<Inventario> inventarios = new ArrayList<Inventario>();
+        int i = 0;
+        while (rs.next()) {
+            i++;
+            Inventario inventario = new Inventario();
+            inventario.setInventarioID(rs.getInt("InventarioID"));
+            inventario.setTipo(rs.getString("tipo"));
+
+            inventarios.add(inventario);
+        }
+        if (i == 0) {
+            inventarios = null;
+        }
+        return inventarios;
     }
 }
