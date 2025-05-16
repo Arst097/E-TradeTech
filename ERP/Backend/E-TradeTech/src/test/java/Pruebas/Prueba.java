@@ -47,15 +47,15 @@ public class Prueba {
 
     }
 
-    private static void pruebaProductoInventario() {
-        DAO_Producto dao = new DAO_Producto();
-
-        List<Producto> lista = dao.findProductoByInventario(1);
-
-        for (Producto producto : lista) {
-            System.out.println(producto.getProductoID() + ": " + producto.getModelo());
-        }
-    }
+//    private static void pruebaProductoInventario() {
+//        DAO_Producto dao = new DAO_Producto();
+//
+//        List<Producto> lista = dao.findProductoByInventario(1);
+//
+//        for (Producto producto : lista) {
+//            System.out.println(producto.getProductoID() + ": " + producto.getModelo());
+//        }
+//    }
 
     private static String pruebaInventarioGestor(String Token) {
         DAO_Inventario dao = new DAO_Inventario();

@@ -42,16 +42,8 @@ import java.util.logging.Logger;
  */
 public class DAO_Producto implements Serializable {
 
-    public DAO_Producto(UserTransaction utx, EntityManagerFactory emf) {
-        this.utx = utx;
-        this.emf = emf;
-    }
-
     public DAO_Producto() {
     }
-
-    private UserTransaction utx = null;
-    private EntityManagerFactory emf = null;
 
     private static Connection conectar = null;
 
@@ -68,68 +60,6 @@ public class DAO_Producto implements Serializable {
             System.out.println("Conexion Establecida");
         } catch (Exception e) {
             System.out.println(e);
-        }
-    }
-
-    public EntityManager getEntityManager() {
-        return emf.createEntityManager();
-    }
-
-    //no funciona, es el que utiliza JSA y desactive eso
-    public void fcreate(Producto model_Producto) throws PreexistingEntityException, RollbackFailureException, Exception {
-        System.out.println("Entrando a funcion Create");
-
-        EntityManager em = null;
-        EntityTransaction tx = null;
-        try {
-            em = getEntityManager();
-            tx = em.getTransaction();
-            tx.begin();
-
-            Inventario inventarioID = model_Producto.getInventarioID();
-            System.out.println("Desde Create: " + inventarioID);
-            if (inventarioID != null) {
-                inventarioID = em.getReference(inventarioID.getClass(), inventarioID.getInventarioID());
-                model_Producto.setInventarioID(inventarioID);
-                System.out.println("Desde Create: " + inventarioID);
-            }
-
-            Pedidos pedidoID = model_Producto.getPedidoID();
-            System.out.println("Entrando a if pedidoID");
-            if (pedidoID != null) {
-                pedidoID = em.getReference(pedidoID.getClass(), pedidoID.getPedidoID());
-                model_Producto.setPedidoID(pedidoID);
-            }
-
-            em.persist(model_Producto);
-
-            if (inventarioID != null) {
-                inventarioID.getProductoCollection().add(model_Producto);
-                em.merge(inventarioID);
-            }
-            if (pedidoID != null) {
-                pedidoID.getProductoCollection().add(model_Producto);
-                em.merge(pedidoID);
-            }
-
-            tx.commit();
-        } catch (Exception ex) {
-            System.out.println(ex);
-            if (tx != null && tx.isActive()) {
-                try {
-                    tx.rollback();
-                } catch (Exception re) {
-                    throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-                }
-            }
-            if (findModel_Producto(model_Producto.getProductoID()) != null) {
-                throw new PreexistingEntityException("Producto " + model_Producto + " already exists.", ex);
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
         }
     }
 
@@ -206,63 +136,6 @@ public class DAO_Producto implements Serializable {
         }
     }
 
-    public void fedit(Producto model_Producto) throws NonexistentEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
-        try {
-            utx.begin();
-            em = getEntityManager();
-            Producto persistentModel_Producto = em.find(Producto.class, model_Producto.getProductoID());
-            Inventario inventarioIDOld = persistentModel_Producto.getInventarioID();
-            Inventario inventarioIDNew = model_Producto.getInventarioID();
-            Pedidos pedidoIDOld = persistentModel_Producto.getPedidoID();
-            Pedidos pedidoIDNew = model_Producto.getPedidoID();
-            if (inventarioIDNew != null) {
-                inventarioIDNew = em.getReference(inventarioIDNew.getClass(), inventarioIDNew.getInventarioID());
-                model_Producto.setInventarioID(inventarioIDNew);
-            }
-            if (pedidoIDNew != null) {
-                pedidoIDNew = em.getReference(pedidoIDNew.getClass(), pedidoIDNew.getPedidoID());
-                model_Producto.setPedidoID(pedidoIDNew);
-            }
-            model_Producto = em.merge(model_Producto);
-            if (inventarioIDOld != null && !inventarioIDOld.equals(inventarioIDNew)) {
-                inventarioIDOld.getProductoCollection().remove(model_Producto);
-                inventarioIDOld = em.merge(inventarioIDOld);
-            }
-            if (inventarioIDNew != null && !inventarioIDNew.equals(inventarioIDOld)) {
-                inventarioIDNew.getProductoCollection().add(model_Producto);
-                inventarioIDNew = em.merge(inventarioIDNew);
-            }
-            if (pedidoIDOld != null && !pedidoIDOld.equals(pedidoIDNew)) {
-                pedidoIDOld.getProductoCollection().remove(model_Producto);
-                pedidoIDOld = em.merge(pedidoIDOld);
-            }
-            if (pedidoIDNew != null && !pedidoIDNew.equals(pedidoIDOld)) {
-                pedidoIDNew.getProductoCollection().add(model_Producto);
-                pedidoIDNew = em.merge(pedidoIDNew);
-            }
-            utx.commit();
-        } catch (Exception ex) {
-            try {
-                utx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-            }
-            String msg = ex.getLocalizedMessage();
-            if (msg == null || msg.length() == 0) {
-                Integer id = model_Producto.getProductoID();
-                if (findModel_Producto(id) == null) {
-                    throw new NonexistentEntityException("The model_Producto with id " + id + " no longer exists.");
-                }
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
     private Boolean canEdit(Producto producto) {
         boolean check_productoID = producto.getProductoID().equals(null) || (producto.getProductoID() <= 0);
         boolean check_categoria = producto.getCategoria().isBlank();
@@ -284,109 +157,6 @@ public class DAO_Producto implements Serializable {
                 + "check_precio" + check_precio);
 
         return canEdit;
-    }
-
-    public void edit(Producto producto) {
-        System.out.println("Entra a metodo edit de Productos");
-        if (canEdit(producto)) {
-
-        }
-
-    }
-
-    public void fdestroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
-        EntityTransaction tx = null;
-        try {
-            em = getEntityManager();
-            tx = em.getTransaction();
-            tx.begin();
-
-            Producto model_Producto;
-            try {
-                model_Producto = em.getReference(Producto.class, id);
-                model_Producto.getProductoID();
-            } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The Producto with id " + id + " no longer exists.", enfe);
-            }
-
-            Inventario inventarioID = model_Producto.getInventarioID();
-            if (inventarioID != null) {
-                inventarioID.getProductoCollection().remove(model_Producto);
-                em.merge(inventarioID);
-            }
-
-            Pedidos pedidoID = model_Producto.getPedidoID();
-            if (pedidoID != null) {
-                pedidoID.getProductoCollection().remove(model_Producto);
-                em.merge(pedidoID);
-            }
-
-            em.remove(model_Producto);
-            tx.commit();
-        } catch (Exception ex) {
-            if (tx != null && tx.isActive()) {
-                try {
-                    tx.rollback();
-                } catch (Exception re) {
-                    throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-                }
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
-    public List<Producto> findModel_ProductoEntities() {
-        return findModel_ProductoEntities(true, -1, -1);
-    }
-
-    public List<Producto> findModel_ProductoEntities(int maxResults, int firstResult) {
-        return findModel_ProductoEntities(false, maxResults, firstResult);
-    }
-
-    private List<Producto> findModel_ProductoEntities(boolean all, int maxResults, int firstResult) {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Producto.class));
-            Query q = em.createQuery(cq);
-            if (!all) {
-                q.setMaxResults(maxResults);
-                q.setFirstResult(firstResult);
-            }
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
-    public Producto findModel_Producto(Integer id) {
-        EntityManager em = getEntityManager();
-        try {
-            return em.find(Producto.class, id);
-        } finally {
-            em.close();
-        }
-    }
-
-    public List<Producto> findProductoByInventario(Integer InventarioID) {
-        EntityManager em = getEntityManager();
-        try {
-            Query query = em.createQuery(
-                    "SELECT p FROM Producto p WHERE p.inventarioID.inventarioID = :inventarioId"
-            );
-            query.setParameter("inventarioId", InventarioID);
-
-            List<Producto> resultados = query.getResultList();
-
-            return resultados.isEmpty() ? null : resultados;
-        } finally {
-            em.close();
-        }
     }
 
     public List<Object[]> findGrupoProductosByInventario(int InventarioID) throws SQLException {
@@ -445,19 +215,6 @@ public class DAO_Producto implements Serializable {
         return tamañoTabla;
     }
 
-    public int getModel_ProductoCount() {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Producto> rt = cq.from(Producto.class);
-            cq.select(em.getCriteriaBuilder().count(rt));
-            Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
-        } finally {
-            em.close();
-        }
-    }
-
     public Producto findProducto(int productoID) {
         try {
             if (conectar == null || conectar.isClosed()) {
@@ -500,6 +257,15 @@ public class DAO_Producto implements Serializable {
 
     //public List<Producto> findProductosByModelo(int ProductoStr) {}
     public void edit(List<Producto> productos) {
+        for(Producto producto : productos){
+            if(!canEdit(producto)){
+                System.out.println("No se pudo hacer la edicion");
+                return;
+            }
+        }
+        
+        
+        
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -543,6 +309,63 @@ public class DAO_Producto implements Serializable {
             return null;
         }
 
+    }
+
+    public void edit(Producto producto) {
+        if(!canEdit(producto)){
+            System.out.println("No se pudo hacer la edicion");
+            return;
+        }
+
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
+            
+            String query = "UPDATE Producto "
+                    + "SET "
+                        + "InventarioID = ?"
+                        + ", Modelo = ? "
+                        + ", Fecha_Entrada = ? "
+                        + ", Precio = ? "
+                        + ", Categoria = ? ";
+            
+            boolean pedidoExiste = producto.getPedidoID() != null ;
+
+            if (pedidoExiste) {
+                query = query + ", PedidoID = ? ";
+            }
+            
+            query = query + "WHERE ProductoID = ?;";
+            
+            Integer inventarioID = producto.getInventarioID().getInventarioID();
+            String modelo = producto.getModelo();
+            Date fechaEntrada = producto.getFechaEntrada();
+            Float precio = producto.getPrecio();
+            String categoria = producto.getCategoria();
+            
+            Integer pedidoID = -1;
+            if(pedidoExiste){
+                pedidoID = producto.getPedidoID().getPedidoID();
+            }
+            
+            CallableStatement cs = conectar.prepareCall(query);
+            
+            cs.setInt(1, inventarioID);
+            cs.setString(2, modelo);
+            cs.setTimestamp(3, new Timestamp(fechaEntrada.getTime()));
+            cs.setFloat(4, precio);
+            cs.setString(5, categoria);
+            
+            if(pedidoExiste){
+                cs.setInt(6, pedidoID);
+            }
+            
+            cs.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
 }

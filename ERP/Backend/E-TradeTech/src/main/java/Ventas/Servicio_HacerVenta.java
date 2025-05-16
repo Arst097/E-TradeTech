@@ -29,7 +29,7 @@ public class Servicio_HacerVenta {
     //Si no encuentra un cliente, retorna null
     public static String Buscar_Cliente(int ClienteID) {
         try {
-            Cliente cliente = DAOc.findNombreByClienteID(ClienteID);
+            Cliente cliente = DAOc.findCliente(ClienteID);
             if(cliente.equals(null)){
                 return null;
             }else{
@@ -119,7 +119,10 @@ public class Servicio_HacerVenta {
     //Si retorna 2 Hubo un error al encontrar al cliente
     public static int Compra_Valida(int ClienteID, String ProductoStr, int Cantidad){
         try{
-            if(DAOc.findModel_Cliente(ClienteID).equals(null)){
+            try{
+                Cliente cliente = DAOc.findCliente(ClienteID);
+                
+            }catch(Exception e){
                 return 2;
             }
             List<Producto> productos = ProductosEnLista(inventario.Productos_Disponibles(), ProductoStr);
