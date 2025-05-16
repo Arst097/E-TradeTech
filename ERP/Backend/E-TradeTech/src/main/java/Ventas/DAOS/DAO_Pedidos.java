@@ -6,7 +6,7 @@ package Ventas.DAOS;
 
 import Uso_Comun.Modelos.Producto;
 import Inventario.Modelos.Despachador;
-import Inventario.Modelos.HistorialPedidos;
+import Ventas.Modelos.HistorialPedidos;
 import Ventas.Modelos.Pedidos;
 import Ventas.Modelos.Mensajero;
 import Ventas.Modelos.Cliente;
@@ -22,6 +22,11 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.UserTransaction;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -42,6 +47,24 @@ public class DAO_Pedidos implements Serializable {
     
     private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
+    
+    private static Connection conectar = null;
+    
+    private static final String usuario = "Access";
+    private static final String bd = "ETradeTechDB";
+    private static final String contraseña = "123";
+    private static final String ip = "localhost";
+    private static final String puerto = "1433";
+    
+    public static void EstablecerConexion() {
+        try {
+            String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd + ";" + "encrypt=false";
+            conectar = DriverManager.getConnection(cadena, usuario, contraseña);
+            System.out.println("Conexion Establecida");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -336,6 +359,40 @@ public class DAO_Pedidos implements Serializable {
     }
 
     public List<Pedidos> findPedidos() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public List<Pedidos> findPedidosByHistorialPedidos(HistorialPedidos Historial) throws SQLException {
+        if (conectar == null || conectar.isClosed()) {
+            EstablecerConexion();
+        }
+        
+        String query = "SELECT * FROM Pedidos WHERE PedidoID = ?";
+        PreparedStatement stmt = conectar.prepareStatement(query);
+        stmt.setString(1, String.valueOf(Historial.getHistorialPredidosID()));
+        
+        ResultSet rs = stmt.executeQuery();
+        
+        DAO_Cliente DAOc = new DAO_Cliente();
+        
+        List<Pedidos> Pedidos = new ArrayList<>();
+        while(rs.next()){
+            Pedidos pedido = new Pedidos();
+            pedido.setPedidoID(rs.getInt("PedidoID"));
+            pedido.setEstado(rs.getString("Estado"));
+            pedido.setFechainicio(rs.getDate("Fecha_Inicio"));
+            
+            Cliente cliente = DAOc.findModel_Cliente(rs.getInt("ClienteID"));
+            pedido.setClienteID(cliente);
+            
+            Pedidos.add(pedido);
+        }
+        
+        return Pedidos;
+
+    }
+
+    public void create(Pedidos pedido) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

@@ -480,4 +480,7 @@ public class DAO_Inventario implements Serializable {
         }
     }
 
+    public List<Inventario> findInventariosLibres() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

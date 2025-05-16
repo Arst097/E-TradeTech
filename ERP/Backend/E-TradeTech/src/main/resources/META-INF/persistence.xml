@@ -7,13 +7,13 @@
     <class>Inventario.Modelos.Almacen</class>
     <class>Inventario.Modelos.Despachador</class>
     <class>Inventario.Modelos.Gestores</class>
-    <class>Inventario.Modelos.HistorialPedidos</class>
     <class>Inventario.Modelos.HistorialTransaccInv</class>
     <class>Inventario.Modelos.Inventario</class>
     <class>Inventario.Modelos.TransaccionInv</class>
     <class>Ventas.Modelos.Cliente</class>
     <class>Ventas.Modelos.Mensajero</class>
     <class>Ventas.Modelos.Pedidos</class>
+    <class>Ventas.Modelos.HistorialPedidos</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!-- Configura aquí tu conexión directa JDBC -->

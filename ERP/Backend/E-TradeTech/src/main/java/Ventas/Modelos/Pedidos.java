@@ -7,11 +7,12 @@ package Ventas.Modelos;
 import Uso_Comun.Modelos.Producto;
 import Ventas.Modelos.Mensajero;
 import Ventas.Modelos.Cliente;
-import Inventario.Modelos.HistorialPedidos;
 import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Despachador;
-import Inventario.Modelos.HistorialPedidos;
+import Inventario.Modelos.Inventario;
+import Uso_Comun.DAOs.DAO_Producto;
 import Uso_Comun.Modelos.Producto;
+import Ventas.DAOS.DAO_HistorialPedido;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,8 +26,13 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -68,14 +74,29 @@ public class Pedidos implements Serializable {
 
     public Pedidos() {
     }
-
+    
     public Pedidos(Cliente clienteID) {
         this.estado = "Solicitado";
         this.fechainicio = new Date();
         this.clienteID = clienteID;
     }
     
-    
+    //el como se crea ese objeto historialpedidos esta incompleta, pero no se si esta bien tenerlo asi
+    public void GenerarPedidoSolicitado(int clienteID, List<Producto> productos, int historialPredidosID){
+        DAO_HistorialPedido DAOh = new DAO_HistorialPedido();
+        DAO_Producto DAOp = new DAO_Producto();
+        this.estado = "Solicitado";
+        this.fechainicio = new Date();
+        try {
+            this.historialPredidosID = DAOh.findModel_HistorialPedidos(historialPredidosID);
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //Producto producto = DAOp.findProducto(productoID);
+        
+        this.productoCollection = productos;
+    }
 
     public Pedidos(Integer pedidoID) {
         this.pedidoID = pedidoID;

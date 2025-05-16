@@ -5,6 +5,11 @@
 package Inventario;
 
 import Inventario.DAOs.*;
+import Inventario.Modelos.Inventario;
+import Uso_Comun.DAOs.DAO_Producto;
+import Uso_Comun.Modelos.Producto;
+import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -14,14 +19,19 @@ import Inventario.DAOs.*;
  */
 public class Servicio_InventarioVentas {
     DAO_Inventario DAOi = new DAO_Inventario();
+    DAO_Producto DAOp = new DAO_Producto();
 
-    public String[] Productos_Disponibles() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Producto> Productos_Disponibles() {
+        List<Producto> productosDisponibles = new ArrayList<>();
+        
+        List<Inventario> inventarios = DAOi.findInventariosLibres();
+        for(Inventario inventario : inventarios){
+            List<Producto> productosInstancia = new ArrayList<>(inventario.getProductoCollection());
+            for(Producto producto : productosInstancia){
+                productosDisponibles.add(producto);
+            }
+        }
+        return productosDisponibles;
     }
-
-    public float Precio_Unitario(int ProductoID) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
     
 }
