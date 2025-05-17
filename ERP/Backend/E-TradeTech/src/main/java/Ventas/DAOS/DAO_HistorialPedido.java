@@ -4,9 +4,9 @@
  */
 package Ventas.DAOS;
 
+import Ventas.Modelos.HistorialPedidos;
 import Ventas.Modelos.Pedidos;
-import Uso_Comun.Modelos.Usuario;
-import Ventas.Modelos.Cliente;
+import Inventario.exceptions.IllegalOrphanException;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
@@ -15,7 +15,6 @@ import jakarta.persistence.EntityManagerFactory;
 import java.io.Serializable;
 import jakarta.persistence.Query;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -28,16 +27,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author HP PORTATIL
  */
-public class DAO_Cliente implements Serializable {
+public class DAO_HistorialPedido implements Serializable {
 
-    public DAO_Cliente() {
+    public DAO_HistorialPedido() {
     }
 
     private static Connection conectar = null;
@@ -57,35 +54,27 @@ public class DAO_Cliente implements Serializable {
             System.out.println(e);
         }
     }
-
-    public Cliente findCliente(int ClienteID) {
-        try {
-            if (conectar == null || conectar.isClosed()) {
-                EstablecerConexion();
-            }
-            
-            String query = "SELECT * FROM Cliente WHERE ClienteID = ?";
-            PreparedStatement stmt = conectar.prepareStatement(query);
-            stmt.setString(1, String.valueOf(ClienteID));
-            
-            ResultSet rs = stmt.executeQuery();
-            
-            Cliente cliente = null;
-            if(rs.next()){
-                cliente = new Cliente();
-                cliente.setClienteID(rs.getInt("ClienteID"));
-                cliente.setCorreo(rs.getNString("Correo"));
-                cliente.setTelefono(rs.getNString("Telefono"));
-                cliente.setNombre(rs.getNString("Nombre"));
-            }
-            
-            return cliente;
-        } catch (SQLException ex) {
-            Logger.getLogger(DAO_Pedidos.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
+    
+    public HistorialPedidos findModel_HistorialPedidos(Integer historialPedidosID) throws SQLException {
+        if (conectar == null || conectar.isClosed()) {
+            EstablecerConexion();
         }
         
+        String query = "SELECT * FROM Historial_Pedidos WHERE Historial_PredidosID = ?";
+        PreparedStatement stmt = conectar.prepareStatement(query);
+        stmt.setString(1, String.valueOf(historialPedidosID));
         
+        ResultSet rs = stmt.executeQuery();
+        
+        DAO_Pedidos DAOp = new DAO_Pedidos();
+        
+        HistorialPedidos Historial = new HistorialPedidos();
+        if(rs.next()){
+            Historial.setHistorialPredidosID(rs.getInt("Historial_PedidosID"));
+            Historial.setPedidosCollection(DAOp.findPedidosByHistorialPedidos(Historial));
+        }
+        
+        return Historial;
     }
-
+    
 }
