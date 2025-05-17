@@ -2,7 +2,7 @@ $(document).ready(function () {
  
     function cargarProveedores() {
         $.ajax({
-            url:'http://localhost:8080/E-TradeTech/ServletProveedoresMostrar',
+            url:'http://localhost:5077/E-TradeTech/ServletProveedoresMostrar',
             method: 'GET',
 //            dataType: 'json',
             success: function (data) {
@@ -57,7 +57,7 @@ $(document).ready(function () {
 
         // Aquí puedes hacer un AJAX, por ejemplo:
         $.ajax({
-            url: 'http://localhost:8080/E-TradeTech/ServletAgregarProductos',
+            url: 'http://localhost:5077/E-TradeTech/ServletAgregarProductos',
             method: 'POST',
             data: {
                 nombre: nombre,
