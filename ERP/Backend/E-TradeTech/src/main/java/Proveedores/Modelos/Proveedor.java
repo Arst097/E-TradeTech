@@ -67,7 +67,7 @@ public class Proveedor implements Serializable {
     @ManyToOne(optional = false)
     private ListaContactos listaContactosID;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proveedorID")
-    private Collection<Ofertas> ofertasCollection;
+    private Collection<Oferta> ofertasCollection;
 
     public Proveedor() {
     }
@@ -131,11 +131,11 @@ public class Proveedor implements Serializable {
     }
     
     @XmlTransient
-    public Collection<Ofertas> getOfertasCollection() {
+    public Collection<Oferta> getOfertasCollection() {
         return ofertasCollection;
     }
 
-    public void setOfertasCollection(Collection<Ofertas> ofertasCollection) {
+    public void setOfertasCollection(Collection<Oferta> ofertasCollection) {
         this.ofertasCollection = ofertasCollection;
     }
 
