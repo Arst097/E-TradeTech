@@ -4,8 +4,9 @@
  */
 package Ventas.DAOS;
 
+import Uso_Comun.DAOs.DAO_Pedidos;
 import Ventas.Modelos.HistorialPedidos;
-import Ventas.Modelos.Pedidos;
+import Uso_Comun.Modelos.Pedidos;
 import Inventario.exceptions.IllegalOrphanException;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;

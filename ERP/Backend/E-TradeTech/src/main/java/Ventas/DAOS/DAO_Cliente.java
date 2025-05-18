@@ -4,7 +4,8 @@
  */
 package Ventas.DAOS;
 
-import Ventas.Modelos.Pedidos;
+import Uso_Comun.DAOs.DAO_Pedidos;
+import Uso_Comun.Modelos.Pedidos;
 import Uso_Comun.Modelos.Usuario;
 import Ventas.Modelos.Cliente;
 import Inventario.exceptions.NonexistentEntityException;

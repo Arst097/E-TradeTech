@@ -4,6 +4,8 @@
  */
 package Ventas;
 
+import Uso_Comun.Modelos.Pedidos;
+import Uso_Comun.DAOs.DAO_Pedidos;
 import Inventario.Modelos.Inventario;
 import Inventario.Servicio_InventarioVentas;
 import Uso_Comun.DAOs.DAO_Producto;

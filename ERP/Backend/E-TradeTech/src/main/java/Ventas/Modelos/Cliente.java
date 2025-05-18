@@ -4,6 +4,7 @@
  */
 package Ventas.Modelos;
 
+import Uso_Comun.Modelos.Pedidos;
 import Uso_Comun.Modelos.Usuario;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;

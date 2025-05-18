@@ -4,7 +4,6 @@
  */
 package Uso_Comun.Modelos;
 
-import Ventas.Modelos.Pedidos;
 import Inventario.Modelos.Inventario;
 import Inventario.Modelos.Inventario;
 import jakarta.persistence.Basic;

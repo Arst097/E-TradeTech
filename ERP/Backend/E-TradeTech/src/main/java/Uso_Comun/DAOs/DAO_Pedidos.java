@@ -2,17 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Ventas.DAOS;
+package Uso_Comun.DAOs;
 
 import Uso_Comun.Modelos.Producto;
 import Inventario.Modelos.Despachador;
 import Ventas.Modelos.HistorialPedidos;
-import Ventas.Modelos.Pedidos;
+import Uso_Comun.Modelos.Pedidos;
 import Ventas.Modelos.Mensajero;
 import Ventas.Modelos.Cliente;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
+import Ventas.DAOS.DAO_Cliente;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import java.io.Serializable;
@@ -63,6 +64,8 @@ public class DAO_Pedidos implements Serializable {
         }
     }
 
+    private static final DAO_Cliente DAOc = new DAO_Cliente();
+    
     public List<Pedidos> findPedidos() {
         try {
             if (conectar == null || conectar.isClosed()) {
@@ -80,7 +83,7 @@ public class DAO_Pedidos implements Serializable {
                 pedido.setPedidoID(rs.getInt("PedidoID"));
                 pedido.setEstado(rs.getString("Estado"));
                 
-                Cliente cliente = new Cliente(rs.getInt("ClienteID"));
+                Cliente cliente = DAOc.findCliente(rs.getInt("ClienteID"));
                 pedido.setClienteID(cliente);
                 
                 pedido.setHistorialPredidosID(new HistorialPedidos(rs.getInt("Historial_PredidosID")));
@@ -105,8 +108,6 @@ public class DAO_Pedidos implements Serializable {
         stmt.setString(1, String.valueOf(Historial.getHistorialPredidosID()));
         
         ResultSet rs = stmt.executeQuery();
-        
-        DAO_Cliente DAOc = new DAO_Cliente();
         
         List<Pedidos> Pedidos = new ArrayList<>();
         while(rs.next()){
@@ -245,8 +246,6 @@ public class DAO_Pedidos implements Serializable {
             stmt.setString(1, String.valueOf(pedidoID));
             
             ResultSet rs = stmt.executeQuery();
-            
-            DAO_Cliente DAOc = new DAO_Cliente();
             
             Pedidos pedido = null;
             if(rs.next()){

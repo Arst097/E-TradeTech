@@ -79,6 +79,9 @@ public class Servicio_Seguridad {
     }
 
     public static int getUserIdFromJwtToken(String token) {
+        if(!TokenValido(token)){
+            return -1;
+        }
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(secretKey)
                 .build()

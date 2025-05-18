@@ -8,7 +8,7 @@ import Inventario.Modelos.Almacen;
 import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Inventario;
 import Uso_Comun.Modelos.Usuario;
-import Ventas.Modelos.Pedidos;
+import Uso_Comun.Modelos.Pedidos;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;

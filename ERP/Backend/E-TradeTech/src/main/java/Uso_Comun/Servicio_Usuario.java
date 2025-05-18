@@ -6,7 +6,7 @@ package Uso_Comun;
 
 import Inventario.DAOs.DAO_Gestores;
 import Uso_Comun.DAOs.DAO_Usuario;
-import Ventas.Modelos.Pedidos;
+import Uso_Comun.Modelos.Pedidos;
 import Uso_Comun.Modelos.Usuario;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.RollbackFailureException;

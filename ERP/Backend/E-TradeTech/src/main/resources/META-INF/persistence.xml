@@ -12,8 +12,8 @@
     <class>Inventario.Modelos.TransaccionInv</class>
     <class>Ventas.Modelos.Cliente</class>
     <class>Ventas.Modelos.Mensajero</class>
-    <class>Ventas.Modelos.Pedidos</class>
     <class>Ventas.Modelos.HistorialPedidos</class>
+    <class>Uso_Comun.Modelos.Pedidos</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!-- Configura aquí tu conexión directa JDBC -->

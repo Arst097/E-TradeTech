@@ -4,7 +4,7 @@
  */
 package Ventas.DAOS;
 
-import Ventas.Modelos.Pedidos;
+import Uso_Comun.Modelos.Pedidos;
 import Ventas.Modelos.Mensajero;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
