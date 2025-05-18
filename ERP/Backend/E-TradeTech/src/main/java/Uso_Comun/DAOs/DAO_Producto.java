@@ -255,20 +255,6 @@ public class DAO_Producto implements Serializable {
         }
     }
 
-    //public List<Producto> findProductosByModelo(int ProductoStr) {}
-    public void edit(List<Producto> productos) {
-        for(Producto producto : productos){
-            if(!canEdit(producto)){
-                System.out.println("No se pudo hacer la edicion");
-                return;
-            }
-        }
-        
-        
-        
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     public List<Producto> findProductoByModelo(String Modelo) {
         try {
             if (conectar == null || conectar.isClosed()) {

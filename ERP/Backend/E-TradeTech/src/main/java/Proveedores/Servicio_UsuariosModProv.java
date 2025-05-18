@@ -4,14 +4,24 @@
  */
 package Proveedores;
 
+import Proveedores.DAOs.DAO_UsuarioCompras;
+import Proveedores.Modelos.UsuarioCompras;
+
 /**
  *
  * @author HP PORTATIL
  */
 public class Servicio_UsuariosModProv {
 
+    private static final DAO_UsuarioCompras DAOuc = new DAO_UsuarioCompras();
+    
     static boolean UsuarioIsUserCompras(int UsuarioID) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try{
+            UsuarioCompras usuarioCompras = DAOuc.findProveedorByUsuarioID();
+            return usuarioCompras.equals(null);
+        }catch(Exception e){
+            return false;
+        }        
     }
     
 }

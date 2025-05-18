@@ -35,8 +35,8 @@ public class Servicio_visualizarProv {
         
         if(Usuario_Valido){
             try{
-                List<Proveedor> Todos_los_Proveedores = DAOp.findProveedores();
-                return ProveedoresToJSON(Todos_los_Proveedores);
+                List<Proveedor> Proveedores_en_lista = getProveedores(UsuarioID);
+                return ProveedoresToJSON(Proveedores_en_lista);
             }catch(Exception e){
                 return "Error al obtener los datos";
             }
@@ -90,4 +90,11 @@ public class Servicio_visualizarProv {
         
         return ofertas.get(0).getProductoOfertado();
     }
+
+    //por ahora esta funcion sirve, pero deberia funcionar obteniendo la lista asociada con el usuario
+    private static List<Proveedor> getProveedores(int UsuarioID) {
+        return DAOp.findProveedores();
+    }
+    
+    
 }
