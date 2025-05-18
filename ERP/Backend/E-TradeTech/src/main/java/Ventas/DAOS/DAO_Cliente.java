@@ -75,9 +75,9 @@ public class DAO_Cliente implements Serializable {
             if(rs.next()){
                 cliente = new Cliente();
                 cliente.setClienteID(rs.getInt("ClienteID"));
-                cliente.setCorreo(rs.getNString("Correo"));
-                cliente.setTelefono(rs.getNString("Telefono"));
-                cliente.setNombre(rs.getNString("Nombre"));
+                cliente.setCorreo(rs.getString("Correo"));
+                cliente.setTelefono(rs.getString("Telefono"));
+                cliente.setNombre(rs.getString("Nombre"));
             }
             
             return cliente;

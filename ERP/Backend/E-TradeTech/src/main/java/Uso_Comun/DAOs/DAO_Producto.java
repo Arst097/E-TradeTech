@@ -384,7 +384,6 @@ public class DAO_Producto implements Serializable {
                 productos.add(producto);
             }
             
-            System.out.println("Array tamaño: "+productos.size());
             return productos;
         } catch (SQLException ex) {
             Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);

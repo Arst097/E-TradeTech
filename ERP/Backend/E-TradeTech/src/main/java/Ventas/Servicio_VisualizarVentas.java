@@ -53,31 +53,19 @@ public class Servicio_VisualizarVentas {
     private static String PedidosToJSON(List<Pedidos> pedidos) {
         int i = 0;
         int size = pedidos.size();
-        System.out.println("cantidad de pedidos: "+size);
         String json = "";
         
         //todavia no esta cambiado al completo
         for (Pedidos pedido : pedidos) {
             i++;
-            System.out.println("iteracion for numero "+i);
             
             Producto producto = new ArrayList<>(pedido.getProductoCollection()).get(0);
-            System.out.println("Array obtenido de Producto");
             
-            Integer PedidoID = pedido.getPedidoID();
-            System.out.println("ProductoID obtenido");
-            
-            String Cliente = pedido.getClienteID().getNombre();
-            System.out.println("Cliente obtenido");
-            
+            Integer PedidoID = pedido.getPedidoID();        
+            String Cliente = pedido.getClienteID().getNombre();            
             String Producto = producto.getModelo();
-            System.out.println("Producto abtenido");
-            
             Float Precio = producto.getPrecio();
-            System.out.println("Precio obtenido");
-            
             Date fecha_inicio = pedido.getFechainicio();
-            System.out.println("Fecha obtenida");
 
             json = json
                     + "{\"ID_pedido\":\""

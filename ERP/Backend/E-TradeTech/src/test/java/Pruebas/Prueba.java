@@ -46,7 +46,7 @@ public class Prueba {
         //System.out.println(pruebaInventarioGestor(Token));
         //pruebaCrearMonto();
         
-        System.out.println("Resultado: "+pruebaVizualizarVentas());
+        System.out.println("Resultado: "+pruebaVizualizarPedidos());
 
     }
 
@@ -65,6 +65,17 @@ public class Prueba {
             String Token = pruebaLogin("carlos@empresa.com", "gestor123");
             System.out.println(Token);
             return Servicio_VisualizarVentas.listapedidosJSON(Token);
+        } catch (SQLException ex) {
+            Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
+            return "Error: " + ex;
+        }
+    }
+    
+    private static String pruebaVizualizarPedidos(){
+        try {
+            String Token = pruebaLogin("carlos@empresa.com", "gestor123");
+            System.out.println(Token);
+            return Servicio_VisualizarPedidos.listapedidosJSON(Token);
         } catch (SQLException ex) {
             Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
             return "Error: " + ex;

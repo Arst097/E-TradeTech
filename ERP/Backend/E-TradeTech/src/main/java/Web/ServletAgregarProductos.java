@@ -39,8 +39,8 @@ public class ServletAgregarProductos extends HttpServlet {
         String stockStr = request.getParameter("stock");
         String precioStr = request.getParameter("precio");
         
-        String Correo = "hernesto.perez@example.com";
-        String ContrasenaPlana = "password123";
+        String Correo = "carlos@empresa.com";
+        String ContrasenaPlana = "gestor123";
         String ContrasenaSHA256 = Servicio_Seguridad.encryptSHA256(ContrasenaPlana);
         String Token = "";
         try {
