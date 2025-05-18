@@ -65,34 +65,48 @@ public class DAO_Pedidos implements Serializable {
     }
 
     private static final DAO_Cliente DAOc = new DAO_Cliente();
+    private static final DAO_Producto DAOp = new DAO_Producto();
+    
     
     public List<Pedidos> findPedidos() {
+        System.out.println("Entrando a findPedidos");
         try {
             if (conectar == null || conectar.isClosed()) {
                 EstablecerConexion();
             }
-
+            System.out.println("Conectado a la base de datos");
+            
             String query = "SELECT * FROM Pedidos;";
             PreparedStatement stmt = conectar.prepareStatement(query);
-
+            System.out.println("query espesificada");
+            
             ResultSet rs = stmt.executeQuery();
+            System.out.println("Result set obtenido");
 
             List<Pedidos> pedidos = new ArrayList<>();
             while(rs.next()) {
+                System.out.println("entrada a while");
                 Pedidos pedido = new Pedidos();
                 pedido.setPedidoID(rs.getInt("PedidoID"));
                 pedido.setEstado(rs.getString("Estado"));
                 
+                System.out.println("ClienteID: "+rs.getInt("ClienteID"));
                 Cliente cliente = DAOc.findCliente(rs.getInt("ClienteID"));
                 pedido.setClienteID(cliente);
                 
                 pedido.setHistorialPredidosID(new HistorialPedidos(rs.getInt("Historial_PredidosID")));
                 pedido.setFechainicio(rs.getDate("Fecha_Inicio"));
                 
+                Collection<Producto> productos = DAOp.find_toPedidos(pedido);
+                pedido.setProductoCollection(productos);
+                
+                pedidos.add(pedido);
             }
 
+            System.out.println("retornando findPedidos exitosamente");
             return pedidos;
         } catch (SQLException ex) {
+            System.out.println("Ocurrio un error en findPedidos: "+ex);
             return null;
         }
 

@@ -30,6 +30,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -351,6 +352,45 @@ public class DAO_Producto implements Serializable {
             Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+
+    Collection<Producto> find_toPedidos(Pedidos pedido) {
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
+
+            String query = "SELECT * FROM Producto WHERE PedidoID = ?;";
+            PreparedStatement stmt = conectar.prepareStatement(query);
+            stmt.setString(1, String.valueOf(pedido.getPedidoID()));
+
+            ResultSet rs = stmt.executeQuery();
+
+            ArrayList<Producto> productos = new ArrayList<>();
+            while(rs.next()) {
+                Producto producto = new Producto();
+                producto.setProductoID(rs.getInt("ProductoID"));
+
+                Inventario inventario = new Inventario(rs.getInt("InventarioID"));
+                producto.setInventarioID(inventario);
+
+                producto.setPedidoID(pedido);
+
+                producto.setModelo(rs.getString("Modelo"));
+                producto.setFechaEntrada(rs.getDate("Fecha_Entrada"));
+                producto.setPrecio(rs.getFloat("Precio"));
+                producto.setCategoria(rs.getString("Categoria"));
+
+                productos.add(producto);
+            }
+            
+            System.out.println("Array tamaño: "+productos.size());
+            return productos;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
     }
 
 }
