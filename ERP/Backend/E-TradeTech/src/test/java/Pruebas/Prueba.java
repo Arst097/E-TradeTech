@@ -21,6 +21,7 @@ import java.util.Date;
 
 import Uso_Comun.DAOs.DAO_Producto;
 import Uso_Comun.Modelos.Producto;
+import Ventas.Servicio_VisualizarVentas;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -43,7 +44,9 @@ public class Prueba {
         //String Token = pruebaLogin("hernesto.perez@example.com","password123");
         //pruebaProductoInventario();
         //System.out.println(pruebaInventarioGestor(Token));
-        pruebaCrearMonto();
+        //pruebaCrearMonto();
+        
+        System.out.println("Resultado: "+pruebaVizualizarVentas());
 
     }
 
@@ -57,6 +60,17 @@ public class Prueba {
 //        }
 //    }
 
+    private static String pruebaVizualizarVentas(){
+        try {
+            String Token = pruebaLogin("carlos@empresa.com", "gestor123");
+            System.out.println(Token);
+            return Servicio_VisualizarVentas.listapedidosJSON(Token);
+        } catch (SQLException ex) {
+            Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
+            return "Error: " + ex;
+        }
+    }
+    
     private static String pruebaInventarioGestor(String Token) {
         DAO_Inventario dao = new DAO_Inventario();
 
@@ -86,7 +100,7 @@ public class Prueba {
 
     private static void pruebaCrearMonto() {
         try {
-            String Token = pruebaLogin("hernesto.perez@example.com", "password123");
+            String Token = pruebaLogin("carlos@empresa.com", "gestor123");
             System.out.println(Token);
             String nombre = "Modelo HP";
             String categoria = "Computadora";
