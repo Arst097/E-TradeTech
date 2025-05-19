@@ -11,6 +11,7 @@ import Inventario.Modelos.Inventario;
 import Inventario.Servicio_InventarioVentas;
 import Proveedores.DAOs.DAO_Proveedor;
 import Proveedores.Modelos.ListaContactos;
+import Proveedores.Modelos.Oferta;
 import Proveedores.Modelos.Proveedor;
 import Uso_Comun.DAOs.DAO_Producto;
 import Uso_Comun.Modelos.Producto;
@@ -46,14 +47,24 @@ public class Servicio_AgregarProv {
         return status.equals("Activo") || status.equals("Inactivo");
     }
     
-    private static void InsercionProveedor(String nombre, String descripcion, String telefono, String estado, ListaContactos listaContactos){
+    private static void IncercionProveedor(String nombre, String descripcion, String telefono, String estado, ListaContactos listaContactos){
         Proveedor proveedor = new Proveedor(nombre, descripcion, telefono, estado, listaContactos);
         DAOp.create(proveedor);
     }
     
-    private static void InsercionProveedor(String nombre, String descripcion, String telefono, String estado, Integer listaContactos){
+    private static void IncercionProveedor(String nombre, String descripcion, String telefono, String estado, Integer listaContactos){
         ListaContactos listaContactos_obj = new ListaContactos(listaContactos);
         
-        InsercionProveedor(nombre, descripcion, telefono, estado, listaContactos_obj);
+        IncercionProveedor(nombre, descripcion, telefono, estado, listaContactos_obj);
+    }
+    
+    private static void IncercionOfertaAleatorea(String productoOfertado, Proveedor proveedor){
+        Oferta oferta = new Oferta();
+        oferta.ConfigurarOfertaAleatorea(productoOfertado,proveedor);
+    }
+    
+    private static void IncercionOfertaAleatorea(String productoOfertado, Integer proveedorID){
+        Proveedor proveedor = new Proveedor(proveedorID);
+        IncercionOfertaAleatorea(productoOfertado, proveedor);
     }
 }

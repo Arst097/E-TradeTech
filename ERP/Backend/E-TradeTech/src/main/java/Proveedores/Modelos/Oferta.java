@@ -121,5 +121,9 @@ public class Oferta implements Serializable {
     public String toString() {
         return "Proveedores.Modelos.Ofertas[ ofertasID=" + ofertasID + " ]";
     }
+
+    public void ConfigurarOfertaAleatorea(String productoOfertado, Proveedor proveedor) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
