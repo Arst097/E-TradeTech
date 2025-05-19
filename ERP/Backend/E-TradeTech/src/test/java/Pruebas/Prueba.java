@@ -21,6 +21,7 @@ import java.util.Date;
 
 import Uso_Comun.DAOs.DAO_Producto;
 import Uso_Comun.Modelos.Producto;
+import Ventas.Servicio_HacerVenta;
 import Ventas.Servicio_VisualizarVentas;
 import java.sql.SQLException;
 import java.util.List;
@@ -46,8 +47,10 @@ public class Prueba {
         //System.out.println(pruebaInventarioGestor(Token));
         //pruebaCrearMonto();
         
-        System.out.println("Resultado: "+pruebaVizualizarPedidos());
+        //System.out.println("Resultado: "+pruebaVizualizarPedidos());
 
+        Prueba.pruebaCrearVenta();
+        
     }
 
 //    private static void pruebaProductoInventario() {
@@ -80,6 +83,22 @@ public class Prueba {
             Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
             return "Error: " + ex;
         }
+    }
+    
+    private static void pruebaCrearVenta(){
+        String ClienteNombre = Servicio_HacerVenta.Buscar_Cliente(1);
+        
+        System.out.println("Nombre de cliente: "+ClienteNombre);
+        
+        int ValidacionErronea = Servicio_HacerVenta.Compra_Valida(1, "Lenovo ThinkPad X2", 1);
+        int ValidacionCorrecta = Servicio_HacerVenta.Compra_Valida(1, "Lenovo ThinkPad X1", 1);
+        
+        System.out.println("Codigo de validacion erronea: "+ValidacionErronea);
+        System.out.println("Codigo de validacion correcta: " + ValidacionCorrecta);
+        
+        int StatusCompra = Servicio_HacerVenta.Hacer_Compra(1, "Lenovo ThinkPad X1", 1);
+        
+        System.out.println("Resultado de compra: "+ StatusCompra);
     }
     
     private static String pruebaInventarioGestor(String Token) {

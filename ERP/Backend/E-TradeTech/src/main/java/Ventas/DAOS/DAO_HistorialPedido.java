@@ -71,8 +71,10 @@ public class DAO_HistorialPedido implements Serializable {
         
         HistorialPedidos Historial = new HistorialPedidos();
         if(rs.next()){
-            Historial.setHistorialPredidosID(rs.getInt("Historial_PedidosID"));
-            Historial.setPedidosCollection(DAOp.findPedidosByHistorialPedidos(Historial));
+            Historial.setHistorialPredidosID(rs.getInt("Historial_PredidosID"));
+            List<Pedidos> pedidoslist = DAOp.findPedidosByHistorialPedidos(Historial);
+            ArrayList<Pedidos> pedidos = new ArrayList(pedidoslist);
+            Historial.setPedidosCollection(pedidos);
         }
         
         return Historial;

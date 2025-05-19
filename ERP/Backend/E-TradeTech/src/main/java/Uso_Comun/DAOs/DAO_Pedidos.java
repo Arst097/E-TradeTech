@@ -110,7 +110,7 @@ public class DAO_Pedidos implements Serializable {
             EstablecerConexion();
         }
         
-        String query = "SELECT * FROM Pedidos WHERE Historial_PredidoID = ?";
+        String query = "SELECT * FROM Pedidos WHERE Historial_PredidosID = ?";
         PreparedStatement stmt = conectar.prepareStatement(query);
         stmt.setString(1, String.valueOf(Historial.getHistorialPredidosID()));
         
@@ -154,7 +154,7 @@ public class DAO_Pedidos implements Serializable {
                 pedido.setFechainicio(new Date());
             }
 
-            String query = "INSERT Producto (PedidoID, Estado, ClienteID, Historial_PredidosID, Fecha_Inicio";
+            String query = "INSERT Pedidos (PedidoID, Estado, ClienteID, Historial_PredidosID, Fecha_Inicio";
             int QSimbolQuestions = 5;
 
             boolean DespachadorExiste = pedido.getDespachadorID() != null;
@@ -271,6 +271,10 @@ public class DAO_Pedidos implements Serializable {
             return null;
         }
 
+    }
+
+    public Pedidos find_toProducto(Producto producto) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

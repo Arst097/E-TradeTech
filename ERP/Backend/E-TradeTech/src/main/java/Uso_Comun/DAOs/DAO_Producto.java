@@ -63,6 +63,8 @@ public class DAO_Producto implements Serializable {
         }
     }
 
+    private static final DAO_Pedidos DAOp = new DAO_Pedidos();
+    
     public void create(Producto producto) {
         System.out.println("Entra a metodo create de Productos");
         try {
@@ -137,13 +139,13 @@ public class DAO_Producto implements Serializable {
     }
 
     private Boolean canEdit(Producto producto) {
-        boolean check_productoID = producto.getProductoID().equals(null) || (producto.getProductoID() <= 0);
-        boolean check_categoria = producto.getCategoria().isBlank();
-        boolean check_fechaEntrada = producto.getFechaEntrada().equals(null);
-        boolean check_inventarioID = producto.getInventarioID().equals(null) || (producto.getInventarioID().getInventarioID() <= 0);
-        boolean check_modelo = producto.getModelo().isBlank();
-        boolean check_pedidoID = producto.getPedidoID().equals(null) || (producto.getPedidoID().getPedidoID() <= 0);
-        boolean check_precio = producto.getPrecio().equals(null) || (producto.getPrecio() <= 0);
+        boolean check_productoID = !( producto.getProductoID() == null || (producto.getProductoID() <= 0) );
+        boolean check_categoria = !producto.getCategoria().isBlank();
+        boolean check_fechaEntrada = !( producto.getFechaEntrada() == null );
+        boolean check_inventarioID = !( producto.getInventarioID() == null || (producto.getInventarioID().getInventarioID() <= 0) );
+        boolean check_modelo = !producto.getModelo().isBlank();
+        boolean check_pedidoID = producto.getPrecio() >= 0 ;
+        boolean check_precio = !( producto.getPrecio() == null || (producto.getPrecio() <= 0) );
 
         boolean canEdit = check_productoID && check_categoria && check_fechaEntrada && check_inventarioID && check_modelo && check_pedidoID && check_precio;
 
@@ -335,6 +337,8 @@ public class DAO_Producto implements Serializable {
                 pedidoID = producto.getPedidoID().getPedidoID();
             }
             
+            Integer productoID = producto.getProductoID();
+            
             CallableStatement cs = conectar.prepareCall(query);
             
             cs.setInt(1, inventarioID);
@@ -343,18 +347,22 @@ public class DAO_Producto implements Serializable {
             cs.setFloat(4, precio);
             cs.setString(5, categoria);
             
+            int count = 6;
             if(pedidoExiste){
-                cs.setInt(6, pedidoID);
+                cs.setInt(count, pedidoID);
+                count++;
             }
+            
+            cs.setInt(count, productoID);
             
             cs.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error en Edit de Producto: "+ex);
         }
         
     }
 
-    Collection<Producto> find_toPedidos(Pedidos pedido) {
+    public Collection<Producto> find_toPedidos(Pedidos pedido) {
         try {
             if (conectar == null || conectar.isClosed()) {
                 EstablecerConexion();
@@ -391,5 +399,38 @@ public class DAO_Producto implements Serializable {
         }
 
     }
+
+    public Collection<Producto> find_toInventario(Inventario inventario) {
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
+
+            String query = "SELECT * FROM Producto WHERE InventarioID = ?;";
+            PreparedStatement stmt = conectar.prepareStatement(query);
+            stmt.setString(1, String.valueOf(inventario.getInventarioID()));
+
+            ResultSet rs = stmt.executeQuery();
+
+            ArrayList<Producto> productos = new ArrayList<>();
+            while(rs.next()) {
+                Producto producto = new Producto();
+                producto.setProductoID(rs.getInt("ProductoID"));
+
+                producto.setInventarioID(inventario);
+
+                producto.setModelo(rs.getString("Modelo"));
+                producto.setFechaEntrada(rs.getDate("Fecha_Entrada"));
+                producto.setPrecio(rs.getFloat("Precio"));
+                producto.setCategoria(rs.getString("Categoria"));
+
+                productos.add(producto);
+            }
+            
+            return productos;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }    }
 
 }

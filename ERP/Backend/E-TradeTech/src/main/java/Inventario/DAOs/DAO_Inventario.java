@@ -14,6 +14,7 @@ import Inventario.exceptions.IllegalOrphanException;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
+import Uso_Comun.DAOs.DAO_Producto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import java.io.Serializable;
@@ -61,6 +62,8 @@ public class DAO_Inventario implements Serializable {
         }
     }
 
+    private static final DAO_Producto DAOp = new DAO_Producto();
+    
     public List<Inventario> findInvetarioByGestor(Integer GestorID) throws SQLException {
         if (conectar == null || conectar.isClosed()) {
             EstablecerConexion();
@@ -106,6 +109,9 @@ public class DAO_Inventario implements Serializable {
             Inventario inventario = new Inventario();
             inventario.setInventarioID(rs.getInt("InventarioID"));
             inventario.setTipo(rs.getString("tipo"));
+            
+            Collection<Producto> productos = DAOp.find_toInventario(inventario);
+            inventario.setProductoCollection(productos);
 
             inventarios.add(inventario);
         }

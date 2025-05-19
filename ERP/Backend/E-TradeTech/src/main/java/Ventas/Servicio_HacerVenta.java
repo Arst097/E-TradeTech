@@ -73,29 +73,29 @@ public class Servicio_HacerVenta {
         
         try{
             if(Status_Code == 0){
-                Pedidos pedido = new Pedidos();
                 
-                List<Producto> stockproductos = ProductosEnLista(inventario.Productos_Disponibles(), ProductoStr);;
-                List<Producto> productos = new ArrayList<>();
+                Pedidos pedido = new Pedidos();
+                pedido.GenerarPedidoSolicitado(ClienteID, 1);
+                DAOp.create(pedido);
+                
+                List<Producto> ProductosInvLibre = inventario.Productos_Disponibles();
+                List<Producto> stockproductos = ProductosEnLista(ProductosInvLibre, ProductoStr);;
                 
                 int counter = 0;
                 for(Producto producto: stockproductos){
-                    if(counter<Cantidad){
+                    if(counter>=Cantidad){
                         break;
                     }
                     
                     Inventario inventario = new Inventario(2);
                     producto.setInventarioID(inventario);
+                    producto.setPedidoID(pedido);
 
-                    productos.add(producto);
                     DAOpr.edit(producto);
                     counter++;
                 }
+        
                 
-                pedido.GenerarPedidoSolicitado(ClienteID, productos, 1);
-                
-                
-                DAOp.create(pedido);
             }
         }catch(Exception e){
             Status_Code = -1;
