@@ -17,8 +17,8 @@ public class Servicio_UsuariosModProv {
     
     static boolean UsuarioIsUserCompras(int UsuarioID) {
         try{
-            UsuarioCompras usuarioCompras = DAOuc.findProveedorByUsuarioID();
-            return usuarioCompras.equals(null);
+            UsuarioCompras usuarioCompras = DAOuc.findUsuarioComprasByUsuarioID(UsuarioID);
+            return !( usuarioCompras == null );
         }catch(Exception e){
             return false;
         }        

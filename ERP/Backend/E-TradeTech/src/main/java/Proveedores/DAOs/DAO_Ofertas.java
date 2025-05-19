@@ -23,6 +23,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -68,10 +69,10 @@ public class DAO_Ofertas implements Serializable {
 
             ResultSet rs = stmt.executeQuery();
 
-            List<Oferta> ofertas = null;
+            List<Oferta> ofertas = new ArrayList<>();
             while(rs.next()) {
                 Oferta oferta = new Oferta();
-                oferta.setOfertasID(rs.getInt("OfertaID"));
+                oferta.setOfertasID(rs.getInt("OfertasID"));
 
                 oferta.setPrecioUnidad(rs.getString("Precio_Unidad"));
                 oferta.setProductoOfertado(rs.getString("Producto_Ofertado"));

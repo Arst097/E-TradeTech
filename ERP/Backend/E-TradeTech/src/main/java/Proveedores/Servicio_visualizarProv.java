@@ -48,7 +48,7 @@ public class Servicio_visualizarProv {
     private static String ProveedoresToJSON(List<Proveedor> proveedores) {
         int i = 0;
         int size = proveedores.size();
-        String json = "";
+        String json = "[";
         
         for (Proveedor proveedor : proveedores) {
             i++;
@@ -61,24 +61,24 @@ public class Servicio_visualizarProv {
             String Oferta = getProductoOfertaDeProveedor(proveedor);
 
             json = json
-                    + "{\"ID\":\""
-                    + PedidoID
-                    + "\",\"Nombre\":\""
-                    + Nombre
-                    + "\",\"Telefono\":\""
-                    + Telefono
-                    + "\",\"Descripcion\":"
-                    + Descripcion
+                    + "{\"id\":"
+                    + "\"" + PedidoID + "\""
+                    + ",\"nombre\":"
+                    + "\"" + Nombre + "\""
+                    + ",\"telefono\":"
+                    + "\"" + Telefono + "\""
+                    + ",\"Descripcion\":"
+                    + "\"" + Descripcion + "\""
                     + ",\"Estado\":"
-                    + Estado
-                    + ",\"Oferta de Proveedor\":"
-                    + Oferta
+                    + "\"" + Estado + "\""
+                    + ",\"Oferta\":"
+                    + "\"" + Oferta + "\""
                     + "}";
             if (i < size) {
                 json = json + ",";
             }
         }
-        
+        json = json + "]";
         return json;
     }
     

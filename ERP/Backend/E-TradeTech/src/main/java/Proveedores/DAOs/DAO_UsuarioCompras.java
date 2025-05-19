@@ -57,14 +57,15 @@ public class DAO_UsuarioCompras implements Serializable {
         }
     }
 
-    public UsuarioCompras findProveedorByUsuarioID() {
+    public UsuarioCompras findUsuarioComprasByUsuarioID(int usuarioID) {
         try {
             if (conectar == null || conectar.isClosed()) {
                 EstablecerConexion();
             }
 
-            String query = "SELECT * FROM Usuario_Compras WHERE Usuario_Usuario_id;";
+            String query = "SELECT * FROM Usuario_Compras WHERE Usuario_Usuario_id = ?;";
             PreparedStatement stmt = conectar.prepareStatement(query);
+            stmt.setString(1, String.valueOf(usuarioID));
 
             ResultSet rs = stmt.executeQuery();
 

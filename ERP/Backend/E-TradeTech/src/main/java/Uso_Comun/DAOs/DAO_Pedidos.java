@@ -141,12 +141,7 @@ public class DAO_Pedidos implements Serializable {
             }
 
             if (pedido.getPedidoID()== null) {
-                System.out.println("Obteniendo una id");
-                //List<Producto> AllProducto = findModel_ProductoEntities();
-                //int nuevoID = AllProducto.get(AllProducto.size() - 1).getProductoID() + 1;
-                int tamañoLista = this.findTamañoDeTabla() + 1;
-                pedido.setPedidoID(tamañoLista);
-                System.out.println("Nuevo Id escogido:" + tamañoLista);
+                pedido.setPedidoID(obtenerIDValida());
             }
 
             if (pedido.getFechainicio() == null) {
@@ -218,6 +213,10 @@ public class DAO_Pedidos implements Serializable {
         } catch (SQLException ex) {
             System.out.println("Error en create: " + ex);
         }
+    }
+    
+    public int obtenerIDValida() throws SQLException{
+        return this.findTamañoDeTabla() + 1;
     }
     
     public int findTamañoDeTabla() throws SQLException {

@@ -10,6 +10,7 @@ import Ventas.Modelos.Cliente;
 import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Inventario;
+import Uso_Comun.DAOs.DAO_Pedidos;
 import Uso_Comun.DAOs.DAO_Producto;
 import Uso_Comun.Modelos.Producto;
 import Ventas.DAOS.DAO_Cliente;
@@ -89,6 +90,12 @@ public class Pedidos implements Serializable {
     public void GenerarPedidoSolicitado(int clienteID, int historialPredidosID){
         DAO_HistorialPedido DAOh = new DAO_HistorialPedido();
         DAO_Cliente DAOc = new DAO_Cliente();
+        DAO_Pedidos DAOp = new DAO_Pedidos();
+        try {
+            this.pedidoID = DAOp.obtenerIDValida();
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.estado = "Solicitado";
         this.fechainicio = new Date();
         try {

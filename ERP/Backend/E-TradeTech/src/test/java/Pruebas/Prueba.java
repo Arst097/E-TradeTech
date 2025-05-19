@@ -12,6 +12,7 @@ import Inventario.Modelos.Gestores;
 import Inventario.Modelos.Inventario;
 import Inventario.Servicio_Inventario;
 import Inventario.*;
+import Proveedores.Servicio_visualizarProv;
 import Uso_Comun.DAOs.DAO_Usuario;
 import Uso_Comun.Modelos.Usuario;
 import Uso_Comun.Servicio_Usuario;
@@ -48,8 +49,11 @@ public class Prueba {
         //pruebaCrearMonto();
         
         //System.out.println("Resultado: "+pruebaVizualizarPedidos());
+        //System.out.println("Resultado: "+pruebaVizualizarVentas());
+        
+        System.out.println("Resultado: "+Servicio_visualizarProv.listaproveedoresJSON_Directo(5));
 
-        Prueba.pruebaCrearVenta();
+        //Prueba.pruebaCrearVenta();
         
     }
 

@@ -95,4 +95,8 @@ public class DAO_Proveedor implements Serializable {
 
     }
 
+    public void create(Proveedor proveedor) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }
