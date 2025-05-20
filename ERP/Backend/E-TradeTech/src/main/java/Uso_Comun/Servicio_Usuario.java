@@ -10,6 +10,7 @@ import Uso_Comun.Modelos.Pedidos;
 import Uso_Comun.Modelos.Usuario;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.RollbackFailureException;
+import Seguridad.Servicio_Seguridad;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -27,37 +28,12 @@ import javax.crypto.spec.SecretKeySpec;
 public class Servicio_Usuario {
 
     private static DAO_Usuario DAO = new DAO_Usuario();
-    private static final Key secretKey = generateKeyFromString("ContraseñaSuperSecreta");
     
     public static String encryptSHA256(String input) {
-        try {
-            // Crear una instancia de MessageDigest con el algoritmo SHA-256
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-
-            // Aplicar el hash al array de bytes del input
-            byte[] hash = digest.digest(input.getBytes());
-
-            // Convertir el array de bytes a formato hexadecimal
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hash) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) {
-                    hexString.append('0');
-                }
-                hexString.append(hex);
-            }
-
-            return hexString.toString();
-
-        } catch (NoSuchAlgorithmException e) {
-            // En caso de que no exista el algoritmo (no debería ocurrir con SHA-256)
-            throw new RuntimeException("Error al obtener instancia de SHA-256", e);
-        }
+        return Servicio_Seguridad.encryptSHA256(input);
     }
     
-    
-    
-    public static String login(String correo, String contraseña_encriptada, boolean b) {
+    public static String login(String correo, String contraseña_encriptada, boolean b) throws SQLException {
         
         Usuario usuario = DAO.findUsuarioByCorreoAndSHA256(b, correo, contraseña_encriptada);
         
@@ -68,49 +44,10 @@ public class Servicio_Usuario {
         if(TempDAO.findGestorByUsuarioId(b,usuario.getUsuarioid()) == null){
             return "Usuario No Gestor";
         }
-        return generateJwtToken(usuario.getUsuarioid());
+        return Servicio_Seguridad.generateJwtToken(usuario.getUsuarioid());
     }
     
     public static boolean TokenValido(String token) {
-        try {
-            Jwts.parserBuilder()
-                .setSigningKey(secretKey)
-                .build()
-                .parseClaimsJws(token);
-                
-            return true; // Token válido (firma correcta y estructura OK)
-        } catch (ExpiredJwtException ex) {
-            // Token fue generado por tu sistema pero está expirado
-            return true; 
-        } catch (JwtException | IllegalArgumentException ex) {
-            // Token inválido (firma incorrecta, estructura mal formada, etc)
-            return false; 
-        }
-    }
-    
-    private static String generateJwtToken(int userId) {
-        long currentTimeMillis = System.currentTimeMillis();
-        Date now = new Date(currentTimeMillis);
-        Date expiryDate = new Date(currentTimeMillis + (1000 * 60 * 60 * 24)); // Token valid for 24 hours
-
-        return Jwts.builder()
-                .setSubject(String.valueOf(userId))
-                .setIssuedAt(now)
-                .setExpiration(expiryDate)
-                .signWith(secretKey)
-                .compact();
-    }
-    
-    private static Key generateKeyFromString(String input) {
-        try {
-            // Hash the input string using SHA-256
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(input.getBytes());
-
-            // Use the hash as the key and create a SecretKeySpec
-            return new SecretKeySpec(hash, "HmacSHA256");
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Error generating key: " + e.toString(), e);
-        }
+        return Servicio_Seguridad.TokenValido(token);
     }
 }

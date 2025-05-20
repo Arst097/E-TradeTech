@@ -7,7 +7,7 @@ package Proveedores.DAOs;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
-import Proveedores.Modelos.Ofertas;
+import Proveedores.Modelos.Oferta;
 import java.io.Serializable;
 import jakarta.persistence.Query;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,7 +18,15 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.transaction.UserTransaction;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,178 +34,61 @@ import java.util.List;
  */
 public class DAO_Ofertas implements Serializable {
 
-    public DAO_Ofertas(UserTransaction utx, EntityManagerFactory emf) {
-        this.utx = utx;
-        this.emf = emf;
-    }
-    private UserTransaction utx = null;
-    private EntityManagerFactory emf = null;
-
-    public EntityManager getEntityManager() {
-        return emf.createEntityManager();
+    public DAO_Ofertas() {
     }
 
-    public void create(Ofertas ofertas) throws PreexistingEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
-        EntityTransaction tx = null;
-        
+    private static Connection conectar = null;
+
+    private static final String usuario = "Access";
+    private static final String bd = "ETradeTechDB";
+    private static final String contraseña = "123";
+    private static final String ip = "localhost";
+    private static final String puerto = "1433";
+
+    public static void EstablecerConexion() {
         try {
-            em = getEntityManager();
-            tx = em.getTransaction();
-            tx.begin();
+            String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd + ";" + "encrypt=false";
+            conectar = DriverManager.getConnection(cadena, usuario, contraseña);
+            System.out.println("Conexion Establecida");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public List<Oferta> findOfertasByProveedor(Proveedor proveedor) {
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
+
+            String query = "SELECT * FROM Ofertas WHERE ProveedorID = ?;";
+            PreparedStatement stmt = conectar.prepareStatement(query);
             
-            Proveedor proveedorID = ofertas.getProveedorID();
-            if (proveedorID != null) {
-                proveedorID = em.getReference(proveedorID.getClass(), proveedorID.getProveedorID());
-                ofertas.setProveedorID(proveedorID);
+            int proveedorID = proveedor.getProveedorID();
+            stmt.setString(1, String.valueOf(proveedorID));
+
+            ResultSet rs = stmt.executeQuery();
+
+            List<Oferta> ofertas = new ArrayList<>();
+            while(rs.next()) {
+                Oferta oferta = new Oferta();
+                oferta.setOfertasID(rs.getInt("OfertasID"));
+
+                oferta.setPrecioUnidad(rs.getString("Precio_Unidad"));
+                oferta.setProductoOfertado(rs.getString("Producto_Ofertado"));
+                
+                int proveedorID_i = rs.getInt("ProveedorID");
+                Proveedor proveedor_i = new Proveedor(proveedorID_i);
+                oferta.setProveedorID(proveedor_i);
+
+                ofertas.add(oferta);
             }
-            em.persist(ofertas);
-            if (proveedorID != null) {
-                proveedorID.getOfertasCollection().add(ofertas);
-                proveedorID = em.merge(proveedorID);
-            }
-            tx.commit();
-        } catch (Exception ex) {
-            try {
-                tx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-            }
-            if (findOfertas(ofertas.getOfertasID()) != null) {
-                throw new PreexistingEntityException("Ofertas " + ofertas + " already exists.", ex);
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
+
+            return ofertas;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Ofertas.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 
-    public void edit(Ofertas ofertas) throws NonexistentEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
-        try {
-            utx.begin();
-            em = getEntityManager();
-            Ofertas persistentOfertas = em.find(Ofertas.class, ofertas.getOfertasID());
-            Proveedor proveedorIDOld = persistentOfertas.getProveedorID();
-            Proveedor proveedorIDNew = ofertas.getProveedorID();
-            if (proveedorIDNew != null) {
-                proveedorIDNew = em.getReference(proveedorIDNew.getClass(), proveedorIDNew.getProveedorID());
-                ofertas.setProveedorID(proveedorIDNew);
-            }
-            ofertas = em.merge(ofertas);
-            if (proveedorIDOld != null && !proveedorIDOld.equals(proveedorIDNew)) {
-                proveedorIDOld.getOfertasCollection().remove(ofertas);
-                proveedorIDOld = em.merge(proveedorIDOld);
-            }
-            if (proveedorIDNew != null && !proveedorIDNew.equals(proveedorIDOld)) {
-                proveedorIDNew.getOfertasCollection().add(ofertas);
-                proveedorIDNew = em.merge(proveedorIDNew);
-            }
-            utx.commit();
-        } catch (Exception ex) {
-            try {
-                utx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-            }
-            String msg = ex.getLocalizedMessage();
-            if (msg == null || msg.length() == 0) {
-                Integer id = ofertas.getOfertasID();
-                if (findOfertas(id) == null) {
-                    throw new NonexistentEntityException("The ofertas with id " + id + " no longer exists.");
-                }
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
-    public void destroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
-        EntityTransaction tx = null;
-        
-        try {
-            em = getEntityManager();
-            tx = em.getTransaction();
-            tx.begin();
-            
-            Ofertas ofertas;
-            try {
-                ofertas = em.getReference(Ofertas.class, id);
-                ofertas.getOfertasID();
-            } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The ofertas with id " + id + " no longer exists.", enfe);
-            }
-            Proveedor proveedorID = ofertas.getProveedorID();
-            if (proveedorID != null) {
-                proveedorID.getOfertasCollection().remove(ofertas);
-                proveedorID = em.merge(proveedorID);
-            }
-            em.remove(ofertas);
-            tx.commit();
-        } catch (Exception ex) {
-            try {
-                tx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
-    public List<Ofertas> findOfertasEntities() {
-        return findOfertasEntities(true, -1, -1);
-    }
-
-    public List<Ofertas> findOfertasEntities(int maxResults, int firstResult) {
-        return findOfertasEntities(false, maxResults, firstResult);
-    }
-
-    private List<Ofertas> findOfertasEntities(boolean all, int maxResults, int firstResult) {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Ofertas.class));
-            Query q = em.createQuery(cq);
-            if (!all) {
-                q.setMaxResults(maxResults);
-                q.setFirstResult(firstResult);
-            }
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
-    public Ofertas findOfertas(Integer id) {
-        EntityManager em = getEntityManager();
-        try {
-            return em.find(Ofertas.class, id);
-        } finally {
-            em.close();
-        }
-    }
-
-    public int getOfertasCount() {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Ofertas> rt = cq.from(Ofertas.class);
-            cq.select(em.getCriteriaBuilder().count(rt));
-            Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
-        } finally {
-            em.close();
-        }
-    }
-    
 }

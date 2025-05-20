@@ -30,7 +30,7 @@ import java.io.Serializable;
     @NamedQuery(name = "Ofertas.findByOfertasID", query = "SELECT o FROM Ofertas o WHERE o.ofertasID = :ofertasID"),
     @NamedQuery(name = "Ofertas.findByProductoOfertado", query = "SELECT o FROM Ofertas o WHERE o.productoOfertado = :productoOfertado"),
     @NamedQuery(name = "Ofertas.findByPrecioUnidad", query = "SELECT o FROM Ofertas o WHERE o.precioUnidad = :precioUnidad")})
-public class Ofertas implements Serializable {
+public class Oferta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,14 +52,14 @@ public class Ofertas implements Serializable {
     @ManyToOne(optional = false)
     private Proveedor proveedorID;
 
-    public Ofertas() {
+    public Oferta() {
     }
 
-    public Ofertas(Integer ofertasID) {
+    public Oferta(Integer ofertasID) {
         this.ofertasID = ofertasID;
     }
 
-    public Ofertas(Integer ofertasID, String productoOfertado, String precioUnidad) {
+    public Oferta(Integer ofertasID, String productoOfertado, String precioUnidad) {
         this.ofertasID = ofertasID;
         this.productoOfertado = productoOfertado;
         this.precioUnidad = precioUnidad;
@@ -107,10 +107,10 @@ public class Ofertas implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Ofertas)) {
+        if (!(object instanceof Oferta)) {
             return false;
         }
-        Ofertas other = (Ofertas) object;
+        Oferta other = (Oferta) object;
         if ((this.ofertasID == null && other.ofertasID != null) || (this.ofertasID != null && !this.ofertasID.equals(other.ofertasID))) {
             return false;
         }
@@ -120,6 +120,10 @@ public class Ofertas implements Serializable {
     @Override
     public String toString() {
         return "Proveedores.Modelos.Ofertas[ ofertasID=" + ofertasID + " ]";
+    }
+
+    public void ConfigurarOfertaAleatorea(String productoOfertado, Proveedor proveedor) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

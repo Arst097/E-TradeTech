@@ -11,6 +11,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import Uso_Comun.*;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
  
 /**
  *
@@ -28,15 +31,16 @@ public class ServletInicioSesion extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
 //        Servicio_Usuario.contrasena= request.getParameter("ContraseñaSin");
 //        String dios=Servicio_Usuario.encryptSHA256(Servicio_Usuario.contrasena);
-        System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+        System.out.println("Iniciando login en servlet");
         String email = request.getParameter("Email");
-        String contraseña = request.getParameter("ContrasenaSin");        
+        String contraseña = request.getParameter("ContrasenaSin");
+        System.out.println("Encriptando contraseña");
         String contraseña_encriptada = Servicio_Usuario.encryptSHA256(contraseña);
+        System.out.println("Logeando");
         String token = Servicio_Usuario.login(email, contraseña_encriptada,false);
-        //String token = "a";
 
         
         if(Servicio_Usuario.TokenValido(token)== true){
@@ -84,7 +88,11 @@ public class ServletInicioSesion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServletInicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -98,7 +106,11 @@ public class ServletInicioSesion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServletInicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

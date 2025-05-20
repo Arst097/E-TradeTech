@@ -13,13 +13,22 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import Proveedores.Modelos.ListaContactos;
+import Proveedores.Modelos.Proveedor;
 import Proveedores.Modelos.UsuarioCompras;
 import Uso_Comun.Modelos.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.transaction.UserTransaction;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -27,206 +36,78 @@ import java.util.List;
  */
 public class DAO_UsuarioCompras implements Serializable {
 
-    public DAO_UsuarioCompras(UserTransaction utx, EntityManagerFactory emf) {
-        this.utx = utx;
-        this.emf = emf;
-    }
-    private UserTransaction utx = null;
-    private EntityManagerFactory emf = null;
-
-    public EntityManager getEntityManager() {
-        return emf.createEntityManager();
+    public DAO_UsuarioCompras() {
     }
 
-    public void create(UsuarioCompras usuarioCompras) throws PreexistingEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
-        EntityTransaction tx = null;
-        
+    private static Connection conectar = null;
+
+    private static final String usuario = "Access";
+    private static final String bd = "ETradeTechDB";
+    private static final String contraseña = "123";
+    private static final String ip = "localhost";
+    private static final String puerto = "1433";
+
+    public static void EstablecerConexion() {
         try {
-            em = getEntityManager();
-            tx = em.getTransaction();
-            tx.begin();
+            String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd + ";" + "encrypt=false";
+            conectar = DriverManager.getConnection(cadena, usuario, contraseña);
+            System.out.println("Conexion Establecida");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public UsuarioCompras findUsuarioComprasByUsuarioID(int usuarioID) {
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
+
+            String query = "SELECT * FROM Usuario_Compras WHERE Usuario_Usuario_id = ?;";
+            PreparedStatement stmt = conectar.prepareStatement(query);
+            stmt.setString(1, String.valueOf(usuarioID));
+
+            ResultSet rs = stmt.executeQuery();
+
+            UsuarioCompras usuariosCompras = ResultSet_to_UsuarioCompras(rs);
+
+            return usuariosCompras;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_UsuarioCompras.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    private UsuarioCompras ResultSet_to_UsuarioCompras(ResultSet rs) throws SQLException {
+        List<UsuarioCompras> usuariosCompras = ResultSet_to_ListUsuarioCompras(rs);
+        if( usuariosCompras.size() > 0 ){
+            return usuariosCompras.get(0);
+        }
+        return null;
+    }
+
+    private List<UsuarioCompras> ResultSet_to_ListUsuarioCompras(ResultSet rs) throws SQLException {
+        List<UsuarioCompras> usuariosCompras = new ArrayList<>();
+        while (rs.next()) {
+            UsuarioCompras usuarioCompras = new UsuarioCompras();
+
+            usuarioCompras.setUsuarioComprasID(rs.getInt("Usuario_ComprasID"));
             
-            ListaContactos listaContactosID = usuarioCompras.getListaContactosID();
-            if (listaContactosID != null) {
-                listaContactosID = em.getReference(listaContactosID.getClass(), listaContactosID.getListaContactosID());
+            Usuario usuarioUsuarioid = new Usuario(rs.getInt("Usuario_Usuario_id"));
+            usuarioCompras.setUsuarioUsuarioid(usuarioUsuarioid);
+            
+            Integer listaContactosID_int = rs.getInt("Lista_ContactosID");
+            if( !listaContactosID_int.equals(null) || listaContactosID_int > 0 ){
+                ListaContactos listaContactosID = new ListaContactos(listaContactosID_int);
                 usuarioCompras.setListaContactosID(listaContactosID);
             }
-            Usuario usuarioUsuarioid = usuarioCompras.getUsuarioUsuarioid();
-            if (usuarioUsuarioid != null) {
-                usuarioUsuarioid = em.getReference(usuarioUsuarioid.getClass(), usuarioUsuarioid.getUsuarioid());
-                usuarioCompras.setUsuarioUsuarioid(usuarioUsuarioid);
-            }
-            em.persist(usuarioCompras);
-            if (listaContactosID != null) {
-                listaContactosID.getUsuarioComprasCollection().add(usuarioCompras);
-                listaContactosID = em.merge(listaContactosID);
-            }
-            if (usuarioUsuarioid != null) {
-                usuarioUsuarioid.getUsuarioComprasCollection().add(usuarioCompras);
-                usuarioUsuarioid = em.merge(usuarioUsuarioid);
-            }
-            tx.commit();
-        } catch (Exception ex) {
-            try {
-                tx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-            }
-            if (findUsuarioCompras(usuarioCompras.getUsuarioComprasID()) != null) {
-                throw new PreexistingEntityException("UsuarioCompras " + usuarioCompras + " already exists.", ex);
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
-    public void edit(UsuarioCompras usuarioCompras) throws NonexistentEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
-        try {
-            utx.begin();
-            em = getEntityManager();
-            UsuarioCompras persistentUsuarioCompras = em.find(UsuarioCompras.class, usuarioCompras.getUsuarioComprasID());
-            ListaContactos listaContactosIDOld = persistentUsuarioCompras.getListaContactosID();
-            ListaContactos listaContactosIDNew = usuarioCompras.getListaContactosID();
-            Usuario usuarioUsuarioidOld = persistentUsuarioCompras.getUsuarioUsuarioid();
-            Usuario usuarioUsuarioidNew = usuarioCompras.getUsuarioUsuarioid();
-            if (listaContactosIDNew != null) {
-                listaContactosIDNew = em.getReference(listaContactosIDNew.getClass(), listaContactosIDNew.getListaContactosID());
-                usuarioCompras.setListaContactosID(listaContactosIDNew);
-            }
-            if (usuarioUsuarioidNew != null) {
-                usuarioUsuarioidNew = em.getReference(usuarioUsuarioidNew.getClass(), usuarioUsuarioidNew.getUsuarioid());
-                usuarioCompras.setUsuarioUsuarioid(usuarioUsuarioidNew);
-            }
-            usuarioCompras = em.merge(usuarioCompras);
-            if (listaContactosIDOld != null && !listaContactosIDOld.equals(listaContactosIDNew)) {
-                listaContactosIDOld.getUsuarioComprasCollection().remove(usuarioCompras);
-                listaContactosIDOld = em.merge(listaContactosIDOld);
-            }
-            if (listaContactosIDNew != null && !listaContactosIDNew.equals(listaContactosIDOld)) {
-                listaContactosIDNew.getUsuarioComprasCollection().add(usuarioCompras);
-                listaContactosIDNew = em.merge(listaContactosIDNew);
-            }
-            if (usuarioUsuarioidOld != null && !usuarioUsuarioidOld.equals(usuarioUsuarioidNew)) {
-                usuarioUsuarioidOld.getUsuarioComprasCollection().remove(usuarioCompras);
-                usuarioUsuarioidOld = em.merge(usuarioUsuarioidOld);
-            }
-            if (usuarioUsuarioidNew != null && !usuarioUsuarioidNew.equals(usuarioUsuarioidOld)) {
-                usuarioUsuarioidNew.getUsuarioComprasCollection().add(usuarioCompras);
-                usuarioUsuarioidNew = em.merge(usuarioUsuarioidNew);
-            }
-            utx.commit();
-        } catch (Exception ex) {
-            try {
-                utx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-            }
-            String msg = ex.getLocalizedMessage();
-            if (msg == null || msg.length() == 0) {
-                Integer id = usuarioCompras.getUsuarioComprasID();
-                if (findUsuarioCompras(id) == null) {
-                    throw new NonexistentEntityException("The usuarioCompras with id " + id + " no longer exists.");
-                }
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
-    public void destroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
-        EntityTransaction tx = null;
-        
-        try {
-            em = getEntityManager();
-            tx = em.getTransaction();
-            tx.begin();
             
-            UsuarioCompras usuarioCompras;
-            try {
-                usuarioCompras = em.getReference(UsuarioCompras.class, id);
-                usuarioCompras.getUsuarioComprasID();
-            } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The usuarioCompras with id " + id + " no longer exists.", enfe);
-            }
-            ListaContactos listaContactosID = usuarioCompras.getListaContactosID();
-            if (listaContactosID != null) {
-                listaContactosID.getUsuarioComprasCollection().remove(usuarioCompras);
-                listaContactosID = em.merge(listaContactosID);
-            }
-            Usuario usuarioUsuarioid = usuarioCompras.getUsuarioUsuarioid();
-            if (usuarioUsuarioid != null) {
-                usuarioUsuarioid.getUsuarioComprasCollection().remove(usuarioCompras);
-                usuarioUsuarioid = em.merge(usuarioUsuarioid);
-            }
-            em.remove(usuarioCompras);
-            tx.commit();
-        } catch (Exception ex) {
-            try {
-                tx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
+            usuarioCompras.setPuesto(rs.getString("Puesto"));
+            
+            usuarioCompras.setTelefono(rs.getString("Telefono"));
+
+            usuariosCompras.add(usuarioCompras);
         }
+        return usuariosCompras;
     }
-
-    public List<UsuarioCompras> findUsuarioComprasEntities() {
-        return findUsuarioComprasEntities(true, -1, -1);
-    }
-
-    public List<UsuarioCompras> findUsuarioComprasEntities(int maxResults, int firstResult) {
-        return findUsuarioComprasEntities(false, maxResults, firstResult);
-    }
-
-    private List<UsuarioCompras> findUsuarioComprasEntities(boolean all, int maxResults, int firstResult) {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(UsuarioCompras.class));
-            Query q = em.createQuery(cq);
-            if (!all) {
-                q.setMaxResults(maxResults);
-                q.setFirstResult(firstResult);
-            }
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
-    public UsuarioCompras findUsuarioCompras(Integer id) {
-        EntityManager em = getEntityManager();
-        try {
-            return em.find(UsuarioCompras.class, id);
-        } finally {
-            em.close();
-        }
-    }
-
-    public int getUsuarioComprasCount() {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<UsuarioCompras> rt = cq.from(UsuarioCompras.class);
-            cq.select(em.getCriteriaBuilder().count(rt));
-            Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
-        } finally {
-            em.close();
-        }
-    }
-    
 }

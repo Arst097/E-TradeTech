@@ -4,12 +4,18 @@
  */
 package Web;
 
+import Inventario.Servicio_Inventario;
+import Seguridad.Servicio_Seguridad;
+import Uso_Comun.Servicio_Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,6 +38,16 @@ public class ServletAgregarProductos extends HttpServlet {
         String categoria = request.getParameter("categoria");
         String stockStr = request.getParameter("stock");
         String precioStr = request.getParameter("precio");
+        
+        String Correo = "carlos@empresa.com";
+        String ContrasenaPlana = "gestor123";
+        String ContrasenaSHA256 = Servicio_Seguridad.encryptSHA256(ContrasenaPlana);
+        String Token = "";
+        try {
+            Token = Servicio_Usuario.login(Correo, ContrasenaSHA256, false);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServletInventarioMostrar.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         try {
             int stock = Integer.parseInt(stockStr);
@@ -43,10 +59,24 @@ public class ServletAgregarProductos extends HttpServlet {
             System.out.println("Categoría: " + categoria);
             System.out.println("Stock: " + stock);
             System.out.println("Precio: " + precio);
+            
+            
+            boolean completado = false;
+            try {
+                System.out.println("Se hace el try en servlet para ejecutar CrearMontoProductos");
+                completado = Servicio_Inventario.CrearMontoProductos(Token, nombre, categoria, stockStr, precioStr);
+            } catch (Exception ex) {
+                Logger.getLogger(ServletAgregarProductos.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             // Si quieres enviar una respuesta al cliente (por ejemplo, AJAX)
+            String respuesta = "Error en el cambio";
+            if(completado){
+                respuesta = "Cambio Exitoso";
+            }
+            
             response.setContentType("text/plain");
-            response.getWriter().write("Producto agregado correctamente");
+            response.getWriter().write(respuesta);
 
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Stock o precio inválidos.");

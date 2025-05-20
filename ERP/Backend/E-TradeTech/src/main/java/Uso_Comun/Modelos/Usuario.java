@@ -4,7 +4,7 @@
  */
 package Uso_Comun.Modelos;
 
-import Uso_Comun.Modelos.Cliente;
+import Ventas.Modelos.Cliente;
 import Inventario.Modelos.Gestores;
 import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Despachador;
@@ -58,8 +58,6 @@ public class Usuario implements Serializable {
     private Collection<Despachador> despachadorCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioUsuarioid")
     private Collection<Gestores> gestoresCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioUsuarioid")
-    private Collection<Cliente> clienteCollection;
 
     public Usuario() {
     }
@@ -123,12 +121,13 @@ public class Usuario implements Serializable {
         this.gestoresCollection = gestoresCollection;
     }
 
+    //Si algo utiliza alguno de estos dos metodos, hay que cambiarlos o borrarlo
+    //Cliente ya no tiene relacion con Usuario
     public Collection<Cliente> getClienteCollection() {
-        return clienteCollection;
+        throw new UnsupportedOperationException("Funcion getClienteCollection no disponible, Cliente ya no tiene relacion con usuario.");
     }
-
     public void setClienteCollection(Collection<Cliente> clienteCollection) {
-        this.clienteCollection = clienteCollection;
+        throw new UnsupportedOperationException("Funcion setClienteCollection no disponible, Cliente ya no tiene relacion con usuario.");
     }
 
     @Override

@@ -2,22 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Proveedores.DAOs;
+package Ventas.DAOS;
 
-import Inventario.exceptions.IllegalOrphanException;
+import Uso_Comun.DAOs.DAO_Pedidos;
+import Uso_Comun.Modelos.Pedidos;
+import Uso_Comun.Modelos.Usuario;
+import Ventas.Modelos.Cliente;
 import Inventario.exceptions.NonexistentEntityException;
+import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import java.io.Serializable;
 import jakarta.persistence.Query;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-import Proveedores.Modelos.ListaContactos;
-import Proveedores.Modelos.Oferta;
-import Proveedores.Modelos.Proveedor;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
 import jakarta.transaction.UserTransaction;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -34,16 +36,19 @@ import java.util.logging.Logger;
  *
  * @author HP PORTATIL
  */
-public class DAO_Proveedor implements Serializable {
+public class DAO_Cliente implements Serializable {
+
+    public DAO_Cliente() {
+    }
 
     private static Connection conectar = null;
-
+    
     private static final String usuario = "Access";
     private static final String bd = "ETradeTechDB";
     private static final String contraseña = "123";
     private static final String ip = "localhost";
     private static final String puerto = "1433";
-
+    
     public static void EstablecerConexion() {
         try {
             String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd + ";" + "encrypt=false";
@@ -53,50 +58,35 @@ public class DAO_Proveedor implements Serializable {
             System.out.println(e);
         }
     }
-    
-    public DAO_Proveedor() {
-    }
 
-    public List<Proveedor> findProveedores() {
+    public Cliente findCliente(int ClienteID) {
         try {
             if (conectar == null || conectar.isClosed()) {
                 EstablecerConexion();
             }
-
-            String query = "SELECT * FROM Proveedor;";
+            
+            String query = "SELECT * FROM Cliente WHERE ClienteID = ?";
             PreparedStatement stmt = conectar.prepareStatement(query);
-
+            stmt.setString(1, String.valueOf(ClienteID));
+            
             ResultSet rs = stmt.executeQuery();
-
-            List<Proveedor> proveedores = new ArrayList<>();
-            while(rs.next()) {
-                Proveedor proveedor = new Proveedor();
-                
-                proveedor.setProveedorID(rs.getInt("ProveedorID"));
-                
-                ListaContactos listaContactos = new ListaContactos(rs.getInt("Lista_ContactosID"));
-                proveedor.setListaContactosID(listaContactos);
-                
-                proveedor.setNombre(rs.getString("Nombre"));
-                
-                proveedor.setDescripcion(rs.getString("Descripcion"));
-                
-                proveedor.setTelefono(rs.getString("Telefono"));
-
-
-                proveedores.add(proveedor);
+            
+            Cliente cliente = null;
+            if(rs.next()){
+                cliente = new Cliente();
+                cliente.setClienteID(rs.getInt("ClienteID"));
+                cliente.setCorreo(rs.getString("Correo"));
+                cliente.setTelefono(rs.getString("Telefono"));
+                cliente.setNombre(rs.getString("Nombre"));
             }
-
-            return proveedores;
+            
+            return cliente;
         } catch (SQLException ex) {
-            Logger.getLogger(DAO_Proveedor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO_Pedidos.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-
-    }
-
-    public void create(Proveedor proveedor) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        
     }
 
 }

@@ -2,13 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Inventario.DAOs;
+package Ventas.DAOS;
 
-import Inventario.Modelos.Almacen;
-import Inventario.Modelos.Despachador;
-import Inventario.Modelos.Inventario;
-import Uso_Comun.Modelos.Usuario;
 import Uso_Comun.Modelos.Pedidos;
+import Ventas.Modelos.Mensajero;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
@@ -29,9 +26,9 @@ import java.util.List;
  *
  * @author HP PORTATIL
  */
-public class DAO_Despachador implements Serializable {
+public class DAO_Mensajero implements Serializable {
 
-    public DAO_Despachador() {
+    public DAO_Mensajero() {
     }
     
 }
