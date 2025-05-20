@@ -55,10 +55,9 @@ public class ServletProveedoresMostrar extends HttpServlet {
                 "{\"id\":\"002\",\"nombre\":\"test INC\",\"telefono\":\"312420691\",\"Descripcion\":\"Prueba servlet importante\",\"Estado\":\"Inactivo\",\"Oferta\":\"Infraestructura\"}" +
             "]";
             
-            json = Servicio_visualizarProv.listaproveedoresJSON_Directo(5);
+            int UsuarioComprasID = 5;
+            json = Servicio_visualizarProv.listaproveedoresJSON_Directo(UsuarioComprasID);
             
-            json = "[{\"id\":\"1\",\"nombre\":\"TecnoParts\",\"telefono\":\"555-4001\",\"Descripcion\":\"Proveedor de componentes premium\",\"Estado\":\"null\",\"Oferta\":\"Tarjeta Gráfica RTX 4090\"},{\"id\":\"2\",\"nombre\":\"ElectroHard\",\"telefono\":\"555-4002\",\"Descripcion\":\"Distribuidor de hardware\",\"Estado\":\"null\",\"Oferta\":\"Placa Base Z790\"},{\"id\":\"3\",\"nombre\":\"ChipMaster\",\"telefono\":\"555-4003\",\"Descripcion\":\"Especialistas en procesadores\",\"Estado\":\"null\",\"Oferta\":\"Procesador Ryzen 9 7950X\"},{\"id\":\"4\",\"nombre\":\"StorageTech\",\"telefono\":\"555-4004\",\"Descripcion\":\"Soluciones de almacenamiento\",\"Estado\":\"null\",\"Oferta\":\"Disco SSD 2TB NVMe\"},{\"id\":\"5\",\"nombre\":\"Suministros PC\",\"telefono\":\"555-4005\",\"Descripcion\":\"Proveedor general de TI\",\"Estado\":\"null\",\"Oferta\":\"Monitor 4K 32\"}]";
-
             response.getWriter().write(json);
         }
     }

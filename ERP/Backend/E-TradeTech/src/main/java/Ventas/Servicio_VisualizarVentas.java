@@ -53,7 +53,7 @@ public class Servicio_VisualizarVentas {
     private static String PedidosToJSON(List<Pedidos> pedidos) {
         int i = 0;
         int size = pedidos.size();
-        String json = "";
+        String json = "[";
         
         //todavia no esta cambiado al completo
         for (Pedidos pedido : pedidos) {
@@ -68,22 +68,22 @@ public class Servicio_VisualizarVentas {
             Date fecha_inicio = pedido.getFechainicio();
 
             json = json
-                    + "{\"ID_pedido\":\""
-                    + PedidoID
-                    + "\",\"Cliente\":\""
-                    + Cliente
-                    + "\",\"Producto\":\""
-                    + Producto
-                    + "\",\"Valor_Total\":"
+                    + "{\"id\":"
+                    + "\"" + PedidoID + "\""
+                    + ",\"IdCliente\":"
+                    + "\"" + Cliente + "\""
+                    + ",\"Productos\":"
+                    + "\"" + Producto + "\""
+                    + ",\"valorTotal\":"
                     + Precio
-                    + ",\"Fecha\":"
-                    + fecha_inicio
+                    + ",\"FechaIN\":"
+                    + "\"" + fecha_inicio + "\""
                     + "}";
             if (i < size) {
                 json = json + ",";
             }
         }
         
-        return json;
+        return json+"]";
     }
 }

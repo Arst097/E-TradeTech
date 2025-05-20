@@ -49,9 +49,9 @@ public class Prueba {
         //pruebaCrearMonto();
         
         //System.out.println("Resultado: "+pruebaVizualizarPedidos());
-        //System.out.println("Resultado: "+pruebaVizualizarVentas());
+        System.out.println("Resultado: "+pruebaVizualizarVentas());
         
-        System.out.println("Resultado: "+Servicio_visualizarProv.listaproveedoresJSON_Directo(5));
+        //System.out.println("Resultado: "+Servicio_visualizarProv.listaproveedoresJSON_Directo(5));
 
         //Prueba.pruebaCrearVenta();
         
