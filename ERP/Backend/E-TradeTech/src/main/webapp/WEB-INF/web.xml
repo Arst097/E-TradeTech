@@ -36,6 +36,10 @@
         <servlet-name>ServletAgregarProveedor</servlet-name>
         <servlet-class>Web.ServletAgregarProveedor</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MostrarProductosDisponiblesVentas</servlet-name>
+        <servlet-class>Web.MostrarProductosDisponiblesVentas</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletInicioSesion</servlet-name>
         <url-pattern>/ServletInicioSesion</url-pattern>
@@ -71,5 +75,9 @@
     <servlet-mapping>
         <servlet-name>ServletAgregarProveedor</servlet-name>
         <url-pattern>/ServletAgregarProveedor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MostrarProductosDisponiblesVentas</servlet-name>
+        <url-pattern>/MostrarProductosDisponiblesVentas</url-pattern>
     </servlet-mapping>
 </web-app>

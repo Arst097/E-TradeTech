@@ -30,7 +30,76 @@ $(document).ready(function () {
             }
         });
     }
+    $.ajax({
+        url: 'http://localhost:5077/E-TradeTech/MostrarProductosDisponiblesVentas',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            console.log('Datos recibidos:', data);
+            
+            // Verificación adicional de estructura
+            if (!data.Producto || !data.Precios) {
+                console.error('Estructura incorrecta. Se esperaba {Producto: [], Precios: []}');
+                return;
+            }
+
+            const $select = $('#categoria2');
+            $select.empty().append('<option value="">Seleccione un producto</option>');
+
+            // Usamos forEach para mejor legibilidad
+            data.Producto.forEach((producto, index) => {
+                const precio = data.Precios[index];
+                if (producto && precio !== undefined) {
+                    $select.append(new Option(producto, precio));
+                }
+            });
+
+            console.log('Opciones generadas:', $select.find('option').length);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error en AJAX:', status, error);
+            $('#categoria2').html('<option value="">Error al cargar productos</option>');
+        }
+    });
+//    
+//    $(document).ready(function() {
+//        const testData = {
+//            Producto: ["Producto 1", "Producto 2", "Producto 3"],
+//            Precios: [100, 200, 300]
+//        };
+//
+//        const $select = $('#categoria2');
+//        $select.empty();
+//
+//        testData.Producto.forEach((nombre, index) => {
+//            $select.append(`<option value="${testData.Precios[index]}">${nombre}</option>`);
+//        });
+//    });
     
+    $('#categoria2').on('change', function() {
+        const precio = $(this).val();
+        $('#valorUnitario').val(precio);
+    });
+    
+    function calcularTotal() {
+        const cantidad = parseFloat($('#cantidad').val());
+        const valorUnitario = parseFloat($('#valorUnitario').val());
+
+        if (!isNaN(cantidad) && !isNaN(valorUnitario)) {
+          const total = cantidad * valorUnitario;
+          $('#total').val(total.toFixed(2)); // dos decimales
+        } else {
+          $('#total').val('');
+        }
+    }
+
+      // Recalcular cuando cambie la cantidad o el producto
+    $('#cantidad').on('input', calcularTotal);
+    $('#categoria2').on('change', function() {
+        const precio = $(this).val();
+        $('#valorUnitario').val(precio);
+        calcularTotal(); // también actualiza el total
+    });
     
     $(function () {
     console.log("jQuery está funcionando");
