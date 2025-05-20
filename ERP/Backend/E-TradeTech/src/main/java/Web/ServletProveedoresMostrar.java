@@ -57,6 +57,7 @@ public class ServletProveedoresMostrar extends HttpServlet {
             
             int UsuarioComprasID = 5;
             json = Servicio_visualizarProv.listaproveedoresJSON_Directo(UsuarioComprasID);
+            System.out.println(json);
             
             response.getWriter().write(json);
         }

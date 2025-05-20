@@ -49,7 +49,8 @@ public class Prueba {
         //pruebaCrearMonto();
         
         //System.out.println("Resultado: "+pruebaVizualizarPedidos());
-        System.out.println("Resultado: "+pruebaVizualizarVentas());
+        //System.out.println("Resultado: "+pruebaVizualizarVentas());
+        System.out.println("Resultado: "+pruebaVisualizarProveedores());
         
         //System.out.println("Resultado: "+Servicio_visualizarProv.listaproveedoresJSON_Directo(5));
 
@@ -78,11 +79,15 @@ public class Prueba {
         }
     }
     
+    public static String pruebaVisualizarProveedores(){
+        return Servicio_visualizarProv.listaproveedoresJSON_Directo(5);
+    }
+    
     private static String pruebaVizualizarPedidos(){
         try {
             String Token = pruebaLogin("carlos@empresa.com", "gestor123");
             System.out.println(Token);
-            return Servicio_VisualizarPedidos.listapedidosJSON(Token);
+            return Servicio_VisualizarPedidos.listapedidosJSON_Directo(1);
         } catch (SQLException ex) {
             Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
             return "Error: " + ex;

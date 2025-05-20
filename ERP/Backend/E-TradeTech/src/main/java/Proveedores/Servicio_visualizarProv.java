@@ -58,6 +58,7 @@ public class Servicio_visualizarProv {
             String Telefono = proveedor.getTelefono();
             String Descripcion = proveedor.getDescripcion();
             String Estado = proveedor.getEstado();
+            System.out.println("Estado: "+Estado);
             String Oferta = getProductoOfertaDeProveedor(proveedor);
 
             json = json

@@ -83,7 +83,8 @@ public class DAO_Proveedor implements Serializable {
                 
                 proveedor.setTelefono(rs.getString("Telefono"));
 
-
+                proveedor.setEstado(rs.getString("Estado"));
+                
                 proveedores.add(proveedor);
             }
 
