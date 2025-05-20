@@ -4,6 +4,7 @@
  */
 package Web;
 
+import Proveedores.Servicio_AgregarProv;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -42,7 +43,7 @@ public class ServletAgregarProveedor extends HttpServlet {
 //            out.println("</html>");
 //        }
         String nombre = request.getParameter("nombre");
-        String Status = request.getParameter("Status");
+        String Estado = request.getParameter("Status");
         String telefono = request.getParameter("telefono");
         String descripcion = request.getParameter("descripcion");
         String oferta = request.getParameter("oferta");
@@ -52,16 +53,23 @@ public class ServletAgregarProveedor extends HttpServlet {
 //            var precio = Double.parseDouble(precioStr);
 
             // Aquí puedes guardar el producto, por ejemplo en una base de datos
-            System.out.println("Producto recibido:");
-            System.out.println("nombre: " + nombre);
-            System.out.println("Status: " + Status);
-            System.out.println("Stock: " + telefono);
-            System.out.println("descripcion: " + descripcion);
-            System.out.println("oferta: " + oferta);
+            int Status = Servicio_AgregarProv.CrearProveedor(nombre, Estado, telefono, descripcion, oferta);
 
             // Si quieres enviar una respuesta al cliente (por ejemplo, AJAX)
             response.setContentType("text/plain");
-            response.getWriter().write("Producto agregado correctamente");
+            switch(Status){
+                case 0: 
+                    response.getWriter().write("Producto agregado correctamente");
+                    break;
+                case 1: 
+                    response.getWriter().write("Estado ingresado invalido");
+                    break;
+                default:
+                    response.getWriter().write("Error en la creacion del proveedor");
+                    break;
+            }
+            
+            
 
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Stock o precio inválidos.");

@@ -4,6 +4,7 @@
  */
 package Proveedores.Modelos;
 
+import Proveedores.DAOs.DAO_Proveedor;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -172,6 +173,17 @@ public class Proveedor implements Serializable {
     @Override
     public String toString() {
         return "Proveedores.Modelos.Proveedor[ proveedorID=" + proveedorID + " ]";
+    }
+
+    public void CrearProveedor(String nombre, String status, String telefono, String descripcion, int listaContactosID) {
+        DAO_Proveedor DAOp = new DAO_Proveedor();
+        
+        this.proveedorID = DAOp.obtenerIDValida();
+        this.nombre = nombre;
+        this.estado = status;
+        this.telefono = telefono;
+        this.descripcion = descripcion;
+        this.listaContactosID = new ListaContactos(listaContactosID);
     }
     
 }

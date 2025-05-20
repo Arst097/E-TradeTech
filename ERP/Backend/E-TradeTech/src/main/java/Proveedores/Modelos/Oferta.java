@@ -4,6 +4,7 @@
  */
 package Proveedores.Modelos;
 
+import Proveedores.DAOs.DAO_Ofertas;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,6 +18,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.Random;
 
 /**
  *
@@ -123,7 +125,18 @@ public class Oferta implements Serializable {
     }
 
     public void ConfigurarOfertaAleatorea(String productoOfertado, Proveedor proveedor) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        DAO_Ofertas DAOo = new DAO_Ofertas();
+        
+        this.ofertasID = DAOo.obtenerIDValida();
+        this.precioUnidad = numeroAleatorio(2000,6000);
+        this.productoOfertado = productoOfertado;
+        this.proveedorID = proveedor;
     }
     
+    private String numeroAleatorio(int min, int max) {
+        Random rand = new Random();
+        int numero = rand.nextInt((max - min) + 1) + min;
+        // Formatea el número a dos dígitos, agregando un 0 si es necesario
+        return "$"+String.format("%02d", numero);
+    }
 }

@@ -271,9 +271,5 @@ public class DAO_Pedidos implements Serializable {
         }
 
     }
-
-    public Pedidos find_toProducto(Producto producto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
 }

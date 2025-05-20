@@ -18,6 +18,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.transaction.UserTransaction;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -63,20 +64,20 @@ public class DAO_Ofertas implements Serializable {
 
             String query = "SELECT * FROM Ofertas WHERE ProveedorID = ?;";
             PreparedStatement stmt = conectar.prepareStatement(query);
-            
+
             int proveedorID = proveedor.getProveedorID();
             stmt.setString(1, String.valueOf(proveedorID));
 
             ResultSet rs = stmt.executeQuery();
 
             List<Oferta> ofertas = new ArrayList<>();
-            while(rs.next()) {
+            while (rs.next()) {
                 Oferta oferta = new Oferta();
                 oferta.setOfertasID(rs.getInt("OfertasID"));
 
                 oferta.setPrecioUnidad(rs.getString("Precio_Unidad"));
                 oferta.setProductoOfertado(rs.getString("Producto_Ofertado"));
-                
+
                 int proveedorID_i = rs.getInt("ProveedorID");
                 Proveedor proveedor_i = new Proveedor(proveedorID_i);
                 oferta.setProveedorID(proveedor_i);
@@ -88,6 +89,81 @@ public class DAO_Ofertas implements Serializable {
         } catch (SQLException ex) {
             Logger.getLogger(DAO_Ofertas.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        }
+    }
+
+    public Integer obtenerIDValida() {
+        return this.findTamañoDeTabla() + 1;
+    }
+
+    private int findTamañoDeTabla() {
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
+            
+            String query
+                = "SELECT "
+                + "COUNT(*) AS cantidad "
+                + "FROM Ofertas";
+            
+            PreparedStatement stmt = conectar.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+        int tamañoTabla = 0;
+        if (rs.next()) {
+            tamañoTabla = rs.getInt("cantidad");
+        }
+
+        return tamañoTabla;
+        } catch (SQLException ex) {
+            System.out.println("Error en Objeto DAO_Ofertas.findTamañoDeTabla(): "+ex);
+            return -1;
+        }
+    }
+
+    public void create(Oferta oferta) {
+        System.out.println("Entra a metodo create de Productos");
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
+
+            if (oferta.getOfertasID() == null) {
+                oferta.setOfertasID(this.obtenerIDValida());
+            }
+
+            String query = "INSERT Ofertas (OfertasID, ProveedorID, Producto_Ofertado, Precio_Unidad";
+            int QSimbolQuestions = 4;
+
+            query = query + ") VALUES (";
+
+            for (int i = 1; i <= QSimbolQuestions; i++) {
+                query = query + "?";
+                if (i != QSimbolQuestions) {
+                    query = query + ",";
+                }
+            }
+            query = query + ");";
+
+            System.out.println(query);
+
+            Integer OfertaID = oferta.getOfertasID();
+            Integer ProveedorID = oferta.getProveedorID().getProveedorID();
+            String Producto_Ofertado = oferta.getProductoOfertado();
+            String Precio_Unidad = oferta.getPrecioUnidad();
+
+            CallableStatement cs = conectar.prepareCall(query);
+
+            cs.setInt(1, OfertaID);
+            cs.setInt(2, ProveedorID);
+            cs.setString(3, Producto_Ofertado);
+            cs.setString(4, Precio_Unidad);
+
+            System.out.println("Intenta hacer la insercion");
+            cs.execute();
+        } catch (SQLException ex) {
+            System.out.println("Error en create: " + ex);
         }
     }
 
