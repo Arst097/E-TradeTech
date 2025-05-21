@@ -26,3 +26,5 @@ ALTER TABLE Usuario
 ALTER COLUMN Contrato nvarchar(70) NOT NULL;
 
 EXEC sp_rename 'Usuario', 'Empleado';
+
+EXEC sp_rename 'Empleado.Usuario_id', 'Empleado_id', 'COLUMN';
