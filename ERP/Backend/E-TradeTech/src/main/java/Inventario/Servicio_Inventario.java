@@ -33,6 +33,7 @@ public class Servicio_Inventario {
     public static String listaproductosJSON(String Token) {
 
         int EmpleadoID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
+        System.out.println(EmpleadoID);
         
         int GestorID = -1;
         try {

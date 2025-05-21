@@ -68,9 +68,10 @@ public class ServletInventarioMostrar extends HttpServlet {
         String ContrasenaSHA256 = Servicio_Seguridad.encryptSHA256(ContrasenaPlana);
         String Token = "";
         try {
+            System.out.println("Entrando Try");
             Token = Servicio_Login.login(Correo, ContrasenaSHA256, false);
         } catch (SQLException ex) {
-            Logger.getLogger(ServletInventarioMostrar.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error en ServletInventarioMostrar: "+ex);
         }
         
         String json;

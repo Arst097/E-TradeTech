@@ -38,11 +38,11 @@ public class Servicio_Login {
         Empleado usuario = DAO.findUsuarioByCorreoAndSHA256(b, correo, contraseña_encriptada);
         
         if(usuario == null){
-            return "Usuario No Encontrado";
+            return "Empleadoo No Encontrado";
         }
         DAO_Gestores TempDAO = new DAO_Gestores();
         if(TempDAO.findGestorByEmpleadoId(b,usuario.getEmpleadoid()) == null){
-            return "Usuario No Gestor";
+            return "Empleado No Gestor";
         }
         return Servicio_Seguridad.generateJwtToken(usuario.getEmpleadoid());
     }

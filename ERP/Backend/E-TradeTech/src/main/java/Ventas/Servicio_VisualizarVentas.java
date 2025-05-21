@@ -36,7 +36,7 @@ public class Servicio_VisualizarVentas {
     }
     
     private static String listapedidosJSON(int EmpleadoID) {
-        boolean Usuario_Valido = Servicio_Inventario.UsuarioIsGestor(EmpleadoID);
+        boolean Usuario_Valido = Servicio_Inventario.EmpleadoIsGestor(EmpleadoID);
         
         if(Usuario_Valido){
             try{

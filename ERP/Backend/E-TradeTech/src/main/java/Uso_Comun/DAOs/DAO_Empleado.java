@@ -66,7 +66,7 @@ public class DAO_Empleado implements Serializable {
         if (conectar == null || conectar.isClosed()) {
             EstablecerConexion();
         }
-        String query = "SELECT Empleado_id, Nombre, Correo, Contraseña_SHA256 FROM Usuario WHERE Correo = ? AND Contraseña_SHA256 = ?";
+        String query = "SELECT Empleado_id, Nombre, Correo, Contraseña_SHA256 FROM Empleado WHERE Correo = ? AND Contraseña_SHA256 = ?";
         PreparedStatement stmt = conectar.prepareStatement(query);
         stmt.setString(1, Correo);
         stmt.setString(2, SHA256);

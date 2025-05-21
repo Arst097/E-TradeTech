@@ -145,11 +145,6 @@ public class Empleado implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Uso_Comun.Usuario[ empleadoid=" + empleadoid + " ]";
-    }
-
     @XmlTransient
     public Collection<UsuarioCompras> getUsuarioComprasCollection() {
         return usuarioComprasCollection;

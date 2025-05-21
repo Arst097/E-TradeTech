@@ -58,6 +58,7 @@ public class DAO_Gestores implements Serializable {
     
     public Gestores findGestorByEmpleadoId(boolean ch, Integer empleadoId) throws SQLException {
         
+        System.out.println(empleadoId);
         if (conectar == null || conectar.isClosed()) {
             EstablecerConexion();
         }
