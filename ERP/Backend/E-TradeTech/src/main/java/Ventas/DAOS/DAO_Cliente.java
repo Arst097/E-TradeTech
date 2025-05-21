@@ -6,7 +6,7 @@ package Ventas.DAOS;
 
 import Uso_Comun.DAOs.DAO_Pedidos;
 import Uso_Comun.Modelos.Pedidos;
-import Uso_Comun.Modelos.Usuario;
+import Uso_Comun.Modelos.Empleado;
 import Ventas.Modelos.Cliente;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;

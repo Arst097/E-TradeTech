@@ -32,18 +32,18 @@ public class ServletInicioSesion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-//        Servicio_Usuario.contrasena= request.getParameter("ContraseñaSin");
-//        String dios=Servicio_Usuario.encryptSHA256(Servicio_Usuario.contrasena);
+//        Servicio_Login.contrasena= request.getParameter("ContraseñaSin");
+//        String dios=Servicio_Login.encryptSHA256(Servicio_Login.contrasena);
         System.out.println("Iniciando login en servlet");
         String email = request.getParameter("Email");
         String contraseña = request.getParameter("ContrasenaSin");
         System.out.println("Encriptando contraseña");
-        String contraseña_encriptada = Servicio_Usuario.encryptSHA256(contraseña);
+        String contraseña_encriptada = Servicio_Login.encryptSHA256(contraseña);
         System.out.println("Logeando");
-        String token = Servicio_Usuario.login(email, contraseña_encriptada,false);
+        String token = Servicio_Login.login(email, contraseña_encriptada,false);
 
         
-        if(Servicio_Usuario.TokenValido(token)== true){
+        if(Servicio_Login.TokenValido(token)== true){
             response.setContentType("text/html;charset=UTF-8");
             try (PrintWriter out = response.getWriter()) {
                 /* TODO output your page here. You may use following sample code. */

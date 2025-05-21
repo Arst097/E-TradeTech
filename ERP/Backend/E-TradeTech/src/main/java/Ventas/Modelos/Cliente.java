@@ -5,7 +5,7 @@
 package Ventas.Modelos;
 
 import Uso_Comun.Modelos.Pedidos;
-import Uso_Comun.Modelos.Usuario;
+import Uso_Comun.Modelos.Empleado;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -102,12 +102,12 @@ public class Cliente implements Serializable {
     }
     
     //Si algo utiliza alguno de estos dos metodos, hay que cambiarlos o borrarlo
-    //Cliente ya no tiene relacion con Usuario
-    public Usuario getUsuarioUsuarioid() {
-        throw new UnsupportedOperationException("Funcion getUsuarioUsuarioid no disponible, UsuarioUsuarioid ya no existe.");
+    //Cliente ya no tiene relacion con Empleado
+    public Empleado getUsuarioEmpleadoid() {
+        throw new UnsupportedOperationException("Funcion getUsuarioEmpleadoid no disponible, UsuarioEmpleadoid ya no existe.");
     }
-    public void setUsuarioUsuarioid(Usuario usuarioUsuarioid) {
-        throw new UnsupportedOperationException("Funcion setUsuarioUsuarioid no disponible, UsuarioUsuarioid ya no existe.");
+    public void setUsuarioEmpleadoid(Empleado usuarioEmpleadoid) {
+        throw new UnsupportedOperationException("Funcion setUsuarioEmpleadoid no disponible, UsuarioEmpleadoid ya no existe.");
     }
     
     @Override

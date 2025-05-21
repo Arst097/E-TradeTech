@@ -21,21 +21,21 @@ public class Servicio_visualizarProv {
     
     //retorna un string en formato json con todos los datos disponibles en la tabla Pedidos de la BD
     public static String listaproveedoresJSON(String Token){
-        int UsuarioID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
-        return listaproveedoresJSON(UsuarioID);
+        int EmpleadoID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
+        return listaproveedoresJSON(EmpleadoID);
     }
     
-    //hace lo mismo que listapedidosJSON pero ingresando directamente el UsuarioID
-    public static String listaproveedoresJSON_Directo(int UsuarioID){
-        return listaproveedoresJSON(UsuarioID);
+    //hace lo mismo que listapedidosJSON pero ingresando directamente el EmpleadoID
+    public static String listaproveedoresJSON_Directo(int EmpleadoID){
+        return listaproveedoresJSON(EmpleadoID);
     }
     
-    private static String listaproveedoresJSON(int UsuarioID) {
-        boolean Usuario_Valido = Servicio_UsuariosModProv.UsuarioIsUserCompras(UsuarioID);
+    private static String listaproveedoresJSON(int EmpleadoID) {
+        boolean Usuario_Valido = Servicio_UsuariosModProv.UsuarioIsUserCompras(EmpleadoID);
         
         if(Usuario_Valido){
             try{
-                List<Proveedor> Proveedores_en_lista = getProveedores(UsuarioID);
+                List<Proveedor> Proveedores_en_lista = getProveedores(EmpleadoID);
                 return ProveedoresToJSON(Proveedores_en_lista);
             }catch(Exception e){
                 return "Error al obtener los datos";
@@ -93,7 +93,7 @@ public class Servicio_visualizarProv {
     }
 
     //por ahora esta funcion sirve, pero deberia funcionar obteniendo la lista asociada con el usuario
-    private static List<Proveedor> getProveedores(int UsuarioID) {
+    private static List<Proveedor> getProveedores(int EmpleadoID) {
         return DAOp.findProveedores();
     }
     

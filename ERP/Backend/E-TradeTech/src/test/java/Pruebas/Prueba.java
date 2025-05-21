@@ -14,9 +14,9 @@ import Inventario.Servicio_Inventario;
 import Inventario.*;
 import Proveedores.Servicio_AgregarProv;
 import Proveedores.Servicio_visualizarProv;
-import Uso_Comun.DAOs.DAO_Usuario;
-import Uso_Comun.Modelos.Usuario;
-import Uso_Comun.Servicio_Usuario;
+import Uso_Comun.DAOs.DAO_Empleado;
+import Uso_Comun.Modelos.Empleado;
+import Uso_Comun.Servicio_Login;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
@@ -133,9 +133,9 @@ public class Prueba {
     }
 
     private static String pruebaLogin(String Correo, String ContraseñaLimpia) throws SQLException {
-        String Contraseña_Obtenida = Servicio_Usuario.encryptSHA256(ContraseñaLimpia);
+        String Contraseña_Obtenida = Servicio_Login.encryptSHA256(ContraseñaLimpia);
         System.out.println(Contraseña_Obtenida);
-        String Token_Obtenido = Servicio_Usuario.login(Correo, Contraseña_Obtenida, false);
+        String Token_Obtenido = Servicio_Login.login(Correo, Contraseña_Obtenida, false);
         System.out.println(Token_Obtenido);
         return Token_Obtenido;
     }

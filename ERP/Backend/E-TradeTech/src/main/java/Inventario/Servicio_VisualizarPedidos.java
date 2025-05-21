@@ -6,6 +6,7 @@ package Inventario;
 
 import Seguridad.Servicio_Seguridad;
 import Uso_Comun.DAOs.DAO_Pedidos;
+import Uso_Comun.Modelos.Empleado;
 import Uso_Comun.Modelos.Pedidos;
 import Uso_Comun.Modelos.Producto;
 import java.util.ArrayList;
@@ -21,19 +22,19 @@ public class Servicio_VisualizarPedidos {
     
     //retorna un string en formato json con todos los datos disponibles en la tabla Pedidos de la BD
     public static String listapedidosJSON(String Token){
-        int UsuarioID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
-        return listapedidosJSON(UsuarioID);
+        int EmpleadoID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
+        return listapedidosJSON(EmpleadoID);
     }
     
-    //hace lo mismo que listapedidosJSON pero ingresando directamente el UsuarioID
-    public static String listapedidosJSON_Directo(int UsuarioID){
-        return listapedidosJSON(UsuarioID);
+    //hace lo mismo que listapedidosJSON pero ingresando directamente el EmpleadoID
+    public static String listapedidosJSON_Directo(int EmpleadoID){
+        return listapedidosJSON(EmpleadoID);
     }
     
-    private static String listapedidosJSON(int UsuarioID) {
-        boolean Usuario_Valido = Servicio_Inventario.UsuarioIsGestor(UsuarioID);
+    private static String listapedidosJSON(int EmpleadoID) {
+        boolean Empleado_Valido = Servicio_Inventario.EmpleadoIsGestor(EmpleadoID);
         
-        if(Usuario_Valido){
+        if(Empleado_Valido){
             try{
                 List<Pedidos> Todos_los_Pedidos = DAOp.findPedidos();
                 return PedidosToJSON(Todos_los_Pedidos);
@@ -41,7 +42,7 @@ public class Servicio_VisualizarPedidos {
                 return "Error al obtener los datos";
             }
         }else{
-            return "El usuario no es valido";
+            return "El empleado no es valido";
         }
     }
     

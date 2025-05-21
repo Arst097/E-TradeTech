@@ -11,7 +11,7 @@ import Inventario.DAOs.DAO_Gestores;
 import Inventario.DAOs.DAO_Inventario;
 import Seguridad.Servicio_Seguridad;
 import Uso_Comun.Modelos.Producto;
-import Uso_Comun.Servicio_Usuario;
+import Uso_Comun.Servicio_Login;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -32,11 +32,11 @@ public class Servicio_Inventario {
 
     public static String listaproductosJSON(String Token) {
 
-        int UsuarioID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
+        int EmpleadoID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
         
         int GestorID = -1;
         try {
-            GestorID = DAOg.findGestorByUsuarioId(false, UsuarioID).getGestorID();
+            GestorID = DAOg.findGestorByEmpleadoId(false, EmpleadoID).getGestorID();
         } catch (SQLException ex) {
             Logger.getLogger(Servicio_Inventario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -102,7 +102,7 @@ public class Servicio_Inventario {
     }
 
     public static String listaproductosJSON(String correo, String contraseña_encriptada) throws SQLException {
-        String Token = Servicio_Usuario.login(correo, contraseña_encriptada, false);
+        String Token = Servicio_Login.login(correo, contraseña_encriptada, false);
         return listaproductosJSON(Token);
     }
 
@@ -118,12 +118,12 @@ public class Servicio_Inventario {
                 || ("Reservado".equals(tipo1) && "Libre".equals(tipo2)));
     }
 
-    public static boolean EditarMontoProductos(int UsuarioID, String nombre, String categoria, String StockStr, String PrecioStr) throws Exception {
+    public static boolean EditarMontoProductos(int EmpleadoID, String nombre, String categoria, String StockStr, String PrecioStr) throws Exception {
         try{
             int Stock = Integer.valueOf(StockStr);
             float Precio = Float.valueOf(PrecioStr);
 
-            int GestorID = DAOg.findGestorByUsuarioId(false, UsuarioID).getGestorID();
+            int GestorID = DAOg.findGestorByEmpleadoId(false, EmpleadoID).getGestorID();
 
             List<Inventario> inventarios = DAOi.findInvetarioByGestor(GestorID);
 
@@ -160,22 +160,22 @@ public class Servicio_Inventario {
     }
 
     public static boolean EditarMontoProductos(String correo, String contraseña_encriptada, String nombre, String categoria, String StockStr, String PrecioStr) throws Exception {
-        String Token = Servicio_Usuario.login(correo, contraseña_encriptada, false);
+        String Token = Servicio_Login.login(correo, contraseña_encriptada, false);
         return EditarMontoProductos(Token, nombre, categoria, StockStr, PrecioStr);
     }
 
     public static boolean EditarMontoProductos(String Token, String nombre, String categoria, String StockStr, String PrecioStr) throws Exception {
-        int UsuarioID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
-        return EditarMontoProductos(UsuarioID, nombre, categoria, StockStr, PrecioStr);
+        int EmpleadoID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
+        return EditarMontoProductos(EmpleadoID, nombre, categoria, StockStr, PrecioStr);
     }
     
-    private static boolean CrearMontoProductos(int UsuarioID, String nombre, String categoria, String StockStr, String PrecioStr){
+    private static boolean CrearMontoProductos(int EmpleadoID, String nombre, String categoria, String StockStr, String PrecioStr){
         try{
             System.out.println("Se empieza el try dentro de CrearMontoProductos");
             int Stock = Integer.valueOf(StockStr);
             float Precio = Float.valueOf(PrecioStr);
 
-            int GestorID = DAOg.findGestorByUsuarioId(false, UsuarioID).getGestorID();
+            int GestorID = DAOg.findGestorByEmpleadoId(false, EmpleadoID).getGestorID();
             System.out.println("GestorID: "+GestorID);
             
             List<Inventario> inventarios = DAOi.findInvetarioByGestor(GestorID);
@@ -205,15 +205,15 @@ public class Servicio_Inventario {
     
     public static boolean CrearMontoProductos(String Token, String nombre, String categoria, String StockStr, String PrecioStr) throws Exception {
         System.out.println("Token: "+Token);
-        int UsuarioID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
-        System.out.println("UsuarioID: "+UsuarioID);
-        return CrearMontoProductos(UsuarioID, nombre, categoria, StockStr, PrecioStr);
+        int EmpleadoID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
+        System.out.println("EmpleadoID: "+EmpleadoID);
+        return CrearMontoProductos(EmpleadoID, nombre, categoria, StockStr, PrecioStr);
     }
     
-    public static boolean UsuarioIsGestor(int UsuarioID){
+    public static boolean EmpleadoIsGestor(int EmpleadoID){
         int GestorID = -1;
         try {
-            GestorID = DAOg.findGestorByUsuarioId(false, UsuarioID).getGestorID();
+            GestorID = DAOg.findGestorByEmpleadoId(false, EmpleadoID).getGestorID();
         } catch (SQLException ex) {
             Logger.getLogger(Servicio_Inventario.class.getName()).log(Level.SEVERE, null, ex);
             return false;

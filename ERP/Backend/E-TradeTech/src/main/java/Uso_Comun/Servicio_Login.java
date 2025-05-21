@@ -5,9 +5,9 @@
 package Uso_Comun;
 
 import Inventario.DAOs.DAO_Gestores;
-import Uso_Comun.DAOs.DAO_Usuario;
+import Uso_Comun.DAOs.DAO_Empleado;
 import Uso_Comun.Modelos.Pedidos;
-import Uso_Comun.Modelos.Usuario;
+import Uso_Comun.Modelos.Empleado;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.RollbackFailureException;
 import Seguridad.Servicio_Seguridad;
@@ -25,9 +25,9 @@ import javax.crypto.spec.SecretKeySpec;
  *
  * @author HP PORTATIL
  */
-public class Servicio_Usuario {
+public class Servicio_Login {
 
-    private static DAO_Usuario DAO = new DAO_Usuario();
+    private static DAO_Empleado DAO = new DAO_Empleado();
     
     public static String encryptSHA256(String input) {
         return Servicio_Seguridad.encryptSHA256(input);
@@ -35,16 +35,16 @@ public class Servicio_Usuario {
     
     public static String login(String correo, String contraseña_encriptada, boolean b) throws SQLException {
         
-        Usuario usuario = DAO.findUsuarioByCorreoAndSHA256(b, correo, contraseña_encriptada);
+        Empleado usuario = DAO.findUsuarioByCorreoAndSHA256(b, correo, contraseña_encriptada);
         
         if(usuario == null){
             return "Usuario No Encontrado";
         }
         DAO_Gestores TempDAO = new DAO_Gestores();
-        if(TempDAO.findGestorByUsuarioId(b,usuario.getUsuarioid()) == null){
+        if(TempDAO.findGestorByEmpleadoId(b,usuario.getEmpleadoid()) == null){
             return "Usuario No Gestor";
         }
-        return Servicio_Seguridad.generateJwtToken(usuario.getUsuarioid());
+        return Servicio_Seguridad.generateJwtToken(usuario.getEmpleadoid());
     }
     
     public static boolean TokenValido(String token) {

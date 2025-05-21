@@ -15,7 +15,7 @@ import jakarta.persistence.criteria.Root;
 import Proveedores.Modelos.ListaContactos;
 import Proveedores.Modelos.Proveedor;
 import Proveedores.Modelos.UsuarioCompras;
-import Uso_Comun.Modelos.Usuario;
+import Uso_Comun.Modelos.Empleado;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -57,7 +57,7 @@ public class DAO_UsuarioCompras implements Serializable {
         }
     }
 
-    public UsuarioCompras findUsuarioComprasByUsuarioID(int usuarioID) {
+    public UsuarioCompras findUsuarioComprasByEmpleadoID(int empleadoID) {
         try {
             if (conectar == null || conectar.isClosed()) {
                 EstablecerConexion();
@@ -65,7 +65,7 @@ public class DAO_UsuarioCompras implements Serializable {
 
             String query = "SELECT * FROM Usuario_Compras WHERE Usuario_Usuario_id = ?;";
             PreparedStatement stmt = conectar.prepareStatement(query);
-            stmt.setString(1, String.valueOf(usuarioID));
+            stmt.setString(1, String.valueOf(empleadoID));
 
             ResultSet rs = stmt.executeQuery();
 
@@ -93,8 +93,8 @@ public class DAO_UsuarioCompras implements Serializable {
 
             usuarioCompras.setUsuarioComprasID(rs.getInt("Usuario_ComprasID"));
             
-            Usuario usuarioUsuarioid = new Usuario(rs.getInt("Usuario_Usuario_id"));
-            usuarioCompras.setUsuarioUsuarioid(usuarioUsuarioid);
+            Empleado usuarioEmpleadoid = new Empleado(rs.getInt("Usuario_Usuario_id"));
+            usuarioCompras.setUsuarioEmpleadoid(usuarioEmpleadoid);
             
             Integer listaContactosID_int = rs.getInt("Lista_ContactosID");
             if( !listaContactosID_int.equals(null) || listaContactosID_int > 0 ){

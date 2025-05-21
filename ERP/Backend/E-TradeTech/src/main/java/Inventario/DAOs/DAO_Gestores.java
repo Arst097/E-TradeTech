@@ -6,11 +6,11 @@ package Inventario.DAOs;
 
 import Inventario.Modelos.Almacen;
 import Inventario.Modelos.Gestores;
-import Uso_Comun.Modelos.Usuario;
+import Uso_Comun.Modelos.Empleado;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
-import static Uso_Comun.DAOs.DAO_Usuario.EstablecerConexion;
+import static Uso_Comun.DAOs.DAO_Empleado.EstablecerConexion;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import java.io.Serializable;
@@ -56,7 +56,7 @@ public class DAO_Gestores implements Serializable {
         }
     }
     
-    public Gestores findGestorByUsuarioId(boolean ch, Integer usuarioId) throws SQLException {
+    public Gestores findGestorByEmpleadoId(boolean ch, Integer empleadoId) throws SQLException {
         
         if (conectar == null || conectar.isClosed()) {
             EstablecerConexion();
@@ -64,7 +64,7 @@ public class DAO_Gestores implements Serializable {
         
         String query = "SELECT * FROM Gestores WHERE Usuario_Usuario_id = ?";
         PreparedStatement stmt = conectar.prepareStatement(query);
-        stmt.setString(1, String.valueOf(usuarioId));
+        stmt.setString(1, String.valueOf(empleadoId));
         
         ResultSet rs = stmt.executeQuery();
         

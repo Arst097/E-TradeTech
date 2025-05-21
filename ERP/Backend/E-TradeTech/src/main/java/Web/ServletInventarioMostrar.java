@@ -7,7 +7,7 @@ package Web;
 
 import Inventario.Servicio_Inventario;
 import Seguridad.Servicio_Seguridad;
-import Uso_Comun.Servicio_Usuario;
+import Uso_Comun.Servicio_Login;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -68,7 +68,7 @@ public class ServletInventarioMostrar extends HttpServlet {
         String ContrasenaSHA256 = Servicio_Seguridad.encryptSHA256(ContrasenaPlana);
         String Token = "";
         try {
-            Token = Servicio_Usuario.login(Correo, ContrasenaSHA256, false);
+            Token = Servicio_Login.login(Correo, ContrasenaSHA256, false);
         } catch (SQLException ex) {
             Logger.getLogger(ServletInventarioMostrar.class.getName()).log(Level.SEVERE, null, ex);
         }

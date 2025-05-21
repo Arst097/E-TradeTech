@@ -28,23 +28,16 @@ import java.util.Collection;
  * @author HP PORTATIL
  */
 @Entity
-@Table(name = "Usuario")
-@NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-    @NamedQuery(name = "Usuario.findByUsuarioid", query = "SELECT u FROM Usuario u WHERE u.usuarioid = :usuarioid"),
-    @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre"),
-    @NamedQuery(name = "Usuario.findByCorreo", query = "SELECT u FROM Usuario u WHERE u.correo = :correo"),
-    @NamedQuery(name = "Usuario.findByContrase\u00f1aSHA256", query = "SELECT u FROM Usuario u WHERE u.contrase\u00f1aSHA256 = :contrase\u00f1aSHA256")})
-public class Usuario implements Serializable {
+@Table(name = "Empleado")
+public class Empleado implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioUsuarioid")
-    private Collection<UsuarioCompras> usuarioComprasCollection;
+    
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "Usuario_id")
-    private Integer usuarioid;
+    private Integer empleadoid;
     @Basic(optional = false)
     @Column(name = "Nombre")
     private String nombre;
@@ -54,31 +47,33 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "Contrase\u00f1a_SHA256")
     private String contraseñaSHA256;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioUsuarioid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioEmpleadoid")
     private Collection<Despachador> despachadorCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioUsuarioid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioEmpleadoid")
     private Collection<Gestores> gestoresCollection;
-
-    public Usuario() {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioEmpleadoid")
+    private Collection<UsuarioCompras> usuarioComprasCollection;
+    
+    public Empleado() {
     }
 
-    public Usuario(Integer usuarioid) {
-        this.usuarioid = usuarioid;
+    public Empleado(Integer empleadoid) {
+        this.empleadoid = empleadoid;
     }
 
-    public Usuario(Integer usuarioid, String nombre, String correo, String contraseñaSHA256) {
-        this.usuarioid = usuarioid;
+    public Empleado(Integer empleadoid, String nombre, String correo, String contraseñaSHA256) {
+        this.empleadoid = empleadoid;
         this.nombre = nombre;
         this.correo = correo;
         this.contraseñaSHA256 = contraseñaSHA256;
     }
 
-    public Integer getUsuarioid() {
-        return usuarioid;
+    public Integer getEmpleadoid() {
+        return empleadoid;
     }
 
-    public void setUsuarioid(Integer usuarioid) {
-        this.usuarioid = usuarioid;
+    public void setEmpleadoid(Integer empleadoid) {
+        this.empleadoid = empleadoid;
     }
 
     public String getNombre() {
@@ -122,7 +117,7 @@ public class Usuario implements Serializable {
     }
 
     //Si algo utiliza alguno de estos dos metodos, hay que cambiarlos o borrarlo
-    //Cliente ya no tiene relacion con Usuario
+    //Cliente ya no tiene relacion con Empleado
     public Collection<Cliente> getClienteCollection() {
         throw new UnsupportedOperationException("Funcion getClienteCollection no disponible, Cliente ya no tiene relacion con usuario.");
     }
@@ -133,18 +128,18 @@ public class Usuario implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (usuarioid != null ? usuarioid.hashCode() : 0);
+        hash += (empleadoid != null ? empleadoid.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Usuario)) {
+        if (!(object instanceof Empleado)) {
             return false;
         }
-        Usuario other = (Usuario) object;
-        if ((this.usuarioid == null && other.usuarioid != null) || (this.usuarioid != null && !this.usuarioid.equals(other.usuarioid))) {
+        Empleado other = (Empleado) object;
+        if ((this.empleadoid == null && other.empleadoid != null) || (this.empleadoid != null && !this.empleadoid.equals(other.empleadoid))) {
             return false;
         }
         return true;
@@ -152,7 +147,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "Uso_Comun.Usuario[ usuarioid=" + usuarioid + " ]";
+        return "Uso_Comun.Usuario[ empleadoid=" + empleadoid + " ]";
     }
 
     @XmlTransient

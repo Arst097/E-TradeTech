@@ -15,9 +15,9 @@ public class Servicio_UsuariosModProv {
 
     private static final DAO_UsuarioCompras DAOuc = new DAO_UsuarioCompras();
     
-    static boolean UsuarioIsUserCompras(int UsuarioID) {
+    static boolean UsuarioIsUserCompras(int EmpleadoID) {
         try{
-            UsuarioCompras usuarioCompras = DAOuc.findUsuarioComprasByUsuarioID(UsuarioID);
+            UsuarioCompras usuarioCompras = DAOuc.findUsuarioComprasByEmpleadoID(EmpleadoID);
             return !( usuarioCompras == null );
         }catch(Exception e){
             return false;

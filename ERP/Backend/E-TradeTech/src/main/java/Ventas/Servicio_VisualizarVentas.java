@@ -26,17 +26,17 @@ public class Servicio_VisualizarVentas {
     
     //retorna un string en formato json con todos los datos disponibles en la tabla Pedidos de la BD
     public static String listapedidosJSON(String Token){
-        int UsuarioID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
-        return listapedidosJSON(UsuarioID);
+        int EmpleadoID = Servicio_Seguridad.getUserIdFromJwtToken(Token);
+        return listapedidosJSON(EmpleadoID);
     }
     
-    //hace lo mismo que listapedidosJSON pero ingresando directamente el UsuarioID
-    public static String listapedidosJSON_Directo(int UsuarioID){
-        return listapedidosJSON(UsuarioID);
+    //hace lo mismo que listapedidosJSON pero ingresando directamente el EmpleadoID
+    public static String listapedidosJSON_Directo(int EmpleadoID){
+        return listapedidosJSON(EmpleadoID);
     }
     
-    private static String listapedidosJSON(int UsuarioID) {
-        boolean Usuario_Valido = Servicio_Inventario.UsuarioIsGestor(UsuarioID);
+    private static String listapedidosJSON(int EmpleadoID) {
+        boolean Usuario_Valido = Servicio_Inventario.UsuarioIsGestor(EmpleadoID);
         
         if(Usuario_Valido){
             try{

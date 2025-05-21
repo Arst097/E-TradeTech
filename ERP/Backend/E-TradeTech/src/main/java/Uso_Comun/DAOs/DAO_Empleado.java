@@ -8,7 +8,7 @@ import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Gestores;
 import Inventario.Modelos.Gestores;
-import Uso_Comun.Modelos.Usuario;
+import Uso_Comun.Modelos.Empleado;
 import Ventas.Modelos.Cliente;
 import Inventario.exceptions.IllegalOrphanException;
 import Inventario.exceptions.NonexistentEntityException;
@@ -37,9 +37,9 @@ import java.util.List;
  *
  * @author HP PORTATIL
  */
-public class DAO_Usuario implements Serializable {
+public class DAO_Empleado implements Serializable {
 
-    public DAO_Usuario() {
+    public DAO_Empleado() {
     }
 
     private static final String usuario = "Access";
@@ -62,11 +62,11 @@ public class DAO_Usuario implements Serializable {
         }
     }
     
-    public Usuario findUsuarioByCorreoAndSHA256(boolean Ch, String Correo, String SHA256) throws SQLException {
+    public Empleado findUsuarioByCorreoAndSHA256(boolean Ch, String Correo, String SHA256) throws SQLException {
         if (conectar == null || conectar.isClosed()) {
             EstablecerConexion();
         }
-        String query = "SELECT Usuario_id, Nombre, Correo, Contraseña_SHA256 FROM Usuario WHERE Correo = ? AND Contraseña_SHA256 = ?";
+        String query = "SELECT Empleado_id, Nombre, Correo, Contraseña_SHA256 FROM Usuario WHERE Correo = ? AND Contraseña_SHA256 = ?";
         PreparedStatement stmt = conectar.prepareStatement(query);
         stmt.setString(1, Correo);
         stmt.setString(2, SHA256);
@@ -74,23 +74,23 @@ public class DAO_Usuario implements Serializable {
         ResultSet rs = stmt.executeQuery();
 
         if (rs.next()) {
-            Usuario usuario = new Usuario();
-            usuario.setUsuarioid(rs.getInt("Usuario_id"));
-            usuario.setNombre(rs.getString("Nombre"));
-            usuario.setCorreo(rs.getString("Correo"));
-            usuario.setContraseñaSHA256(rs.getString("Contraseña_SHA256"));
+            Empleado empleado = new Empleado();
+            empleado.setEmpleadoid(rs.getInt("Empleado_id"));
+            empleado.setNombre(rs.getString("Nombre"));
+            empleado.setCorreo(rs.getString("Correo"));
+            empleado.setContraseñaSHA256(rs.getString("Contraseña_SHA256"));
 
-            return usuario;
+            return empleado;
         }
         
         return null;
     }
     
-    private String obtenerDatosUsuarios(List<Usuario> usuarios) {
+    private String obtenerDatosUsuarios(List<Empleado> usuarios) {
         StringBuilder datos = new StringBuilder();
 
-        for (Usuario usuario : usuarios) {
-            // Asumiendo que Usuario tiene métodos getNombre() y getEmail()
+        for (Empleado usuario : usuarios) {
+            // Asumiendo que Empleado tiene métodos getNombre() y getEmail()
             datos.append("Correo: ").append(usuario.getCorreo()).append(", ");
             datos.append("ContraseñaSHA256: ").append(usuario.getContraseñaSHA256()).append("\n");
         }
