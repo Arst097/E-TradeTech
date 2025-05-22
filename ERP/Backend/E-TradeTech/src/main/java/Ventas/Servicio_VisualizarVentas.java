@@ -62,8 +62,11 @@ public class Servicio_VisualizarVentas {
             Producto producto = new ArrayList<>(pedido.getProductoCollection()).get(0);
             
             Integer PedidoID = pedido.getPedidoID();        
-            String Cliente = pedido.getClienteID().getNombre();            
+            String Cliente = pedido.getClienteID().getNombre();   
+            
+            //cambiar esto para que se vea lista de productos separadas por comas
             String Producto = producto.getModelo();
+            
             Float Precio = producto.getPrecio();
             Date fecha_inicio = pedido.getFechainicio();
 

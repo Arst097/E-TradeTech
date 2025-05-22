@@ -6,7 +6,7 @@ package Inventario;
 
 import Seguridad.Servicio_Seguridad;
 import Uso_Comun.DAOs.DAO_Pedidos;
-import Uso_Comun.Modelos.Empleado;
+import RRHH.Modelos.Empleado;
 import Uso_Comun.Modelos.Pedidos;
 import Uso_Comun.Modelos.Producto;
 import java.util.ArrayList;

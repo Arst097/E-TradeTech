@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Uso_Comun.Modelos;
+package RRHH.Modelos;
 
 import Ventas.Modelos.Cliente;
 import Inventario.Modelos.Gestores;
@@ -22,6 +22,7 @@ import jakarta.persistence.Table;
 import jakarta.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  *
@@ -47,6 +48,18 @@ public class Empleado implements Serializable {
     @Basic(optional = false)
     @Column(name = "Contrase\u00f1a_SHA256")
     private String contraseñaSHA256;
+    @Basic(optional = false)
+    @Column(name = "Departamento")
+    private String departamento;
+    @Basic(optional = false)
+    @Column(name = "Salario")
+    private Integer salario;
+    @Basic(optional = false)
+    @Column(name = "Fecha_Ingreso")
+    private Date fechaIngreso;
+    @Basic(optional = false)
+    @Column(name = "Contrato")
+    private String contrato;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioEmpleadoid")
     private Collection<Despachador> despachadorCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioEmpleadoid")
@@ -115,6 +128,40 @@ public class Empleado implements Serializable {
     public void setGestoresCollection(Collection<Gestores> gestoresCollection) {
         this.gestoresCollection = gestoresCollection;
     }
+
+    public String getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+
+    public Integer getSalario() {
+        return salario;
+    }
+
+    public void setSalario(Integer salario) {
+        this.salario = salario;
+    }
+
+    public Date getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+    public String getContrato() {
+        return contrato;
+    }
+
+    public void setContrato(String contrato) {
+        this.contrato = contrato;
+    }
+    
+    
 
     //Si algo utiliza alguno de estos dos metodos, hay que cambiarlos o borrarlo
     //Cliente ya no tiene relacion con Empleado

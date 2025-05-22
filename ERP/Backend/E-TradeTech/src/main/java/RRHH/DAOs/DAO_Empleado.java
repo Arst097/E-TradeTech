@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Uso_Comun.DAOs;
+package RRHH.DAOs;
 
 import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Gestores;
 import Inventario.Modelos.Gestores;
-import Uso_Comun.Modelos.Empleado;
+import RRHH.Modelos.Empleado;
 import Ventas.Modelos.Cliente;
 import Inventario.exceptions.IllegalOrphanException;
 import Inventario.exceptions.NonexistentEntityException;
@@ -96,6 +96,47 @@ public class DAO_Empleado implements Serializable {
         }
 
         return datos.toString();
+    }
+
+    public List<Empleado> findEmpleados() {
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
+            
+            String query = "SELECT * FROM Empleado;";
+            PreparedStatement stmt = conectar.prepareStatement(query);
+            
+            ResultSet rs = stmt.executeQuery();
+
+            List<Empleado> empleados = new ArrayList<>();
+            while(rs.next()) {
+                Empleado empleado = new Empleado();
+                
+                empleado.setEmpleadoid(rs.getInt("Empleado_id"));
+                
+                empleado.setNombre(rs.getString("Nombre"));
+                
+                empleado.setCorreo(rs.getString("Correo"));
+                
+                empleado.setContraseñaSHA256(rs.getString("Contraseña_SHA256"));
+                
+                empleado.setDepartamento(rs.getString("Departamento"));
+                
+                empleado.setSalario(rs.getInt("Salario"));
+                
+                empleado.setFechaIngreso(rs.getDate("Fecha_Ingreso"));
+                
+                empleado.setContrato(rs.getString("Contrato"));
+                
+                empleados.add(empleado);
+            }
+
+            return empleados;
+        } catch (SQLException ex) {
+            System.out.println("Ocurrio un error en findEmpleados: "+ex);
+            return null;
+        }
     }
 
 }

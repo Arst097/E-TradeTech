@@ -5,7 +5,7 @@
 package Ventas.Modelos;
 
 import Uso_Comun.Modelos.Pedidos;
-import Uso_Comun.Modelos.Empleado;
+import RRHH.Modelos.Empleado;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

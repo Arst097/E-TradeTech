@@ -6,11 +6,11 @@ package Inventario.DAOs;
 
 import Inventario.Modelos.Almacen;
 import Inventario.Modelos.Gestores;
-import Uso_Comun.Modelos.Empleado;
+import RRHH.Modelos.Empleado;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
-import static Uso_Comun.DAOs.DAO_Empleado.EstablecerConexion;
+import static RRHH.DAOs.DAO_Empleado.EstablecerConexion;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import java.io.Serializable;

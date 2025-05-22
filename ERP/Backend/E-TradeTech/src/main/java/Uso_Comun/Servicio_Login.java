@@ -5,9 +5,9 @@
 package Uso_Comun;
 
 import Inventario.DAOs.DAO_Gestores;
-import Uso_Comun.DAOs.DAO_Empleado;
+import RRHH.DAOs.DAO_Empleado;
 import Uso_Comun.Modelos.Pedidos;
-import Uso_Comun.Modelos.Empleado;
+import RRHH.Modelos.Empleado;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.RollbackFailureException;
 import Seguridad.Servicio_Seguridad;

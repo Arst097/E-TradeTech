@@ -7,7 +7,7 @@ package Inventario.DAOs;
 import Inventario.Modelos.Almacen;
 import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Inventario;
-import Uso_Comun.Modelos.Empleado;
+import RRHH.Modelos.Empleado;
 import Uso_Comun.Modelos.Pedidos;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;

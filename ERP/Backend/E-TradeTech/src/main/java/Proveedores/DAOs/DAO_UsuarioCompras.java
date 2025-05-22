@@ -15,7 +15,7 @@ import jakarta.persistence.criteria.Root;
 import Proveedores.Modelos.ListaContactos;
 import Proveedores.Modelos.Proveedor;
 import Proveedores.Modelos.UsuarioCompras;
-import Uso_Comun.Modelos.Empleado;
+import RRHH.Modelos.Empleado;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;

@@ -4,7 +4,7 @@
  */
 package Inventario.Modelos;
 
-import Uso_Comun.Modelos.Empleado;
+import RRHH.Modelos.Empleado;
 import Inventario.Modelos.Almacen;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
