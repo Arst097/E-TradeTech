@@ -155,19 +155,20 @@ public class DAO_Proveedor implements Serializable {
     }
 
     public Integer obtenerIDValida() {
-        return this.findTamañoDeTabla() + 1;
+        return this.findIDDisponible();
     }
 
-    private Integer findTamañoDeTabla() {
+    private Integer findIDDisponible() {
         try {
             if (conectar == null || conectar.isClosed()) {
                 EstablecerConexion();
             }
             
             String query
-                    = "SELECT "
-                    + "COUNT(*) AS cantidad "
-                    + "FROM Pedidos";
+                    = "SELECT MIN(t1.ProveedorID) + 1 AS PrimerIdDisponible "
+                    + "FROM Proveedor t1 "
+                    + "LEFT JOIN Proveedor t2 ON t1.ProveedorID + 1 = t2.ProveedorID "
+                    + "WHERE t2.ProveedorID IS NULL";
             
             PreparedStatement stmt = conectar.prepareStatement(query);
             
@@ -175,7 +176,8 @@ public class DAO_Proveedor implements Serializable {
             
             int tamañoTabla = 0;
             if (rs.next()) {
-                tamañoTabla = rs.getInt("cantidad");
+                tamañoTabla = rs.getInt("PrimerIdDisponible");
+                System.out.println("PrimerIdDisponible: "+tamañoTabla);
             }
             
             return tamañoTabla;

@@ -38,7 +38,7 @@ public class Servicio_visualizarProv {
                 List<Proveedor> Proveedores_en_lista = getProveedores(EmpleadoID);
                 return ProveedoresToJSON(Proveedores_en_lista);
             }catch(Exception e){
-                return "Error al obtener los datos";
+                return "Error al obtener los datos: "+e;
             }
         }else{
             return "El usuario no es valido";

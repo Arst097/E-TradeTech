@@ -56,20 +56,21 @@ public class ServletAgregarProveedor extends HttpServlet {
             int Status = Servicio_AgregarProv.CrearProveedor(nombre, Estado, telefono, descripcion, oferta);
 
             // Si quieres enviar una respuesta al cliente (por ejemplo, AJAX)
-            response.setContentType("text/plain");
+            String R = "";
             switch(Status){
                 case 0: 
-                    response.getWriter().write("Producto agregado correctamente");
+                    R = "Proveedor agregado correctamente";
                     break;
                 case 1: 
-                    response.getWriter().write("Estado ingresado invalido");
+                    R = "Estado ingresado invalido";
                     break;
                 default:
-                    response.getWriter().write("Error en la creacion del proveedor");
+                    R = "Error en la creacion del proveedor";
                     break;
             }
             
-            
+            response.getWriter().write(R);
+            response.setContentType("text/plain");
 
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Stock o precio inválidos.");

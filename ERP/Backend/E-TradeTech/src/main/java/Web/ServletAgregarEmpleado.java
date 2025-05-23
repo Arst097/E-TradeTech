@@ -62,7 +62,7 @@ public class ServletAgregarEmpleado extends HttpServlet {
 
                 // Si quieres enviar una respuesta al cliente (por ejemplo, AJAX)
                 response.setContentType("text/plain");
-                response.getWriter().write("Producto agregado correctamente");
+                response.getWriter().write("Empleado agregado correctamente");
 
             } catch (NumberFormatException e) {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Stock o precio inválidos.");

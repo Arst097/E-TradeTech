@@ -44,15 +44,17 @@ public class ServletRRHHMostrar extends HttpServlet {
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        String json = "[" +
-            "{\"id\":\"001\",\"nombre\":\"María Gómez\",\"Departamento\":\"Administración\",\"Salario\":2500000,\"FechaIN\":\"2023-05-10\"}," +
-            "{\"id\":\"002\",\"nombre\":\"Juan Pérez\",\"Departamento\":\"Ventas\",\"Salario\":2000000,\"FechaIN\":\"2024-04-22\"}" +
-        "]";
-
         
-        System.out.println("AAAAAAAAAAAAAAAA");
+        String json = "";
+        
+//        json = "[" +
+//            "{\"id\":\"001\",\"nombre\":\"María Gómez\",\"Departamento\":\"Administración\",\"Salario\":2500000,\"FechaIN\":\"2023-05-10\"}," +
+//            "{\"id\":\"002\",\"nombre\":\"Juan Pérez\",\"Departamento\":\"Ventas\",\"Salario\":2000000,\"FechaIN\":\"2024-04-22\"}" +
+//        "]";
+
         json = Servicio_VizualizarEmpleados.listaEmpleadosJSON_Directo(1);
         System.out.println(json);
+        
 //        String json = "[" +
 //            "{\"id\":\"001\",\"nombre\":\"María Gómez\",\"Departamento\":\"Administración\",\"Salario\":\"2500000\",\"FechaIN\":\"2023-05-10\"}" +
 //            "{\"id\":\"002\",\"nombre\":\"Pepito Perez\",\"Departamento\":\"otros\",\"Salario\":\"1500000\",\"FechaIN\":\"2020-04-22\"}" +

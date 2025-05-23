@@ -43,10 +43,13 @@ public class ServletMostrarVentas extends HttpServlet {
 //            out.println("</html>");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        String json = "[" +
-            "{\"id\":\"001\",\"IdCliente\":\"María Gómez\",\"Productos\":\"test\",\"valorTotal\":2500000,\"FechaIN\":\"2023-05-10\"}," +
-            "{\"id\":\"001\",\"IdCliente\":\"Test\",\"Productos\":\"test\",\"valorTotal\":4714000,\"FechaIN\":\"2020-03-15\"}" +
-        "]";
+        
+        String json = "";
+        
+//        json = "[" +
+//            "{\"id\":\"001\",\"IdCliente\":\"María Gómez\",\"Productos\":\"test\",\"valorTotal\":2500000,\"FechaIN\":\"2023-05-10\"}," +
+//            "{\"id\":\"001\",\"IdCliente\":\"Test\",\"Productos\":\"test\",\"valorTotal\":4714000,\"FechaIN\":\"2020-03-15\"}" +
+//        "]";
         
         int gestorID = 1;
         json = Servicio_VisualizarVentas.listapedidosJSON_Directo(gestorID);

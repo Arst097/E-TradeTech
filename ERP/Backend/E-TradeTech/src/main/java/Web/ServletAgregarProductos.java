@@ -63,10 +63,9 @@ public class ServletAgregarProductos extends HttpServlet {
             
             boolean completado = false;
             try {
-                System.out.println("Se hace el try en servlet para ejecutar CrearMontoProductos");
                 completado = Servicio_Inventario.CrearMontoProductos(Token, nombre, categoria, stockStr, precioStr);
             } catch (Exception ex) {
-                Logger.getLogger(ServletAgregarProductos.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Error en ServletAgregarProducto: "+ex);
             }
 
             // Si quieres enviar una respuesta al cliente (por ejemplo, AJAX)
