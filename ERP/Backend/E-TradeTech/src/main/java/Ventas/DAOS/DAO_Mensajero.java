@@ -2,11 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Inventario.DAOs;
+package Ventas.DAOS;
 
-import Inventario.Modelos.HistorialTransaccInv;
-import Inventario.Modelos.Inventario;
-import Inventario.Modelos.TransaccionInv;
+import Uso_Comun.Modelos.Pedidos;
+import Ventas.Modelos.Mensajero;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
@@ -19,15 +18,17 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.UserTransaction;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
  *
  * @author HP PORTATIL
  */
-public class DAO_TransaccionInv implements Serializable {
+public class DAO_Mensajero implements Serializable {
 
-    public DAO_TransaccionInv() {
+    public DAO_Mensajero() {
     }
     
 }

@@ -4,6 +4,7 @@
  */
 package Proveedores.Modelos;
 
+import Proveedores.DAOs.DAO_Proveedor;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -67,7 +68,7 @@ public class Proveedor implements Serializable {
     @ManyToOne(optional = false)
     private ListaContactos listaContactosID;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proveedorID")
-    private Collection<Ofertas> ofertasCollection;
+    private Collection<Oferta> ofertasCollection;
 
     public Proveedor() {
     }
@@ -81,6 +82,16 @@ public class Proveedor implements Serializable {
         this.nombre = nombre;
         this.telefono = telefono;
     }
+
+    public Proveedor(String nombre, String descripcion, String telefono, String estado, ListaContactos listaContactosID) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.telefono = telefono;
+        this.estado = estado;
+        this.listaContactosID = listaContactosID;
+    }
+    
+    
 
     public Integer getProveedorID() {
         return proveedorID;
@@ -131,11 +142,11 @@ public class Proveedor implements Serializable {
     }
     
     @XmlTransient
-    public Collection<Ofertas> getOfertasCollection() {
+    public Collection<Oferta> getOfertasCollection() {
         return ofertasCollection;
     }
 
-    public void setOfertasCollection(Collection<Ofertas> ofertasCollection) {
+    public void setOfertasCollection(Collection<Oferta> ofertasCollection) {
         this.ofertasCollection = ofertasCollection;
     }
 
@@ -162,6 +173,17 @@ public class Proveedor implements Serializable {
     @Override
     public String toString() {
         return "Proveedores.Modelos.Proveedor[ proveedorID=" + proveedorID + " ]";
+    }
+
+    public void CrearProveedor(String nombre, String status, String telefono, String descripcion, int listaContactosID) {
+        DAO_Proveedor DAOp = new DAO_Proveedor();
+        
+        this.proveedorID = DAOp.obtenerIDValida();
+        this.nombre = nombre;
+        this.estado = status;
+        this.telefono = telefono;
+        this.descripcion = descripcion;
+        this.listaContactosID = new ListaContactos(listaContactosID);
     }
     
 }

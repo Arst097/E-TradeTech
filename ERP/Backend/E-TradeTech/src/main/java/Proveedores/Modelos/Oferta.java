@@ -4,6 +4,7 @@
  */
 package Proveedores.Modelos;
 
+import Proveedores.DAOs.DAO_Ofertas;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,6 +18,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.Random;
 
 /**
  *
@@ -30,7 +32,7 @@ import java.io.Serializable;
     @NamedQuery(name = "Ofertas.findByOfertasID", query = "SELECT o FROM Ofertas o WHERE o.ofertasID = :ofertasID"),
     @NamedQuery(name = "Ofertas.findByProductoOfertado", query = "SELECT o FROM Ofertas o WHERE o.productoOfertado = :productoOfertado"),
     @NamedQuery(name = "Ofertas.findByPrecioUnidad", query = "SELECT o FROM Ofertas o WHERE o.precioUnidad = :precioUnidad")})
-public class Ofertas implements Serializable {
+public class Oferta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,14 +54,14 @@ public class Ofertas implements Serializable {
     @ManyToOne(optional = false)
     private Proveedor proveedorID;
 
-    public Ofertas() {
+    public Oferta() {
     }
 
-    public Ofertas(Integer ofertasID) {
+    public Oferta(Integer ofertasID) {
         this.ofertasID = ofertasID;
     }
 
-    public Ofertas(Integer ofertasID, String productoOfertado, String precioUnidad) {
+    public Oferta(Integer ofertasID, String productoOfertado, String precioUnidad) {
         this.ofertasID = ofertasID;
         this.productoOfertado = productoOfertado;
         this.precioUnidad = precioUnidad;
@@ -107,10 +109,10 @@ public class Ofertas implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Ofertas)) {
+        if (!(object instanceof Oferta)) {
             return false;
         }
-        Ofertas other = (Ofertas) object;
+        Oferta other = (Oferta) object;
         if ((this.ofertasID == null && other.ofertasID != null) || (this.ofertasID != null && !this.ofertasID.equals(other.ofertasID))) {
             return false;
         }
@@ -121,5 +123,20 @@ public class Ofertas implements Serializable {
     public String toString() {
         return "Proveedores.Modelos.Ofertas[ ofertasID=" + ofertasID + " ]";
     }
+
+    public void ConfigurarOfertaAleatorea(String productoOfertado, Proveedor proveedor) {
+        DAO_Ofertas DAOo = new DAO_Ofertas();
+        
+        this.ofertasID = DAOo.obtenerIDValida();
+        this.precioUnidad = numeroAleatorio(2000,6000);
+        this.productoOfertado = productoOfertado;
+        this.proveedorID = proveedor;
+    }
     
+    private String numeroAleatorio(int min, int max) {
+        Random rand = new Random();
+        int numero = rand.nextInt((max - min) + 1) + min;
+        // Formatea el número a dos dígitos, agregando un 0 si es necesario
+        return "$"+String.format("%02d", numero);
+    }
 }

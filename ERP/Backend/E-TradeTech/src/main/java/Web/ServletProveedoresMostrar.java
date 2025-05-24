@@ -4,6 +4,7 @@
  */
 package Web;
 
+import Proveedores.Servicio_visualizarProv;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -49,12 +50,18 @@ public class ServletProveedoresMostrar extends HttpServlet {
 ////                "{\"id\":\"002\",\"nombre\":\"iPhone 13\",\"categoria\":\"Teléfonos\",\"stock\":10,\"precio\":4500000}" +
 //            "]";
 
-            String json = "[" +
-                "{\"id\":\"001\",\"nombre\":\"TecnoGlobal S.A.S\",\"telefono\":\"3124568497\",\"Descripcion\":\"Proveedor principal de hardware empresarial\",\"Estado\":\"Activo\",\"Oferta\":\"Infraestructura\"}," +
-                "{\"id\":\"002\",\"nombre\":\"test INC\",\"telefono\":\"312420691\",\"Descripcion\":\"Prueba servlet importante\",\"Estado\":\"Inactivo\",\"Oferta\":\"Infraestructura\"}" +
-            "]";
+            String json = "";
 
-
+//            json = "[" +
+//                "{\"id\":\"001\",\"nombre\":\"TecnoGlobal S.A.S\",\"telefono\":\"3124568497\",\"Descripcion\":\"Proveedor principal de hardware empresarial\",\"Estado\":\"Activo\",\"Oferta\":\"Infraestructura\"}," +
+//                "{\"id\":\"002\",\"nombre\":\"test INC\",\"telefono\":\"312420691\",\"Descripcion\":\"Prueba servlet importante\",\"Estado\":\"Inactivo\",\"Oferta\":\"Infraestructura\"}" +
+//            "]";
+            
+            int UsuarioComprasID = 5;
+            json = Servicio_visualizarProv.listaproveedoresJSON_Directo(UsuarioComprasID);
+            
+            System.out.println(json);
+            
             response.getWriter().write(json);
         }
     }

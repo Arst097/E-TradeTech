@@ -4,7 +4,7 @@
  */
 package Inventario.Modelos;
 
-import Uso_Comun.Modelos.Usuario;
+import RRHH.Modelos.Empleado;
 import Uso_Comun.Modelos.Pedidos;
 import Inventario.Modelos.Almacen;
 import jakarta.persistence.Basic;
@@ -54,7 +54,7 @@ public class Despachador implements Serializable {
     private Inventario inventarioID;
     @JoinColumn(name = "Usuario_Usuario_id", referencedColumnName = "Usuario_id")
     @ManyToOne(optional = false)
-    private Usuario usuarioUsuarioid;
+    private Empleado usuarioEmpleadoid;
 
     public Despachador() {
     }
@@ -117,12 +117,12 @@ public class Despachador implements Serializable {
         this.inventarioID = inventarioID;
     }
 
-    public Usuario getUsuarioUsuarioid() {
-        return usuarioUsuarioid;
+    public Empleado getUsuarioEmpleadoid() {
+        return usuarioEmpleadoid;
     }
 
-    public void setUsuarioUsuarioid(Usuario usuarioUsuarioid) {
-        this.usuarioUsuarioid = usuarioUsuarioid;
+    public void setUsuarioEmpleadoid(Empleado usuarioEmpleadoid) {
+        this.usuarioEmpleadoid = usuarioEmpleadoid;
     }
 
     @Override

@@ -13,15 +13,24 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import Proveedores.Modelos.ListaContactos;
-import Proveedores.Modelos.Ofertas;
+import Proveedores.Modelos.Oferta;
 import Proveedores.Modelos.Proveedor;
+import Uso_Comun.Modelos.Pedidos;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.transaction.UserTransaction;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,235 +38,157 @@ import java.util.List;
  */
 public class DAO_Proveedor implements Serializable {
 
-    public DAO_Proveedor(UserTransaction utx, EntityManagerFactory emf) {
-        this.utx = utx;
-        this.emf = emf;
-    }
-    private UserTransaction utx = null;
-    private EntityManagerFactory emf = null;
+    private static Connection conectar = null;
 
-    public EntityManager getEntityManager() {
-        return emf.createEntityManager();
-    }
+    private static final String usuario = "Access";
+    private static final String bd = "ETradeTechDB";
+    private static final String contraseña = "123";
+    private static final String ip = "localhost";
+    private static final String puerto = "1433";
 
-    public void create(Proveedor proveedor) throws RollbackFailureException, Exception {
-        if (proveedor.getOfertasCollection() == null) {
-            proveedor.setOfertasCollection(new ArrayList<Ofertas>());
-        }
-        EntityManager em = null;
-        EntityTransaction tx = null;
+    public static void EstablecerConexion() {
         try {
-            em = getEntityManager();
-            tx = em.getTransaction();
-            tx.begin();
-            
-            ListaContactos listaContactosID = proveedor.getListaContactosID();
-            if (listaContactosID != null) {
-                listaContactosID = em.getReference(listaContactosID.getClass(), listaContactosID.getListaContactosID());
-                proveedor.setListaContactosID(listaContactosID);
-            }
-            Collection<Ofertas> attachedOfertasCollection = new ArrayList<Ofertas>();
-            for (Ofertas ofertasCollectionOfertasToAttach : proveedor.getOfertasCollection()) {
-                ofertasCollectionOfertasToAttach = em.getReference(ofertasCollectionOfertasToAttach.getClass(), ofertasCollectionOfertasToAttach.getOfertasID());
-                attachedOfertasCollection.add(ofertasCollectionOfertasToAttach);
-            }
-            proveedor.setOfertasCollection(attachedOfertasCollection);
-            em.persist(proveedor);
-            if (listaContactosID != null) {
-                listaContactosID.getProveedorCollection().add(proveedor);
-                listaContactosID = em.merge(listaContactosID);
-            }
-            for (Ofertas ofertasCollectionOfertas : proveedor.getOfertasCollection()) {
-                Proveedor oldProveedorIDOfOfertasCollectionOfertas = ofertasCollectionOfertas.getProveedorID();
-                ofertasCollectionOfertas.setProveedorID(proveedor);
-                ofertasCollectionOfertas = em.merge(ofertasCollectionOfertas);
-                if (oldProveedorIDOfOfertasCollectionOfertas != null) {
-                    oldProveedorIDOfOfertasCollectionOfertas.getOfertasCollection().remove(ofertasCollectionOfertas);
-                    oldProveedorIDOfOfertasCollectionOfertas = em.merge(oldProveedorIDOfOfertasCollectionOfertas);
-                }
-            }
-            tx.commit();
-        } catch (Exception ex) {
-            try {
-                tx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
-    public void edit(Proveedor proveedor) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
-        try {
-            utx.begin();
-            em = getEntityManager();
-            Proveedor persistentProveedor = em.find(Proveedor.class, proveedor.getProveedorID());
-            ListaContactos listaContactosIDOld = persistentProveedor.getListaContactosID();
-            ListaContactos listaContactosIDNew = proveedor.getListaContactosID();
-            Collection<Ofertas> ofertasCollectionOld = persistentProveedor.getOfertasCollection();
-            Collection<Ofertas> ofertasCollectionNew = proveedor.getOfertasCollection();
-            List<String> illegalOrphanMessages = null;
-            for (Ofertas ofertasCollectionOldOfertas : ofertasCollectionOld) {
-                if (!ofertasCollectionNew.contains(ofertasCollectionOldOfertas)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain Ofertas " + ofertasCollectionOldOfertas + " since its proveedorID field is not nullable.");
-                }
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            if (listaContactosIDNew != null) {
-                listaContactosIDNew = em.getReference(listaContactosIDNew.getClass(), listaContactosIDNew.getListaContactosID());
-                proveedor.setListaContactosID(listaContactosIDNew);
-            }
-            Collection<Ofertas> attachedOfertasCollectionNew = new ArrayList<Ofertas>();
-            for (Ofertas ofertasCollectionNewOfertasToAttach : ofertasCollectionNew) {
-                ofertasCollectionNewOfertasToAttach = em.getReference(ofertasCollectionNewOfertasToAttach.getClass(), ofertasCollectionNewOfertasToAttach.getOfertasID());
-                attachedOfertasCollectionNew.add(ofertasCollectionNewOfertasToAttach);
-            }
-            ofertasCollectionNew = attachedOfertasCollectionNew;
-            proveedor.setOfertasCollection(ofertasCollectionNew);
-            proveedor = em.merge(proveedor);
-            if (listaContactosIDOld != null && !listaContactosIDOld.equals(listaContactosIDNew)) {
-                listaContactosIDOld.getProveedorCollection().remove(proveedor);
-                listaContactosIDOld = em.merge(listaContactosIDOld);
-            }
-            if (listaContactosIDNew != null && !listaContactosIDNew.equals(listaContactosIDOld)) {
-                listaContactosIDNew.getProveedorCollection().add(proveedor);
-                listaContactosIDNew = em.merge(listaContactosIDNew);
-            }
-            for (Ofertas ofertasCollectionNewOfertas : ofertasCollectionNew) {
-                if (!ofertasCollectionOld.contains(ofertasCollectionNewOfertas)) {
-                    Proveedor oldProveedorIDOfOfertasCollectionNewOfertas = ofertasCollectionNewOfertas.getProveedorID();
-                    ofertasCollectionNewOfertas.setProveedorID(proveedor);
-                    ofertasCollectionNewOfertas = em.merge(ofertasCollectionNewOfertas);
-                    if (oldProveedorIDOfOfertasCollectionNewOfertas != null && !oldProveedorIDOfOfertasCollectionNewOfertas.equals(proveedor)) {
-                        oldProveedorIDOfOfertasCollectionNewOfertas.getOfertasCollection().remove(ofertasCollectionNewOfertas);
-                        oldProveedorIDOfOfertasCollectionNewOfertas = em.merge(oldProveedorIDOfOfertasCollectionNewOfertas);
-                    }
-                }
-            }
-            utx.commit();
-        } catch (Exception ex) {
-            try {
-                utx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-            }
-            String msg = ex.getLocalizedMessage();
-            if (msg == null || msg.length() == 0) {
-                Integer id = proveedor.getProveedorID();
-                if (findProveedor(id) == null) {
-                    throw new NonexistentEntityException("The proveedor with id " + id + " no longer exists.");
-                }
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
-    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
-        EntityTransaction tx = null;
-        
-        try {
-            em = getEntityManager();
-            tx = em.getTransaction();
-            tx.begin();
-            
-            Proveedor proveedor;
-            try {
-                proveedor = em.getReference(Proveedor.class, id);
-                proveedor.getProveedorID();
-            } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The proveedor with id " + id + " no longer exists.", enfe);
-            }
-            List<String> illegalOrphanMessages = null;
-            Collection<Ofertas> ofertasCollectionOrphanCheck = proveedor.getOfertasCollection();
-            for (Ofertas ofertasCollectionOrphanCheckOfertas : ofertasCollectionOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Proveedor (" + proveedor + ") cannot be destroyed since the Ofertas " + ofertasCollectionOrphanCheckOfertas + " in its ofertasCollection field has a non-nullable proveedorID field.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            ListaContactos listaContactosID = proveedor.getListaContactosID();
-            if (listaContactosID != null) {
-                listaContactosID.getProveedorCollection().remove(proveedor);
-                listaContactosID = em.merge(listaContactosID);
-            }
-            em.remove(proveedor);
-            tx.commit();
-        } catch (Exception ex) {
-            try {
-                tx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
-    public List<Proveedor> findProveedorEntities() {
-        return findProveedorEntities(true, -1, -1);
-    }
-
-    public List<Proveedor> findProveedorEntities(int maxResults, int firstResult) {
-        return findProveedorEntities(false, maxResults, firstResult);
-    }
-
-    private List<Proveedor> findProveedorEntities(boolean all, int maxResults, int firstResult) {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Proveedor.class));
-            Query q = em.createQuery(cq);
-            if (!all) {
-                q.setMaxResults(maxResults);
-                q.setFirstResult(firstResult);
-            }
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
-    public Proveedor findProveedor(Integer id) {
-        EntityManager em = getEntityManager();
-        try {
-            return em.find(Proveedor.class, id);
-        } finally {
-            em.close();
-        }
-    }
-
-    public int getProveedorCount() {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Proveedor> rt = cq.from(Proveedor.class);
-            cq.select(em.getCriteriaBuilder().count(rt));
-            Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
-        } finally {
-            em.close();
+            String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd + ";" + "encrypt=false";
+            conectar = DriverManager.getConnection(cadena, usuario, contraseña);
+            System.out.println("Conexion Establecida");
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
     
+    public DAO_Proveedor() {
+    }
+
+    public List<Proveedor> findProveedores() {
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
+
+            String query = "SELECT * FROM Proveedor;";
+            PreparedStatement stmt = conectar.prepareStatement(query);
+
+            ResultSet rs = stmt.executeQuery();
+
+            List<Proveedor> proveedores = new ArrayList<>();
+            while(rs.next()) {
+                Proveedor proveedor = new Proveedor();
+                
+                proveedor.setProveedorID(rs.getInt("ProveedorID"));
+                
+                ListaContactos listaContactos = new ListaContactos(rs.getInt("Lista_ContactosID"));
+                proveedor.setListaContactosID(listaContactos);
+                
+                proveedor.setNombre(rs.getString("Nombre"));
+                
+                proveedor.setDescripcion(rs.getString("Descripcion"));
+                
+                proveedor.setTelefono(rs.getString("Telefono"));
+
+                proveedor.setEstado(rs.getString("Estado"));
+                
+                proveedores.add(proveedor);
+            }
+
+            return proveedores;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Proveedor.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+    }
+
+    public void create(Proveedor proveedor) {
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
+
+            if (proveedor.getProveedorID() == null) {
+                proveedor.setProveedorID(obtenerIDValida());
+            }
+
+            if (proveedor.getEstado() == null){
+                proveedor.setEstado("Inactivo");
+            }
+            
+            if (proveedor.getDescripcion() == null){
+                proveedor.setDescripcion("");
+            }
+
+            String query = "SET IDENTITY_INSERT Proveedor ON; "
+                    + "INSERT Proveedor (ProveedorID, Lista_ContactosID, Nombre, Descripcion, Telefono, Estado";
+            int QSimbolQuestions = 6;
+
+            query = query + ") VALUES (";
+
+            for (int i = 1; i <= QSimbolQuestions; i++) {
+                query = query + "?";
+                if (i != QSimbolQuestions) {
+                    query = query + ",";
+                }
+            }
+            query = query + ");";
+
+            System.out.println(query);
+
+            Integer ProveedorID = proveedor.getProveedorID();
+            Integer Lista_ContactosID = proveedor.getListaContactosID().getListaContactosID();
+            String Nombre = proveedor.getNombre();
+            String Descripcion = proveedor.getDescripcion();
+            String Telefono = proveedor.getTelefono();
+            String Estado = proveedor.getEstado();
+
+            CallableStatement cs = conectar.prepareCall(query);
+
+            cs.setInt(1, ProveedorID);
+            cs.setInt(2, Lista_ContactosID);
+            cs.setString(3, Nombre);
+            cs.setString(4, Descripcion);
+            cs.setString(5, Telefono);
+            cs.setString(6, Estado);
+
+            System.out.println("Intenta hacer la insercion");
+            cs.execute();
+        } catch (SQLException ex) {
+            System.out.println("Error en create: " + ex);
+        }
+    }
+
+    public Integer obtenerIDValida() {
+        return this.findIDDisponible();
+    }
+
+        private Integer findIDDisponible() {
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
+            
+            String tabla = "Proveedor";
+            String c_id = "ProveedorID";
+            
+            String query
+                    = "SELECT MIN(t1."+c_id+") + 1 AS PrimerIdDisponible "
+                    + "FROM "+tabla+" t1 "
+                    + "LEFT JOIN "+tabla+" t2 ON t1."+c_id+" + 1 = t2."+c_id+" "
+                    + "WHERE t2."+c_id+" IS NULL";
+            
+            PreparedStatement stmt = conectar.prepareStatement(query);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            int tamañoTabla = 0;
+            if (rs.next()) {
+                tamañoTabla = rs.getInt("PrimerIdDisponible");
+                System.out.println("PrimerIdDisponible: "+tamañoTabla);
+            }
+            
+            return tamañoTabla;
+        } catch (SQLException ex) {
+            System.out.println("Error en DAO_Proveedor.findTamañoDeTabla(): "+ex);
+            return null;
+        }
+    }
+
 }

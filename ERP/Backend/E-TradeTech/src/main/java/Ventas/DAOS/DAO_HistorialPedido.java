@@ -2,22 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Inventario.DAOs;
+package Ventas.DAOS;
 
-import Inventario.Modelos.Almacen;
-import Inventario.Modelos.Gestores;
-import RRHH.Modelos.Empleado;
+import Uso_Comun.DAOs.DAO_Pedidos;
+import Ventas.Modelos.HistorialPedidos;
+import Uso_Comun.Modelos.Pedidos;
+import Inventario.exceptions.IllegalOrphanException;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
-import static RRHH.DAOs.DAO_Empleado.EstablecerConexion;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import java.io.Serializable;
 import jakarta.persistence.Query;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.LockModeType;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -27,15 +25,17 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
  *
  * @author HP PORTATIL
  */
-public class DAO_Gestores implements Serializable {
+public class DAO_HistorialPedido implements Serializable {
 
-    public DAO_Gestores() {
+    public DAO_HistorialPedido() {
     }
 
     private static Connection conectar = null;
@@ -56,26 +56,28 @@ public class DAO_Gestores implements Serializable {
         }
     }
     
-    public Gestores findGestorByEmpleadoId(boolean ch, Integer empleadoId) throws SQLException {
-        
-        System.out.println(empleadoId);
+    public HistorialPedidos findModel_HistorialPedidos(Integer historialPedidosID) throws SQLException {
         if (conectar == null || conectar.isClosed()) {
             EstablecerConexion();
         }
         
-        String query = "SELECT * FROM Gestores WHERE Usuario_Usuario_id = ?";
+        String query = "SELECT * FROM Historial_Pedidos WHERE Historial_PredidosID = ?";
         PreparedStatement stmt = conectar.prepareStatement(query);
-        stmt.setString(1, String.valueOf(empleadoId));
+        stmt.setString(1, String.valueOf(historialPedidosID));
         
         ResultSet rs = stmt.executeQuery();
         
-        Gestores gestor = null;
+        DAO_Pedidos DAOp = new DAO_Pedidos();
+        
+        HistorialPedidos Historial = new HistorialPedidos();
         if(rs.next()){
-            gestor = new Gestores();
-            gestor.setGestorID(rs.getInt("GestorID"));
+            Historial.setHistorialPredidosID(rs.getInt("Historial_PredidosID"));
+            List<Pedidos> pedidoslist = DAOp.findPedidosByHistorialPedidos(Historial);
+            ArrayList<Pedidos> pedidos = new ArrayList(pedidoslist);
+            Historial.setPedidosCollection(pedidos);
         }
         
-        return gestor;
+        return Historial;
     }
-
+    
 }

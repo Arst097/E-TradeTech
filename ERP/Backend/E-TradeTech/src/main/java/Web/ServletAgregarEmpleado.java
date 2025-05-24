@@ -4,12 +4,18 @@
  */
 package Web;
 
+import RRHH.Servicio_AgregarEmpleados;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -42,6 +48,7 @@ public class ServletAgregarEmpleado extends HttpServlet {
 //            out.println("</html>");
             String nombre = request.getParameter("nombre");
             String departamento = request.getParameter("departamento");
+            System.out.println("Departamento Obtenido: "+departamento);
             String salario = request.getParameter("salario");
             String fechaIngreso  = request.getParameter("fechaIngreso");
 //            String valorUnitario  = request.getParameter("valorUnitario");
@@ -52,17 +59,32 @@ public class ServletAgregarEmpleado extends HttpServlet {
     //            var precio = Double.parseDouble(precioStr);
 
                 // Aquí puedes guardar el producto, por ejemplo en una base de datos
-                System.out.println("Producto recibido:");
-                System.out.println("nombre: " + nombre);
-                System.out.println("departamento: " + departamento);
-                System.out.println("salario: " + salario);
-                System.out.println("fechaIngreso: " + fechaIngreso);
-//                System.out.println("valorUnitario: " + valorUnitario);
-//                System.out.println("total: " + total);
+                int status = Servicio_AgregarEmpleados.crear_empleado(nombre, departamento, Integer.parseInt(salario), fechaIngreso, "Termino fijo");
 
+                System.out.println(status);
                 // Si quieres enviar una respuesta al cliente (por ejemplo, AJAX)
+                String output;
+                
+                switch(status){
+                    case 0:
+                        output = "Empleado agregado correctamente";
+                        break;
+                    case 1:
+                        output = "Departamento ingresado no valido";
+                        break;
+                    case 2:
+                        output = "Contrato ingresado no valido";
+                        break;
+                    case 3:
+                        output = "Error en formato de fecha";
+                        break;
+                    default:
+                        output = "Error durante la ejecucion";
+                        break;
+                    
+                }
                 response.setContentType("text/plain");
-                response.getWriter().write("Producto agregado correctamente");
+                response.getWriter().write(output);
 
             } catch (NumberFormatException e) {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Stock o precio inválidos.");

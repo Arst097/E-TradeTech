@@ -2,21 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Uso_Comun;
+package Seguridad;
 
-import Inventario.DAOs.DAO_Gestores;
-import Uso_Comun.DAOs.DAO_Usuario;
-import Uso_Comun.Modelos.Pedidos;
-import Uso_Comun.Modelos.Usuario;
-import Inventario.exceptions.NonexistentEntityException;
-import Inventario.exceptions.RollbackFailureException;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import java.security.Key;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 import java.util.Date;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -24,11 +18,10 @@ import javax.crypto.spec.SecretKeySpec;
  *
  * @author HP PORTATIL
  */
-public class Servicio_Usuario {
+public class Servicio_Seguridad {
 
-    private static DAO_Usuario DAO = new DAO_Usuario();
     private static final Key secretKey = generateKeyFromString("ContraseñaSuperSecreta");
-    
+
     public static String encryptSHA256(String input) {
         try {
             // Crear una instancia de MessageDigest con el algoritmo SHA-256
@@ -54,41 +47,25 @@ public class Servicio_Usuario {
             throw new RuntimeException("Error al obtener instancia de SHA-256", e);
         }
     }
-    
-    
-    
-    public static String login(String correo, String contraseña_encriptada, boolean b) {
-        
-        Usuario usuario = DAO.findUsuarioByCorreoAndSHA256(b, correo, contraseña_encriptada);
-        
-        if(usuario == null){
-            return "Usuario No Encontrado";
-        }
-        DAO_Gestores TempDAO = new DAO_Gestores();
-        if(TempDAO.findGestorByUsuarioId(b,usuario.getUsuarioid()) == null){
-            return "Usuario No Gestor";
-        }
-        return generateJwtToken(usuario.getUsuarioid());
-    }
-    
+
     public static boolean TokenValido(String token) {
         try {
             Jwts.parserBuilder()
-                .setSigningKey(secretKey)
-                .build()
-                .parseClaimsJws(token);
-                
+                    .setSigningKey(secretKey)
+                    .build()
+                    .parseClaimsJws(token);
+
             return true; // Token válido (firma correcta y estructura OK)
         } catch (ExpiredJwtException ex) {
             // Token fue generado por tu sistema pero está expirado
-            return true; 
+            return true;
         } catch (JwtException | IllegalArgumentException ex) {
             // Token inválido (firma incorrecta, estructura mal formada, etc)
-            return false; 
+            return false;
         }
     }
-    
-    private static String generateJwtToken(int userId) {
+
+    public static String generateJwtToken(int userId) {
         long currentTimeMillis = System.currentTimeMillis();
         Date now = new Date(currentTimeMillis);
         Date expiryDate = new Date(currentTimeMillis + (1000 * 60 * 60 * 24)); // Token valid for 24 hours
@@ -100,7 +77,20 @@ public class Servicio_Usuario {
                 .signWith(secretKey)
                 .compact();
     }
-    
+
+    public static int getUserIdFromJwtToken(String token) {
+        if(!TokenValido(token)){
+            return -1;
+        }
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        return Integer.parseInt(claims.getSubject());
+    }
+
     private static Key generateKeyFromString(String input) {
         try {
             // Hash the input string using SHA-256
