@@ -215,30 +215,40 @@ public class DAO_Pedidos implements Serializable {
         }
     }
     
-    public int obtenerIDValida() throws SQLException{
-        return this.findTamañoDeTabla() + 1;
+    public Integer obtenerIDValida(){
+        return this.findIDDisponible();
     }
     
-    public int findTamañoDeTabla() throws SQLException {
-        if (conectar == null || conectar.isClosed()) {
-            EstablecerConexion();
+        private Integer findIDDisponible() {
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
+            
+            String tabla = "Pedidos";
+            String c_id = "PedidosID";
+            
+            String query
+                    = "SELECT MIN(t1."+c_id+") + 1 AS PrimerIdDisponible "
+                    + "FROM "+tabla+" t1 "
+                    + "LEFT JOIN "+tabla+" t2 ON t1."+c_id+" + 1 = t2."+c_id+" "
+                    + "WHERE t2."+c_id+" IS NULL";
+            
+            PreparedStatement stmt = conectar.prepareStatement(query);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            int tamañoTabla = 0;
+            if (rs.next()) {
+                tamañoTabla = rs.getInt("PrimerIdDisponible");
+                System.out.println("PrimerIdDisponible: "+tamañoTabla);
+            }
+            
+            return tamañoTabla;
+        } catch (SQLException ex) {
+            System.out.println("Error en DAO_Pedidos.findTamañoDeTabla(): "+ex);
+            return null;
         }
-
-        String query
-                = "SELECT "
-                + "COUNT(*) AS cantidad "
-                + "FROM Pedidos";
-
-        PreparedStatement stmt = conectar.prepareStatement(query);
-
-        ResultSet rs = stmt.executeQuery();
-
-        int tamañoTabla = 0;
-        if (rs.next()) {
-            tamañoTabla = rs.getInt("cantidad");
-        }
-
-        return tamañoTabla;
     }
 
     public Pedidos findPedido(Integer pedidoID) {

@@ -73,16 +73,10 @@ public class DAO_Producto implements Serializable {
             }
 
             if (producto.getProductoID() == null) {
-                System.out.println("Obteniendo una id");
-                //List<Producto> AllProducto = findModel_ProductoEntities();
-                //int nuevoID = AllProducto.get(AllProducto.size() - 1).getProductoID() + 1;
-                int tamañoLista = this.findTamañoDeTabla() + 1;
-                producto.setProductoID(tamañoLista);
-                System.out.println("Nuevo Id escogido:" + tamañoLista);
+                producto.setProductoID(obtenerIDValida());
             }
 
             if (producto.getFechaEntrada() == null) {
-                System.out.println("Añadiendo fecha");
                 producto.setFechaEntrada(new Date());
             }
 
@@ -136,6 +130,10 @@ public class DAO_Producto implements Serializable {
         } catch (SQLException ex) {
             System.out.println("Error en create: " + ex);
         }
+    }
+    
+    public Integer obtenerIDValida() throws SQLException{
+        return this.findIDDisponible();
     }
 
     private Boolean canEdit(Producto producto) {
@@ -195,26 +193,36 @@ public class DAO_Producto implements Serializable {
         return resultados;
     }
 
-    public int findTamañoDeTabla() throws SQLException {
-        if (conectar == null || conectar.isClosed()) {
-            EstablecerConexion();
+    private Integer findIDDisponible() {
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
+            
+            String tabla = "Producto";
+            String c_id = "ProductoID";
+            
+            String query
+                    = "SELECT MIN(t1."+c_id+") + 1 AS PrimerIdDisponible "
+                    + "FROM "+tabla+" t1 "
+                    + "LEFT JOIN "+tabla+" t2 ON t1."+c_id+" + 1 = t2."+c_id+" "
+                    + "WHERE t2."+c_id+" IS NULL";
+            
+            PreparedStatement stmt = conectar.prepareStatement(query);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            int tamañoTabla = 0;
+            if (rs.next()) {
+                tamañoTabla = rs.getInt("PrimerIdDisponible");
+                System.out.println("PrimerIdDisponible: "+tamañoTabla);
+            }
+            
+            return tamañoTabla;
+        } catch (SQLException ex) {
+            System.out.println("Error en DAO_Producto.findTamañoDeTabla(): "+ex);
+            return null;
         }
-
-        String query
-                = "SELECT "
-                + "COUNT(*) AS cantidad "
-                + "FROM Producto";
-
-        PreparedStatement stmt = conectar.prepareStatement(query);
-
-        ResultSet rs = stmt.executeQuery();
-
-        int tamañoTabla = 0;
-        if (rs.next()) {
-            tamañoTabla = rs.getInt("cantidad");
-        }
-
-        return tamañoTabla;
     }
 
     public Producto findProducto(int productoID) {

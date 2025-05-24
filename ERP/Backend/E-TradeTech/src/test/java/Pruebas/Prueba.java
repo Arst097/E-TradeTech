@@ -16,6 +16,7 @@ import Proveedores.Servicio_AgregarProv;
 import Proveedores.Servicio_visualizarProv;
 import RRHH.DAOs.DAO_Empleado;
 import RRHH.Modelos.Empleado;
+import RRHH.Servicio_AgregarEmpleados;
 import Uso_Comun.Servicio_Login;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -57,7 +58,9 @@ public class Prueba {
 
         //Prueba.pruebaCrearVenta();
         
-        Prueba.pruebaCrearProveedor();
+        //Prueba.pruebaCrearProveedor();
+        
+        System.out.println(pruebaCrearEmpleado());
         
     }
 
@@ -71,6 +74,10 @@ public class Prueba {
 //        }
 //    }
 
+    private static int pruebaCrearEmpleado(){
+        return Servicio_AgregarEmpleados.crear_empleado("pablo", "Administracion", 2000, "2025-05-22", "Termino fijo");
+    }
+    
     private static String pruebaVizualizarVentas(){
         try {
             String Token = pruebaLogin("carlos@empresa.com", "gestor123");

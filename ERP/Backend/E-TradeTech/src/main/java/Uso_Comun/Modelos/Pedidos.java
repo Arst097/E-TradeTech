@@ -91,11 +91,7 @@ public class Pedidos implements Serializable {
         DAO_HistorialPedido DAOh = new DAO_HistorialPedido();
         DAO_Cliente DAOc = new DAO_Cliente();
         DAO_Pedidos DAOp = new DAO_Pedidos();
-        try {
-            this.pedidoID = DAOp.obtenerIDValida();
-        } catch (SQLException ex) {
-            Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.pedidoID = DAOp.obtenerIDValida();
         this.estado = "Solicitado";
         this.fechainicio = new Date();
         try {

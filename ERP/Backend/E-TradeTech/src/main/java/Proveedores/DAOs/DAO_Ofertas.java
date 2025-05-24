@@ -101,21 +101,26 @@ public class DAO_Ofertas implements Serializable {
             if (conectar == null || conectar.isClosed()) {
                 EstablecerConexion();
             }
-
+            
+            String tabla = "Ofertas";
+            String c_id = "OfertasID";
+            
             String query
-                    = "SELECT MIN(t1.OfertasID) + 1 AS PrimerIdDisponible "
-                    + "FROM Ofertas t1 "
-                    + "LEFT JOIN Ofertas t2 ON t1.OfertasID + 1 = t2.OfertasID "
-                    + "WHERE t2.OfertasID IS NULL;";
-
+                    = "SELECT MIN(t1."+c_id+") + 1 AS PrimerIdDisponible "
+                    + "FROM "+tabla+" t1 "
+                    + "LEFT JOIN "+tabla+" t2 ON t1."+c_id+" + 1 = t2."+c_id+" "
+                    + "WHERE t2."+c_id+" IS NULL";
+            
             PreparedStatement stmt = conectar.prepareStatement(query);
+            
             ResultSet rs = stmt.executeQuery();
-
+            
             int tamañoTabla = 0;
             if (rs.next()) {
                 tamañoTabla = rs.getInt("PrimerIdDisponible");
+                System.out.println("PrimerIdDisponible: "+tamañoTabla);
             }
-
+            
             return tamañoTabla;
         } catch (SQLException ex) {
             System.out.println("Error en Objeto DAO_Ofertas.findTamañoDeTabla(): " + ex);

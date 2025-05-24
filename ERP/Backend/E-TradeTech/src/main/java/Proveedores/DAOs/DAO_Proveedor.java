@@ -116,7 +116,8 @@ public class DAO_Proveedor implements Serializable {
                 proveedor.setDescripcion("");
             }
 
-            String query = "SET IDENTITY_INSERT Proveedor ON; INSERT Proveedor (ProveedorID, Lista_ContactosID, Nombre, Descripcion, Telefono, Estado";
+            String query = "SET IDENTITY_INSERT Proveedor ON; "
+                    + "INSERT Proveedor (ProveedorID, Lista_ContactosID, Nombre, Descripcion, Telefono, Estado";
             int QSimbolQuestions = 6;
 
             query = query + ") VALUES (";
@@ -158,17 +159,20 @@ public class DAO_Proveedor implements Serializable {
         return this.findIDDisponible();
     }
 
-    private Integer findIDDisponible() {
+        private Integer findIDDisponible() {
         try {
             if (conectar == null || conectar.isClosed()) {
                 EstablecerConexion();
             }
             
+            String tabla = "Proveedor";
+            String c_id = "ProveedorID";
+            
             String query
-                    = "SELECT MIN(t1.ProveedorID) + 1 AS PrimerIdDisponible "
-                    + "FROM Proveedor t1 "
-                    + "LEFT JOIN Proveedor t2 ON t1.ProveedorID + 1 = t2.ProveedorID "
-                    + "WHERE t2.ProveedorID IS NULL";
+                    = "SELECT MIN(t1."+c_id+") + 1 AS PrimerIdDisponible "
+                    + "FROM "+tabla+" t1 "
+                    + "LEFT JOIN "+tabla+" t2 ON t1."+c_id+" + 1 = t2."+c_id+" "
+                    + "WHERE t2."+c_id+" IS NULL";
             
             PreparedStatement stmt = conectar.prepareStatement(query);
             

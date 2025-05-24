@@ -10,6 +10,8 @@ import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Despachador;
 import Inventario.Modelos.Gestores;
 import Proveedores.Modelos.UsuarioCompras;
+import RRHH.DAOs.DAO_Empleado;
+import Seguridad.Servicio_Seguridad;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -161,7 +163,27 @@ public class Empleado implements Serializable {
         this.contrato = contrato;
     }
     
+    private static final DAO_Empleado DAOe = new DAO_Empleado();
     
+    public void generar_nuevo_empleado(String nombre, String departamento, Integer salario, Date fecha_ingreso, String contrato){
+        this.empleadoid = DAOe.obtenerIDValida();
+        this.nombre = nombre;
+        generar_credenciales(nombre);
+        this.departamento = departamento;
+        this.salario = salario;
+        this.fechaIngreso = fecha_ingreso;
+        this.contrato = contrato;
+    }
+    
+    public void generar_credenciales(String nombre){
+        String correo = nombre+"@empresa.com";
+        if (DAOe.correo_existe(correo)){
+            throw new RuntimeException("El correo ya existe en la base de datos.");
+        }
+        this.correo = correo;
+        String contraseñaSHA256 = Servicio_Seguridad.encryptSHA256(nombre);
+        this.contraseñaSHA256 = contraseñaSHA256;
+    }
 
     //Si algo utiliza alguno de estos dos metodos, hay que cambiarlos o borrarlo
     //Cliente ya no tiene relacion con Empleado
