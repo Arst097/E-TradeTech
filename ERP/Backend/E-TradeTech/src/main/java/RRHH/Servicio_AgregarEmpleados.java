@@ -66,6 +66,7 @@ public class Servicio_AgregarEmpleados {
     */
     private static boolean validar_departamento(String departamento){
         String[] departamentos_validos = {
+            "administracion",
             "Administracion",
             "Ventas",
             "Finanzas",
@@ -106,7 +107,7 @@ public class Servicio_AgregarEmpleados {
     
     /*
     Hace lo mismo que la funcion principal de mismo nombre pero tiene un return de status mas
-    Retorna 4 si hubo un error en el parceo de fecha
+    Retorna 3 si hubo un error en el parceo de fecha
     */
     public static int crear_empleado(String nombre, String departamento, Integer salario, String fecha_ingreso_str, String contrato){
         try {
@@ -114,7 +115,7 @@ public class Servicio_AgregarEmpleados {
             return crear_empleado(nombre, departamento, salario, fecha_ingreso, contrato);
         } catch (ParseException ex) {
             System.out.println("Error en el parceo de fecha: "+ex);
-            return 4;
+            return 3;
         }
     }
 

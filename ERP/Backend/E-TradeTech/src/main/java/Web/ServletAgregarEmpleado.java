@@ -59,11 +59,30 @@ public class ServletAgregarEmpleado extends HttpServlet {
     //            var precio = Double.parseDouble(precioStr);
 
                 // Aquí puedes guardar el producto, por ejemplo en una base de datos
-                int status = Servicio_AgregarEmpleados.crear_empleado(nombre, departamento, Integer.parseInt(salario), fechaIngreso, "Termino Fijo");
+                int status = Servicio_AgregarEmpleados.crear_empleado(nombre, departamento, Integer.parseInt(salario), fechaIngreso, "Termino fijo");
 
                 System.out.println(status);
                 // Si quieres enviar una respuesta al cliente (por ejemplo, AJAX)
-                String output = "Empleado agregado correctamente";
+                String output;
+                
+                switch(status){
+                    case 0:
+                        output = "Empleado agregado correctamente";
+                        break;
+                    case 1:
+                        output = "Departamento ingresado no valido";
+                        break;
+                    case 2:
+                        output = "Contrato ingresado no valido";
+                        break;
+                    case 3:
+                        output = "Error en formato de fecha";
+                        break;
+                    default:
+                        output = "Error durante la ejecucion";
+                        break;
+                    
+                }
                 response.setContentType("text/plain");
                 response.getWriter().write(output);
 
