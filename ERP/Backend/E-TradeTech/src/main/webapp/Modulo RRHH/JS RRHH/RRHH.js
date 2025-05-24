@@ -40,7 +40,8 @@ $(document).ready(function () {
     });
     $('#btnAgregarEmpleado').click(function() {
             nombre = $("#nombre").val(),
-            departamento = $("#departamento").val(),
+//            departamento = $("#departamento").val(),
+            departamento = $("#1departamento").val(),
             salario = $("#salario").val(),
             fechaIngreso = $("#fechaIngreso").val(),
 
@@ -55,7 +56,7 @@ $(document).ready(function () {
                 fechaIngreso:fechaIngreso
             },
             success: function(response) {
-                alert("Venta realizada exitosamente.");
+                alert(response);
                 console.log("Respuesta del servidor:", response);
             },
             error: function(xhr, status, error) {
