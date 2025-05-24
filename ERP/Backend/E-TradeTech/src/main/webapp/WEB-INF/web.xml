@@ -12,6 +12,34 @@
         <servlet-name>ServletAgregarProductos</servlet-name>
         <servlet-class>Web.ServletAgregarProductos</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletProveedoresMostrar</servlet-name>
+        <servlet-class>Web.ServletProveedoresMostrar</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletRRHHMostrar</servlet-name>
+        <servlet-class>Web.ServletRRHHMostrar</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletMostrarVentas</servlet-name>
+        <servlet-class>Web.ServletMostrarVentas</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletHacerVenta</servlet-name>
+        <servlet-class>Web.ServletHacerVenta</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAgregarEmpleado</servlet-name>
+        <servlet-class>Web.ServletAgregarEmpleado</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAgregarProveedor</servlet-name>
+        <servlet-class>Web.ServletAgregarProveedor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MostrarProductosDisponiblesVentas</servlet-name>
+        <servlet-class>Web.MostrarProductosDisponiblesVentas</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletInicioSesion</servlet-name>
         <url-pattern>/ServletInicioSesion</url-pattern>
@@ -23,5 +51,33 @@
     <servlet-mapping>
         <servlet-name>ServletAgregarProductos</servlet-name>
         <url-pattern>/ServletAgregarProductos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletProveedoresMostrar</servlet-name>
+        <url-pattern>/ServletProveedoresMostrar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletRRHHMostrar</servlet-name>
+        <url-pattern>/ServletRRHHMostrar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletMostrarVentas</servlet-name>
+        <url-pattern>/ServletMostrarVentas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletHacerVenta</servlet-name>
+        <url-pattern>/ServletHacerVenta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAgregarEmpleado</servlet-name>
+        <url-pattern>/ServletAgregarEmpleado</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAgregarProveedor</servlet-name>
+        <url-pattern>/ServletAgregarProveedor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MostrarProductosDisponiblesVentas</servlet-name>
+        <url-pattern>/MostrarProductosDisponiblesVentas</url-pattern>
     </servlet-mapping>
 </web-app>

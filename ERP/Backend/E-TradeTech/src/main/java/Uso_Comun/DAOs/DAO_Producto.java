@@ -4,6 +4,7 @@
  */
 package Uso_Comun.DAOs;
 
+import static Inventario.DAOs.DAO_Inventario.EstablecerConexion;
 import Inventario.Modelos.Inventario;
 import Uso_Comun.Modelos.Producto;
 import Uso_Comun.Modelos.Pedidos;
@@ -20,8 +21,20 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.UserTransaction;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,236 +42,403 @@ import java.util.List;
  */
 public class DAO_Producto implements Serializable {
 
-    public DAO_Producto(UserTransaction utx, EntityManagerFactory emf) {
-        this.utx = utx;
-        this.emf = emf;
-    }
-
     public DAO_Producto() {
-        this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
     }
 
-    private UserTransaction utx = null;
-    private EntityManagerFactory emf = null;
+    private static Connection conectar = null;
 
-    public EntityManager getEntityManager() {
-        return emf.createEntityManager();
-    }
+    private static final String usuario = "Access";
+    private static final String bd = "ETradeTechDB";
+    private static final String contraseña = "123";
+    private static final String ip = "localhost";
+    private static final String puerto = "1433";
 
-    public void create(Producto model_Producto) throws PreexistingEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
-        EntityTransaction tx = null;
+    public static void EstablecerConexion() {
         try {
-            em = getEntityManager();
-            tx = em.getTransaction();
-            tx.begin();
+            String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd + ";" + "encrypt=false";
+            conectar = DriverManager.getConnection(cadena, usuario, contraseña);
+            System.out.println("Conexion Establecida");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 
-            Inventario inventarioID = model_Producto.getInventarioID();
-            if (inventarioID != null) {
-                inventarioID = em.getReference(Inventario.class, inventarioID.getInventarioID());
-                model_Producto.setInventarioID(inventarioID);
+    private static final DAO_Pedidos DAOp = new DAO_Pedidos();
+    
+    public void create(Producto producto) {
+        System.out.println("Entra a metodo create de Productos");
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
             }
 
-            Pedidos pedidoID = model_Producto.getPedidoID();
-            if (pedidoID != null) {
-                pedidoID = em.getReference(Pedidos.class, pedidoID.getPedidoID());
-                model_Producto.setPedidoID(pedidoID);
+            if (producto.getProductoID() == null) {
+                producto.setProductoID(obtenerIDValida());
             }
 
-            em.persist(model_Producto);
-
-            if (inventarioID != null) {
-                inventarioID.getProductoCollection().add(model_Producto);
-                em.merge(inventarioID);
-            }
-            if (pedidoID != null) {
-                pedidoID.getProductoCollection().add(model_Producto);
-                em.merge(pedidoID);
+            if (producto.getFechaEntrada() == null) {
+                producto.setFechaEntrada(new Date());
             }
 
-            tx.commit();
-        } catch (Exception ex) {
-            if (tx != null && tx.isActive()) {
-                try {
-                    tx.rollback();
-                } catch (Exception re) {
-                    throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            String query = "INSERT Producto (ProductoID, InventarioID, Modelo, Fecha_Entrada, Precio, Categoria";
+            int QSimbolQuestions = 6;
+
+            boolean pedidoExiste = producto.getPedidoID() != null;
+
+            if (pedidoExiste) {
+                query = query + ", PedidoID";
+                QSimbolQuestions++;
+            }
+
+            query = query + ") VALUES (";
+
+            for (int i = 1; i <= QSimbolQuestions; i++) {
+                query = query + "?";
+                if (i != QSimbolQuestions) {
+                    query = query + ",";
                 }
             }
-            if (findModel_Producto(model_Producto.getProductoID()) != null) {
-                throw new PreexistingEntityException("Producto " + model_Producto + " already exists.", ex);
+            query = query + ");";
+
+            System.out.println(query);
+
+            Integer productoID = producto.getProductoID();
+            Integer inventarioID = producto.getInventarioID().getInventarioID();
+            Integer pedidoID = -1;
+            String modelo = producto.getModelo();
+            Date fecha = producto.getFechaEntrada();
+            float precio = producto.getPrecio();
+            String categoria = producto.getCategoria();
+            if (pedidoExiste) {
+                pedidoID = producto.getPedidoID().getPedidoID();
             }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
+
+            CallableStatement cs = conectar.prepareCall(query);
+
+            cs.setInt(1, productoID);
+            cs.setInt(2, inventarioID);
+            cs.setString(3, modelo);
+            cs.setTimestamp(4, new Timestamp(fecha.getTime()));
+            cs.setDouble(5, precio);
+            cs.setString(6, categoria);
+            if (pedidoExiste) {
+                cs.setInt(7, pedidoID);
             }
+
+            System.out.println("Intenta hacer la insercion");
+            cs.execute();
+        } catch (SQLException ex) {
+            System.out.println("Error en create: " + ex);
+        }
+    }
+    
+    public Integer obtenerIDValida() throws SQLException{
+        return this.findIDDisponible();
+    }
+
+    private Boolean canEdit(Producto producto) {
+        boolean check_productoID = !( producto.getProductoID() == null || (producto.getProductoID() <= 0) );
+        boolean check_categoria = !producto.getCategoria().isBlank();
+        boolean check_fechaEntrada = !( producto.getFechaEntrada() == null );
+        boolean check_inventarioID = !( producto.getInventarioID() == null || (producto.getInventarioID().getInventarioID() <= 0) );
+        boolean check_modelo = !producto.getModelo().isBlank();
+        boolean check_pedidoID = producto.getPrecio() >= 0 ;
+        boolean check_precio = !( producto.getPrecio() == null || (producto.getPrecio() <= 0) );
+
+        boolean canEdit = check_productoID && check_categoria && check_fechaEntrada && check_inventarioID && check_modelo && check_pedidoID && check_precio;
+
+        System.out.println("El objeto puede editar: " + canEdit
+                + "check_productoID = " + check_productoID
+                + "check_categoria" + check_categoria
+                + "check_fechaEntrada" + check_fechaEntrada
+                + "check_inventarioID" + check_inventarioID
+                + "check_modelo" + check_modelo
+                + "check_pedidoID" + check_pedidoID
+                + "check_precio" + check_precio);
+
+        return canEdit;
+    }
+
+    public List<Object[]> findGrupoProductosByInventario(int InventarioID) throws SQLException {
+        if (conectar == null || conectar.isClosed()) {
+            EstablecerConexion();
+        }
+
+        String query
+                = "SELECT "
+                + "p.modelo AS modelo, "
+                + "MAX(p.categoria) AS categoria, "
+                + "COUNT(*) AS cantidad, "
+                + "MAX(p.precio) AS precioMaximo "
+                + "FROM Producto p "
+                + "WHERE p.InventarioID = ? "
+                + "GROUP BY p.modelo;";
+
+        PreparedStatement stmt = conectar.prepareStatement(query);
+        stmt.setString(1, String.valueOf(InventarioID));
+
+        ResultSet rs = stmt.executeQuery();
+
+        List<Object[]> resultados = new ArrayList<>();
+
+        while (rs.next()) {
+            Object[] fila = new Object[4];
+            fila[0] = rs.getString("modelo");        // String
+            fila[1] = rs.getString("categoria");     // String (puede variar según el tipo real)
+            fila[2] = rs.getLong("cantidad");        // COUNT(*) siempre devuelve Long
+            fila[3] = rs.getFloat("precioMaximo");  // Float o tipo de 'precio'
+
+            resultados.add(fila);
+        }
+        return resultados;
+    }
+
+    private Integer findIDDisponible() {
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
+            
+            String tabla = "Producto";
+            String c_id = "ProductoID";
+            
+            String query
+                    = "SELECT MIN(t1."+c_id+") + 1 AS PrimerIdDisponible "
+                    + "FROM "+tabla+" t1 "
+                    + "LEFT JOIN "+tabla+" t2 ON t1."+c_id+" + 1 = t2."+c_id+" "
+                    + "WHERE t2."+c_id+" IS NULL";
+            
+            PreparedStatement stmt = conectar.prepareStatement(query);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            int tamañoTabla = 0;
+            if (rs.next()) {
+                tamañoTabla = rs.getInt("PrimerIdDisponible");
+                System.out.println("PrimerIdDisponible: "+tamañoTabla);
+            }
+            
+            return tamañoTabla;
+        } catch (SQLException ex) {
+            System.out.println("Error en DAO_Producto.findTamañoDeTabla(): "+ex);
+            return null;
         }
     }
 
-    public void edit(Producto model_Producto) throws NonexistentEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
+    public Producto findProducto(int productoID) {
         try {
-            utx.begin();
-            em = getEntityManager();
-            Producto persistentModel_Producto = em.find(Producto.class, model_Producto.getProductoID());
-            Inventario inventarioIDOld = persistentModel_Producto.getInventarioID();
-            Inventario inventarioIDNew = model_Producto.getInventarioID();
-            Pedidos pedidoIDOld = persistentModel_Producto.getPedidoID();
-            Pedidos pedidoIDNew = model_Producto.getPedidoID();
-            if (inventarioIDNew != null) {
-                inventarioIDNew = em.getReference(inventarioIDNew.getClass(), inventarioIDNew.getInventarioID());
-                model_Producto.setInventarioID(inventarioIDNew);
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
             }
-            if (pedidoIDNew != null) {
-                pedidoIDNew = em.getReference(pedidoIDNew.getClass(), pedidoIDNew.getPedidoID());
-                model_Producto.setPedidoID(pedidoIDNew);
-            }
-            model_Producto = em.merge(model_Producto);
-            if (inventarioIDOld != null && !inventarioIDOld.equals(inventarioIDNew)) {
-                inventarioIDOld.getProductoCollection().remove(model_Producto);
-                inventarioIDOld = em.merge(inventarioIDOld);
-            }
-            if (inventarioIDNew != null && !inventarioIDNew.equals(inventarioIDOld)) {
-                inventarioIDNew.getProductoCollection().add(model_Producto);
-                inventarioIDNew = em.merge(inventarioIDNew);
-            }
-            if (pedidoIDOld != null && !pedidoIDOld.equals(pedidoIDNew)) {
-                pedidoIDOld.getProductoCollection().remove(model_Producto);
-                pedidoIDOld = em.merge(pedidoIDOld);
-            }
-            if (pedidoIDNew != null && !pedidoIDNew.equals(pedidoIDOld)) {
-                pedidoIDNew.getProductoCollection().add(model_Producto);
-                pedidoIDNew = em.merge(pedidoIDNew);
-            }
-            utx.commit();
-        } catch (Exception ex) {
-            try {
-                utx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-            }
-            String msg = ex.getLocalizedMessage();
-            if (msg == null || msg.length() == 0) {
-                Integer id = model_Producto.getProductoID();
-                if (findModel_Producto(id) == null) {
-                    throw new NonexistentEntityException("The model_Producto with id " + id + " no longer exists.");
+
+            String query = "SELECT * FROM Producto WHERE ProductoID = ?;";
+            PreparedStatement stmt = conectar.prepareStatement(query);
+            stmt.setString(1, String.valueOf(productoID));
+
+            ResultSet rs = stmt.executeQuery();
+
+            Producto producto = null;
+            if (rs.next()) {
+                producto = new Producto();
+                producto.setProductoID(rs.getInt("ProductoID"));
+
+                Inventario inventario = new Inventario(rs.getInt("InventarioID"));
+                producto.setInventarioID(inventario);
+
+                Integer pedidoID = rs.getInt("PedidoID");
+                if (!pedidoID.equals(null)) {
+                    DAO_Pedidos DAOp = new DAO_Pedidos();
+                    producto.setPedidoID(DAOp.findPedido(pedidoID));
                 }
+
+                producto.setModelo(rs.getString("Modelo"));
+                producto.setFechaEntrada(rs.getDate("Fecha_Entrada"));
+                producto.setPrecio(rs.getFloat("Precio"));
+                producto.setCategoria(rs.getString("Categoria"));
+
             }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
+
+            return producto;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 
-    public void destroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
-        EntityTransaction tx = null;
+    public List<Producto> findProductoByModelo(String Modelo) {
         try {
-            em = getEntityManager();
-            tx = em.getTransaction();
-            tx.begin();
-
-            Producto model_Producto;
-            try {
-                model_Producto = em.getReference(Producto.class, id);
-                model_Producto.getProductoID();
-            } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The Producto with id " + id + " no longer exists.", enfe);
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
             }
 
-            Inventario inventarioID = model_Producto.getInventarioID();
-            if (inventarioID != null) {
-                inventarioID.getProductoCollection().remove(model_Producto);
-                em.merge(inventarioID);
-            }
+            String query = "SELECT * FROM Producto WHERE Modelo = ?;";
+            PreparedStatement stmt = conectar.prepareStatement(query);
+            stmt.setString(1, String.valueOf(Modelo));
 
-            Pedidos pedidoID = model_Producto.getPedidoID();
-            if (pedidoID != null) {
-                pedidoID.getProductoCollection().remove(model_Producto);
-                em.merge(pedidoID);
-            }
+            ResultSet rs = stmt.executeQuery();
 
-            em.remove(model_Producto);
-            tx.commit();
-        } catch (Exception ex) {
-            if (tx != null && tx.isActive()) {
-                try {
-                    tx.rollback();
-                } catch (Exception re) {
-                    throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            List<Producto> productos = new ArrayList<>();
+            while(rs.next()) {
+                Producto producto = new Producto();
+                producto.setProductoID(rs.getInt("ProductoID"));
+
+                Inventario inventario = new Inventario(rs.getInt("InventarioID"));
+                producto.setInventarioID(inventario);
+
+                Integer pedidoID = rs.getInt("PedidoID");
+                if (!pedidoID.equals(null)) {
+                    DAO_Pedidos DAOp = new DAO_Pedidos();
+                    producto.setPedidoID(DAOp.findPedido(pedidoID));
                 }
+
+                producto.setModelo(rs.getString("Modelo"));
+                producto.setFechaEntrada(rs.getDate("Fecha_Entrada"));
+                producto.setPrecio(rs.getFloat("Precio"));
+                producto.setCategoria(rs.getString("Categoria"));
+
+                productos.add(producto);
             }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
+
+            return productos;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+    }
+
+    public void edit(Producto producto) {
+        if(!canEdit(producto)){
+            System.out.println("No se pudo hacer la edicion");
+            return;
+        }
+
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
             }
-        }
-    }
+            
+            String query = "UPDATE Producto "
+                    + "SET "
+                        + "InventarioID = ?"
+                        + ", Modelo = ? "
+                        + ", Fecha_Entrada = ? "
+                        + ", Precio = ? "
+                        + ", Categoria = ? ";
+            
+            boolean pedidoExiste = producto.getPedidoID() != null ;
 
-    public List<Producto> findModel_ProductoEntities() {
-        return findModel_ProductoEntities(true, -1, -1);
-    }
-
-    public List<Producto> findModel_ProductoEntities(int maxResults, int firstResult) {
-        return findModel_ProductoEntities(false, maxResults, firstResult);
-    }
-
-    private List<Producto> findModel_ProductoEntities(boolean all, int maxResults, int firstResult) {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Producto.class));
-            Query q = em.createQuery(cq);
-            if (!all) {
-                q.setMaxResults(maxResults);
-                q.setFirstResult(firstResult);
+            if (pedidoExiste) {
+                query = query + ", PedidoID = ? ";
             }
-            return q.getResultList();
-        } finally {
-            em.close();
+            
+            query = query + "WHERE ProductoID = ?;";
+            
+            Integer inventarioID = producto.getInventarioID().getInventarioID();
+            String modelo = producto.getModelo();
+            Date fechaEntrada = producto.getFechaEntrada();
+            Float precio = producto.getPrecio();
+            String categoria = producto.getCategoria();
+            
+            Integer pedidoID = -1;
+            if(pedidoExiste){
+                pedidoID = producto.getPedidoID().getPedidoID();
+            }
+            
+            Integer productoID = producto.getProductoID();
+            
+            CallableStatement cs = conectar.prepareCall(query);
+            
+            cs.setInt(1, inventarioID);
+            cs.setString(2, modelo);
+            cs.setTimestamp(3, new Timestamp(fechaEntrada.getTime()));
+            cs.setFloat(4, precio);
+            cs.setString(5, categoria);
+            
+            int count = 6;
+            if(pedidoExiste){
+                cs.setInt(count, pedidoID);
+                count++;
+            }
+            
+            cs.setInt(count, productoID);
+            
+            cs.execute();
+        } catch (SQLException ex) {
+            System.out.println("Error en Edit de Producto: "+ex);
         }
+        
     }
 
-    public Producto findModel_Producto(Integer id) {
-        EntityManager em = getEntityManager();
+    public Collection<Producto> find_toPedidos(Pedidos pedido) {
         try {
-            return em.find(Producto.class, id);
-        } finally {
-            em.close();
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
+
+            String query = "SELECT * FROM Producto WHERE PedidoID = ?;";
+            PreparedStatement stmt = conectar.prepareStatement(query);
+            stmt.setString(1, String.valueOf(pedido.getPedidoID()));
+
+            ResultSet rs = stmt.executeQuery();
+
+            ArrayList<Producto> productos = new ArrayList<>();
+            while(rs.next()) {
+                Producto producto = new Producto();
+                producto.setProductoID(rs.getInt("ProductoID"));
+
+                Inventario inventario = new Inventario(rs.getInt("InventarioID"));
+                producto.setInventarioID(inventario);
+
+                producto.setPedidoID(pedido);
+
+                producto.setModelo(rs.getString("Modelo"));
+                producto.setFechaEntrada(rs.getDate("Fecha_Entrada"));
+                producto.setPrecio(rs.getFloat("Precio"));
+                producto.setCategoria(rs.getString("Categoria"));
+
+                productos.add(producto);
+            }
+            
+            return productos;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
+
     }
 
-    public List<Producto> findProductoByInventario(Integer InventarioID) {
-        EntityManager em = getEntityManager();
+    public Collection<Producto> find_toInventario(Inventario inventario) {
         try {
-            Query query = em.createQuery(
-                    "SELECT p FROM Producto p WHERE p.inventarioID.inventarioID = :inventarioId"
-            );
-            query.setParameter("inventarioId", InventarioID);
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
+            }
 
-            List<Producto> resultados = query.getResultList();
+            String query = "SELECT * FROM Producto WHERE InventarioID = ?;";
+            PreparedStatement stmt = conectar.prepareStatement(query);
+            stmt.setString(1, String.valueOf(inventario.getInventarioID()));
 
-            return resultados.isEmpty() ? null : resultados;
-        } finally {
-            em.close();
-        }
-    }
+            ResultSet rs = stmt.executeQuery();
 
-    public int getModel_ProductoCount() {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Producto> rt = cq.from(Producto.class);
-            cq.select(em.getCriteriaBuilder().count(rt));
-            Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
-        } finally {
-            em.close();
-        }
-    }
+            ArrayList<Producto> productos = new ArrayList<>();
+            while(rs.next()) {
+                Producto producto = new Producto();
+                producto.setProductoID(rs.getInt("ProductoID"));
+
+                producto.setInventarioID(inventario);
+
+                producto.setModelo(rs.getString("Modelo"));
+                producto.setFechaEntrada(rs.getDate("Fecha_Entrada"));
+                producto.setPrecio(rs.getFloat("Precio"));
+                producto.setCategoria(rs.getString("Categoria"));
+
+                productos.add(producto);
+            }
+            
+            return productos;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }    }
 
 }

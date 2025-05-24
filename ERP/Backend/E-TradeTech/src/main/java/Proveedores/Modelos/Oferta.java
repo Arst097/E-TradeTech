@@ -1,0 +1,142 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Proveedores.Modelos;
+
+import Proveedores.DAOs.DAO_Ofertas;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.Random;
+
+/**
+ *
+ * @author HP PORTATIL
+ */
+@Entity
+@Table(name = "Ofertas")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Ofertas.findAll", query = "SELECT o FROM Ofertas o"),
+    @NamedQuery(name = "Ofertas.findByOfertasID", query = "SELECT o FROM Ofertas o WHERE o.ofertasID = :ofertasID"),
+    @NamedQuery(name = "Ofertas.findByProductoOfertado", query = "SELECT o FROM Ofertas o WHERE o.productoOfertado = :productoOfertado"),
+    @NamedQuery(name = "Ofertas.findByPrecioUnidad", query = "SELECT o FROM Ofertas o WHERE o.precioUnidad = :precioUnidad")})
+public class Oferta implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "OfertasID")
+    private Integer ofertasID;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "Producto_Ofertado")
+    private String productoOfertado;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "Precio_Unidad")
+    private String precioUnidad;
+    @JoinColumn(name = "ProveedorID", referencedColumnName = "ProveedorID")
+    @ManyToOne(optional = false)
+    private Proveedor proveedorID;
+
+    public Oferta() {
+    }
+
+    public Oferta(Integer ofertasID) {
+        this.ofertasID = ofertasID;
+    }
+
+    public Oferta(Integer ofertasID, String productoOfertado, String precioUnidad) {
+        this.ofertasID = ofertasID;
+        this.productoOfertado = productoOfertado;
+        this.precioUnidad = precioUnidad;
+    }
+
+    public Integer getOfertasID() {
+        return ofertasID;
+    }
+
+    public void setOfertasID(Integer ofertasID) {
+        this.ofertasID = ofertasID;
+    }
+
+    public String getProductoOfertado() {
+        return productoOfertado;
+    }
+
+    public void setProductoOfertado(String productoOfertado) {
+        this.productoOfertado = productoOfertado;
+    }
+
+    public String getPrecioUnidad() {
+        return precioUnidad;
+    }
+
+    public void setPrecioUnidad(String precioUnidad) {
+        this.precioUnidad = precioUnidad;
+    }
+
+    public Proveedor getProveedorID() {
+        return proveedorID;
+    }
+
+    public void setProveedorID(Proveedor proveedorID) {
+        this.proveedorID = proveedorID;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (ofertasID != null ? ofertasID.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Oferta)) {
+            return false;
+        }
+        Oferta other = (Oferta) object;
+        if ((this.ofertasID == null && other.ofertasID != null) || (this.ofertasID != null && !this.ofertasID.equals(other.ofertasID))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Proveedores.Modelos.Ofertas[ ofertasID=" + ofertasID + " ]";
+    }
+
+    public void ConfigurarOfertaAleatorea(String productoOfertado, Proveedor proveedor) {
+        DAO_Ofertas DAOo = new DAO_Ofertas();
+        
+        this.ofertasID = DAOo.obtenerIDValida();
+        this.precioUnidad = numeroAleatorio(2000,6000);
+        this.productoOfertado = productoOfertado;
+        this.proveedorID = proveedor;
+    }
+    
+    private String numeroAleatorio(int min, int max) {
+        Random rand = new Random();
+        int numero = rand.nextInt((max - min) + 1) + min;
+        // Formatea el número a dos dígitos, agregando un 0 si es necesario
+        return "$"+String.format("%02d", numero);
+    }
+}

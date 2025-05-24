@@ -4,7 +4,7 @@
  */
 package Inventario.Modelos;
 
-import Uso_Comun.Modelos.Usuario;
+import RRHH.Modelos.Empleado;
 import Inventario.Modelos.Almacen;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -46,7 +46,7 @@ public class Gestores implements Serializable {
     private Almacen almacenID;
     @JoinColumn(name = "Usuario_Usuario_id", referencedColumnName = "Usuario_id")
     @ManyToOne(optional = false)
-    private Usuario usuarioUsuarioid;
+    private Empleado usuarioEmpleadoid;
 
     public Gestores() {
     }
@@ -61,12 +61,12 @@ public class Gestores implements Serializable {
         this.telefono = telefono;
     }
     
-    public Gestores(Integer gestorID, String puesto, String telefono, Almacen almacenID, Usuario usuarioUsuarioid) {
+    public Gestores(Integer gestorID, String puesto, String telefono, Almacen almacenID, Empleado usuarioEmpleadoid) {
         this.gestorID = gestorID;
         this.puesto = puesto;
         this.telefono = telefono;
         this.almacenID = almacenID;
-        this.usuarioUsuarioid = usuarioUsuarioid;
+        this.usuarioEmpleadoid = usuarioEmpleadoid;
     }
 
     public Integer getGestorID() {
@@ -101,12 +101,12 @@ public class Gestores implements Serializable {
         this.almacenID = almacenID;
     }
 
-    public Usuario getUsuarioUsuarioid() {
-        return usuarioUsuarioid;
+    public Empleado getUsuarioEmpleadoid() {
+        return usuarioEmpleadoid;
     }
 
-    public void setUsuarioUsuarioid(Usuario usuarioUsuarioid) {
-        this.usuarioUsuarioid = usuarioUsuarioid;
+    public void setUsuarioEmpleadoid(Empleado usuarioEmpleadoid) {
+        this.usuarioEmpleadoid = usuarioEmpleadoid;
     }
 
     @Override

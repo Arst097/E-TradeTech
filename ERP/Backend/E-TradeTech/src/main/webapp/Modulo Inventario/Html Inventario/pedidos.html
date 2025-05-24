@@ -59,8 +59,8 @@
                     <td>$3.000.000</td>
                     <td>En camino</td>
                     <td>Es una laptop ligera y potente, con pantalla Full HD, procesador Intel o AMD y SSD, ideal para uso diario</td>
-                    <td>3107900228</td>
-                    <td><button class="editar" onclick="abrirFormularioEditar2('Laptop HP Pavilion 15', '3000000', `En camino`, 'Es una laptop ligera y potente, con pantalla Full HD, procesador Intel o AMD y SSD, ideal para uso diario', `3107900228`)">Editar Orden</button>
+                    <td>cliente</td>
+                    <td><button class="editar" onclick="abrirFormularioEditar2('Laptop HP Pavilion 15', '3000000', `En camino`, 'Es una laptop ligera y potente, con pantalla Full HD, procesador Intel o AMD y SSD, ideal para uso diario' )">Editar Orden</button>
                         <button class="eliminar">Eliminar Orden</button></td>
                 </tr>  
             </tbody>
@@ -86,8 +86,8 @@
               </select>
             <h2>Detalles</h2>
             <input type="text">
-            <h2>Contacto</h2>
-            <input type="text"><br>
+            <h2>Cliente</h2>
+           <select id="editCliente"></select><br>
             <a href=""> <input id="Aceptar" type="button" value="Agregar Pedido"></a>
             <button onclick="cerrarFormulario()" id="Cancelar">Cancelar </button>
         </form>
@@ -110,8 +110,8 @@
                   </select>
                 <h2>Detalles</h2>
                 <input type="text" id="editDetalles">
-                <h2>Contacto</h2>
-                <input type="text" id="editCantidad"><br>
+                <h2>Cliente</h2>
+                <select id="editCliente"></select><br>
                 <a href=""> <input id="Aceptar" type="button" value="Agregar Producto"></a>
                 <button onclick="cerrarFormularioEditar()" id="Cancelar">Cancelar</button>
             </form>

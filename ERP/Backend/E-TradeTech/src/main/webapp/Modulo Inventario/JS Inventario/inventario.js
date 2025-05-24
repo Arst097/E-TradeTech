@@ -7,7 +7,7 @@ $(document).ready(function () {
  
     function cargarProductos() {
         $.ajax({
-            url:'http://localhost:8080/E-TradeTech/ServletInventarioMostrar',
+            url:'http://localhost:5077/E-TradeTech/ServletInventarioMostrar',
             method: 'GET',
 //            dataType: 'json',
             success: function (data) {
@@ -30,7 +30,7 @@ $(document).ready(function () {
                     `;
                     $tbody.append(fila);
                 });
-                cargarProductos();
+//                cargarProductos();
             },
             error: function (xhr, status, error) {
                 console.error('Error al cargar productos:', error);
@@ -58,7 +58,7 @@ $(document).ready(function () {
 
         // Aquí puedes hacer un AJAX, por ejemplo:
         $.ajax({
-            url: 'http://localhost:8080/E-TradeTech/ServletAgregarProductos',
+            url: 'http://localhost:5077/E-TradeTech/ServletAgregarProductos',
             method: 'POST',
             data: {
                 nombre: nombre,

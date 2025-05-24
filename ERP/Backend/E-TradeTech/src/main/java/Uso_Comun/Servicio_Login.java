@@ -1,0 +1,53 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Uso_Comun;
+
+import Inventario.DAOs.DAO_Gestores;
+import RRHH.DAOs.DAO_Empleado;
+import Uso_Comun.Modelos.Pedidos;
+import RRHH.Modelos.Empleado;
+import Inventario.exceptions.NonexistentEntityException;
+import Inventario.exceptions.RollbackFailureException;
+import Seguridad.Servicio_Seguridad;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import java.security.Key;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+import java.util.Date;
+import javax.crypto.spec.SecretKeySpec;
+
+/**
+ *
+ * @author HP PORTATIL
+ */
+public class Servicio_Login {
+
+    private static DAO_Empleado DAO = new DAO_Empleado();
+    
+    public static String encryptSHA256(String input) {
+        return Servicio_Seguridad.encryptSHA256(input);
+    }
+    
+    public static String login(String correo, String contraseña_encriptada, boolean b) throws SQLException {
+        
+        Empleado usuario = DAO.findUsuarioByCorreoAndSHA256(b, correo, contraseña_encriptada);
+        
+        if(usuario == null){
+            return "Empleadoo No Encontrado";
+        }
+        DAO_Gestores TempDAO = new DAO_Gestores();
+        if(TempDAO.findGestorByEmpleadoId(b,usuario.getEmpleadoid()) == null){
+            return "Empleado No Gestor";
+        }
+        return Servicio_Seguridad.generateJwtToken(usuario.getEmpleadoid());
+    }
+    
+    public static boolean TokenValido(String token) {
+        return Servicio_Seguridad.TokenValido(token);
+    }
+}

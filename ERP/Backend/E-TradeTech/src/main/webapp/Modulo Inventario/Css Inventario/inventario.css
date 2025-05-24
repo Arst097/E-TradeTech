@@ -306,3 +306,11 @@ th, td {
     font-weight: bold;
     transition: background 0.3s ease;
 }
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}

@@ -43,20 +43,22 @@
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
-                    <th>Direccion</th>
-                    <th>Detalles</th>
-                    <th>Area</th>
+                    <th>Teléfono</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th>Oferta de Proveedor</th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="cuerpo-tabla-proveedores">
                 <tr>
                     <td>001</td>
                     <td>TecnoGlobal S.A.S</td>
-                    <td>Cra 7 #45-89, Bogotá D.C.</td>
+                    <td>3124568497</td>
                     <td>Proveedor principal de hardware empresarial</td>
+                    <td>Activo</td>
                     <td>Infraestructura</td>
-                    <td><button class="editar" onclick="abrirFormularioEditarP('TecnoGlobal S.A.S', 'Cra 7 #45-89, Bogotá D.C', 'Proveedor principal de hardware empresarial', 'Infraestructura')">Editar</button>
+                    <td><button class="editar" onclick="abrirFormularioEditarP('TecnoGlobal S.A.S', '3124568497', 'Proveedor principal de hardware empresarial', 'Activo',  'Infraestructura')">Editar</button>
                         <button class="eliminar">Eliminar</button>
                         <div class="btn_cambiar_status">
                             <button class="cambiar" onclick="cambiarStatus()">Cambiar Estatus</button>
@@ -71,22 +73,23 @@
     </div>
     <div class="FormularioProveedores" id="Formulario"  style="display: none;">
         <div class="formulario-contenido">
-        <form action="">
+            <form action="" id="formNuevoProvedor">
             <h1>Agregar nuevo Proveedor</h1>
             <h2>Nombre</h2>
-            <input type="text">
+            <input type="text" id="nombre">
             <h2>Status</h2>
             <select id="Status" name="Filtrar">
                 <option value="Activo">Activo</option>
                 <option value="Inactivo">Inactivo</option>
             </select>
-            <h2>Direccion</h2>
-            <input type="text">
-            <h2>Detalles</h2>
-            <input type="text">
-            <h2>Area</h2>
-            <input type="text"><br>
-            <a href=""> <input id="Aceptar" type="button" value="Agregar Proveedor"></a>
+            <h2>Telefono</h2>
+            <input type="text" id="telefono">
+            <h2>Descripción</h2>
+            <input type="text" id="descripcion">
+            <h2>Oferta</h2>
+            <input type="text" id="oferta"><br>
+            <!--  <a href=""> <input id="Aceptar" type="button" value="Agregar Proveedor"></a>-->
+            <button type="button" id="btnAgregarProveedor">Agregar Proveedor</button>
             <button onclick="cerrarFormularioProveedores()" id="Cancelar">Cancelar </button>
         </form>
     </div>
@@ -94,13 +97,19 @@
     <div class="FormularioProveedores" id="FormularioEditarProveedores" style="display: none;">
         <div class="formulario-contenido">
           <form>
-            <h1>Editar Producto</h1>
+            <h1>Editar Proveedor</h1>
             <h2>Nombre</h2>
             <input type="text" id="editNombre">
-            <h2>Direcion</h2>
-            <input type="text" id="editDireccion">
-            <h2>Detalles</h2>
-            <input type="text" id="editDetalles">
+            <h2>Telefono</h2>
+            <input type="text" id="editTelefono">
+            <h2>Descripción</h2>
+            <input type="text" id="editDescripcion">
+            <h2>Status</h2>
+            <select id="Status" name="Filtrar">
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+            </select>
+            <input type="text" id="editEstado" readonly>
             <h2>Area</h2>
             <input type="text" id="editArea"><br>
             <input id="Aceptar" type="button" value="Guardar Cambios">
@@ -127,7 +136,7 @@
         </form>
     </div>
     </div>
-      
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../JS Proveedores/Proveedores.js"></script>
 </body>
 </html>

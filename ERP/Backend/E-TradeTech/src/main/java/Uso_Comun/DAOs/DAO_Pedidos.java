@@ -6,13 +6,14 @@ package Uso_Comun.DAOs;
 
 import Uso_Comun.Modelos.Producto;
 import Inventario.Modelos.Despachador;
-import Inventario.Modelos.HistorialPedidos;
+import Ventas.Modelos.HistorialPedidos;
 import Uso_Comun.Modelos.Pedidos;
-import Uso_Comun.Modelos.Mensajero;
-import Uso_Comun.Modelos.Cliente;
+import Ventas.Modelos.Mensajero;
+import Ventas.Modelos.Cliente;
 import Inventario.exceptions.NonexistentEntityException;
 import Inventario.exceptions.PreexistingEntityException;
 import Inventario.exceptions.RollbackFailureException;
+import Ventas.DAOS.DAO_Cliente;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import java.io.Serializable;
@@ -22,9 +23,19 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.UserTransaction;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,308 +43,243 @@ import java.util.List;
  */
 public class DAO_Pedidos implements Serializable {
 
-    public DAO_Pedidos(UserTransaction utx, EntityManagerFactory emf) {
-        this.utx = utx;
-        this.emf = emf;
-    }
-
     public DAO_Pedidos() {
-        this.emf = Persistence.createEntityManagerFactory("ETradeTech_PU");
     }
     
-    private UserTransaction utx = null;
-    private EntityManagerFactory emf = null;
-
-    public EntityManager getEntityManager() {
-        return emf.createEntityManager();
+    private static Connection conectar = null;
+    
+    private static final String usuario = "Access";
+    private static final String bd = "ETradeTechDB";
+    private static final String contraseña = "123";
+    private static final String ip = "localhost";
+    private static final String puerto = "1433";
+    
+    public static void EstablecerConexion() {
+        try {
+            String cadena = "jdbc:sqlserver://localhost:" + puerto + ";" + "databaseName=" + bd + ";" + "encrypt=false";
+            conectar = DriverManager.getConnection(cadena, usuario, contraseña);
+            System.out.println("Conexion Establecida");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
-    public void create(Pedidos model_Pedidos) throws PreexistingEntityException, RollbackFailureException, Exception {
-        if (model_Pedidos.getProductoCollection() == null) {
-            model_Pedidos.setProductoCollection(new ArrayList<Producto>());
-        }
-        EntityManager em = null;
+    private static final DAO_Cliente DAOc = new DAO_Cliente();
+    private static final DAO_Producto DAOp = new DAO_Producto();
+    
+    
+    public List<Pedidos> findPedidos() {
         try {
-            utx.begin();
-            em = getEntityManager();
-            Cliente clienteID = model_Pedidos.getClienteID();
-            if (clienteID != null) {
-                clienteID = em.getReference(clienteID.getClass(), clienteID.getClienteID());
-                model_Pedidos.setClienteID(clienteID);
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
             }
-            Despachador despachadorID = model_Pedidos.getDespachadorID();
-            if (despachadorID != null) {
-                despachadorID = em.getReference(despachadorID.getClass(), despachadorID.getDespachadorID());
-                model_Pedidos.setDespachadorID(despachadorID);
+            
+            String query = "SELECT * FROM Pedidos;";
+            PreparedStatement stmt = conectar.prepareStatement(query);
+            
+            ResultSet rs = stmt.executeQuery();
+
+            List<Pedidos> pedidos = new ArrayList<>();
+            while(rs.next()) {
+                Pedidos pedido = new Pedidos();
+                pedido.setPedidoID(rs.getInt("PedidoID"));
+                pedido.setEstado(rs.getString("Estado"));
+                
+                Cliente cliente = DAOc.findCliente(rs.getInt("ClienteID"));
+                pedido.setClienteID(cliente);
+                
+                pedido.setHistorialPredidosID(new HistorialPedidos(rs.getInt("Historial_PredidosID")));
+                pedido.setFechainicio(rs.getDate("Fecha_Inicio"));
+                
+                Collection<Producto> productos = DAOp.find_toPedidos(pedido);
+                pedido.setProductoCollection(productos);
+                
+                pedidos.add(pedido);
             }
-            HistorialPedidos historialPredidosID = model_Pedidos.getHistorialPredidosID();
-            if (historialPredidosID != null) {
-                historialPredidosID = em.getReference(historialPredidosID.getClass(), historialPredidosID.getHistorialPredidosID());
-                model_Pedidos.setHistorialPredidosID(historialPredidosID);
+
+            return pedidos;
+        } catch (SQLException ex) {
+            System.out.println("Ocurrio un error en findPedidos: "+ex);
+            return null;
+        }
+
+    }
+
+    public List<Pedidos> findPedidosByHistorialPedidos(HistorialPedidos Historial) throws SQLException {
+        if (conectar == null || conectar.isClosed()) {
+            EstablecerConexion();
+        }
+        
+        String query = "SELECT * FROM Pedidos WHERE Historial_PredidosID = ?";
+        PreparedStatement stmt = conectar.prepareStatement(query);
+        stmt.setString(1, String.valueOf(Historial.getHistorialPredidosID()));
+        
+        ResultSet rs = stmt.executeQuery();
+        
+        List<Pedidos> Pedidos = new ArrayList<>();
+        while(rs.next()){
+            Pedidos pedido = new Pedidos();
+            pedido.setPedidoID(rs.getInt("PedidoID"));
+            pedido.setEstado(rs.getString("Estado"));
+            pedido.setFechainicio(rs.getDate("Fecha_Inicio"));
+            
+            Cliente cliente = DAOc.findCliente(rs.getInt("ClienteID"));
+            pedido.setClienteID(cliente);
+            
+            Pedidos.add(pedido);
+        }
+        
+        return Pedidos;
+
+    }
+
+    public void create(Pedidos pedido) {
+        System.out.println("Entra a metodo create de Productos");
+        try {
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
             }
-            Mensajero mensajeroID = model_Pedidos.getMensajeroID();
-            if (mensajeroID != null) {
-                mensajeroID = em.getReference(mensajeroID.getClass(), mensajeroID.getMensajeroID());
-                model_Pedidos.setMensajeroID(mensajeroID);
+
+            if (pedido.getPedidoID()== null) {
+                pedido.setPedidoID(obtenerIDValida());
             }
-            Collection<Producto> attachedProductoCollection = new ArrayList<Producto>();
-            for (Producto productoCollectionModel_ProductoToAttach : model_Pedidos.getProductoCollection()) {
-                productoCollectionModel_ProductoToAttach = em.getReference(productoCollectionModel_ProductoToAttach.getClass(), productoCollectionModel_ProductoToAttach.getProductoID());
-                attachedProductoCollection.add(productoCollectionModel_ProductoToAttach);
+
+            if (pedido.getFechainicio() == null) {
+                System.out.println("Añadiendo fecha");
+                pedido.setFechainicio(new Date());
             }
-            model_Pedidos.setProductoCollection(attachedProductoCollection);
-            em.persist(model_Pedidos);
-            if (clienteID != null) {
-                clienteID.getPedidosCollection().add(model_Pedidos);
-                clienteID = em.merge(clienteID);
+
+            String query = "INSERT Pedidos (PedidoID, Estado, ClienteID, Historial_PredidosID, Fecha_Inicio";
+            int QSimbolQuestions = 5;
+
+            boolean DespachadorExiste = pedido.getDespachadorID() != null;
+            boolean MensajeroExiste = pedido.getMensajeroID() != null;
+
+            if (DespachadorExiste) {
+                query = query + ", DespachadorID";
+                QSimbolQuestions++;
             }
-            if (despachadorID != null) {
-                despachadorID.getPedidosCollection().add(model_Pedidos);
-                despachadorID = em.merge(despachadorID);
+            
+            if (MensajeroExiste) {
+                query = query + ", MensajeroID";
+                QSimbolQuestions++;
             }
-            if (historialPredidosID != null) {
-                historialPredidosID.getPedidosCollection().add(model_Pedidos);
-                historialPredidosID = em.merge(historialPredidosID);
-            }
-            if (mensajeroID != null) {
-                mensajeroID.getPedidosCollection().add(model_Pedidos);
-                mensajeroID = em.merge(mensajeroID);
-            }
-            for (Producto productoCollectionModel_Producto : model_Pedidos.getProductoCollection()) {
-                Pedidos oldPedidoIDOfProductoCollectionModel_Producto = productoCollectionModel_Producto.getPedidoID();
-                productoCollectionModel_Producto.setPedidoID(model_Pedidos);
-                productoCollectionModel_Producto = em.merge(productoCollectionModel_Producto);
-                if (oldPedidoIDOfProductoCollectionModel_Producto != null) {
-                    oldPedidoIDOfProductoCollectionModel_Producto.getProductoCollection().remove(productoCollectionModel_Producto);
-                    oldPedidoIDOfProductoCollectionModel_Producto = em.merge(oldPedidoIDOfProductoCollectionModel_Producto);
+
+            query = query + ") VALUES (";
+
+            for (int i = 1; i <= QSimbolQuestions; i++) {
+                query = query + "?";
+                if (i != QSimbolQuestions) {
+                    query = query + ",";
                 }
             }
-            utx.commit();
-        } catch (Exception ex) {
-            try {
-                utx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            query = query + ");";
+
+            System.out.println(query);
+
+            Integer pedidoID = pedido.getPedidoID();
+            String estado = pedido.getEstado();
+            Integer clienteID = pedido.getClienteID().getClienteID();
+            Integer historialPedidosID = pedido.getHistorialPredidosID().getHistorialPredidosID();
+            Date fechaInicio = pedido.getFechainicio();
+            
+            Integer despachadorID = -1;
+            Integer mensajeroID = -1;
+            if (DespachadorExiste) {
+                despachadorID = pedido.getDespachadorID().getDespachadorID();
             }
-            if (findModel_Pedidos(model_Pedidos.getPedidoID()) != null) {
-                throw new PreexistingEntityException("Model_Pedidos " + model_Pedidos + " already exists.", ex);
+            if (MensajeroExiste) {
+                mensajeroID = pedido.getMensajeroID().getMensajeroID();
             }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
+
+            CallableStatement cs = conectar.prepareCall(query);
+
+            cs.setInt(1, pedidoID);
+            cs.setString(2, estado);
+            cs.setInt(3, clienteID);
+            cs.setInt(4,historialPedidosID);
+            cs.setTimestamp(5, new Timestamp(fechaInicio.getTime()));
+            int counter = 6;
+            if (DespachadorExiste) {
+                cs.setInt(counter, despachadorID);
+                counter++;
             }
+            if (MensajeroExiste){
+                cs.setInt(counter, mensajeroID);
+            }
+
+            System.out.println("Intenta hacer la insercion");
+            cs.execute();
+        } catch (SQLException ex) {
+            System.out.println("Error en create: " + ex);
         }
     }
-
-    public void edit(Pedidos model_Pedidos) throws NonexistentEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
+    
+    public Integer obtenerIDValida(){
+        return this.findIDDisponible();
+    }
+    
+        private Integer findIDDisponible() {
         try {
-            utx.begin();
-            em = getEntityManager();
-            Pedidos persistentModel_Pedidos = em.find(Pedidos.class, model_Pedidos.getPedidoID());
-            Cliente clienteIDOld = persistentModel_Pedidos.getClienteID();
-            Cliente clienteIDNew = model_Pedidos.getClienteID();
-            Despachador despachadorIDOld = persistentModel_Pedidos.getDespachadorID();
-            Despachador despachadorIDNew = model_Pedidos.getDespachadorID();
-            HistorialPedidos historialPredidosIDOld = persistentModel_Pedidos.getHistorialPredidosID();
-            HistorialPedidos historialPredidosIDNew = model_Pedidos.getHistorialPredidosID();
-            Mensajero mensajeroIDOld = persistentModel_Pedidos.getMensajeroID();
-            Mensajero mensajeroIDNew = model_Pedidos.getMensajeroID();
-            Collection<Producto> productoCollectionOld = persistentModel_Pedidos.getProductoCollection();
-            Collection<Producto> productoCollectionNew = model_Pedidos.getProductoCollection();
-            if (clienteIDNew != null) {
-                clienteIDNew = em.getReference(clienteIDNew.getClass(), clienteIDNew.getClienteID());
-                model_Pedidos.setClienteID(clienteIDNew);
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
             }
-            if (despachadorIDNew != null) {
-                despachadorIDNew = em.getReference(despachadorIDNew.getClass(), despachadorIDNew.getDespachadorID());
-                model_Pedidos.setDespachadorID(despachadorIDNew);
+            
+            String tabla = "Pedidos";
+            String c_id = "PedidosID";
+            
+            String query
+                    = "SELECT MIN(t1."+c_id+") + 1 AS PrimerIdDisponible "
+                    + "FROM "+tabla+" t1 "
+                    + "LEFT JOIN "+tabla+" t2 ON t1."+c_id+" + 1 = t2."+c_id+" "
+                    + "WHERE t2."+c_id+" IS NULL";
+            
+            PreparedStatement stmt = conectar.prepareStatement(query);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            int tamañoTabla = 0;
+            if (rs.next()) {
+                tamañoTabla = rs.getInt("PrimerIdDisponible");
+                System.out.println("PrimerIdDisponible: "+tamañoTabla);
             }
-            if (historialPredidosIDNew != null) {
-                historialPredidosIDNew = em.getReference(historialPredidosIDNew.getClass(), historialPredidosIDNew.getHistorialPredidosID());
-                model_Pedidos.setHistorialPredidosID(historialPredidosIDNew);
-            }
-            if (mensajeroIDNew != null) {
-                mensajeroIDNew = em.getReference(mensajeroIDNew.getClass(), mensajeroIDNew.getMensajeroID());
-                model_Pedidos.setMensajeroID(mensajeroIDNew);
-            }
-            Collection<Producto> attachedProductoCollectionNew = new ArrayList<Producto>();
-            for (Producto productoCollectionNewModel_ProductoToAttach : productoCollectionNew) {
-                productoCollectionNewModel_ProductoToAttach = em.getReference(productoCollectionNewModel_ProductoToAttach.getClass(), productoCollectionNewModel_ProductoToAttach.getProductoID());
-                attachedProductoCollectionNew.add(productoCollectionNewModel_ProductoToAttach);
-            }
-            productoCollectionNew = attachedProductoCollectionNew;
-            model_Pedidos.setProductoCollection(productoCollectionNew);
-            model_Pedidos = em.merge(model_Pedidos);
-            if (clienteIDOld != null && !clienteIDOld.equals(clienteIDNew)) {
-                clienteIDOld.getPedidosCollection().remove(model_Pedidos);
-                clienteIDOld = em.merge(clienteIDOld);
-            }
-            if (clienteIDNew != null && !clienteIDNew.equals(clienteIDOld)) {
-                clienteIDNew.getPedidosCollection().add(model_Pedidos);
-                clienteIDNew = em.merge(clienteIDNew);
-            }
-            if (despachadorIDOld != null && !despachadorIDOld.equals(despachadorIDNew)) {
-                despachadorIDOld.getPedidosCollection().remove(model_Pedidos);
-                despachadorIDOld = em.merge(despachadorIDOld);
-            }
-            if (despachadorIDNew != null && !despachadorIDNew.equals(despachadorIDOld)) {
-                despachadorIDNew.getPedidosCollection().add(model_Pedidos);
-                despachadorIDNew = em.merge(despachadorIDNew);
-            }
-            if (historialPredidosIDOld != null && !historialPredidosIDOld.equals(historialPredidosIDNew)) {
-                historialPredidosIDOld.getPedidosCollection().remove(model_Pedidos);
-                historialPredidosIDOld = em.merge(historialPredidosIDOld);
-            }
-            if (historialPredidosIDNew != null && !historialPredidosIDNew.equals(historialPredidosIDOld)) {
-                historialPredidosIDNew.getPedidosCollection().add(model_Pedidos);
-                historialPredidosIDNew = em.merge(historialPredidosIDNew);
-            }
-            if (mensajeroIDOld != null && !mensajeroIDOld.equals(mensajeroIDNew)) {
-                mensajeroIDOld.getPedidosCollection().remove(model_Pedidos);
-                mensajeroIDOld = em.merge(mensajeroIDOld);
-            }
-            if (mensajeroIDNew != null && !mensajeroIDNew.equals(mensajeroIDOld)) {
-                mensajeroIDNew.getPedidosCollection().add(model_Pedidos);
-                mensajeroIDNew = em.merge(mensajeroIDNew);
-            }
-            for (Producto productoCollectionOldModel_Producto : productoCollectionOld) {
-                if (!productoCollectionNew.contains(productoCollectionOldModel_Producto)) {
-                    productoCollectionOldModel_Producto.setPedidoID(null);
-                    productoCollectionOldModel_Producto = em.merge(productoCollectionOldModel_Producto);
-                }
-            }
-            for (Producto productoCollectionNewModel_Producto : productoCollectionNew) {
-                if (!productoCollectionOld.contains(productoCollectionNewModel_Producto)) {
-                    Pedidos oldPedidoIDOfProductoCollectionNewModel_Producto = productoCollectionNewModel_Producto.getPedidoID();
-                    productoCollectionNewModel_Producto.setPedidoID(model_Pedidos);
-                    productoCollectionNewModel_Producto = em.merge(productoCollectionNewModel_Producto);
-                    if (oldPedidoIDOfProductoCollectionNewModel_Producto != null && !oldPedidoIDOfProductoCollectionNewModel_Producto.equals(model_Pedidos)) {
-                        oldPedidoIDOfProductoCollectionNewModel_Producto.getProductoCollection().remove(productoCollectionNewModel_Producto);
-                        oldPedidoIDOfProductoCollectionNewModel_Producto = em.merge(oldPedidoIDOfProductoCollectionNewModel_Producto);
-                    }
-                }
-            }
-            utx.commit();
-        } catch (Exception ex) {
-            try {
-                utx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-            }
-            String msg = ex.getLocalizedMessage();
-            if (msg == null || msg.length() == 0) {
-                Integer id = model_Pedidos.getPedidoID();
-                if (findModel_Pedidos(id) == null) {
-                    throw new NonexistentEntityException("The model_Pedidos with id " + id + " no longer exists.");
-                }
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
+            
+            return tamañoTabla;
+        } catch (SQLException ex) {
+            System.out.println("Error en DAO_Pedidos.findTamañoDeTabla(): "+ex);
+            return null;
         }
     }
 
-    public void destroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
+    public Pedidos findPedido(Integer pedidoID) {
         try {
-            utx.begin();
-            em = getEntityManager();
-            Pedidos model_Pedidos;
-            try {
-                model_Pedidos = em.getReference(Pedidos.class, id);
-                model_Pedidos.getPedidoID();
-            } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The model_Pedidos with id " + id + " no longer exists.", enfe);
+            if (conectar == null || conectar.isClosed()) {
+                EstablecerConexion();
             }
-            Cliente clienteID = model_Pedidos.getClienteID();
-            if (clienteID != null) {
-                clienteID.getPedidosCollection().remove(model_Pedidos);
-                clienteID = em.merge(clienteID);
+            
+            String query = "SELECT * FROM Pedidos WHERE PedidoID = ?";
+            PreparedStatement stmt = conectar.prepareStatement(query);
+            stmt.setString(1, String.valueOf(pedidoID));
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            Pedidos pedido = null;
+            if(rs.next()){
+                pedido = new Pedidos();
+                pedido.setPedidoID(rs.getInt("PedidoID"));
+                pedido.setEstado(rs.getString("Estado"));
+                pedido.setFechainicio(rs.getDate("Fecha_Inicio"));
+                
+                Cliente cliente = DAOc.findCliente(rs.getInt("ClienteID"));
+                pedido.setClienteID(cliente);
             }
-            Despachador despachadorID = model_Pedidos.getDespachadorID();
-            if (despachadorID != null) {
-                despachadorID.getPedidosCollection().remove(model_Pedidos);
-                despachadorID = em.merge(despachadorID);
-            }
-            HistorialPedidos historialPredidosID = model_Pedidos.getHistorialPredidosID();
-            if (historialPredidosID != null) {
-                historialPredidosID.getPedidosCollection().remove(model_Pedidos);
-                historialPredidosID = em.merge(historialPredidosID);
-            }
-            Mensajero mensajeroID = model_Pedidos.getMensajeroID();
-            if (mensajeroID != null) {
-                mensajeroID.getPedidosCollection().remove(model_Pedidos);
-                mensajeroID = em.merge(mensajeroID);
-            }
-            Collection<Producto> productoCollection = model_Pedidos.getProductoCollection();
-            for (Producto productoCollectionModel_Producto : productoCollection) {
-                productoCollectionModel_Producto.setPedidoID(null);
-                productoCollectionModel_Producto = em.merge(productoCollectionModel_Producto);
-            }
-            em.remove(model_Pedidos);
-            utx.commit();
-        } catch (Exception ex) {
-            try {
-                utx.rollback();
-            } catch (Exception re) {
-                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
+            
+            return pedido;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
-    }
 
-    public List<Pedidos> findModel_PedidosEntities() {
-        return findModel_PedidosEntities(true, -1, -1);
-    }
-
-    public List<Pedidos> findModel_PedidosEntities(int maxResults, int firstResult) {
-        return findModel_PedidosEntities(false, maxResults, firstResult);
-    }
-
-    private List<Pedidos> findModel_PedidosEntities(boolean all, int maxResults, int firstResult) {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Pedidos.class));
-            Query q = em.createQuery(cq);
-            if (!all) {
-                q.setMaxResults(maxResults);
-                q.setFirstResult(firstResult);
-            }
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
-    public Pedidos findModel_Pedidos(Integer id) {
-        EntityManager em = getEntityManager();
-        try {
-            return em.find(Pedidos.class, id);
-        } finally {
-            em.close();
-        }
-    }
-
-    public int getModel_PedidosCount() {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Pedidos> rt = cq.from(Pedidos.class);
-            cq.select(em.getCriteriaBuilder().count(rt));
-            Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
-        } finally {
-            em.close();
-        }
     }
     
 }

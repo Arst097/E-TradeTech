@@ -56,16 +56,18 @@
                     <th>Departamento</th>
                     <th>Salario</th>
                     <th>Fecha de Ingreso</th>
+                    <th>Tipo de Contrato</th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="cuerpo-tabla-RRHH">
                 <tr>
                     <td>001</td>
                     <td>María Gómez</td>
                     <td>Administración</td>
                     <td>$2.500.000</td>
                     <td>2023-05-10</td>
+                    <td>Término Fijo</td>
                     <td>
                         <button class="editar" onclick="abrirFormularioEditar('María Gómez', 'administracion', 2500000, '2023-05-10')">Editar</button>
                         <button class="eliminar">Eliminar</button>
@@ -80,22 +82,31 @@
     </div>
 
     <div class="Formulario" id="Formulario">
-        <form>
+        <form id="formEmpleado"> 
             <h1>Agregar Empleado</h1>
             <h2>Nombre</h2>
-            <input type="text">
+            <input type="text" id="nombre">
             <h2>Departamento</h2>
-            <select id="departamento2">
+            <select  id="1departamento">
                 <option value="administracion">Administración</option>
                 <option value="ventas">Ventas</option>
                 <option value="finanzas">Finanzas</option>
+                <option value="inventario">Inventario</option>
+                <option value="compras">Compras</option>
                 <option value="otros">Otros</option>
             </select>
             <h2>Salario</h2>
-            <input type="number">
+            <input type="number" id="salario">
             <h2>Fecha de Ingreso</h2>
-            <input type="date"><br>
-            <input id="Aceptar" type="button" value="Agregar Empleado">
+            <input type="date"  id="fechaIngreso"><br>
+            <h2>Tipo de Contrato</h2>
+            <select id="tipoContrato">
+                <option value="fijo">Término Fijo</option>
+                <option value="indefinido">Término Indefinido</option>
+                <option value="obra">Por Obra o Labor</option>
+                <option value="aprendizaje">Contrato de Aprendizaje</option>
+            </select>
+            <input id="btnAgregarEmpleado" type="button" value="Agregar Empleado">
             <button id="Cancelar" onclick="cerrarFormulario()">Cancelar</button>
         </form>
     </div>
@@ -110,6 +121,8 @@
                 <option value="administracion">Administración</option>
                 <option value="ventas">Ventas</option>
                 <option value="finanzas">Finanzas</option>
+                <option value="inventario">Inventario</option>
+                <option value="compras">Compras</option>
                 <option value="otros">Otros</option>
             </select>
             <h2>Salario</h2>
@@ -157,6 +170,7 @@
     </form>
     </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../JS RRHH/RRHH.js"></script>
 </body>
 </html>
