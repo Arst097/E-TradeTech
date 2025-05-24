@@ -38,6 +38,7 @@
             <thead>
                 <tr>
                     <th>ID Pedido</th>
+                    <th>ID Cliente</th>
                     <th>Cliente</th>
                     <th>Productos</th>
                     <th>Valor Total</th>
@@ -48,6 +49,7 @@
             <tbody id="cuerpo-tabla-ventas">
                 <tr>
                     <td>001</td>
+                    <td></td>
                     <td></td>
                     <td>Laptop HP Pavilion 15</td>
                     <td>$3.000.000</td>
@@ -67,11 +69,10 @@
         <span class="close" onclick="cerrarFormularioVen()">&times;</span>
         <h2>Realizar Venta</h2>
         <label for="idEmpleado" >ID Cliente:</label>
-        <input type="text" placeholder="Ingrese ID del empleado" id="IdClientes" name="idCliente">
+        <select id="ID_Cliente"></select>
         <button>Buscar Cliente</button>
         <h4>Nombre Cliente:</h4>
-        <label for="NombreEmpleado" id="NombreCliente"></label>
-        <input type="text" id="nombreClienteInput">
+        <select id="Nombre_cliente"></select>
         <table>
         <thead>
                 <tr>
@@ -94,10 +95,10 @@
                 <input type="number"  id="cantidad" name="name">
             </td>
             <td> 
-                <input type="text" id="valorUnitario" name="name">
+                <input type="text" id="valorUnitario" name="name" readonly>
             </td>
                 <td> 
-                    <input type="text" id="total" name="name">
+                    <input type="text" id="total" name="name" readonly>
                 
                 </td>
                 </tr>  

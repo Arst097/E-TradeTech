@@ -56,6 +56,7 @@
                     <th>Departamento</th>
                     <th>Salario</th>
                     <th>Fecha de Ingreso</th>
+                    <th>Tipo de Contrato</th>
                     <th></th>
                 </tr>
             </thead>
@@ -66,6 +67,7 @@
                     <td>Administración</td>
                     <td>$2.500.000</td>
                     <td>2023-05-10</td>
+                    <td>Término Fijo</td>
                     <td>
                         <button class="editar" onclick="abrirFormularioEditar('María Gómez', 'administracion', 2500000, '2023-05-10')">Editar</button>
                         <button class="eliminar">Eliminar</button>
@@ -89,12 +91,21 @@
                 <option value="administracion">Administración</option>
                 <option value="ventas">Ventas</option>
                 <option value="finanzas">Finanzas</option>
+                <option value="inventario">Inventario</option>
+                <option value="compras">Compras</option>
                 <option value="otros">Otros</option>
             </select>
             <h2>Salario</h2>
             <input type="number" id="salario">
             <h2>Fecha de Ingreso</h2>
             <input type="date"  id="fechaIngreso"><br>
+            <h2>Tipo de Contrato</h2>
+            <select id="tipoContrato">
+                <option value="fijo">Término Fijo</option>
+                <option value="indefinido">Término Indefinido</option>
+                <option value="obra">Por Obra o Labor</option>
+                <option value="aprendizaje">Contrato de Aprendizaje</option>
+            </select>
             <input id="btnAgregarEmpleado" type="button" value="Agregar Empleado">
             <button id="Cancelar" onclick="cerrarFormulario()">Cancelar</button>
         </form>
@@ -110,6 +121,8 @@
                 <option value="administracion">Administración</option>
                 <option value="ventas">Ventas</option>
                 <option value="finanzas">Finanzas</option>
+                <option value="inventario">Inventario</option>
+                <option value="compras">Compras</option>
                 <option value="otros">Otros</option>
             </select>
             <h2>Salario</h2>

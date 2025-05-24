@@ -223,21 +223,20 @@ th, td {
     padding: 35px 45px;
     border-radius: 15px;
     box-shadow: 10px 8px 20px rgba(117, 117, 117, 0.874);
+    text-align: center;
     width: 90%;
     max-width: 400px;
-    max-width: 90vh;
+    max-height: 90vh;
     overflow-y: auto;
-    margin: 20px auto;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
     display: none;
-    z-index: 1000;
-    text-align: center;
     justify-content: center;
 }
+
 
 .Formulario h1 {
     margin-bottom: 20px;
@@ -267,7 +266,7 @@ th, td {
     box-sizing: border-box;
 }
 
-#Aceptar, #Cancelar {
+#btnAgregarEmpleado, #Cancelar,#Aceptar {
     width: 100%;
     padding: 12px;
     border: none;
@@ -277,12 +276,12 @@ th, td {
     cursor: pointer;
 }
 
-#Aceptar {
+#btnAgregarEmpleado,#Aceptar {
     background-color: #a3f77a;
     color: black;
 }
 
-#Aceptar:hover {
+#btnAgregarEmpleado:hover, #Aceptar:hover {
     background-color: #c0f5a6;
 }
 
