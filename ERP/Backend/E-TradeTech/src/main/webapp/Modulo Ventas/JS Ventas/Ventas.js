@@ -109,11 +109,12 @@ $(document).ready(function () {
     $("#btnEnviar").click(function() {
             idCliente = $("#IdClientes").val(),
             nombreCliente = $("#nombreClienteInput").val(),
-            producto = $("#categoria2").val(),
+            producto = $('#categoria2 option:selected').text(),
             cantidad = $("#cantidad").val(),
             valorUnitario = $("#valorUnitario").val(),
             total= $("#total").val();
-        
+            
+        console.log(producto);
 
         $.ajax({
             url: 'http://localhost:5077/E-TradeTech/ServletHacerVenta', // Cambia si tu servlet tiene otra ruta
