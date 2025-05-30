@@ -4,6 +4,7 @@
  */
 package Web;
 
+import Ventas.Servicio_HacerVenta;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -44,7 +45,7 @@ public class MostrarProductosDisponiblesVentas extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         // Simular datos de productos y precios
-        String[] productos = {"Test", "Test2", "Test3"};
+        String[] productos = {"Test1", "Test2", "Test3"};
         double[] precios = {1200.50, 800.00, 450.75};
 
         // Construir JSON manualmente
@@ -73,9 +74,10 @@ public class MostrarProductosDisponiblesVentas extends HttpServlet {
 
         json.append("}");
 
+        String jsonstr = Servicio_HacerVenta.Productos_Disponibles();
         // Enviar respuesta
         PrintWriter out = response.getWriter();
-        out.write(json.toString());
+        out.write(jsonstr);
         out.flush();
         }
     

@@ -4,6 +4,7 @@
  */
 package Web;
 
+import Ventas.Servicio_HacerVenta;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -76,7 +77,10 @@ public class ServletHacerVenta extends HttpServlet {
             System.out.println("cantidad: " + cantidad);
             System.out.println("valorUnitario: " + valorUnitario);
             System.out.println("total: " + total);
-
+            
+            int status = Servicio_HacerVenta.Hacer_Compra(1, producto, Integer.parseInt(cantidad));
+            System.out.println("status: "+status);
+            
             // Si quieres enviar una respuesta al cliente (por ejemplo, AJAX)
             response.setContentType("text/plain");
             response.getWriter().write("Venta hecha correctamente");

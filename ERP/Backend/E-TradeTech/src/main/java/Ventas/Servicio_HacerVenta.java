@@ -13,7 +13,9 @@ import Uso_Comun.Modelos.Producto;
 import Ventas.DAOS.*;
 import Ventas.Modelos.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -44,14 +46,35 @@ public class Servicio_HacerVenta {
 
     //Retorna una lista con los modelos de todos los productos que estan en algun inventario libre
     //No repite modelos de productos en la lista
-    public static String[] Productos_Disponibles() {
+    public static String Productos_Disponibles() {
         List<Producto> productos = inventario.Productos_Disponibles();
         
-        String[] modelos = productos.stream()
-            .map(Producto::getModelo)        // obtenemos los modelos
-            .distinct()                      // eliminamos duplicados
-            .toArray(String[]::new); 
-        return modelos;
+        Set<String> modelosAgregados = new HashSet<>();
+        StringBuilder modelos = new StringBuilder();
+        StringBuilder precios = new StringBuilder();
+
+        modelos.append("\"Producto\": [");
+        precios.append("\"Precios\": [");
+
+        boolean primero = true;
+        for (Producto p : productos) {
+            String modelo = p.getModelo();
+            if (!modelosAgregados.contains(modelo)) {
+                if (!primero) {
+                    modelos.append(", ");
+                    precios.append(", ");
+                }
+                modelos.append("\"").append(modelo).append("\"");
+                precios.append(p.getPrecio());
+                modelosAgregados.add(modelo);
+                primero = false;
+            }
+        }
+
+        modelos.append("]");
+        precios.append("]");
+
+        return "{\n" + modelos.toString() + " ,\n" + precios.toString() + "\n}";
     }
 
     //Retorna el precio unitario de un Producto con su ID
@@ -125,10 +148,12 @@ public class Servicio_HacerVenta {
                 Cliente cliente = DAOc.findCliente(ClienteID);
                 
             }catch(Exception e){
+                System.out.println("Exepcion: "+e);
                 return 2;
             }
             List<Producto> productos = ProductosEnLista(inventario.Productos_Disponibles(), ProductoStr);
             if(productos.size() < Cantidad){
+                System.out.println("Cantidad de productos: "+productos.size());
                 return 1;
             }
             return 0;

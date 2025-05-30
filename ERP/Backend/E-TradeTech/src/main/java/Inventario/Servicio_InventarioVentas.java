@@ -30,8 +30,9 @@ public class Servicio_InventarioVentas {
         List<Inventario> inventarios = null;
         try {
             inventarios = DAOi.findInventariosLibres();
+            System.out.println("cantidad inventarios libres: "+inventarios.size());
         } catch (SQLException ex) {
-            Logger.getLogger(Servicio_InventarioVentas.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al encontrar Inventario libre: "+ex);
         }
         
         for(Inventario inventario : inventarios){
