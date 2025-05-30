@@ -219,14 +219,14 @@ public class DAO_Pedidos implements Serializable {
         return this.findIDDisponible();
     }
     
-        private Integer findIDDisponible() {
+    private Integer findIDDisponible() {
         try {
             if (conectar == null || conectar.isClosed()) {
                 EstablecerConexion();
             }
             
             String tabla = "Pedidos";
-            String c_id = "PedidosID";
+            String c_id = "PedidoID";
             
             String query
                     = "SELECT MIN(t1."+c_id+") + 1 AS PrimerIdDisponible "
@@ -246,7 +246,7 @@ public class DAO_Pedidos implements Serializable {
             
             return tamañoTabla;
         } catch (SQLException ex) {
-            System.out.println("Error en DAO_Pedidos.findTamañoDeTabla(): "+ex);
+            System.out.println("Error en DAO_Pedidos.findIDDisponible(): "+ex);
             return null;
         }
     }
